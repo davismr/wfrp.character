@@ -1,0 +1,32 @@
+<div metal:use-macro="load: layout.pt">
+    <div metal:fill-slot="content">
+
+        <h2>Character Species</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Species</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr tal:repeat="roll python:context.get_species_list()">
+                    <td tal:content="roll" />
+                    <td><input type="radio" name="str"
+                            tal:attributes="value python:roll" /></td>
+                    <td><input type="radio" name="dex"
+                            tal:attributes="value python:roll" /></td>
+                    <td><input type="radio" name="end"
+                            tal:attributes="value python:roll" /></td>
+                    <td><input type="radio" name="int"
+                            tal:attributes="value python:roll" /></td>
+                    <td><input type="radio" name="edu"
+                            tal:attributes="value python:roll" /></td>
+                    <td><input type="radio" name="soc"
+                            tal:attributes="value python:roll" /></td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>

@@ -1,0 +1,10 @@
+<!DOCTYPE html metal:define-macro="layout">
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>WFRP Character Generator</title>
+    </head>
+    <body>
+        <div metal:define-slot="content">No content</div>
+    </body>
+</html>

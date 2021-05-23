@@ -1,0 +1,8 @@
+<div metal:use-macro="load: layout.pt">
+    <div metal:fill-slot="content">
+
+        <h2>Warhammer Fantasy Roleplay Character generator</h2>
+        <a href="/character/new">Create new character</a>
+
+    </div>
+</div>
