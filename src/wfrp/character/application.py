@@ -12,8 +12,8 @@ def configure_app(global_config, **settings):
     Base.metadata.bind = engine
     config = Configurator(settings=settings)
     config.include("pyramid_chameleon")
-    config.include('pyramid_sqlalchemy')
-    config.include(".routes")
+    config.include("pyramid_tm")
+    config.include("wfrp.character.routes")
     config.scan()
     return config
 

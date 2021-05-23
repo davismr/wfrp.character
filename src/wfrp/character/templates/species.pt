@@ -2,31 +2,32 @@
     <div metal:fill-slot="content">
 
         <h2>Character Species</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th></th>
-                    <th>Species</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr tal:repeat="roll python:context.get_species_list()">
-                    <td tal:content="roll" />
-                    <td><input type="radio" name="str"
-                            tal:attributes="value python:roll" /></td>
-                    <td><input type="radio" name="dex"
-                            tal:attributes="value python:roll" /></td>
-                    <td><input type="radio" name="end"
-                            tal:attributes="value python:roll" /></td>
-                    <td><input type="radio" name="int"
-                            tal:attributes="value python:roll" /></td>
-                    <td><input type="radio" name="edu"
-                            tal:attributes="value python:roll" /></td>
-                    <td><input type="radio" name="soc"
-                            tal:attributes="value python:roll" /></td>
-                </tr>
-            </tbody>
-        </table>
+        <form method="POST">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Species</th>
+                        <th>&nbsp;</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td tal:content="result" />
+                        <td><input type="radio" name="species" checked="checked"
+                                tal:attributes="value string:${result}+" /></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Accept random result and gain 20XP or select a species below.</td>
+                    </tr>
+                    <tr tal:repeat="item python:species_list">
+                        <td tal:content="item" />
+                        <td><input type="radio" name="species"
+                                tal:attributes="value item" /></td>
+                    </tr>
+                </tbody>
+            </table>
+            <input type="submit" value="Select Species" />
+        </form>
 
     </div>
 </div>

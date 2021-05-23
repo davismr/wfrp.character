@@ -15,7 +15,6 @@ requires = [
     "pyramid",
     "pyramid_chameleon",
     "pyramid_debugtoolbar",
-    "pyramid_sqlalchemy",
     "pyramid_tm",
     "sqlalchemy",
     "waitress",

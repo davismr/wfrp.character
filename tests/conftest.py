@@ -11,6 +11,8 @@ def session_db():
     engine = engine_from_config({"sqlalchemy.url": "sqlite://"}, "sqlalchemy.")
     config = testing.setUp()
     config.include("pyramid_chameleon")
+    config.include("wfrp.character.routes")
+    config.scan()
     DBSession.configure(bind=engine)
     Base.metadata.bind = engine
     Base.metadata.create_all(engine)

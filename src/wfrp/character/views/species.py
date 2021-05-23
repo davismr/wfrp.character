@@ -1,8 +1,9 @@
-from pyramid.renderers import render
+from pyramid.httpexceptions import HTTPFound
 from pyramid.view import view_config
 from pyramid.view import view_defaults
-from pyramid.response import Response
 
+from wfrp.character.models import Character
+from wfrp.character.models import DBSession
 from wfrp.character.utils import roll_d100
 
 
@@ -11,10 +12,12 @@ class SpeciesViews:
     def __init__(self, request):
         self.request = request
 
-    def get_species_list(request):
-        return ["Human", "Halfling", "Dwarf", "High Elf", "Wood Elf"]
+    def get_species_list(self, item):
+        species = ["Human", "Halfling", "Dwarf", "High Elf", "Wood Elf"]
+        species.remove(item)
+        return species
 
-    @view_config(request_method="GET")
+    @view_config(request_method="GET", renderer=__name__ + ":../templates/species.pt")
     def new_species_view(self):
         result = roll_d100()
         if result <= 90:
@@ -29,8 +32,16 @@ class SpeciesViews:
             result = "Wood Elf"
         else:
             raise NotImplementedError(f"result {result} does not return a species")
-        import pdb;pdb.set_trace()
-        result = render(
-            "wfrp.character:../templates/homepage.pt", {"result": result, "species_list": self.get_species_list()}, request=self.request
-        )
-        return Response(result)
+        return {"result": result, "species_list": self.get_species_list(result)}
+
+    @view_config(request_method="POST")
+    def submit_species_view(self):
+        uuid = self.request.matchdict["uuid"]
+        character = DBSession.query(Character).filter(Character.uuid == uuid).one()
+        species = self.request.POST.get("species")
+        if "+" in species:
+            species = species[:-1]
+            character.experience += 20
+        character.species = species
+        url = self.request.route_url("homepage")
+        return HTTPFound(location=url)

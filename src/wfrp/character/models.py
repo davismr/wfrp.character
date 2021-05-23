@@ -2,7 +2,8 @@ import uuid
 
 from pyramid.authorization import Allow
 from pyramid.authorization import Everyone
-from pyramid_sqlalchemy import BaseObject
+
+# from pyramid_sqlalchemy import BaseObject
 from sqlalchemy import Column
 from sqlalchemy import Integer
 from sqlalchemy import Text
@@ -16,8 +17,8 @@ register(DBSession)
 Base = declarative_base()
 
 
-class Character(BaseObject):
-    __tablename__ = "characters"
+class Character(Base):
+    __tablename__ = "character"
     uid = Column(Integer, primary_key=True)
     # TODO store uuid as bytes
     uuid = Column(Text, default=str(uuid.uuid4()))
@@ -32,7 +33,7 @@ class Character(BaseObject):
     social_standing = Column(Integer)
     # xxx review above
     species = Column(Text)
-    experience = Column(Integer)
+    experience = Column(Integer, default=0)
 
 
 class Root(object):

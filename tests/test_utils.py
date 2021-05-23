@@ -1,7 +1,7 @@
 import pytest
 
-from wfrp.character.utils import roll_d10
 from wfrp.character.utils import roll_2d10
+from wfrp.character.utils import roll_d10
 from wfrp.character.utils import roll_d100
 
 
