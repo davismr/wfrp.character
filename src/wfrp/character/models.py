@@ -33,6 +33,7 @@ class Character(Base):
     social_standing = Column(Integer)
     # xxx review above
     species = Column(Text)
+    career = Column(Text)
     experience = Column(Integer, default=0)
 
 

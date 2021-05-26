@@ -43,5 +43,5 @@ class SpeciesViews:
             species = species[:-1]
             character.experience += 20
         character.species = species
-        url = self.request.route_url("homepage")
+        url = self.request.route_url("career", uuid=character.uuid)
         return HTTPFound(location=url)

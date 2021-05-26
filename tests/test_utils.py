@@ -1,5 +1,6 @@
 import pytest
 
+from wfrp.character.career_list import get_career
 from wfrp.character.utils import roll_2d10
 from wfrp.character.utils import roll_d10
 from wfrp.character.utils import roll_d100
@@ -25,6 +26,13 @@ def test_roll_2d10():
 def test_roll_d100():
     for i in range(1000):
         result = roll_d100()
-        print(result)
         assert result >= 1
         assert result <= 100
+
+
+@pytest.mark.package
+def test_get_career():
+    assert get_career("Wood Elf", 1) == "Scholar"
+    assert get_career("Wood Elf", 70) == "Bounty Hunter"
+    assert get_career("Wood Elf", 2) == "Wizard"
+    assert get_career("Wood Elf", 100) == "Soldier"

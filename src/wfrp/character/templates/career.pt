@@ -1,0 +1,43 @@
+<div metal:use-macro="load: layout.pt">
+    <div metal:fill-slot="content">
+
+        <h2>Character Career</h2>
+        <form method="POST">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Career</th>
+                        <th>&nbsp;</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr tal:repeat="item career_choice">
+                        <td tal:content="item" />
+                        <td><input type="radio" name="career"
+                                tal:define="bonus python:len(career_choice) == 1 and 50 or 25"
+                                tal:attributes="value string:${item}+${bonus}" /></td>
+                    </tr>
+                    <div tal:content="python:len(career_choice)" />
+                    <tr tal:condition="python:len(career_choice) == 1">
+                        <td colspan="2">Accept random result and gain 50XP or reroll.</td>
+                    </tr>
+                    <tr tal:condition="python:len(career_choice) != 1">
+                        <td colspan="2">Accept one of the random results and gain 25XP or choose a career.</td>
+                    </tr>
+                    <tr tal:condition="python:len(career_choice) == 1">
+                        <td>Roll twice more for 25XP</td>
+                        <td><input type="radio" name="career"
+                                tal:attributes="value python:career_choice[0] + '+reroll'" /></td>
+                    </tr>
+                    <tr tal:repeat="item python:career_list">
+                        <td tal:content="item" />
+                        <td><input type="radio" name="career"
+                                tal:attributes="value item" /></td>
+                    </tr>
+                </tbody>
+            </table>
+            <input type="submit" value="Select Career" />
+        </form>
+
+    </div>
+</div>
