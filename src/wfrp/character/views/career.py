@@ -46,5 +46,5 @@ class CareerViews:
             career = career[:-3]
             character.experience += 25
         character.career = career
-        url = self.request.route_url("homepage")
+        url = self.request.route_url("attributes", uuid=character.uuid)
         return HTTPFound(location=url)

@@ -1,0 +1,24 @@
+<div metal:use-macro="load: layout.pt">
+    <div metal:fill-slot="content">
+
+        <h2>Character Attributes</h2>
+        <form method="POST">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Attribute</th>
+                        <th>&nbsp;</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr tal:repeat="attribute attributes">
+                        <td tal:content="attribute" />
+                        <td tal:content="python:attributes[attribute]" />
+                    </tr>
+                </tbody>
+            </table>
+            <input type="submit" value="Select Species" />
+        </form>
+
+    </div>
+</div>
