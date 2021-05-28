@@ -5,6 +5,7 @@
         <title>WFRP Character Generator</title>
     </head>
     <body>
+        <a href="/character/new">Create new character</a>
         <div metal:define-slot="content">No content</div>
     </body>
 </html>
