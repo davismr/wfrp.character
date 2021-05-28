@@ -13,13 +13,15 @@
                 <tbody>
                     <tr>
                         <td tal:content="result" />
-                        <td><input type="radio" name="species" checked="checked"
-                                tal:attributes="value string:${result}+" /></td>
+                        <td><input type="radio" name="species" checked="checked" value="${result}+" /></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><input type="submit" value="Accept ${result}" /></td>
                     </tr>
                     <tr>
                         <td colspan="2">Accept random result and gain 20XP or select a species below.</td>
                     </tr>
-                    <tr tal:repeat="item python:species_list">
+                    <tr tal:repeat="item species_list">
                         <td tal:content="item" />
                         <td><input type="radio" name="species"
                                 tal:attributes="value item" /></td>

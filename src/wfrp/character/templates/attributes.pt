@@ -13,7 +13,7 @@
                 <tbody>
                     <tr tal:repeat="attribute attributes">
                         <td tal:content="attribute" />
-                        <td tal:content="python:attributes[attribute]" />
+                        <td tal:content="attributes[attribute]" />
                     </tr>
                 </tbody>
             </table>
