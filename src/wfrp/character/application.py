@@ -11,8 +11,6 @@ def configure_app(global_config, **settings):
     DBSession.configure(bind=engine)
     Base.metadata.bind = engine
     config = Configurator(settings=settings)
-    config.include("pyramid_chameleon")
-    config.include("pyramid_tm")
     config.include("wfrp.character.routes")
     config.scan()
     return config
