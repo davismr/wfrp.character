@@ -13,6 +13,8 @@ from wfrp.character.utils import roll_d100
 class CareerViews:
     def __init__(self, request):
         self.request = request
+        uuid = request.matchdict["uuid"]
+        self.character = DBSession.query(Character).filter(Character.uuid == uuid).one()
 
     @view_config(request_method="GET", renderer=__name__ + ":../templates/career.pt")
     def new_career_view(self):
@@ -23,28 +25,31 @@ class CareerViews:
         career_list.remove(career)
         return {"career_choice": [career], "career_list": career_list}
 
+    @view_config(
+        request_method="POST",
+        request_param="form.reroll",
+        renderer=__name__ + ":../templates/career.pt",
+    )
+    def reroll_career_view(self):
+        career_choice = self.request.params["career_choice"].split(",")
+        while len(career_choice) < 3:
+            career = get_career(self.character.species, roll_d100())
+            if career not in career_choice:
+                career_choice.append(career)
+        career_list = list_careers(self.character.species)
+        for career in career_choice:
+            career_list.remove(career)
+        return {"career_choice": career_choice, "career_list": career_list}
+
     @view_config(request_method="POST", renderer=__name__ + ":../templates/career.pt")
     def submit_career_view(self):
-        uuid = self.request.matchdict["uuid"]
-        character = DBSession.query(Character).filter(Character.uuid == uuid).one()
         career = self.request.POST.get("career")
-        if "+reroll" in career:
-            career = career.replace("+reroll", "")
-            career_choice = [career]
-            while len(career_choice) < 3:
-                career = get_career(character.species, roll_d100())
-                if career not in career_choice:
-                    career_choice.append(career)
-            career_list = list_careers(character.species)
-            for career in career_choice:
-                career_list.remove(career)
-            return {"career_choice": career_choice, "career_list": career_list}
-        if "+50" in career:
-            career = career[:-3]
-            character.experience += 50
-        elif "+25" in career:
-            career = career[:-3]
-            character.experience += 25
-        character.career = career
-        url = self.request.route_url("attributes", uuid=character.uuid)
+        career_choice = self.request.params["career_choice"].split(",")
+        if career in career_choice:
+            if len(career_choice) == 1:
+                self.character.experience += 50
+            else:
+                self.character.experience += 25
+        self.character.career = career
+        url = self.request.route_url("attributes", uuid=self.character.uuid)
         return HTTPFound(location=url)

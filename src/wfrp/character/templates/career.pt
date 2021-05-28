@@ -11,31 +11,31 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr tal:repeat="item career_choice">
-                        <td tal:content="item" />
+                    <tr tal:repeat="career career_choice">
+                        <td tal:content="career" />
                         <td><input type="radio" name="career"
-                                tal:define="bonus python:len(career_choice) == 1 and 50 or 25"
-                                tal:attributes="value string:${item}+${bonus}" /></td>
+                                tal:attributes="value career" /></td>
                     </tr>
-                    <div tal:content="python:len(career_choice)" />
-                    <tr tal:condition="python:len(career_choice) == 1">
+                    <tr>
+                        <td><input type="submit" value="Accept ${career_choice[0]}" /></td>
+                        <td><input tal:condition="len(career_choice) == 1"
+                            type="submit" name="form.reroll" value="Reroll" /></td>
+                    </tr>
+                    <tr tal:condition="len(career_choice) == 1">
                         <td colspan="2">Accept random result and gain 50XP or reroll.</td>
                     </tr>
-                    <tr tal:condition="python:len(career_choice) != 1">
+                    <tr tal:condition="len(career_choice) != 1">
                         <td colspan="2">Accept one of the random results and gain 25XP or choose a career.</td>
                     </tr>
-                    <tr tal:condition="python:len(career_choice) == 1">
-                        <td>Roll twice more for 25XP</td>
-                        <td><input type="radio" name="career"
-                                tal:attributes="value python:career_choice[0] + '+reroll'" /></td>
-                    </tr>
-                    <tr tal:repeat="item python:career_list">
+                    <tr tal:repeat="item career_list">
                         <td tal:content="item" />
                         <td><input type="radio" name="career"
                                 tal:attributes="value item" /></td>
                     </tr>
                 </tbody>
             </table>
+                <input type="hidden" name="career_choice"
+                    tal:attributes="value ','.join(career_choice)" />
             <input type="submit" value="Select Career" />
         </form>
 
