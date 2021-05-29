@@ -2,11 +2,12 @@ import uuid
 
 import pytest
 from pyramid import testing
+from pyramid.httpexceptions import HTTPFound
 
 from wfrp.character.models import Character
 from wfrp.character.models import DBSession
-from wfrp.character.views.character import NewCharacterViews
 from wfrp.character.views.career import CareerViews
+from wfrp.character.views.character import NewCharacterViews
 from wfrp.character.views.species import SpeciesViews
 
 
@@ -44,3 +45,44 @@ def test_careers_view(session_db):
     assert len(response["career_choice"]) == 1
     assert "career_list" in response
     assert response["career_choice"] not in response["career_list"]
+
+
+@pytest.mark.views
+def test_careers_reroll_view(session_db):
+    new_uuid = str(uuid.uuid4())
+    new_character = Character(uuid=new_uuid)
+    DBSession.add(new_character)
+    character = DBSession.query(Character).filter(Character.uuid == new_uuid).one()
+    character.species = "Human"
+    request = testing.DummyRequest()
+    request.matchdict = {"uuid": new_uuid}
+    request.params = {"career_choice": "Soldier"}
+    view = CareerViews(request)
+    response = view.reroll_career_view()
+    assert "career_choice" in response
+    assert "Soldier" in response["career_choice"]
+    assert len(response["career_choice"]) == 3
+    assert "career_list" in response
+    assert "Soldier" not in response["career_list"]
+
+
+@pytest.mark.views
+@pytest.mark.parametrize(
+    "career_choice, experience",
+    [("Soldier", 50), ("Soldier, Seaman, Bawd", 25), ("Bawd", 0)],
+)
+def test_submit_career_view_single_career(session_db, career_choice, experience):
+    new_uuid = str(uuid.uuid4())
+    new_character = Character(uuid=new_uuid)
+    DBSession.add(new_character)
+    character = DBSession.query(Character).filter(Character.uuid == new_uuid).one()
+    character.species = "Human"
+    request = testing.DummyRequest(
+        post={"career_choice": career_choice, "career": "Soldier"}
+    )
+    request.matchdict = {"uuid": new_uuid}
+    view = CareerViews(request)
+    assert character.experience == 0
+    response = view.submit_career_view()
+    assert isinstance(response, HTTPFound)
+    assert character.experience == experience

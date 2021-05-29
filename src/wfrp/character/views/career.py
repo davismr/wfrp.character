@@ -44,7 +44,7 @@ class CareerViews:
     @view_config(request_method="POST", renderer=__name__ + ":../templates/career.pt")
     def submit_career_view(self):
         career = self.request.POST.get("career")
-        career_choice = self.request.params["career_choice"].split(",")
+        career_choice = self.request.POST.get("career_choice").split(",")
         if career in career_choice:
             if len(career_choice) == 1:
                 self.character.experience += 50
