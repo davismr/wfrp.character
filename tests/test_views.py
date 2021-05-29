@@ -1,5 +1,3 @@
-import uuid
-
 import pytest
 from pyramid import testing
 from pyramid.httpexceptions import HTTPFound
@@ -31,14 +29,10 @@ def test_species_view(session_db):
 
 
 @pytest.mark.views
-def test_careers_view(session_db):
-    new_uuid = str(uuid.uuid4())
-    new_character = Character(uuid=new_uuid)
-    DBSession.add(new_character)
-    character = DBSession.query(Character).filter(Character.uuid == new_uuid).one()
-    character.species = "Wood Elf"
+def test_careers_view(new_character):
+    new_character.species = "Wood Elf"
     request = testing.DummyRequest()
-    request.matchdict = {"uuid": new_uuid}
+    request.matchdict = {"uuid": new_character.uuid}
     view = CareerViews(request)
     response = view.new_career_view()
     assert "career_choice" in response
@@ -48,14 +42,10 @@ def test_careers_view(session_db):
 
 
 @pytest.mark.views
-def test_careers_reroll_view(session_db):
-    new_uuid = str(uuid.uuid4())
-    new_character = Character(uuid=new_uuid)
-    DBSession.add(new_character)
-    character = DBSession.query(Character).filter(Character.uuid == new_uuid).one()
-    character.species = "Human"
+def test_careers_reroll_view(new_character):
+    new_character.species = "Human"
     request = testing.DummyRequest()
-    request.matchdict = {"uuid": new_uuid}
+    request.matchdict = {"uuid": new_character.uuid}
     request.params = {"career_choice": "Soldier"}
     view = CareerViews(request)
     response = view.reroll_career_view()
@@ -71,18 +61,14 @@ def test_careers_reroll_view(session_db):
     "career_choice, experience",
     [("Soldier", 50), ("Soldier, Seaman, Bawd", 25), ("Bawd", 0)],
 )
-def test_submit_career_view_single_career(session_db, career_choice, experience):
-    new_uuid = str(uuid.uuid4())
-    new_character = Character(uuid=new_uuid)
-    DBSession.add(new_character)
-    character = DBSession.query(Character).filter(Character.uuid == new_uuid).one()
-    character.species = "Human"
+def test_submit_career_view_single_career(new_character, career_choice, experience):
+    new_character.species = "Human"
     request = testing.DummyRequest(
         post={"career_choice": career_choice, "career": "Soldier"}
     )
-    request.matchdict = {"uuid": new_uuid}
+    request.matchdict = {"uuid": new_character.uuid}
     view = CareerViews(request)
-    assert character.experience == 0
+    assert new_character.experience == 0
     response = view.submit_career_view()
     assert isinstance(response, HTTPFound)
-    assert character.experience == experience
+    assert new_character.experience == experience
