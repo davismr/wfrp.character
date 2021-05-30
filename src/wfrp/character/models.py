@@ -4,6 +4,7 @@ from pyramid.authorization import Allow
 from pyramid.authorization import Everyone
 
 # from pyramid_sqlalchemy import BaseObject
+from sqlalchemy import JSON
 from sqlalchemy import Column
 from sqlalchemy import Integer
 from sqlalchemy import Text
@@ -26,6 +27,7 @@ class Character(Base):
     species = Column(Text)
     career = Column(Text)
     experience = Column(Integer, default=0)
+    experience_spent = Column(Integer, default=0)
     weapon_skill = Column(Integer)
     ballistic_skill = Column(Integer)
     strength = Column(Integer)
@@ -36,6 +38,12 @@ class Character(Base):
     intelligence = Column(Integer)
     willpower = Column(Integer)
     fellowship = Column(Integer)
+    wounds = Column(Integer)
+    fate = Column(Integer, default=0)
+    resilience = Column(Integer, default=0)
+    extra_points = Column(Integer)
+    movement = Column(Integer, default=3)
+    status = Column(JSON)
 
 
 class Root(object):

@@ -2,8 +2,6 @@ import pytest
 from pyramid import testing
 from pyramid.httpexceptions import HTTPFound
 
-from wfrp.character.models import Character
-from wfrp.character.models import DBSession
 from wfrp.character.views.attributes import ATTRIBUTES
 from wfrp.character.views.attributes import AttributesViews
 from wfrp.character.views.career import CareerViews
@@ -20,14 +18,33 @@ def test_passing_view(session_db):
 
 
 @pytest.mark.views
-def test_species_view(session_db):
-    new_character = Character()
-    DBSession.add(new_character)
-    view = SpeciesViews(testing.DummyRequest())
+def test_species_view(new_character):
+    request = testing.DummyRequest()
+    request.matchdict = {"uuid": new_character.uuid}
+    view = SpeciesViews(request)
     response = view.new_species_view()
     assert "result" in response
     assert "species_list" in response
     assert response["result"] not in response["species_list"]
+
+
+@pytest.mark.views
+@pytest.mark.parametrize(
+    "species, experience",
+    [("Human+", 20), ("Human", 0)],
+)
+def test_submit_species_view(new_character, species, experience):
+    request = testing.DummyRequest(post={"species": species})
+    request.matchdict = {"uuid": new_character.uuid}
+    view = SpeciesViews(request)
+    response = view.submit_species_view()
+    assert isinstance(response, HTTPFound)
+    assert new_character.species == "Human"
+    assert new_character.experience == experience
+    assert new_character.fate == 2
+    assert new_character.resilience == 1
+    assert new_character.extra_points == 3
+    assert new_character.movement == 4
 
 
 @pytest.mark.views

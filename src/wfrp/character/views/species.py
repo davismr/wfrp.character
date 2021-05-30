@@ -11,6 +11,8 @@ from wfrp.character.utils import roll_d100
 class SpeciesViews:
     def __init__(self, request):
         self.request = request
+        uuid = request.matchdict["uuid"]
+        self.character = DBSession.query(Character).filter(Character.uuid == uuid).one()
 
     def get_species_list(self, item):
         species = ["Human", "Halfling", "Dwarf", "High Elf", "Wood Elf"]
@@ -34,14 +36,31 @@ class SpeciesViews:
             raise NotImplementedError(f"result {result} does not return a species")
         return {"result": result, "species_list": self.get_species_list(result)}
 
+    def _set_species_attributes(self, species):
+        if species == "Human":
+            self.character.fate = 2
+            self.character.resilience = 1
+            self.character.extra_points = 3
+            self.character.movement = 4
+        elif species == "Halfling":
+            self.character.resilience = 2
+            self.character.extra_points = 2
+        elif species == "Dwarf":
+            self.character.resilience = 2
+            self.character.extra_points = 3
+        elif species in ["High Elf", "Wood Elf"]:
+            self.character.extra_points = 2
+            self.character.movement = 5
+        else:
+            raise NotImplementedError(f"{species} is not defined")
+
     @view_config(request_method="POST")
     def submit_species_view(self):
-        uuid = self.request.matchdict["uuid"]
-        character = DBSession.query(Character).filter(Character.uuid == uuid).one()
         species = self.request.POST.get("species")
         if "+" in species:
             species = species[:-1]
-            character.experience += 20
-        character.species = species
-        url = self.request.route_url("career", uuid=character.uuid)
+            self.character.experience += 20
+        self.character.species = species
+        self._set_species_attributes(species)
+        url = self.request.route_url("career", uuid=self.character.uuid)
         return HTTPFound(location=url)
