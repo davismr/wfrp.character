@@ -24,17 +24,18 @@ class Character(Base):
     uuid = Column(Text, default=str(uuid.uuid4()))
     name = Column(Text)
     species = Column(Text)
-    strength = Column(Integer)
-    dexterity = Column(Integer)
-    endurance = Column(Integer)
-    intelligence = Column(Integer)
-    education = Column(Integer)
-    psionics = Column(Integer)
-    social_standing = Column(Integer)
-    # xxx review above
-    species = Column(Text)
     career = Column(Text)
     experience = Column(Integer, default=0)
+    weapon_skill = Column(Integer)
+    ballistic_skill = Column(Integer)
+    strength = Column(Integer)
+    toughness = Column(Integer)
+    initiative = Column(Integer)
+    agility = Column(Integer)
+    dexterity = Column(Integer)
+    intelligence = Column(Integer)
+    willpower = Column(Integer)
+    fellowship = Column(Integer)
 
 
 class Root(object):

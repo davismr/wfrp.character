@@ -8,16 +8,36 @@
                     <tr>
                         <th>Attribute</th>
                         <th>&nbsp;</th>
+                        <th>Species Bonus</th>
+                        <th>Total</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr tal:repeat="attribute attributes">
+                    <tr tal:repeat="attribute base_attributes">
                         <td tal:content="attribute" />
-                        <td tal:content="attributes[attribute]" />
+                        <td tal:content="base_attributes[attribute]" />
+                        <td tal:content="bonus_attributes[attribute]" />
+                        <td tal:content="base_attributes[attribute] + bonus_attributes[attribute]" />
                     </tr>
                 </tbody>
             </table>
-            <input type="submit" value="Select Species" />
+            <div>
+                Accept these results and gain 50XP.
+            </div>
+            <input type="submit" name="form.accept" value="Accept Results" />
+            <div>
+                or, rearrange the results for 25XP
+            </div>
+            <input type="submit" name="form.rearrange" value="Rearrange Results" />
+            <div>
+                or, roll again for no XP
+            </div>
+            <input type="submit" name="form.reroll" value="Reroll Results" />
+            <div>
+                or, allocate 100 points across your attributes for no XP.
+                Your attribute total is ${total_attributes}
+            </div>
+            <input type="submit" name="form.allocate" value="Allocate Results" />
         </form>
 
     </div>
