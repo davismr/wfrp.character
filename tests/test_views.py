@@ -124,16 +124,16 @@ def test_bonus_attributes_view(new_character):
 def test_aub_attributes_vmitiew(new_character):
     new_character.species = "Human"
     base_attributes = {
-        "weapon_skill": 21,
-        "ballistic_skill": 22,
-        "strength": 23,
-        "toughness": 24,
-        "initiative": 25,
-        "agility": 26,
-        "dexterity": 27,
-        "intelligence": 28,
-        "willpower": 29,
-        "fellowship": 30,
+        "Weapon Skill": 21,
+        "Ballistic Skill": 22,
+        "Strength": 23,
+        "Toughness": 24,
+        "Initiative": 25,
+        "Agility": 26,
+        "Dexterity": 27,
+        "Intelligence": 28,
+        "Willpower": 29,
+        "Fellowship": 30,
     }
     request = testing.DummyRequest(post=base_attributes)
     request.matchdict = {"uuid": new_character.uuid}

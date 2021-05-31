@@ -82,8 +82,9 @@ class AttributesViews(BaseView):
     def submit_view(self):
         bonus_attributes = self._get_bonus_attributes(self.character.species)
         for attribute in ATTRIBUTES:
+            value = int(self.request.POST.get(attribute))
+            value += bonus_attributes[attribute]
             attribute_lower = attribute.lower().replace(" ", "_")
-            value = self.request.POST.get(attribute_lower) + bonus_attributes[attribute]
             setattr(self.character, attribute_lower, value)
         url = self.request.route_url("homepage")
         return HTTPFound(location=url)
