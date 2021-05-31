@@ -2,18 +2,12 @@ from pyramid.httpexceptions import HTTPFound
 from pyramid.view import view_config
 from pyramid.view import view_defaults
 
-from wfrp.character.models import Character
-from wfrp.character.models import DBSession
 from wfrp.character.utils import roll_d100
+from wfrp.character.views.base_view import BaseView
 
 
 @view_defaults(route_name="species")
-class SpeciesViews:
-    def __init__(self, request):
-        self.request = request
-        uuid = request.matchdict["uuid"]
-        self.character = DBSession.query(Character).filter(Character.uuid == uuid).one()
-
+class SpeciesViews(BaseView):
     def get_species_list(self, item):
         species = ["Human", "Halfling", "Dwarf", "High Elf", "Wood Elf"]
         species.remove(item)

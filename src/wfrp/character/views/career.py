@@ -7,15 +7,11 @@ from wfrp.character.career_list import list_careers
 from wfrp.character.models import Character
 from wfrp.character.models import DBSession
 from wfrp.character.utils import roll_d100
+from wfrp.character.views.base_view import BaseView
 
 
 @view_defaults(route_name="career")
-class CareerViews:
-    def __init__(self, request):
-        self.request = request
-        uuid = request.matchdict["uuid"]
-        self.character = DBSession.query(Character).filter(Character.uuid == uuid).one()
-
+class CareerViews(BaseView):
     @view_config(request_method="GET", renderer=__name__ + ":../templates/career.pt")
     def new_career_view(self):
         uuid = self.request.matchdict["uuid"]

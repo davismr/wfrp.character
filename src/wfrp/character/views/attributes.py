@@ -2,9 +2,8 @@ from pyramid.httpexceptions import HTTPFound
 from pyramid.view import view_config
 from pyramid.view import view_defaults
 
-from wfrp.character.models import Character
-from wfrp.character.models import DBSession
 from wfrp.character.utils import roll_2d10
+from wfrp.character.views.base_view import BaseView
 
 ATTRIBUTES = [
     "Weapon Skill",
@@ -23,12 +22,7 @@ ATTRIBUTES_LOWER = [x.lower().replace(" ", "_") for x in ATTRIBUTES]
 
 
 @view_defaults(route_name="attributes")
-class AttributesViews:
-    def __init__(self, request):
-        self.request = request
-        uuid = request.matchdict["uuid"]
-        self.character = DBSession.query(Character).filter(Character.uuid == uuid).one()
-
+class AttributesViews(BaseView):
     def _roll_base_attributes(self):
         attributes = {}
         for attribute in ATTRIBUTES:
