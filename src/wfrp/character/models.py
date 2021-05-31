@@ -45,6 +45,11 @@ class Character(Base):
     movement = Column(Integer, default=3)
     status = Column(JSON)
 
+    def calculate_wounds(self):
+        if self.species == "Halfling":
+            return 2 * (self.toughness // 10) + self.willpower // 10
+        return self.strength // 10 + 2 * (self.toughness // 10) + self.willpower // 10
+
 
 class Root(object):
     __acl__ = [(Allow, Everyone, "view"), (Allow, "group:editors", "edit")]

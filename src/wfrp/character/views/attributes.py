@@ -19,6 +19,8 @@ ATTRIBUTES = [
     "Fellowship",
 ]
 
+ATTRIBUTES_LOWER = [x.lower().replace(" ", "_") for x in ATTRIBUTES]
+
 
 @view_defaults(route_name="attributes")
 class AttributesViews:
@@ -68,7 +70,7 @@ class AttributesViews:
     @view_config(
         request_method="GET", renderer=__name__ + ":../templates/attributes.pt"
     )
-    def new_career_view(self):
+    def new_view(self):
         base_attributes = self._roll_base_attributes()
         bonus_attributes = self._get_bonus_attributes(self.character.species)
         total_attributes = 0
@@ -83,6 +85,11 @@ class AttributesViews:
     @view_config(
         request_method="POST", renderer=__name__ + ":../templates/attributes.pt"
     )
-    def submit_career_view(self):
+    def submit_view(self):
+        bonus_attributes = self._get_bonus_attributes(self.character.species)
+        for attribute in ATTRIBUTES:
+            attribute_lower = attribute.lower().replace(" ", "_")
+            value = self.request.POST.get(attribute_lower) + bonus_attributes[attribute]
+            setattr(self.character, attribute_lower, value)
         url = self.request.route_url("homepage")
         return HTTPFound(location=url)

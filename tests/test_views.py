@@ -94,12 +94,12 @@ def test_submit_career_view_single_career(new_character, career_choice, experien
 
 
 @pytest.mark.views
-def test_submit_attributes_view(new_character):
+def test_new_attributes_view(new_character):
     new_character.species = "Human"
     request = testing.DummyRequest()
     request.matchdict = {"uuid": new_character.uuid}
     view = AttributesViews(request)
-    response = view.new_career_view()
+    response = view.new_view()
     assert "base_attributes" in response
     assert "bonus_attributes" in response
     expected_total = 0
@@ -118,3 +118,35 @@ def test_bonus_attributes_view(new_character):
     for attribute in ATTRIBUTES:
         assert attribute in response
         assert response[attribute] == 20
+
+
+@pytest.mark.views
+def test_aub_attributes_vmitiew(new_character):
+    new_character.species = "Human"
+    base_attributes = {
+        "weapon_skill": 21,
+        "ballistic_skill": 22,
+        "strength": 23,
+        "toughness": 24,
+        "initiative": 25,
+        "agility": 26,
+        "dexterity": 27,
+        "intelligence": 28,
+        "willpower": 29,
+        "fellowship": 30,
+    }
+    request = testing.DummyRequest(post=base_attributes)
+    request.matchdict = {"uuid": new_character.uuid}
+    view = AttributesViews(request)
+    response = view.submit_view()
+    assert isinstance(response, HTTPFound)
+    assert new_character.weapon_skill == 41
+    assert new_character.ballistic_skill == 42
+    assert new_character.strength == 43
+    assert new_character.toughness == 44
+    assert new_character.initiative == 45
+    assert new_character.agility == 46
+    assert new_character.dexterity == 47
+    assert new_character.intelligence == 48
+    assert new_character.willpower == 49
+    assert new_character.fellowship == 50
