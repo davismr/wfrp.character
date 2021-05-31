@@ -5,7 +5,7 @@ from pyramid.httpexceptions import HTTPFound
 from wfrp.character.views.attributes import ATTRIBUTES
 from wfrp.character.views.attributes import AttributesViews
 from wfrp.character.views.career import CareerViews
-from wfrp.character.views.character import NewCharacterViews
+from wfrp.character.views.new_character import NewCharacterViews
 from wfrp.character.views.species import SpeciesViews
 
 
