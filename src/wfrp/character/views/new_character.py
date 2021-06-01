@@ -19,4 +19,5 @@ class NewCharacterViews:
         new_character = Character(uuid=new_uuid)
         DBSession.add(new_character)
         url = self.request.route_url("species", uuid=new_uuid)
+        new_character.status = {"species": ""}
         return HTTPFound(location=url)

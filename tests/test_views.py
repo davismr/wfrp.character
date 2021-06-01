@@ -1,3 +1,5 @@
+from dataclasses import dataclass
+
 import pytest
 from pyramid import testing
 from pyramid.httpexceptions import HTTPFound
@@ -10,6 +12,11 @@ from wfrp.character.views.new_character import NewCharacterViews
 from wfrp.character.views.species import SpeciesViews
 
 
+@dataclass
+class DummyRoute:
+    name: str
+
+
 @pytest.mark.views
 def test_passing_view(session_db):
     view = NewCharacterViews(testing.DummyRequest())
@@ -20,28 +27,43 @@ def test_passing_view(session_db):
 
 @pytest.mark.views
 def test_species_view(new_character):
-    request = testing.DummyRequest()
+    request = testing.DummyRequest(path="species")
+    request.matched_route = DummyRoute(name="species")
     request.matchdict = {"uuid": new_character.uuid}
     view = SpeciesViews(request)
     response = view.new_species_view()
-    assert "result" in response
+    assert "species" in response
     assert "species_list" in response
-    assert response["result"] not in response["species_list"]
+    assert response["species"] not in response["species_list"]
 
 
 @pytest.mark.views
 @pytest.mark.parametrize(
     "species, experience",
-    [("Human+", 20), ("Human", 0)],
+    [("Human", 20), ("Halfling", 0)],
 )
 def test_submit_species_view(new_character, species, experience):
+    new_character.status = {"species": "Human"}
     request = testing.DummyRequest(post={"species": species})
+    request.matched_route = DummyRoute(name="species")
+    request.matchdict = {"uuid": new_character.uuid}
+    view = SpeciesViews(request)
+    response = view.submit_species_view()
+    assert isinstance(response, HTTPFound)
+    assert new_character.species == species
+    assert new_character.experience == experience
+
+
+@pytest.mark.views
+def test_submit_species_attributes_view(new_character):
+    new_character.status = {"species": "Human"}
+    request = testing.DummyRequest(post={"species": "Human"})
+    request.matched_route = DummyRoute(name="species")
     request.matchdict = {"uuid": new_character.uuid}
     view = SpeciesViews(request)
     response = view.submit_species_view()
     assert isinstance(response, HTTPFound)
     assert new_character.species == "Human"
-    assert new_character.experience == experience
     assert new_character.fate == 2
     assert new_character.resilience == 1
     assert new_character.extra_points == 3
@@ -51,7 +73,9 @@ def test_submit_species_view(new_character, species, experience):
 @pytest.mark.views
 def test_careers_view(new_character):
     new_character.species = "Wood Elf"
+    new_character.status = {"career": ""}
     request = testing.DummyRequest()
+    request.matched_route = DummyRoute(name="career")
     request.matchdict = {"uuid": new_character.uuid}
     view = CareerViews(request)
     response = view.new_career_view()
@@ -64,9 +88,10 @@ def test_careers_view(new_character):
 @pytest.mark.views
 def test_careers_reroll_view(new_character):
     new_character.species = "Human"
+    new_character.status = {"career": "Soldier"}
     request = testing.DummyRequest()
+    request.matched_route = DummyRoute(name="career")
     request.matchdict = {"uuid": new_character.uuid}
-    request.params = {"career_choice": "Soldier"}
     view = CareerViews(request)
     response = view.reroll_career_view()
     assert "career_choice" in response
@@ -83,9 +108,11 @@ def test_careers_reroll_view(new_character):
 )
 def test_submit_career_view_single_career(new_character, career_choice, experience):
     new_character.species = "Human"
+    new_character.status = {"career": career_choice}
     request = testing.DummyRequest(
         post={"career_choice": career_choice, "career": "Soldier"}
     )
+    request.matched_route = DummyRoute(name="career")
     request.matchdict = {"uuid": new_character.uuid}
     view = CareerViews(request)
     assert new_character.experience == 0
@@ -97,7 +124,9 @@ def test_submit_career_view_single_career(new_character, career_choice, experien
 @pytest.mark.views
 def test_new_attributes_view(new_character):
     new_character.species = "Human"
+    new_character.status = {"attributes": ""}
     request = testing.DummyRequest()
+    request.matched_route = DummyRoute(name="attributes")
     request.matchdict = {"uuid": new_character.uuid}
     view = AttributesViews(request)
     response = view.new_view()
@@ -111,7 +140,9 @@ def test_new_attributes_view(new_character):
 
 @pytest.mark.views
 def test_bonus_attributes_view(new_character):
+    new_character.status = {"attributes": ""}
     request = testing.DummyRequest()
+    request.matched_route = DummyRoute(name="attributes")
     request.matchdict = {"uuid": new_character.uuid}
     view = AttributesViews(request)
     response = view._get_bonus_attributes("Human")
@@ -122,21 +153,24 @@ def test_bonus_attributes_view(new_character):
 
 
 @pytest.mark.views
-def test_aub_attributes_vmitiew(new_character):
+def test_submit_attributes_view(new_character):
     new_character.species = "Human"
-    base_attributes = {
-        "Weapon Skill": 21,
-        "Ballistic Skill": 22,
-        "Strength": 23,
-        "Toughness": 24,
-        "Initiative": 25,
-        "Agility": 26,
-        "Dexterity": 27,
-        "Intelligence": 28,
-        "Willpower": 29,
-        "Fellowship": 30,
+    new_character.status = {
+        "attributes": {
+            "Weapon Skill": 21,
+            "Ballistic Skill": 22,
+            "Strength": 23,
+            "Toughness": 24,
+            "Initiative": 25,
+            "Agility": 26,
+            "Dexterity": 27,
+            "Intelligence": 28,
+            "Willpower": 29,
+            "Fellowship": 30,
+        }
     }
-    request = testing.DummyRequest(post=base_attributes)
+    request = testing.DummyRequest()
+    request.matched_route = DummyRoute(name="attributes")
     request.matchdict = {"uuid": new_character.uuid}
     view = AttributesViews(request)
     response = view.submit_view()
@@ -155,7 +189,9 @@ def test_aub_attributes_vmitiew(new_character):
 
 @pytest.mark.views
 def test_character_view(new_character):
+    new_character.status = {"character": ""}
     request = testing.DummyRequest()
+    request.matched_route = DummyRoute(name="character")
     request.matchdict = {"uuid": new_character.uuid}
     view = CharacterViews(request)
     response = view.character_get_view()

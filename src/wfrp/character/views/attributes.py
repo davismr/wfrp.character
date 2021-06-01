@@ -65,7 +65,11 @@ class AttributesViews(BaseView):
         request_method="GET", renderer=__name__ + ":../templates/attributes.pt"
     )
     def new_view(self):
-        base_attributes = self._roll_base_attributes()
+        if self.character.status["attributes"]:
+            base_attributes = self.character.status["attributes"]
+        else:
+            base_attributes = self._roll_base_attributes()
+            self.character.status = {"attributes": base_attributes}
         bonus_attributes = self._get_bonus_attributes(self.character.species)
         total_attributes = 0
         for attribute in base_attributes:
@@ -81,10 +85,12 @@ class AttributesViews(BaseView):
     )
     def submit_view(self):
         bonus_attributes = self._get_bonus_attributes(self.character.species)
+        base_attributes = self.character.status["attributes"]
         for attribute in ATTRIBUTES:
-            value = int(self.request.POST.get(attribute))
+            value = int(base_attributes[attribute])
             value += bonus_attributes[attribute]
             attribute_lower = attribute.lower().replace(" ", "_")
             setattr(self.character, attribute_lower, value)
         url = self.request.route_url("homepage")
+        self.character.status = {"character": ""}
         return HTTPFound(location=url)

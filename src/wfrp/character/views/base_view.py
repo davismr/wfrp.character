@@ -1,3 +1,5 @@
+from pyramid.httpexceptions import HTTPFound
+
 from wfrp.character.models import Character
 from wfrp.character.models import DBSession
 
@@ -7,3 +9,9 @@ class BaseView:
         self.request = request
         uuid = request.matchdict["uuid"]
         self.character = DBSession.query(Character).filter(Character.uuid == uuid).one()
+        if self.request.matched_route.name not in self.character.status:
+            self.redirect_request(list(self.character.status)[0])
+
+    def redirect_request(self, route):
+        url = self.request.route_url(route, uuid=self.character.uuid)
+        raise HTTPFound(location=url)

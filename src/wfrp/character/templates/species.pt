@@ -12,11 +12,11 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td tal:content="result" />
-                        <td><input type="radio" name="species" checked="checked" value="${result}+" /></td>
+                        <td tal:content="species" />
+                        <td><input type="radio" name="species" checked="checked" value="${species}" /></td>
                     </tr>
                     <tr>
-                        <td colspan="2"><input type="submit" value="Accept ${result}" /></td>
+                        <td colspan="2"><input type="submit" value="Accept ${species}" /></td>
                     </tr>
                     <tr>
                         <td colspan="2">Accept random result and gain 20XP or select a species below.</td>

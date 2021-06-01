@@ -15,10 +15,7 @@
                 <tbody>
                     <tr tal:repeat="attribute base_attributes">
                         <td tal:content="attribute" />
-                        <td>
-                            <input type="hidden" name="${attribute}" value="${base_attributes[attribute]}" />
-                            <div tal:replace="base_attributes[attribute]" />
-                        </td>
+                        <td tal:content="base_attributes[attribute]" />
                         <td tal:content="bonus_attributes[attribute]" />
                         <td tal:content="base_attributes[attribute] + bonus_attributes[attribute]" />
                     </tr>

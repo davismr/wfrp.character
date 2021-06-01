@@ -24,7 +24,7 @@ def session_db():
 @pytest.fixture
 def new_character(session_db):
     new_uuid = str(uuid.uuid4())
-    new_character = Character(uuid=new_uuid)
+    new_character = Character(uuid=new_uuid, status={"species": ""})
     DBSession.add(new_character)
     character = DBSession.query(Character).filter(Character.uuid == new_uuid).one()
     return character

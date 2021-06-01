@@ -34,8 +34,6 @@
                     </tr>
                 </tbody>
             </table>
-                <input type="hidden" name="career_choice"
-                    tal:attributes="value ','.join(career_choice)" />
             <input type="submit" value="Select Career" />
         </form>
 

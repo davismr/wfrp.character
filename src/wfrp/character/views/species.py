@@ -13,22 +13,30 @@ class SpeciesViews(BaseView):
         species.remove(item)
         return species
 
-    @view_config(request_method="GET", renderer=__name__ + ":../templates/species.pt")
-    def new_species_view(self):
+    def _roll_new_species(self):
         result = roll_d100()
         if result <= 90:
-            result = "Human"
+            species = "Human"
         elif result <= 94:
-            result = "Halfling"
+            species = "Halfling"
         elif result <= 98:
-            result = "Dwarf"
+            species = "Dwarf"
         elif result == 99:
-            result = "High Elf"
+            species = "High Elf"
         elif result == 100:
-            result = "Wood Elf"
+            species = "Wood Elf"
         else:
             raise NotImplementedError(f"result {result} does not return a species")
-        return {"result": result, "species_list": self.get_species_list(result)}
+        return species
+
+    @view_config(request_method="GET", renderer=__name__ + ":../templates/species.pt")
+    def new_species_view(self):
+        if self.character.status["species"]:
+            species = self.character.status["species"]
+        else:
+            species = self._roll_new_species()
+            self.character.status = {"species": species}
+        return {"species": species, "species_list": self.get_species_list(species)}
 
     def _set_species_attributes(self, species):
         if species == "Human":
@@ -51,10 +59,10 @@ class SpeciesViews(BaseView):
     @view_config(request_method="POST")
     def submit_species_view(self):
         species = self.request.POST.get("species")
-        if "+" in species:
-            species = species[:-1]
+        if species == self.character.status["species"]:
             self.character.experience += 20
         self.character.species = species
         self._set_species_attributes(species)
         url = self.request.route_url("career", uuid=self.character.uuid)
+        self.character.status = {"career": ""}
         return HTTPFound(location=url)

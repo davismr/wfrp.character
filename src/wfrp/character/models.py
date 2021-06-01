@@ -43,7 +43,7 @@ class Character(Base):
     resilience = Column(Integer, default=0)
     extra_points = Column(Integer)
     movement = Column(Integer, default=3)
-    status = Column(JSON)
+    status = Column(JSON, default={})
 
     def calculate_wounds(self):
         if self.species == "Halfling":
