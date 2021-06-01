@@ -50,6 +50,20 @@ class Character(Base):
             return 2 * (self.toughness // 10) + self.willpower // 10
         return self.strength // 10 + 2 * (self.toughness // 10) + self.willpower // 10
 
+    def get_display_title(self):
+        display_title = ""
+        if self.name:
+            display_title += self.name
+            display_title += " the "
+        if self.species:
+            display_title += self.species
+        if self.career:
+            display_title += " "
+            display_title += self.career
+        if not display_title:
+            display_title += "Unknown"
+        return display_title
+
 
 class Root(object):
     __acl__ = [(Allow, Everyone, "view"), (Allow, "group:editors", "edit")]

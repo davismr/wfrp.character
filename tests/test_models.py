@@ -31,3 +31,14 @@ def test_wounds_halfling(new_character):
     new_character.toughness = 36
     new_character.willpower = 46
     assert new_character.calculate_wounds() == 10
+
+
+@pytest.mark.models
+def test_character_title(new_character):
+    assert new_character.get_display_title() == "Unknown"
+    new_character.species = "Halfling"
+    assert new_character.get_display_title() == "Halfling"
+    new_character.career = "Bawd"
+    assert new_character.get_display_title() == "Halfling Bawd"
+    new_character.name = "Frodo"
+    assert new_character.get_display_title() == "Frodo the Halfling Bawd"

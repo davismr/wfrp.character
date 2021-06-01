@@ -5,6 +5,7 @@ from pyramid.httpexceptions import HTTPFound
 from wfrp.character.views.attributes import ATTRIBUTES
 from wfrp.character.views.attributes import AttributesViews
 from wfrp.character.views.career import CareerViews
+from wfrp.character.views.character import CharacterViews
 from wfrp.character.views.new_character import NewCharacterViews
 from wfrp.character.views.species import SpeciesViews
 
@@ -150,3 +151,12 @@ def test_aub_attributes_vmitiew(new_character):
     assert new_character.intelligence == 48
     assert new_character.willpower == 49
     assert new_character.fellowship == 50
+
+
+@pytest.mark.views
+def test_character_view(new_character):
+    request = testing.DummyRequest()
+    request.matchdict = {"uuid": new_character.uuid}
+    view = CharacterViews(request)
+    response = view.character_get_view()
+    assert response
