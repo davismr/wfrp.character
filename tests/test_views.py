@@ -8,6 +8,7 @@ from wfrp.character.views.attributes import ATTRIBUTES
 from wfrp.character.views.attributes import AttributesViews
 from wfrp.character.views.career import CareerViews
 from wfrp.character.views.character import CharacterViews
+from wfrp.character.views.details import DetailsViews
 from wfrp.character.views.new_character import NewCharacterViews
 from wfrp.character.views.species import SpeciesViews
 
@@ -196,3 +197,19 @@ def test_character_view(new_character):
     view = CharacterViews(request)
     response = view.character_get_view()
     assert response
+
+
+@pytest.mark.views
+def test_details_view(new_character):
+    new_character.species = "Wood Elf"
+    new_character.status = {"details": ""}
+    request = testing.DummyRequest()
+    request.matched_route = DummyRoute(name="details")
+    request.matchdict = {"uuid": new_character.uuid}
+    view = DetailsViews(request)
+    response = view.get_view()
+    assert "age" in response
+    assert "height" in response
+    assert "hair_colour" in response
+    assert "eye_colour" in response
+    assert len(response["eye_colour"].split(","))
