@@ -13,6 +13,6 @@ class AdvancesViews(BaseView):
 
     @view_config(request_method="POST", renderer=__name__ + ":../templates/advances.pt")
     def submit_view(self):
-        url = self.request.route_url("homepage")
-        self.character.status = {"character": ""}
+        url = self.request.route_url("species_skills", uuid=self.character.uuid)
+        self.character.status = {"species_skills": ""}
         return HTTPFound(location=url)
