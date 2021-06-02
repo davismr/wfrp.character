@@ -1,7 +1,7 @@
 SKILL_LIST = {
     "Apothecary": {
         "Apothecary’s Apprentice": {
-            "status": "Brass 3",
+            "status": {"tier": "Brass", "standing": 3},
             "attributes": ["toughness", "dexterity", "intelligence"],
             "skills": [
                 "Consume Alcohol",

@@ -17,6 +17,6 @@ class CareerSkillsViews(BaseView):
         request_method="POST", renderer=__name__ + ":../templates/career_skills.pt"
     )
     def submit_view(self):
-        url = self.request.route_url("homepage")
-        self.character.status = {"character": ""}
+        url = self.request.route_url("trappings", uuid=self.character.uuid)
+        self.character.status = {"trappings": ""}
         return HTTPFound(location=url)

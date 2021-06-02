@@ -1,0 +1,10 @@
+<div metal:use-macro="load: layout.pt">
+    <div metal:fill-slot="content">
+
+        <h2>Character Name</h2>
+        <form method="POST">
+            <input type="submit" value="Select Name" />
+        </form>
+
+    </div>
+</div>
