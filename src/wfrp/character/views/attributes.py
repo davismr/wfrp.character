@@ -91,6 +91,6 @@ class AttributesViews(BaseView):
             value += bonus_attributes[attribute]
             attribute_lower = attribute.lower().replace(" ", "_")
             setattr(self.character, attribute_lower, value)
-        url = self.request.route_url("homepage")
-        self.character.status = {"character": ""}
+        url = self.request.route_url("attributes", uuid=self.character.uuid)
+        self.character.status = {"advances": ""}
         return HTTPFound(location=url)
