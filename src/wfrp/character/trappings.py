@@ -1,3 +1,6 @@
+from wfrp.character.utils import roll_d10
+
+# TODO these will randomise on startup
 CLASS_TRAPPINGS = {
     "Academics": [
         "Clothing",
@@ -5,7 +8,7 @@ CLASS_TRAPPINGS = {
         "Pouch",
         "Sling Bag",
         "Writing Kit",
-        "1d10 sheets of Parchment",
+        f"{roll_d10()} sheets of Parchment",
     ],
     "Burghers": ["Cloak", "Clothing", "Dagger", "Hat", "Pouch", "Sling Bag", "Lunch"],
     "Courtiers": ["Dagger", "Fine Clothing", "Pouch", "Tweezers", "Ear Pick", "Comb"],
@@ -41,7 +44,7 @@ CLASS_TRAPPINGS = {
         "Pouch",
         "Sling Bag",
         "2 Candles",
-        "1d10 Matches",
+        f"{roll_d10()} Matches",
         "Hood or Mask",
     ],
     "Warriors": ["Clothing", "Hand Weapon", "Dagger", "Pouch"],

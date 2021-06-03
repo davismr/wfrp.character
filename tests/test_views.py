@@ -11,6 +11,7 @@ from wfrp.character.views.character import CharacterViews
 from wfrp.character.views.details import DetailsViews
 from wfrp.character.views.new_character import NewCharacterViews
 from wfrp.character.views.species import SpeciesViews
+from wfrp.character.views.trappings import TrappingsViews
 
 
 @dataclass
@@ -197,6 +198,46 @@ def test_character_view(new_character):
     view = CharacterViews(request)
     response = view.character_get_view()
     assert response
+
+
+@pytest.mark.views
+def test_trappings_view(new_character):
+    new_character.species = "Wood Elf"
+    new_character.career = "Apothecary"
+    new_character.status = {"trappings": ""}
+    request = testing.DummyRequest()
+    request.matched_route = DummyRoute(name="trappings")
+    request.matchdict = {"uuid": new_character.uuid}
+    view = TrappingsViews(request)
+    response = view.get_view()
+    assert "class_trappings" in response
+    assert "Writing Kit" in response["class_trappings"]
+    assert "career_trappings" in response
+    assert "Healing Draught" in response["career_trappings"]
+
+
+@pytest.mark.xfail
+def test_randomise_trappings(new_character, second_character):
+    new_character.species = "Wood Elf"
+    new_character.career = "Apothecary"
+    new_character.status = {"trappings": ""}
+    request = testing.DummyRequest()
+    request.matched_route = DummyRoute(name="trappings")
+    request.matchdict = {"uuid": new_character.uuid}
+    view = TrappingsViews(request)
+    response = view.get_view()
+    class_trappings = response["class_trappings"]
+    second_character.species = "Wood Elf"
+    second_character.career = "Apothecary"
+    second_character.status = {"trappings": ""}
+    request = testing.DummyRequest()
+    request.matched_route = DummyRoute(name="trappings")
+    request.matchdict = {"uuid": new_character.uuid}
+    view = TrappingsViews(request)
+    response = view.get_view()
+    second_class_trappings = response["class_trappings"]
+    # these should be different in 90% of cases
+    assert class_trappings != second_class_trappings
 
 
 @pytest.mark.views

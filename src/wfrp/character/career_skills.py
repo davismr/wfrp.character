@@ -1,5 +1,6 @@
 SKILL_LIST = {
     "Apothecary": {
+        "class": "Academics",
         "Apothecary’s Apprentice": {
             "status": {"tier": "Brass", "standing": 3},
             "attributes": ["toughness", "dexterity", "intelligence"],
@@ -25,6 +26,6 @@ SKILL_LIST = {
                 "Leather Jerkin",
                 "Pestle and Mortar",
             ],
-        }
+        },
     }
 }
