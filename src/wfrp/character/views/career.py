@@ -2,8 +2,8 @@ from pyramid.httpexceptions import HTTPFound
 from pyramid.view import view_config
 from pyramid.view import view_defaults
 
-from wfrp.character.career_list import get_career
-from wfrp.character.career_list import list_careers
+from wfrp.character.career_data import get_career
+from wfrp.character.career_data import list_careers
 from wfrp.character.utils import roll_d100
 from wfrp.character.views.base_view import BaseView
 

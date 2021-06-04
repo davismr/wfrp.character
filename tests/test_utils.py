@@ -1,6 +1,6 @@
 import pytest
 
-from wfrp.character.career_list import get_career
+from wfrp.character.career_data import get_career
 from wfrp.character.utils import roll_2d10
 from wfrp.character.utils import roll_d10
 from wfrp.character.utils import roll_d100
