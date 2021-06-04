@@ -7,6 +7,7 @@ from pyramid.httpexceptions import HTTPFound
 from wfrp.character.views.attributes import ATTRIBUTES
 from wfrp.character.views.attributes import AttributesViews
 from wfrp.character.views.career import CareerViews
+from wfrp.character.views.career_skills import CareerSkillsViews
 from wfrp.character.views.character import CharacterViews
 from wfrp.character.views.details import DetailsViews
 from wfrp.character.views.new_character import NewCharacterViews
@@ -218,6 +219,21 @@ def test_species_skills_submit(new_character):
     view = SpeciesSkillsViews(request)
     response = view.submit_view()
     assert isinstance(response, HTTPFound)
+
+
+@pytest.mark.views
+def test_career_skills_view(new_character):
+    new_character.career = "Apothecary"
+    new_character.status = {"career_skills": ""}
+    request = testing.DummyRequest()
+    request.matched_route = DummyRoute(name="career_skills")
+    request.matchdict = {"uuid": new_character.uuid}
+    view = CareerSkillsViews(request)
+    response = view.get_view()
+    assert "career_skills" in response
+    assert "Heal" in response["career_skills"]
+    assert "career_talents" in response
+    assert "Concoct" in response["career_talents"]
 
 
 @pytest.mark.views
