@@ -11,6 +11,7 @@ from wfrp.character.views.character import CharacterViews
 from wfrp.character.views.details import DetailsViews
 from wfrp.character.views.new_character import NewCharacterViews
 from wfrp.character.views.species import SpeciesViews
+from wfrp.character.views.species_skills import SpeciesSkillsViews
 from wfrp.character.views.trappings import TrappingsViews
 
 
@@ -190,14 +191,33 @@ def test_submit_attributes_view(new_character):
 
 
 @pytest.mark.views
-def test_character_view(new_character):
-    new_character.status = {"character": ""}
+def test_species_skills_view(new_character):
+    new_character.species = "Wood Elf"
+    new_character.career = "Apothecary"
+    new_character.status = {"species_skills": ""}
     request = testing.DummyRequest()
-    request.matched_route = DummyRoute(name="character")
+    request.matched_route = DummyRoute(name="species_skills")
     request.matchdict = {"uuid": new_character.uuid}
-    view = CharacterViews(request)
-    response = view.character_get_view()
-    assert response
+    view = SpeciesSkillsViews(request)
+    response = view.get_view()
+    assert "species_skills" in response
+    assert "Athletics" in response["species_skills"]
+    assert "species_talents" in response
+    assert "Rover" in response["species_talents"]
+
+
+# TODO expand test
+@pytest.mark.views
+def test_species_skills_submit(new_character):
+    new_character.species = "Wood Elf"
+    new_character.career = "Apothecary"
+    new_character.status = {"species_skills": ""}
+    request = testing.DummyRequest(post={"empty": ""})
+    request.matched_route = DummyRoute(name="species_skills")
+    request.matchdict = {"uuid": new_character.uuid}
+    view = SpeciesSkillsViews(request)
+    response = view.submit_view()
+    assert isinstance(response, HTTPFound)
 
 
 @pytest.mark.views
@@ -268,3 +288,14 @@ def test_details_view(new_character):
     assert "hair_colour" in response
     assert "eye_colour" in response
     assert len(response["eye_colour"].split(","))
+
+
+@pytest.mark.views
+def test_character_view(new_character):
+    new_character.status = {"character": ""}
+    request = testing.DummyRequest()
+    request.matched_route = DummyRoute(name="character")
+    request.matchdict = {"uuid": new_character.uuid}
+    view = CharacterViews(request)
+    response = view.character_get_view()
+    assert response

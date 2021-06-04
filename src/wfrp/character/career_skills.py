@@ -12,7 +12,7 @@ SKILL_LIST = {
                 "Lore (Medicine)",
                 "Lore (Plants)",
                 "Trade (Apothecary)",
-                "Trade (Apothecary)",
+                "Trade (Poisoner)",
             ],
             "talents": [
                 "Concoct",
