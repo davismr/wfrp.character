@@ -3,6 +3,8 @@ from pyramid.view import view_config
 from pyramid.view import view_defaults
 
 from wfrp.character.species_data import SPECIES_DATA
+from wfrp.character.talents_data import get_random_talent
+from wfrp.character.utils import roll_d100
 from wfrp.character.views.base_view import BaseView
 
 
@@ -12,9 +14,27 @@ class SpeciesSkillsViews(BaseView):
         request_method="GET", renderer=__name__ + ":../templates/species_skills.pt"
     )
     def get_view(self):
-        species_skills = SPECIES_DATA[self.character.species]["skills"]
-        species_talents = SPECIES_DATA[self.character.species]["talents"]
-        # TODO random talents
+        species = self.character.species
+        species_skills = SPECIES_DATA[species]["skills"]
+        species_talents = SPECIES_DATA[species]["talents"]
+        if species in ["Human", "Halfling"]:
+            if self.character.status["species_skills"]:
+                extra_talents = self.character.status["species_skills"]
+            else:
+                extra_talents = []
+                while True:
+                    extra_talent = get_random_talent(roll_d100())
+                    if extra_talent in extra_talents:
+                        continue
+                    if extra_talent in ["Savvy", "Suave"] and species == "Human":
+                        continue
+                    extra_talents.append(extra_talent)
+                    if len(extra_talents) == 2 and species == "Halfling":
+                        break
+                    if len(extra_talents) == 3 and species == "Human":
+                        break
+                self.character.status = {"species_skills": extra_talents}
+            species_talents.extend(extra_talents)
         return {"species_skills": species_skills, "species_talents": species_talents}
 
     @view_config(

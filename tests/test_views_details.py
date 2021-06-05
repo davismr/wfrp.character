@@ -29,7 +29,6 @@ def test_details_view(new_character):
     assert len(response["eye_colour"].split(","))
 
 
-@pytest.mark.current
 @pytest.mark.views
 @pytest.mark.parametrize("species", SPECIES_LIST)
 def test_hair_colour(new_character, species):

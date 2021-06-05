@@ -9,7 +9,7 @@ TALENT_LIST = {
     24: "Flee!",
     28: "Hardy",
     31: "Lightning Reflexes",
-    34: "Lijnguistics",
+    34: "Linguistics",
     38: "Luck",
     41: "Marksman",
     44: "Mimic",
@@ -32,3 +32,11 @@ TALENT_LIST = {
     97: "Very Strong",
     100: "Warrior Born",
 }
+
+
+def get_random_talent(die_roll):
+    while True:
+        try:
+            return TALENT_LIST[die_roll]
+        except KeyError:
+            die_roll += 1

@@ -30,6 +30,24 @@ def test_species_skills_view(new_character):
 
 
 @pytest.mark.views
+@pytest.mark.parametrize("species, expected_talents", (("Human", 5), ("Halfling", 6)))
+def test_random_talents(new_character, species, expected_talents):
+    new_character.species = species
+    new_character.career = "Apothecary"
+    new_character.status = {"species_skills": ""}
+    request = testing.DummyRequest()
+    request.matched_route = DummyRoute(name="species_skills")
+    request.matchdict = {"uuid": new_character.uuid}
+    view = SpeciesSkillsViews(request)
+    response = view.get_view()
+    assert len(response["species_talents"]) == expected_talents
+    if species == "Human":
+        assert "Savvy" not in response["species_talents"]
+        assert "Suave" not in response["species_talents"]
+        assert "Savvy or Suave" in response["species_talents"]
+
+
+@pytest.mark.views
 def test_species_skills_submit(new_character):
     payload = {
         "Climb": "on",
@@ -86,7 +104,6 @@ def test_career_skills_submit(new_character):
     assert new_character.skills["Lore (Plants)"] == 5
 
 
-@pytest.mark.current
 @pytest.mark.views
 def test_skills_add_submit(new_character):
     payload = {
