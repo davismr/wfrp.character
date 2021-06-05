@@ -4,7 +4,7 @@ CAREER_DATA = {
         "class": "Academics",
         "Apothecary’s Apprentice": {
             "status": {"tier": "Brass", "standing": 3},
-            "attributes": ["toughness", "dexterity", "intelligence"],
+            "attributes": ["Toughness", "Dexterity", "Intelligence"],
             "skills": [
                 "Consume Alcohol",
                 "Heal",

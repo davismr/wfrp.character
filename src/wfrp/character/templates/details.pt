@@ -29,7 +29,7 @@
                     </tr>
                 </tbody>
             </table>
-            <input type="submit" value="Confirm Physical Details" />
+            <input type="submit" value="Accept Physical Details" />
         </form>
 
     </div>
