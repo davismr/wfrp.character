@@ -1,4 +1,4 @@
-SPECIES_LIST = {
+SPECIES_DATA = {
     "Human": {
         "skills": [
             "Animal Care",
@@ -16,6 +16,30 @@ SPECIES_LIST = {
         ],
         "talents": ["Doomed", "Savvy or Suave"],
         # 3 Random Talents
+        "hair_colour": {
+            2: "White Blond",
+            3: "Golden Blond",
+            4: "Red Blond",
+            7: "Golden Brown",
+            11: "Light Brown",
+            14: "Dark Brown",
+            17: "Black",
+            18: "Auburn",
+            19: "Red",
+            20: "Grey",
+        },
+        "eye_colour": {
+            2: "",
+            3: "Green",
+            4: "Pale Blue",
+            7: "Blue",
+            11: "Pale Grey",
+            14: "Grey",
+            17: "Brown",
+            18: "Hazel",
+            19: "Dark Brown",
+            20: "Black",
+        },
     },
     "Halfling": {
         "skills": [
@@ -39,6 +63,29 @@ SPECIES_LIST = {
             "Small",
             # 2 Random Talents
         ],
+        "hair_colour": {
+            2: "Grey",
+            3: "Flaxen",
+            4: "Russet",
+            7: "Honey",
+            11: "Chestnut",
+            14: "Ginger",
+            17: "Mustard",
+            18: "Almond",
+            19: "Chocolate",
+            20: "Liquorice",
+        },
+        "eye_colour": {
+            2: "Light Grey",
+            3: "Grey",
+            4: "Pale Blue",
+            7: "Blue",
+            11: "Green",
+            14: "Hazel",
+            17: "Brown",
+            18: "Copper",
+            20: "Dark Brown",
+        },
     },
     "Dwarf": {
         "skills": [
@@ -62,6 +109,30 @@ SPECIES_LIST = {
             "Resolute or Strong-minded",
             "Sturdy",
         ],
+        "hair_colour": {
+            2: "White",
+            3: "Grey",
+            4: "Pale Blond",
+            7: "Golden",
+            11: "Copper",
+            14: "Bronze",
+            17: "Brown",
+            18: "Dark Brown",
+            19: "Reddish Brown",
+            20: "Black",
+        },
+        "eye_colour": {
+            2: "Coal",
+            3: "Lead",
+            4: "Steel",
+            7: "Blue",
+            11: "Earth Brown",
+            14: "Dark Brown",
+            17: "Hazel",
+            18: "Green",
+            19: "Copper",
+            20: "Gold",
+        },
     },
     "High Elf": {
         "skills": [
@@ -85,6 +156,30 @@ SPECIES_LIST = {
             "Second Sight or Sixth Sense",
             "Read/Write",
         ],
+        "hair_colour": {
+            2: "Silver",
+            3: "White",
+            4: "Pale Blond",
+            7: "Blond",
+            11: "Yellow Blond",
+            14: "Copper Blond",
+            17: "Red Blond",
+            18: "Auburn",
+            19: "Red",
+            20: "Black",
+        },
+        "eye_colour": {
+            2: "Jet",
+            3: "Amethyst",
+            4: "Aquamarine",
+            7: "Sapphire",
+            11: "Turquoise",
+            14: "Emerald",
+            17: "Amber",
+            18: "Copper",
+            19: "Citrine",
+            20: "Gold",
+        },
     },
     "Wood Elf": {
         "skills": [
@@ -108,5 +203,49 @@ SPECIES_LIST = {
             "Read/Write or Very Resilient",
             "Rover",
         ],
+        "hair_colour": {
+            2: "Birch Silver",
+            3: "Ash Blond",
+            4: "Rose Gold",
+            7: "Honey Blond",
+            11: "Brown",
+            14: "Mahogany Brown",
+            17: "Dark Brown",
+            18: "Sienna",
+            19: "Ebony",
+            20: "Blue-Black",
+        },
+        "eye_colour": {
+            2: "Ivory",
+            3: "Charcoal",
+            4: "Ivy Green",
+            7: "Mossy Green",
+            11: "",
+            14: "Chestnut",
+            17: "Dark Brown",
+            18: "Tan",
+            19: "Sandy Brown",
+            20: "Violet",
+        },
     },
 }
+
+SPECIES_LIST = list(SPECIES_DATA.keys())
+
+
+def get_hair_colour(species, die_roll):
+    hair_colours = SPECIES_DATA[species]["hair_colour"]
+    while True:
+        try:
+            return hair_colours[die_roll]
+        except KeyError:
+            die_roll += 1
+
+
+def get_eye_colour(species, die_roll):
+    eye_colours = SPECIES_DATA[species]["eye_colour"]
+    while True:
+        try:
+            return eye_colours[die_roll]
+        except KeyError:
+            die_roll += 1

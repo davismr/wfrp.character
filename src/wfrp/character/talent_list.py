@@ -1,4 +1,4 @@
-SPECIES_LIST = {
+TALENT_LIST = {
     3: "Acute Sense (any one)",
     6: "Ambidextrous",
     9: "Animal Affinity",
