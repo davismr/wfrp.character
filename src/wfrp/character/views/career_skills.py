@@ -26,7 +26,9 @@ class CareerSkillsViews(BaseView):
             if item == "career_talents":
                 self.character.talents.append(self.request.POST.get("career_talents"))
             elif self.request.POST.get(item):
-                self.character.skills[item] = int(self.request.POST.get(item))
+                # initialise skill if it does not exist
+                self.character.skills.setdefault(item, 0)
+                self.character.skills[item] += int(self.request.POST.get(item))
         url = self.request.route_url("trappings", uuid=self.character.uuid)
         self.character.status = {"trappings": ""}
         return HTTPFound(location=url)

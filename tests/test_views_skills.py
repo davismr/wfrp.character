@@ -84,3 +84,33 @@ def test_career_skills_submit(new_character):
     assert new_character.talents == ["Concoct"]
     assert new_character.skills["Heal"] == 6
     assert new_character.skills["Lore (Plants)"] == 5
+
+
+@pytest.mark.current
+@pytest.mark.views
+def test_skills_add_submit(new_character):
+    payload = {
+        "Perception": "5",
+        "Track": "3",
+        "Hardy or Second Sight": "Second Sight",
+        "Night Vision": "Night Vision",
+    }
+    new_character.species = "Wood Elf"
+    new_character.career = "Apothecary"
+    new_character.status = {"species_skills": ""}
+    request = testing.DummyRequest(post=payload)
+    request.matched_route = DummyRoute(name="species_skills")
+    request.matchdict = {"uuid": new_character.uuid}
+    view = SpeciesSkillsViews(request)
+    response = view.submit_view()
+    assert isinstance(response, HTTPFound)
+    assert new_character.status == {"career_skills": ""}
+    payload = {"Track": "6", "Perception": "5", "career_talents": "Concoct"}
+    request = testing.DummyRequest(post=payload)
+    request.matched_route = DummyRoute(name="career_skills")
+    request.matchdict = {"uuid": new_character.uuid}
+    view = CareerSkillsViews(request)
+    response = view.submit_view()
+    assert new_character.talents == ["Second Sight", "Night Vision", "Concoct"]
+    assert new_character.skills["Track"] == 9
+    assert new_character.skills["Perception"] == 10
