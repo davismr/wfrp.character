@@ -3,8 +3,8 @@ from dataclasses import dataclass
 import pytest
 from pyramid import testing
 
-from wfrp.character.species_list import SPECIES_DATA
-from wfrp.character.species_list import SPECIES_LIST
+from wfrp.character.species_data import SPECIES_DATA
+from wfrp.character.species_data import SPECIES_LIST
 from wfrp.character.views.details import DetailsViews
 
 

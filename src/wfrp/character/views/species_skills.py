@@ -2,7 +2,7 @@ from pyramid.httpexceptions import HTTPFound
 from pyramid.view import view_config
 from pyramid.view import view_defaults
 
-from wfrp.character.species_list import SPECIES_DATA
+from wfrp.character.species_data import SPECIES_DATA
 from wfrp.character.views.base_view import BaseView
 
 
