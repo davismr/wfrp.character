@@ -3,6 +3,41 @@
 
         <h2>Species Skills</h2>
         <form method="POST">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Species Skills</th>
+                        <th>5 Advances</th>
+                        <th>3 Advances</th>
+                        <th>No Advance</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td colspan="3">You may choose 3 Skills to gain 5 Advances each, and 3
+                        Skills to gain 3 Advances each.</td></tr>
+                    <tr tal:repeat="skill species_skills">
+                        <td tal:content="skill" />
+                        <td><input type="radio" name="${skill}" value="5" /></td>
+                        <td><input type="radio" name="${skill}" value="3" /></td>
+                        <td><input type="radio" name="${skill}" checked="checked" /></td>
+                    </tr>
+                    <tr tal:repeat="talent species_talents">
+                        <td tal:content="talent" />
+                        <td tal:condition="python:' or ' in talent">
+                            <input type="radio" name="${talent}" value="${talent.split(' or ')[0]}" checked="checked"/>
+                            <label for="">${talent.split(' or ')[0]}</label>
+                        </td>
+                        <td tal:condition="python:' or ' in talent">
+                            <input type="radio" name="${talent}" value="${talent.split(' or ')[1]}" checked="checked"/>
+                            <label for="">${talent.split(' or ')[1]}</label>
+                        </td>
+                        <td tal:condition="python:' or ' not in talent" >
+                            <input type="radio" name="${talent}" value="${talent}" checked="checked"/>
+                        </td>
+                        <td tal:condition="python:' or ' not in talent">&nbsp;</td>
+                    </tr>
+                </tbody>
+            </table>
             <input type="submit" value="Select Skills" />
         </form>
 

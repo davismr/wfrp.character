@@ -14,7 +14,8 @@ SPECIES_LIST = {
             "Melee (Basic)",
             "Ranged (Bow)",
         ],
-        "talents": ["Doomed", "Savvy or Suave", "3 Random Talents"],
+        "talents": ["Doomed", "Savvy or Suave"],
+        # 3 Random Talents
     },
     "Halfling": {
         "skills": [
@@ -36,7 +37,7 @@ SPECIES_LIST = {
             "Night Vision",
             "Resistance (Chaos)",
             "Small",
-            "2 Random Talents",
+            # 2 Random Talents
         ],
     },
     "Dwarf": {

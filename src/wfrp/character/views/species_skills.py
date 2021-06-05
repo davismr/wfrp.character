@@ -14,12 +14,24 @@ class SpeciesSkillsViews(BaseView):
     def get_view(self):
         species_skills = SPECIES_LIST[self.character.species]["skills"]
         species_talents = SPECIES_LIST[self.character.species]["talents"]
+        # TODO random talents
         return {"species_skills": species_skills, "species_talents": species_talents}
 
     @view_config(
         request_method="POST", renderer=__name__ + ":../templates/species_skills.pt"
     )
     def submit_view(self):
+        for item in self.request.POST:
+            value = self.request.POST.get(item)
+            if value == "on":
+                continue
+            try:
+                value = int(value)
+            except ValueError:
+                self.character.talents.append(value)
+            else:
+                self.character.skills[item] = value
+            pass
         url = self.request.route_url("career_skills", uuid=self.character.uuid)
         self.character.status = {"career_skills": ""}
         return HTTPFound(location=url)

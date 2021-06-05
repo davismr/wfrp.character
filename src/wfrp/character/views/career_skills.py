@@ -22,6 +22,11 @@ class CareerSkillsViews(BaseView):
         request_method="POST", renderer=__name__ + ":../templates/career_skills.pt"
     )
     def submit_view(self):
+        for item in self.request.POST:
+            if item == "career_talents":
+                self.character.talents.append(self.request.POST.get("career_talents"))
+            elif self.request.POST.get(item):
+                self.character.skills[item] = int(self.request.POST.get(item))
         url = self.request.route_url("trappings", uuid=self.character.uuid)
         self.character.status = {"trappings": ""}
         return HTTPFound(location=url)

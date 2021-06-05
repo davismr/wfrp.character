@@ -9,6 +9,8 @@ from sqlalchemy import Column
 from sqlalchemy import Integer
 from sqlalchemy import Text
 from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.ext.mutable import MutableDict
+from sqlalchemy.ext.mutable import MutableList
 from sqlalchemy.orm import scoped_session
 from sqlalchemy.orm import sessionmaker
 from zope.sqlalchemy import register
@@ -43,6 +45,10 @@ class Character(Base):
     resilience = Column(Integer, default=0)
     extra_points = Column(Integer)
     movement = Column(Integer, default=3)
+    skills = Column(MutableDict.as_mutable(JSON), default={})
+    talents = Column(MutableList.as_mutable(JSON), default=[])
+    trappings = Column(JSON, default=[])
+    wealth = Column(JSON, default={})
     status = Column(JSON, default={})
 
     def calculate_wounds(self):

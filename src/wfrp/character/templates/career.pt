@@ -34,8 +34,7 @@
                     </tr>
                     <tr tal:repeat="item career_list">
                         <td tal:content="item" />
-                        <td><input type="radio" name="career"
-                                tal:attributes="value item" /></td>
+                        <td><input type="radio" name="career" value="${item}" /></td>
                     </tr>
                 </tbody>
             </table>
