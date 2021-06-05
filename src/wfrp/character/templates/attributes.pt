@@ -2,6 +2,7 @@
     <div metal:fill-slot="content">
 
         <h2>Character Attributes</h2>
+        <div>TODO: Reroll and other buttons to be done</div>
         <form method="POST">
             <table>
                 <thead>

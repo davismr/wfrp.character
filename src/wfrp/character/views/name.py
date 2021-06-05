@@ -13,6 +13,8 @@ class NameViews(BaseView):
 
     @view_config(request_method="POST", renderer=__name__ + ":../templates/name.pt")
     def submit_view(self):
+        character_name = self.request.POST.get("character_name")
+        self.character.name = character_name
         url = self.request.route_url("character", uuid=self.character.uuid)
         self.character.status = {"character": ""}
         return HTTPFound(location=url)

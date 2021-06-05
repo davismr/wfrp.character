@@ -2,6 +2,7 @@
     <div metal:fill-slot="content">
 
         <h2>Advances</h2>
+        <div>TODO: form and code</div>
         <form method="POST">
             <input type="submit" value="Select Advances" />
         </form>

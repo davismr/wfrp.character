@@ -3,6 +3,7 @@
 
         <h2>Character Name</h2>
         <form method="POST">
+            <input name="character_name" />
             <input type="submit" value="Select Name" />
         </form>
 

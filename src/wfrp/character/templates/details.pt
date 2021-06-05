@@ -2,6 +2,7 @@
     <div metal:fill-slot="content">
 
         <h2>Physical Details</h2>
+        <div>TODO: form and submit method</div>
         <form method="POST">
             <input type="submit" value="Select Physical Details" />
         </form>
