@@ -27,6 +27,8 @@ class TrappingsViews(BaseView):
 
     @view_config(request_method="GET", renderer=__name__ + ":../templates/trappings.pt")
     def get_view(self):
+        if self.character.status["trappings"]:
+            return self.character.status["trappings"]
         career_data = CAREER_DATA[self.character.career]
         class_trappings = CLASS_TRAPPINGS[career_data["class"]]
         # TODO find a better way to do this
@@ -35,16 +37,21 @@ class TrappingsViews(BaseView):
         money = self._get_money(
             career_details["status"]["tier"], career_details["status"]["standing"]
         )
-        return {
+        data = {
             "class_trappings": class_trappings,
             "career_trappings": career_trappings,
             "money": money,
         }
+        self.character.status = {"trappings": data}
+        return data
 
     @view_config(
         request_method="POST", renderer=__name__ + ":../templates/trappings.pt"
     )
     def submit_view(self):
+        data = self.character.status["trappings"]
+        self.character.trappings = data["class_trappings"] + data["career_trappings"]
+        self.character.wealth = data["money"]
         url = self.request.route_url("details", uuid=self.character.uuid)
         self.character.status = {"details": ""}
         return HTTPFound(location=url)

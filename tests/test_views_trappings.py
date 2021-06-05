@@ -2,6 +2,7 @@ from dataclasses import dataclass
 
 import pytest
 from pyramid import testing
+from pyramid.httpexceptions import HTTPFound
 
 from wfrp.character.views.trappings import TrappingsViews
 
@@ -39,6 +40,25 @@ def test_trappings_money(new_character):
     response = view._get_money("Brass", 4)
     assert "brass pennies" in response
     assert response["brass pennies"] >= 4
+
+
+@pytest.mark.views
+def test_submit_view(new_character):
+    new_character.career = "Apothecary"
+    new_character.status = {"trappings": ""}
+    payload = {}
+    request = testing.DummyRequest(post=payload)
+    request.matched_route = DummyRoute(name="trappings")
+    request.matchdict = {"uuid": new_character.uuid}
+    view = TrappingsViews(request)
+    # need to call get view to put the values into the status
+    response = view.get_view()
+    response = view.submit_view()
+    assert isinstance(response, HTTPFound)
+    assert "brass pennies" in new_character.wealth
+    assert isinstance(new_character.wealth["brass pennies"], int)
+    assert "Pestle and Mortar" in new_character.trappings
+    assert "Writing Kit" in new_character.trappings
 
 
 @pytest.mark.xfail
