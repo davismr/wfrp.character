@@ -2,9 +2,34 @@
     <div metal:fill-slot="content">
 
         <h2>Physical Details</h2>
-        <div>TODO: form and submit method</div>
         <form method="POST">
-            <input type="submit" value="Select Physical Details" />
+            <table>
+                <thead>
+                    <tr>
+                        <th>Physical Aspect</th>
+                        <th>&nbsp;</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Age</td>
+                        <td>${age} years</td>
+                    </tr>
+                    <tr>
+                        <td>Height</td>
+                        <td>${height} inches</td>
+                    </tr>
+                    <tr>
+                        <td>Hair Colour</td>
+                        <td>${hair_colour}</td>
+                    </tr>
+                    <tr>
+                        <td>Eye Colour</td>
+                        <td>${eye_colour}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <input type="submit" value="Confirm Physical Details" />
         </form>
 
     </div>

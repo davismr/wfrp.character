@@ -2,6 +2,7 @@
     <div metal:fill-slot="content">
 
         <h2>Character display page</h2>
+        <h3>${character.get_display_title()}</h3>
 
     </div>
 </div>
