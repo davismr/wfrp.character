@@ -18,10 +18,10 @@ def test_get_view(new_character):
     request.matched_route = DummyRoute(name="species")
     request.matchdict = {"uuid": new_character.uuid}
     view = SpeciesViews(request)
-    response = view.get_view()
-    assert "species" in response
-    assert "species_list" in response
-    assert response["species"] not in response["species_list"]
+    response = view.form_view()
+    assert "form" in response
+    assert "Wood Elf" in response["form"]
+    assert "Choose species" in response["form"]
 
 
 @pytest.mark.views
@@ -31,11 +31,13 @@ def test_get_view(new_character):
 )
 def test_submit_view(new_character, species, experience):
     new_character.status = {"species": "Human"}
-    request = testing.DummyRequest(post={"species": species})
+    request = testing.DummyRequest(
+        post={"species_field": species, "Choose_Species": "Choose_Species"}
+    )
     request.matched_route = DummyRoute(name="species")
     request.matchdict = {"uuid": new_character.uuid}
     view = SpeciesViews(request)
-    response = view.submit_view()
+    response = view.form_view()
     assert isinstance(response, HTTPFound)
     assert new_character.species == species
     assert new_character.experience == experience
@@ -44,11 +46,13 @@ def test_submit_view(new_character, species, experience):
 @pytest.mark.views
 def test_submit_attributes_view(new_character):
     new_character.status = {"species": "Human"}
-    request = testing.DummyRequest(post={"species": "Human"})
+    request = testing.DummyRequest(
+        post={"species_field": "Human", "Choose_Species": "Choose_Species"}
+    )
     request.matched_route = DummyRoute(name="species")
     request.matchdict = {"uuid": new_character.uuid}
     view = SpeciesViews(request)
-    response = view.submit_view()
+    response = view.form_view()
     assert isinstance(response, HTTPFound)
     assert new_character.species == "Human"
     assert new_character.fate == 2

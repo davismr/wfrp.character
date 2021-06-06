@@ -1,3 +1,5 @@
+import colander
+import deform
 from pyramid.httpexceptions import HTTPFound
 from pyramid.view import view_config
 from pyramid.view import view_defaults
@@ -8,10 +10,14 @@ from wfrp.character.views.base_view import BaseView
 
 @view_defaults(route_name="species")
 class SpeciesViews(BaseView):
-    def get_species_list(self, item):
-        species = ["Human", "Halfling", "Dwarf", "High Elf", "Wood Elf"]
-        species.remove(item)
-        return species
+    def _get_species_list(self):
+        return (
+            ("Human", "Human"),
+            ("Halfling", "Halfling"),
+            ("Dwarf", "Dwarf"),
+            ("High Elf", "High Elf"),
+            ("Wood Elf", "Wood Elf"),
+        )
 
     def _roll_new_species(self):
         result = roll_d100()
@@ -29,14 +35,50 @@ class SpeciesViews(BaseView):
             raise NotImplementedError(f"result {result} does not return a species")
         return species
 
-    @view_config(request_method="GET", renderer=__name__ + ":../templates/species.pt")
-    def get_view(self):
+    @view_config(renderer=__name__ + ":../templates/species.pt")
+    def form_view(self):
         if self.character.status["species"]:
             species = self.character.status["species"]
         else:
             species = self._roll_new_species()
             self.character.status = {"species": species}
-        return {"species": species, "species_list": self.get_species_list(species)}
+        species_list = self._get_species_list()
+
+        class Schema(colander.Schema):
+            species_field = colander.SchemaNode(
+                colander.String(),
+                default=species,
+                validator=colander.OneOf([x[0] for x in species_list]),
+                widget=deform.widget.RadioChoiceWidget(values=species_list),
+                description=f"Select {species} for 20XP or select another species",
+            )
+
+        schema = Schema()
+        form = deform.Form(schema, buttons=("Choose Species",))
+
+        if "Choose_Species" in self.request.POST:
+            try:
+                captured = form.validate(self.request.POST.items())
+            except deform.ValidationFailure as error:
+                html = error.render()
+            else:
+                selected = captured["species_field"]
+                if selected == self.character.status["species"]:
+                    self.character.experience += 20
+                self.character.species = selected
+                self._set_species_attributes(selected)
+                url = self.request.route_url("career", uuid=self.character.uuid)
+                self.character.status = {"career": ""}
+                return HTTPFound(location=url)
+        else:
+            html = form.render()
+
+        static_assets = form.get_widget_resources()
+        return {
+            "form": html,
+            "css_links": static_assets["css"],
+            "js_links": static_assets["js"],
+        }
 
     def _set_species_attributes(self, species):
         if species == "Human":
@@ -55,14 +97,3 @@ class SpeciesViews(BaseView):
             self.character.movement = 5
         else:
             raise NotImplementedError(f"{species} is not defined")
-
-    @view_config(request_method="POST")
-    def submit_view(self):
-        species = self.request.POST.get("species")
-        if species == self.character.status["species"]:
-            self.character.experience += 20
-        self.character.species = species
-        self._set_species_attributes(species)
-        url = self.request.route_url("career", uuid=self.character.uuid)
-        self.character.status = {"career": ""}
-        return HTTPFound(location=url)

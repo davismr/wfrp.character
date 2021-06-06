@@ -2,34 +2,7 @@
     <div metal:fill-slot="content">
 
         <h2>Character Species</h2>
-        <form method="POST">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Species</th>
-                        <th>&nbsp;</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td tal:content="species" />
-                        <td><input type="radio" name="species" checked="checked" value="${species}" /></td>
-                    </tr>
-                    <tr>
-                        <td colspan="2"><input type="submit" value="Accept ${species}" /></td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">Accept random result and gain 20XP or select a species below.</td>
-                    </tr>
-                    <tr tal:repeat="item species_list">
-                        <td tal:content="item" />
-                        <td><input type="radio" name="species"
-                                tal:attributes="value item" /></td>
-                    </tr>
-                </tbody>
-            </table>
-            <input type="submit" value="Select Species" />
-        </form>
+        <span tal:replace="structure form"/>
 
     </div>
 </div>

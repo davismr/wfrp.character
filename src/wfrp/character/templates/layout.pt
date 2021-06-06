@@ -3,6 +3,14 @@
     <head>
         <meta charset="utf-8">
         <title>WFRP Character Generator</title>
+        <script tal:condition="js_links|nothing"
+                tal:repeat="js_link js_links"
+                src="${request.static_url(js_link)}"
+                type="text/javascript"></script>
+        <link tal:condition="css_links|nothing"
+              tal:repeat="css_link css_links"
+              rel="stylesheet" type="text/css"
+              href="${request.static_url(css_link)}"/>
     </head>
     <body>
         <div><a href="/">Homepage</a></div>
