@@ -30,7 +30,7 @@ class SpeciesViews(BaseView):
         return species
 
     @view_config(request_method="GET", renderer=__name__ + ":../templates/species.pt")
-    def new_species_view(self):
+    def get_view(self):
         if self.character.status["species"]:
             species = self.character.status["species"]
         else:
@@ -57,7 +57,7 @@ class SpeciesViews(BaseView):
             raise NotImplementedError(f"{species} is not defined")
 
     @view_config(request_method="POST")
-    def submit_species_view(self):
+    def submit_view(self):
         species = self.request.POST.get("species")
         if species == self.character.status["species"]:
             self.character.experience += 20

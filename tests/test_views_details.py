@@ -14,7 +14,7 @@ class DummyRoute:
 
 
 @pytest.mark.views
-def test_details_view(new_character):
+def test_get_view(new_character):
     new_character.species = "Wood Elf"
     new_character.status = {"details": ""}
     request = testing.DummyRequest()

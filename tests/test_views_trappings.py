@@ -13,7 +13,7 @@ class DummyRoute:
 
 
 @pytest.mark.views
-def test_trappings_view(new_character):
+def test_get_view(new_character):
     new_character.species = "Wood Elf"
     new_character.career = "Apothecary"
     new_character.status = {"trappings": ""}
@@ -31,7 +31,7 @@ def test_trappings_view(new_character):
 
 
 @pytest.mark.views
-def test_trappings_money(new_character):
+def test_money(new_character):
     new_character.status = {"trappings": ""}
     request = testing.DummyRequest()
     request.matched_route = DummyRoute(name="trappings")

@@ -13,7 +13,7 @@ class DummyRoute:
 
 
 @pytest.mark.views
-def test_careers_view(new_character):
+def test_get_view(new_character):
     new_character.species = "Wood Elf"
     new_character.status = {"career": ""}
     request = testing.DummyRequest()
@@ -28,7 +28,7 @@ def test_careers_view(new_character):
 
 
 @pytest.mark.views
-def test_careers_reroll_view(new_character):
+def test_reroll_view(new_character):
     new_character.species = "Human"
     new_character.status = {"career": "Soldier"}
     request = testing.DummyRequest()
@@ -48,7 +48,7 @@ def test_careers_reroll_view(new_character):
     "career_choice, experience",
     [("Soldier", 50), ("Soldier, Seaman, Bawd", 25), ("Bawd", 0)],
 )
-def test_submit_career_view_single_career(new_character, career_choice, experience):
+def test_submit_experience(new_character, career_choice, experience):
     new_character.species = "Human"
     new_character.status = {"career": career_choice}
     request = testing.DummyRequest(

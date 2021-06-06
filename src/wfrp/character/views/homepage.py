@@ -11,7 +11,7 @@ class HomePageViews:
         self.request = request
 
     @view_config(request_method="GET", renderer=__name__ + ":../templates/homepage.pt")
-    def homepage_get_view(self):
+    def get_view(self):
         characters = DBSession.query(Character).all()
         character_list = {}
         for character in characters:

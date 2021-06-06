@@ -14,14 +14,14 @@ class DummyRoute:
 
 
 @pytest.mark.views
-def test_new_attributes_view(new_character):
+def test_get_view(new_character):
     new_character.species = "Human"
     new_character.status = {"attributes": ""}
     request = testing.DummyRequest()
     request.matched_route = DummyRoute(name="attributes")
     request.matchdict = {"uuid": new_character.uuid}
     view = AttributesViews(request)
-    response = view.new_view()
+    response = view.get_view()
     assert "base_attributes" in response
     assert "bonus_attributes" in response
     expected_total = 0
@@ -45,7 +45,7 @@ def test_bonus_attributes_view(new_character):
 
 
 @pytest.mark.views
-def test_submit_attributes_view(new_character):
+def test_submit_view(new_character):
     new_character.species = "Human"
     new_character.status = {
         "attributes": {

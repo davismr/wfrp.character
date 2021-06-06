@@ -12,8 +12,8 @@ class DummyRoute:
 
 
 @pytest.mark.views
-def test_passing_view(session_db):
+def test_get_view(session_db):
     view = NewCharacterViews(testing.DummyRequest())
-    response = view.character_get_view()
+    response = view.get_view()
     assert response.status_code == 302
     assert "Location" in response.headers

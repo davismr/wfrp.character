@@ -14,7 +14,7 @@ class NewCharacterViews:
         self.request = request
 
     @view_config(request_method="GET")
-    def character_get_view(self):
+    def get_view(self):
         new_uuid = str(uuid.uuid4())
         new_character = Character(uuid=new_uuid)
         DBSession.add(new_character)

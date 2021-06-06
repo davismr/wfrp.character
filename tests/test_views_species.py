@@ -13,12 +13,12 @@ class DummyRoute:
 
 
 @pytest.mark.views
-def test_species_view(new_character):
+def test_get_view(new_character):
     request = testing.DummyRequest(path="species")
     request.matched_route = DummyRoute(name="species")
     request.matchdict = {"uuid": new_character.uuid}
     view = SpeciesViews(request)
-    response = view.new_species_view()
+    response = view.get_view()
     assert "species" in response
     assert "species_list" in response
     assert response["species"] not in response["species_list"]
@@ -29,26 +29,26 @@ def test_species_view(new_character):
     "species, experience",
     [("Human", 20), ("Halfling", 0)],
 )
-def test_submit_species_view(new_character, species, experience):
+def test_submit_view(new_character, species, experience):
     new_character.status = {"species": "Human"}
     request = testing.DummyRequest(post={"species": species})
     request.matched_route = DummyRoute(name="species")
     request.matchdict = {"uuid": new_character.uuid}
     view = SpeciesViews(request)
-    response = view.submit_species_view()
+    response = view.submit_view()
     assert isinstance(response, HTTPFound)
     assert new_character.species == species
     assert new_character.experience == experience
 
 
 @pytest.mark.views
-def test_submit_species_attributes_view(new_character):
+def test_submit_attributes_view(new_character):
     new_character.status = {"species": "Human"}
     request = testing.DummyRequest(post={"species": "Human"})
     request.matched_route = DummyRoute(name="species")
     request.matchdict = {"uuid": new_character.uuid}
     view = SpeciesViews(request)
-    response = view.submit_species_view()
+    response = view.submit_view()
     assert isinstance(response, HTTPFound)
     assert new_character.species == "Human"
     assert new_character.fate == 2

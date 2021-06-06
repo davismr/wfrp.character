@@ -64,7 +64,7 @@ class AttributesViews(BaseView):
     @view_config(
         request_method="GET", renderer=__name__ + ":../templates/attributes.pt"
     )
-    def new_view(self):
+    def get_view(self):
         if self.character.status["attributes"]:
             base_attributes = self.character.status["attributes"]
         else:

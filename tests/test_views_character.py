@@ -12,11 +12,11 @@ class DummyRoute:
 
 
 @pytest.mark.views
-def test_character_view(new_character):
+def test_get_view(new_character):
     new_character.status = {"character": ""}
     request = testing.DummyRequest()
     request.matched_route = DummyRoute(name="character")
     request.matchdict = {"uuid": new_character.uuid}
     view = CharacterViews(request)
-    response = view.character_get_view()
+    response = view.get_view()
     assert response
