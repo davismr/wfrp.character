@@ -1,7 +1,7 @@
 <div metal:use-macro="load: layout.pt">
     <div metal:fill-slot="content">
 
-        <h2>Species Skills</h2>
+        <h2>Species Skills and Talents</h2>
         <span tal:replace="structure form"/>
 
     </div>

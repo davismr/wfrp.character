@@ -23,10 +23,9 @@ def test_species_skills_view(new_character):
     request.matchdict = {"uuid": new_character.uuid}
     view = SpeciesSkillsViews(request)
     response = view.form_view()
-#    assert "species_skills" in response
-#    assert "Athletics" in response["species_skills"]
-#    assert "species_talents" in response
-#    assert "Rover" in response["species_talents"]
+    assert "Species Skills" in response["form"]
+    assert "Athletics" in response["form"]
+    assert "Rover" in response["form"]
 
 
 @pytest.mark.views
@@ -40,23 +39,36 @@ def test_random_talents(new_character, species, expected_talents):
     request.matchdict = {"uuid": new_character.uuid}
     view = SpeciesSkillsViews(request)
     response = view.form_view()
-#    assert len(response["species_talents"]) == expected_talents
-#    if species == "Human":
-#        assert "Savvy" not in response["species_talents"]
-#        assert "Suave" not in response["species_talents"]
-#        assert "Savvy or Suave" in response["species_talents"]
+    if species == "Human":
+        assert "Savvy" in response["form"]
+        assert "Suave" in response["form"]
+    else:
+        assert "Small" in response["form"]
 
 
 @pytest.mark.views
 def test_species_skills_submit(new_character):
     payload = {
-        "Climb": "on",
+        "Cool": "0",
+        "Entertain (Sing)": "0",
+        "Evaluate": "0",
+        "Language (Eltharin)": "0",
+        "Leadership": "0",
+        "Melee (Basic)": "0",
+        "Navigation": "0",
         "Perception": "5",
-        "Track": "3",
-        "Hardy or Second Sight": "Second Sight",
+        "Play (any one)": "5",
+        "Ranged (Bow)": "3",
+        "Sail": "3",
+        "Swim": "3",
+        "Acute Sense (Sight)": "Acute Sense (Sight)",
+        "Coolheaded or Savvy": "Coolheaded",
         "Night Vision": "Night Vision",
+        "Read/Write": "Read/Write",
+        "Second Sight or Sixth Sense": "Second Sight",
+        "Choose_Skills": "Choose_Skills",
     }
-    new_character.species = "Wood Elf"
+    new_character.species = "High Elf"
     new_character.career = "Apothecary"
     new_character.status = {"species_skills": ""}
     request = testing.DummyRequest(post=payload)
@@ -65,9 +77,9 @@ def test_species_skills_submit(new_character):
     view = SpeciesSkillsViews(request)
     response = view.form_view()
     assert isinstance(response, HTTPFound)
-    assert "Climb" not in new_character.skills
+    assert "Cool" not in new_character.skills
     assert new_character.skills["Perception"] == 5
-    assert new_character.skills["Track"] == 3
+    assert new_character.skills["Swim"] == 3
     assert "Second Sight" in new_character.talents
     assert "Night Vision" in new_character.talents
 
@@ -107,12 +119,26 @@ def test_career_skills_submit(new_character):
 @pytest.mark.views
 def test_skills_add_submit(new_character):
     payload = {
+        "Cool": "0",
+        "Entertain (Sing)": "0",
+        "Evaluate": "0",
+        "Language (Eltharin)": "0",
+        "Leadership": "0",
+        "Melee (Basic)": "0",
+        "Navigation": "0",
         "Perception": "5",
-        "Track": "3",
-        "Hardy or Second Sight": "Second Sight",
+        "Play (any one)": "5",
+        "Ranged (Bow)": "3",
+        "Sail": "3",
+        "Swim": "3",
+        "Acute Sense (Sight)": "Acute Sense (Sight)",
+        "Coolheaded or Savvy": "Coolheaded",
         "Night Vision": "Night Vision",
+        "Read/Write": "Read/Write",
+        "Second Sight or Sixth Sense": "Second Sight",
+        "Choose_Skills": "Choose_Skills",
     }
-    new_character.species = "Wood Elf"
+    new_character.species = "High Elf"
     new_character.career = "Apothecary"
     new_character.status = {"species_skills": ""}
     request = testing.DummyRequest(post=payload)
@@ -122,12 +148,19 @@ def test_skills_add_submit(new_character):
     response = view.form_view()
     assert isinstance(response, HTTPFound)
     assert new_character.status == {"career_skills": ""}
-    payload = {"Track": "6", "Perception": "5", "career_talents": "Concoct"}
+    payload = {"Swim": "6", "Perception": "5", "career_talents": "Concoct"}
     request = testing.DummyRequest(post=payload)
     request.matched_route = DummyRoute(name="career_skills")
     request.matchdict = {"uuid": new_character.uuid}
     view = CareerSkillsViews(request)
     response = view.submit_view()
-    assert new_character.talents == ["Second Sight", "Night Vision", "Concoct"]
-    assert new_character.skills["Track"] == 9
+    assert new_character.talents == [
+        "Acute Sense (Sight)",
+        "Coolheaded",
+        "Night Vision",
+        "Second Sight",
+        "Read/Write",
+        "Concoct",
+    ]
+    assert new_character.skills["Swim"] == 9
     assert new_character.skills["Perception"] == 10

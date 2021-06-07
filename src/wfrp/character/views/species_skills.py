@@ -12,12 +12,11 @@ from wfrp.character.views.base_view import BaseView
 
 @view_defaults(route_name="species_skills")
 class SpeciesSkillsViews(BaseView):
-
     @view_config(renderer=__name__ + ":../templates/species_skills.pt")
     def form_view(self):
         species = self.character.species
         species_skills = SPECIES_DATA[species]["skills"]
-        species_talents = SPECIES_DATA[species]["talents"]
+        species_talents = SPECIES_DATA[species]["talents"].copy()
         if species in ["Human", "Halfling"]:
             if self.character.status["species_skills"]:
                 extra_talents = self.character.status["species_skills"]
@@ -36,26 +35,39 @@ class SpeciesSkillsViews(BaseView):
                         break
                 self.character.status = {"species_skills": extra_talents}
             species_talents.extend(extra_talents)
-        species_skills = [(x, x) for x in species_skills]
-        species_talents = [(x, x) for x in species_talents]
 
-        class Schema(colander.Schema):
-            skills_field = colander.SchemaNode(
-                colander.String(),
-#                default=species,
-#                validator=colander.OneOf([x[0] for x in species_list]),
-                widget=deform.widget.CheckboxWidget(values=species_skills),
-                description=f"Select skills",
-            )
-            talents_field = colander.SchemaNode(
-                colander.String(),
-#                default=species,
-                validator=colander.OneOf([x[0] for x in species_talents]),
-                widget=deform.widget.RadioChoiceWidget(values=species_talents),
-                description=f"Select talent",
+        schema = colander.SchemaNode(
+            colander.Mapping(), title="Species Skills and Talents"
+        )
+        skill_choices = ((5, "5 Advances"), (3, "3 Advances"), (0, "No Advances"))
+        for skill in species_skills:
+            schema.add(
+                colander.SchemaNode(
+                    colander.Int(),
+                    validator=colander.OneOf([x[0] for x in skill_choices]),
+                    widget=deform.widget.RadioChoiceWidget(
+                        values=skill_choices, inline=True
+                    ),
+                    default=0,
+                    name=skill,
+                )
             )
 
-        schema = Schema()
+        for talent in species_talents:
+            talent_choices = []
+            for talent_choice in talent.split(" or "):
+                talent_choices.append((talent_choice, talent_choice))
+            schema.add(
+                colander.SchemaNode(
+                    colander.String(),
+                    validator=colander.OneOf([x[0] for x in talent_choices]),
+                    widget=deform.widget.RadioChoiceWidget(
+                        values=talent_choices, inline=True
+                    ),
+                    default=talent,
+                    name=talent,
+                )
+            )
         form = deform.Form(schema, buttons=("Choose Skills",))
 
         if "Choose_Skills" in self.request.POST:
@@ -67,7 +79,7 @@ class SpeciesSkillsViews(BaseView):
 
                 for item in captured:
                     value = captured.get(item)
-                    if value == "on":
+                    if value == 0:
                         continue
                     try:
                         value = int(value)
@@ -75,7 +87,6 @@ class SpeciesSkillsViews(BaseView):
                         self.character.talents.append(value)
                     else:
                         self.character.skills[item] = value
-                    pass
                 url = self.request.route_url("career_skills", uuid=self.character.uuid)
                 self.character.status = {"career_skills": ""}
                 return HTTPFound(location=url)
