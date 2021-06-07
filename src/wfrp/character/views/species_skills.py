@@ -39,9 +39,17 @@ class SpeciesSkillsViews(BaseView):
         schema = colander.SchemaNode(
             colander.Mapping(), title="Species Skills and Talents"
         )
+        skill_schema = colander.SchemaNode(
+            colander.Mapping(),
+            title="Species Skills",
+            description=(
+                "You may choose 3 Skills to gain 5 Advances each, and 3 Skills to gain "
+                "3 Advances each."
+            ),
+        )
         skill_choices = ((5, "5 Advances"), (3, "3 Advances"), (0, "No Advances"))
         for skill in species_skills:
-            schema.add(
+            skill_schema.add(
                 colander.SchemaNode(
                     colander.Int(),
                     validator=colander.OneOf([x[0] for x in skill_choices]),
@@ -53,21 +61,31 @@ class SpeciesSkillsViews(BaseView):
                 )
             )
 
+        talent_schema = colander.SchemaNode(
+            colander.Mapping(),
+            title="Species Talents",
+            description=(
+                "If a Talent listing presents a choice, you select one Talent from "
+                "the choices given."
+            ),
+        )
         for talent in species_talents:
             talent_choices = []
             for talent_choice in talent.split(" or "):
                 talent_choices.append((talent_choice, talent_choice))
-            schema.add(
+            talent_schema.add(
                 colander.SchemaNode(
                     colander.String(),
                     validator=colander.OneOf([x[0] for x in talent_choices]),
                     widget=deform.widget.RadioChoiceWidget(
                         values=talent_choices, inline=True
                     ),
-                    default=talent,
+                    default=talent_choices[0][0],
                     name=talent,
                 )
             )
+        schema.add(skill_schema)
+        schema.add(talent_schema)
         form = deform.Form(schema, buttons=("Choose Skills",))
 
         if "Choose_Skills" in self.request.POST:

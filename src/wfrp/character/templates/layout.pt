@@ -11,6 +11,10 @@
               tal:repeat="css_link css_links"
               rel="stylesheet" type="text/css"
               href="${request.static_url(css_link)}"/>
+        <link rel="stylesheet" type="text/css"
+              href="${request.static_url('deform:static/css/bootstrap.min.css')}"/>
+        <link rel="stylesheet" type="text/css"
+              href="${request.static_url('deform:static/css/form.css')}"/>
     </head>
     <body>
         <div><a href="/">Homepage</a></div>
