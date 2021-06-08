@@ -12,6 +12,7 @@ with open(os.path.join(here, "docs", "HISTORY.md")) as infile:
     CHANGES = infile.read()
 
 requires = [
+    "deform",
     "pyramid",
     "pyramid_chameleon",
     "pyramid_debugtoolbar",
