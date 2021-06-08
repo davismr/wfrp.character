@@ -12,10 +12,24 @@ from wfrp.character.views.base_view import BaseView
 
 @view_defaults(route_name="species_skills")
 class SpeciesSkillsViews(BaseView):
+    def validate_advances(self, form, value):
+        errors = []
+        list_values = list(value.values())
+        if list_values.count(3) > 3:
+            errors.append("You can only select 3 skills for 3 advances")
+        elif list_values.count(3) < 3:
+            errors.append("You must select 3 skills for 3 advances")
+        if list_values.count(5) > 3:
+            errors.append("You can only select 3 skills for 5 advances")
+        elif list_values.count(5) < 3:
+            errors.append("You must select 3 skills for 5 advances")
+        if errors:
+            raise colander.Invalid(form, ". ".join(errors))
+
     @view_config(renderer=__name__ + ":../templates/species_skills.pt")
     def form_view(self):
         species = self.character.species
-        species_skills = SPECIES_DATA[species]["skills"]
+        species_skills = SPECIES_DATA[species]["skills"].copy()
         species_talents = SPECIES_DATA[species]["talents"].copy()
         if species in ["Human", "Halfling"]:
             if self.character.status["species_skills"]:
@@ -46,6 +60,8 @@ class SpeciesSkillsViews(BaseView):
                 "You may choose 3 Skills to gain 5 Advances each, and 3 Skills to gain "
                 "3 Advances each."
             ),
+            validator=self.validate_advances,
+            name="species_skills",
         )
         skill_choices = ((5, "5 Advances"), (3, "3 Advances"), (0, "No Advances"))
         for skill in species_skills:
@@ -68,6 +84,7 @@ class SpeciesSkillsViews(BaseView):
                 "If a Talent listing presents a choice, you select one Talent from "
                 "the choices given."
             ),
+            name="species_talents",
         )
         for talent in species_talents:
             talent_choices = []
@@ -94,17 +111,14 @@ class SpeciesSkillsViews(BaseView):
             except deform.ValidationFailure as error:
                 html = error.render()
             else:
-
-                for item in captured:
-                    value = captured.get(item)
+                for item in captured["species_skills"]:
+                    value = captured["species_skills"].get(item)
                     if value == 0:
                         continue
-                    try:
-                        value = int(value)
-                    except ValueError:
-                        self.character.talents.append(value)
-                    else:
-                        self.character.skills[item] = value
+                    self.character.skills[item] = value
+                for item in captured["species_talents"]:
+                    value = captured["species_talents"].get(item)
+                    self.character.talents.append(value)
                 url = self.request.route_url("career_skills", uuid=self.character.uuid)
                 self.character.status = {"career_skills": ""}
                 return HTTPFound(location=url)
