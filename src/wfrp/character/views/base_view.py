@@ -15,3 +15,8 @@ class BaseView:
     def redirect_request(self, route):
         url = self.request.route_url(route, uuid=self.character.uuid)
         raise HTTPFound(location=url)
+
+    def get_widget_resources(self, form):
+        static_assets = form.get_widget_resources()
+        static_assets["css"].append("deform:static/css/form.css")
+        return static_assets

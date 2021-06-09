@@ -132,7 +132,7 @@ class SpeciesSkillsViews(BaseView):
         else:
             html = form.render()
 
-        static_assets = form.get_widget_resources()
+        static_assets = self.get_widget_resources(form)
         return {
             "form": html,
             "css_links": static_assets["css"],
