@@ -1,29 +1,8 @@
 <div metal:use-macro="load: layout.pt">
     <div metal:fill-slot="content">
 
-        <h2>Career Skills</h2>
-        <form method="POST">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Career Skills</th>
-                        <th>&nbsp;</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr tal:repeat="skill career_skills">
-                        <td tal:content="skill" />
-                        <td><input name="${skill}" /></td>
-                    </tr>
-                    <tr tal:repeat="talent career_talents">
-                        <td tal:content="talent" />
-                        <td><input type="radio" name="career_talents" value="${talent}"/></td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <input type="submit" value="Select Skills" />
-        </form>
+        <h2>Career Skills and Talents</h2>
+        <span tal:replace="structure form"/>
 
     </div>
 </div>

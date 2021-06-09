@@ -96,7 +96,7 @@ def test_career_skills_view(new_character):
     request.matched_route = DummyRoute(name="career_skills")
     request.matchdict = {"uuid": new_character.uuid}
     view = CareerSkillsViews(request)
-    response = view.get_view()
+    response = view.initialise_form()
     assert "career_skills" in response
     assert "Heal" in response["career_skills"]
     assert "career_talents" in response
@@ -105,15 +105,28 @@ def test_career_skills_view(new_character):
 
 @pytest.mark.views
 def test_career_skills_submit(new_character):
-    payload = {"Heal": "6", "Lore (Plants)": "5", "career_talents": "Concoct"}
-    new_character.species = "Wood Elf"
+    payload = {
+        "career_skills": {
+            "Consume Alcohol": "6",
+            "Heal": "6",
+            "Language (Classical)": "6",
+            "Lore (Chemistry)": "6",
+            "Lore (Medicine)": "6",
+            "Lore (Plants)": "5",
+            "Trade (Apothecary)": "6",
+            "Trade (Poisoner)": "6",
+        },
+        "career_talents": {"career_talent": "Concoct"},
+        "Choose_Skills": "Choose_Skills",
+    }
+    new_character.species = "High Elf"
     new_character.career = "Apothecary"
     new_character.status = {"career_skills": ""}
     request = testing.DummyRequest(post=payload)
     request.matched_route = DummyRoute(name="career_skills")
     request.matchdict = {"uuid": new_character.uuid}
     view = CareerSkillsViews(request)
-    response = view.submit_view()
+    response = view.form_view()
     assert isinstance(response, HTTPFound)
     assert new_character.talents == ["Concoct"]
     assert new_character.skills["Heal"] == 6
@@ -156,12 +169,25 @@ def test_skills_add_submit(new_character):
     response = view.form_view()
     assert isinstance(response, HTTPFound)
     assert new_character.status == {"career_skills": ""}
-    payload = {"Swim": "6", "Perception": "5", "career_talents": "Concoct"}
+    payload = {
+        "career_skills": {
+            "Consume Alcohol": "6",
+            "Heal": "6",
+            "Language (Classical)": "6",
+            "Lore (Chemistry)": "6",
+            "Lore (Medicine)": "6",
+            "Lore (Plants)": "6",
+            "Trade (Apothecary)": "6",
+            "Trade (Poisoner)": "6",
+        },
+        "career_talents": {"career_talent": "Concoct"},
+        "Choose_Skills": "Choose_Skills",
+    }
     request = testing.DummyRequest(post=payload)
     request.matched_route = DummyRoute(name="career_skills")
     request.matchdict = {"uuid": new_character.uuid}
     view = CareerSkillsViews(request)
-    response = view.submit_view()
+    response = view.form_view()
     assert new_character.talents == [
         "Acute Sense (Sight)",
         "Coolheaded",
@@ -170,5 +196,5 @@ def test_skills_add_submit(new_character):
         "Read/Write",
         "Concoct",
     ]
-    assert new_character.skills["Swim"] == 9
-    assert new_character.skills["Perception"] == 10
+    assert new_character.skills["Swim"] == 3
+    assert new_character.skills["Perception"] == 5
