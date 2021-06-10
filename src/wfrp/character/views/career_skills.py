@@ -28,7 +28,7 @@ class CareerSkillsViews(BaseView):
                 "Allocate 40 Advances to your eight starting Skills, with no more than "
                 "10 Advances allocated to any single Skill at this stage."
             ),
-            validator=None,
+            validator=self.validate,
             name="career_skills",
         )
         skill_choices = [
@@ -78,6 +78,20 @@ class CareerSkillsViews(BaseView):
         schema.add(skill_schema)
         schema.add(talent_schema)
         return schema
+
+    def validate(self, form, values):
+        total = 0
+        for item in values:
+            total += values[item]
+        if total > 40:
+            raise colander.Invalid(
+                form, f"You can only allocate 40 advances, you have allocated {total}"
+            )
+        elif total < 40:
+            raise colander.Invalid(
+                form,
+                f"You must allocate all 40 advances, you have only allocated {total}",
+            )
 
     @view_config(renderer=__name__ + ":../templates/career_skills.pt")
     def form_view(self):

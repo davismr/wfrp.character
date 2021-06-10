@@ -12,7 +12,33 @@ from wfrp.character.views.base_view import BaseView
 
 @view_defaults(route_name="species_skills")
 class SpeciesSkillsViews(BaseView):
-    def species_skills_schema(self, species_skills, species_talents):
+    def initialise_form(self):
+        species = self.character.species
+        species_skills = SPECIES_DATA[species]["skills"].copy()
+        species_talents = SPECIES_DATA[species]["talents"].copy()
+        if species in ["Human", "Halfling"]:
+            if self.character.status["species_skills"]:
+                extra_talents = self.character.status["species_skills"]
+            else:
+                extra_talents = []
+                while True:
+                    extra_talent = get_random_talent(roll_d100())
+                    if extra_talent in extra_talents:
+                        continue
+                    if extra_talent in ["Savvy", "Suave"] and species == "Human":
+                        continue
+                    extra_talents.append(extra_talent)
+                    if len(extra_talents) == 2 and species == "Halfling":
+                        break
+                    if len(extra_talents) == 3 and species == "Human":
+                        break
+                self.character.status = {"species_skills": extra_talents}
+            species_talents.extend(extra_talents)
+        return {"species_skills": species_skills, "species_talents": species_talents}
+
+    def schema(self, data):
+        species_skills = data["species_skills"]
+        species_talents = data["species_talents"]
         schema = colander.SchemaNode(
             colander.Mapping(), title="Species Skills and Talents"
         )
@@ -23,7 +49,7 @@ class SpeciesSkillsViews(BaseView):
                 "You may choose 3 Skills to gain 5 Advances each, and 3 Skills to gain "
                 "3 Advances each."
             ),
-            validator=self.validate_advances,
+            validator=self.validate,
             name="species_skills",
         )
         skill_choices = ((5, "5 Advances"), (3, "3 Advances"), (0, "No Advances"))
@@ -68,7 +94,7 @@ class SpeciesSkillsViews(BaseView):
         schema.add(talent_schema)
         return schema
 
-    def validate_advances(self, form, value):
+    def validate(self, form, value):
         errors = []
         list_values = list(value.values())
         if list_values.count(3) > 3:
@@ -82,34 +108,10 @@ class SpeciesSkillsViews(BaseView):
         if errors:
             raise colander.Invalid(form, ". ".join(errors))
 
-    def get_skills_talents(self):
-        species = self.character.species
-        species_skills = SPECIES_DATA[species]["skills"].copy()
-        species_talents = SPECIES_DATA[species]["talents"].copy()
-        if species in ["Human", "Halfling"]:
-            if self.character.status["species_skills"]:
-                extra_talents = self.character.status["species_skills"]
-            else:
-                extra_talents = []
-                while True:
-                    extra_talent = get_random_talent(roll_d100())
-                    if extra_talent in extra_talents:
-                        continue
-                    if extra_talent in ["Savvy", "Suave"] and species == "Human":
-                        continue
-                    extra_talents.append(extra_talent)
-                    if len(extra_talents) == 2 and species == "Halfling":
-                        break
-                    if len(extra_talents) == 3 and species == "Human":
-                        break
-                self.character.status = {"species_skills": extra_talents}
-            species_talents.extend(extra_talents)
-        return species_skills, species_talents
-
     @view_config(renderer=__name__ + ":../templates/species_skills.pt")
     def form_view(self):
-        species_skills, species_talents = self.get_skills_talents()
-        schema = self.species_skills_schema(species_skills, species_talents)
+        data = self.initialise_form()
+        schema = self.schema(data)
         form = deform.Form(schema, buttons=("Choose Skills",))
 
         if "Choose_Skills" in self.request.POST:

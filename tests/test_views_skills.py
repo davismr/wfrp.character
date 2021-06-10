@@ -107,14 +107,14 @@ def test_career_skills_view(new_character):
 def test_career_skills_submit(new_character):
     payload = {
         "career_skills": {
-            "Consume Alcohol": "6",
+            "Consume Alcohol": "5",
             "Heal": "6",
-            "Language (Classical)": "6",
+            "Language (Classical)": "5",
             "Lore (Chemistry)": "6",
             "Lore (Medicine)": "6",
             "Lore (Plants)": "5",
-            "Trade (Apothecary)": "6",
-            "Trade (Poisoner)": "6",
+            "Trade (Apothecary)": "7",
+            "Trade (Poisoner)": "0",
         },
         "career_talents": {"career_talent": "Concoct"},
         "Choose_Skills": "Choose_Skills",
@@ -128,9 +128,35 @@ def test_career_skills_submit(new_character):
     view = CareerSkillsViews(request)
     response = view.form_view()
     assert isinstance(response, HTTPFound)
-    assert new_character.talents == ["Concoct"]
-    assert new_character.skills["Heal"] == 6
-    assert new_character.skills["Lore (Plants)"] == 5
+
+
+@pytest.mark.views
+def test_validation_error(new_character):
+    payload = {
+        "career_skills": {
+            "Consume Alcohol": "4",
+            "Heal": "6",
+            "Language (Classical)": "5",
+            "Lore (Chemistry)": "6",
+            "Lore (Medicine)": "6",
+            "Lore (Plants)": "5",
+            "Trade (Apothecary)": "7",
+            "Trade (Poisoner)": "0",
+        },
+        "career_talents": {"career_talent": "Concoct"},
+        "Choose_Skills": "Choose_Skills",
+    }
+    new_character.species = "High Elf"
+    new_character.career = "Apothecary"
+    new_character.status = {"career_skills": ""}
+    request = testing.DummyRequest(post=payload)
+    request.matched_route = DummyRoute(name="career_skills")
+    request.matchdict = {"uuid": new_character.uuid}
+    view = CareerSkillsViews(request)
+    response = view.form_view()
+    assert "form" in response
+    assert "There was a problem with your submission" in response["form"]
+    assert "you have only allocated 39" in response["form"]
 
 
 @pytest.mark.views
@@ -171,14 +197,14 @@ def test_skills_add_submit(new_character):
     assert new_character.status == {"career_skills": ""}
     payload = {
         "career_skills": {
-            "Consume Alcohol": "6",
-            "Heal": "6",
-            "Language (Classical)": "6",
-            "Lore (Chemistry)": "6",
+            "Consume Alcohol": "5",
+            "Heal": "5",
+            "Language (Classical)": "10",
+            "Lore (Chemistry)": "0",
             "Lore (Medicine)": "6",
             "Lore (Plants)": "6",
             "Trade (Apothecary)": "6",
-            "Trade (Poisoner)": "6",
+            "Trade (Poisoner)": "2",
         },
         "career_talents": {"career_talent": "Concoct"},
         "Choose_Skills": "Choose_Skills",
