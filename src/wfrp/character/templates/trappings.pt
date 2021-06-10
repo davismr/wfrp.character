@@ -2,40 +2,7 @@
     <div metal:fill-slot="content">
 
         <h2>Trappings</h2>
-        <form method="POST">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Trappings</th>
-                        <th>&nbsp;</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td colspan="2"><b>Class Trappings</b></td>
-                    </tr>
-                    <tr tal:repeat="item class_trappings">
-                        <td>${item}</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td colspan="2"><b>Career Trappings</b></td>
-                    </tr>
-                    <tr tal:repeat="item career_trappings">
-                        <td>${item}</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td colspan="2"><b>Money</b></td>
-                    </tr>
-                    <tr tal:repeat="item money">
-                        <td>${money[item]} ${item}</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                </tbody>
-            </table>
-            <input type="submit" value="Accept Trappings" />
-        </form>
+        <span tal:replace="structure form"/>
 
     </div>
 </div>

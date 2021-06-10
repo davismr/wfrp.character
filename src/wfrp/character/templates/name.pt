@@ -2,10 +2,7 @@
     <div metal:fill-slot="content">
 
         <h2>Character Name</h2>
-        <form method="POST">
-            <input name="character_name" />
-            <input type="submit" value="Select Name" />
-        </form>
+        <span tal:replace="structure form"/>
 
     </div>
 </div>

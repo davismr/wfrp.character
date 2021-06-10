@@ -14,14 +14,14 @@ class DummyRoute:
 
 
 @pytest.mark.views
-def test_get_view(new_character):
+def test_initialise_form(new_character):
     new_character.species = "Wood Elf"
     new_character.status = {"details": ""}
     request = testing.DummyRequest()
     request.matched_route = DummyRoute(name="details")
     request.matchdict = {"uuid": new_character.uuid}
     view = DetailsViews(request)
-    response = view.get_view()
+    response = view.initialise_form()
     assert "age" in response
     assert "height" in response
     assert "hair_colour" in response

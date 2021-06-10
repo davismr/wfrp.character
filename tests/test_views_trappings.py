@@ -21,7 +21,20 @@ def test_get_view(new_character):
     request.matched_route = DummyRoute(name="trappings")
     request.matchdict = {"uuid": new_character.uuid}
     view = TrappingsViews(request)
-    response = view.get_view()
+    response = view.form_view()
+    assert "form" in response
+
+
+@pytest.mark.views
+def test_initalise_form(new_character):
+    new_character.species = "Wood Elf"
+    new_character.career = "Apothecary"
+    new_character.status = {"trappings": ""}
+    request = testing.DummyRequest()
+    request.matched_route = DummyRoute(name="trappings")
+    request.matchdict = {"uuid": new_character.uuid}
+    view = TrappingsViews(request)
+    response = view.initialise_form()
     assert "class_trappings" in response
     assert "Writing Kit" in response["class_trappings"]
     assert "career_trappings" in response
@@ -46,14 +59,12 @@ def test_money(new_character):
 def test_submit_view(new_character):
     new_character.career = "Apothecary"
     new_character.status = {"trappings": ""}
-    payload = {}
+    payload = {"Choose_trappings": "Choose_trappings"}
     request = testing.DummyRequest(post=payload)
     request.matched_route = DummyRoute(name="trappings")
     request.matchdict = {"uuid": new_character.uuid}
     view = TrappingsViews(request)
-    # need to call get view to put the values into the status
-    response = view.get_view()
-    response = view.submit_view()
+    response = view.form_view()
     assert isinstance(response, HTTPFound)
     assert "brass pennies" in new_character.wealth
     assert isinstance(new_character.wealth["brass pennies"], int)
@@ -70,7 +81,7 @@ def test_randomise_trappings(new_character, second_character):
     request.matched_route = DummyRoute(name="trappings")
     request.matchdict = {"uuid": new_character.uuid}
     view = TrappingsViews(request)
-    response = view.get_view()
+    response = view.form_view()
     class_trappings = response["class_trappings"]
     second_character.species = "Wood Elf"
     second_character.career = "Apothecary"
@@ -79,7 +90,7 @@ def test_randomise_trappings(new_character, second_character):
     request.matched_route = DummyRoute(name="trappings")
     request.matchdict = {"uuid": new_character.uuid}
     view = TrappingsViews(request)
-    response = view.get_view()
+    response = view.form_view()
     second_class_trappings = response["class_trappings"]
     # these should be different in 90% of cases
     assert class_trappings != second_class_trappings
