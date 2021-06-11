@@ -1,3 +1,5 @@
+import colander
+import deform
 from pyramid.httpexceptions import HTTPFound
 from pyramid.view import view_config
 from pyramid.view import view_defaults
@@ -10,22 +12,19 @@ from wfrp.character.views.base_view import BaseView
 
 @view_defaults(route_name="career")
 class CareerViews(BaseView):
-    @view_config(request_method="GET", renderer=__name__ + ":../templates/career.pt")
-    def new_career_view(self):
+    def initialise_form(self):
         if self.character.status["career"]:
             career = self.character.status["career"]
         else:
             career = get_career(self.character.species, roll_d100())
             self.character.status = {"career": career}
         career_list = list_careers(self.character.species)
-        career_list.remove(career)
-        return {"career_choice": [career], "career_list": career_list}
+        career_choice = []
+        for item in career.split(","):
+            career_list.remove(item)
+            career_choice.append(item)
+        return {"career_choice": career_choice, "career_list": career_list}
 
-    @view_config(
-        request_method="POST",
-        request_param="form.reroll",
-        renderer=__name__ + ":../templates/career.pt",
-    )
     def reroll_career_view(self):
         career_choice = self.character.status["career"].split(",")
         while len(career_choice) < 3:
@@ -33,21 +32,118 @@ class CareerViews(BaseView):
             if career not in career_choice:
                 career_choice.append(career)
         self.character.status = {"career": ",".join(career_choice)}
-        career_list = list_careers(self.character.species)
-        for career in career_choice:
-            career_list.remove(career)
-        return {"career_choice": career_choice, "career_list": career_list}
 
-    @view_config(request_method="POST", renderer=__name__ + ":../templates/career.pt")
-    def submit_career_view(self):
-        career = self.request.POST.get("career")
-        career_choice = self.character.status["career"].split(",")
-        if career in career_choice:
-            if len(career_choice) == 1:
-                self.character.experience += 50
+    def schema(self, data):
+        schema = colander.SchemaNode(
+            colander.Mapping(),
+            title="Career Skills and Talents",
+            validator=self.validate,
+        )
+        career_choices = []
+        for item in data["career_choice"]:
+            career_choices.append((item, item))
+        if len(career_choices) == 1:
+            description = (
+                f"Accept {career_choices[0][0]} for 50XP, or reroll for 3 choices and "
+                "25XP."
+            )
+        elif len(career_choices) == 3:
+            description = (
+                f"Accept {career_choices[0][0]}, {career_choices[1][0]} or "
+                f"{career_choices[2][0]} for 25XP."
+            )
+        else:
+            raise NotImplementedError("Incorrect number of career choices")
+        career_choices.append(("", "Select a career below"))
+        random_career_schema = colander.SchemaNode(
+            colander.Mapping(),
+            title="Career",
+            description=description,
+            name="random_career",
+        )
+        random_career_schema.add(
+            colander.SchemaNode(
+                colander.String(),
+                validator=colander.OneOf([x[0] for x in career_choices]),
+                widget=deform.widget.RadioChoiceWidget(values=career_choices),
+                missing="",
+            )
+        )
+        career_schema = colander.SchemaNode(
+            colander.Mapping(),
+            title="Career",
+            name="career",
+        )
+        career_choices = [("", "Select a random career above")]
+        for item in data["career_list"]:
+            career_choices.append((item, item))
+        career_schema.add(
+            colander.SchemaNode(
+                colander.String(),
+                description="Choose a different career for no extra XP.",
+                validator=colander.OneOf([x[0] for x in career_choices]),
+                widget=deform.widget.RadioChoiceWidget(values=career_choices),
+                missing="",
+            )
+        )
+        schema.add(random_career_schema)
+        schema.add(career_schema)
+        return schema
+
+    def validate(self, form, values):
+        selected = []
+        for item in values.keys():
+            for value in values[item].keys():
+                if values[item][value]:
+                    selected.append(values[item][value])
+        if len(selected) > 1:
+            raise colander.Invalid(form, "You can only select a single career")
+        elif not selected:
+            raise colander.Invalid(form, "You have to select a career")
+        if selected[0] not in list_careers(self.character.species):
+            raise colander.Invalid(
+                form, f"{selected[0]} is not available for {self.character.species}"
+            )
+
+    @view_config(renderer=__name__ + ":../templates/career.pt")
+    def form_view(self):
+        if "Reroll" in self.request.POST:
+            self.reroll_career_view()
+        data = self.initialise_form()
+        schema = self.schema(data)
+        form = deform.Form(
+            schema,
+            buttons=(
+                "Choose Career",
+                "Reroll",
+            ),
+        )
+
+        if "Choose_Career" in self.request.POST:
+            try:
+                captured = form.validate(self.request.POST.items())
+            except deform.ValidationFailure as error:
+                html = error.render()
             else:
-                self.character.experience += 25
-        self.character.career = career
-        url = self.request.route_url("attributes", uuid=self.character.uuid)
-        self.character.status = {"attributes": ""}
-        return HTTPFound(location=url)
+                career = captured.get("random_career").get("") or captured.get(
+                    "career"
+                ).get("")
+                career_choice = self.character.status["career"].split(",")
+                if career in career_choice:
+                    if len(career_choice) == 1:
+                        self.character.experience += 50
+                    else:
+                        self.character.experience += 25
+                self.character.career = career
+                url = self.request.route_url("attributes", uuid=self.character.uuid)
+                self.character.status = {"attributes": ""}
+                return HTTPFound(location=url)
+        else:
+            html = form.render()
+
+        static_assets = self.get_widget_resources(form)
+        return {
+            "form": html,
+            "css_links": static_assets["css"],
+            "js_links": static_assets["js"],
+        }

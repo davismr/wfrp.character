@@ -2,44 +2,7 @@
     <div metal:fill-slot="content">
 
         <h2>Character Career</h2>
-        <form method="POST">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Career</th>
-                        <th>&nbsp;</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr tal:repeat="career career_choice">
-                        <td tal:content="career" />
-                        <td><input type="radio" name="career" checked="checked"
-                                tal:attributes="value career" /></td>
-                    </tr>
-                    <tr>
-                        <td tal:condition="len(career_choice) == 1">
-                            <input type="submit" value="Accept ${career_choice[0]}" />
-                        </td>
-                        <td tal:condition="len(career_choice) != 1">
-                            <input type="submit" value="Accept Career" />
-                        </td>
-                        <td><input tal:condition="len(career_choice) == 1"
-                            type="submit" name="form.reroll" value="Reroll" /></td>
-                    </tr>
-                    <tr tal:condition="len(career_choice) == 1">
-                        <td colspan="2">Accept random result and gain 50XP or reroll.</td>
-                    </tr>
-                    <tr tal:condition="len(career_choice) != 1">
-                        <td colspan="2">Accept one of the random results and gain 25XP or choose a career.</td>
-                    </tr>
-                    <tr tal:repeat="item career_list">
-                        <td tal:content="item" />
-                        <td><input type="radio" name="career" value="${item}" /></td>
-                    </tr>
-                </tbody>
-            </table>
-            <input type="submit" value="Select Career" />
-        </form>
+        <span tal:replace="structure form"/>
 
     </div>
 </div>

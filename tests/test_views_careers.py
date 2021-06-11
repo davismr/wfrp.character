@@ -20,7 +20,7 @@ def test_get_view(new_character):
     request.matched_route = DummyRoute(name="career")
     request.matchdict = {"uuid": new_character.uuid}
     view = CareerViews(request)
-    response = view.new_career_view()
+    response = view.initialise_form()
     assert "career_choice" in response
     assert len(response["career_choice"]) == 1
     assert "career_list" in response
@@ -36,28 +36,40 @@ def test_reroll_view(new_character):
     request.matchdict = {"uuid": new_character.uuid}
     view = CareerViews(request)
     response = view.reroll_career_view()
-    assert "career_choice" in response
-    assert "Soldier" in response["career_choice"]
-    assert len(response["career_choice"]) == 3
-    assert "career_list" in response
-    assert "Soldier" not in response["career_list"]
+    assert response is None
+    choices = new_character.status["career"].split(",")
+    assert len(choices) == 3
+    assert "Soldier" in choices
 
 
-@pytest.mark.views
+@pytest.mark.current
 @pytest.mark.parametrize(
     "career_choice, experience",
-    [("Soldier", 50), ("Soldier, Seaman, Bawd", 25), ("Bawd", 0)],
+    [("Soldier", 50), ("Soldier,Seaman,Bawd", 25), ("Bawd", 0)],
 )
 def test_submit_experience(new_character, career_choice, experience):
     new_character.species = "Human"
     new_character.status = {"career": career_choice}
-    request = testing.DummyRequest(
-        post={"career_choice": career_choice, "career": "Soldier"}
-    )
+    if career_choice == "Bawd":
+        request = testing.DummyRequest(
+            post={
+                "random_career": {"": ""},
+                "career": {"": "Soldier"},
+                "Choose_Career": "Choose_Career",
+            }
+        )
+    else:
+        request = testing.DummyRequest(
+            post={
+                "random_career": {"": "Soldier"},
+                "career": {"": ""},
+                "Choose_Career": "Choose_Career",
+            }
+        )
     request.matched_route = DummyRoute(name="career")
     request.matchdict = {"uuid": new_character.uuid}
     view = CareerViews(request)
     assert new_character.experience == 0
-    response = view.submit_career_view()
+    response = view.form_view()
     assert isinstance(response, HTTPFound)
     assert new_character.experience == experience
