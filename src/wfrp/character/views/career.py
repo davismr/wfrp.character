@@ -111,12 +111,14 @@ class CareerViews(BaseView):
             self.reroll_career_view()
         data = self.initialise_form()
         schema = self.schema(data)
+        form_buttons = [
+            "Choose Career",
+        ]
+        if len(data["career_choice"]) == 1:
+            form_buttons.append("Reroll")
         form = deform.Form(
             schema,
-            buttons=(
-                "Choose Career",
-                "Reroll",
-            ),
+            buttons=form_buttons,
         )
 
         if "Choose_Career" in self.request.POST:
