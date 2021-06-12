@@ -1,3 +1,39 @@
+def list_careers(species=None):
+    if species is None:
+        return list(CAREER_DATA.keys())
+    if species == "Human":
+        return list(HUMAN_CAREERS.values())
+    elif species == "Halfling":
+        return list(HALFLING_CAREERS.values())
+    elif species == "Dwarf":
+        return list(DWARF_CAREERS.values())
+    elif species == "High Elf":
+        return list(HIGH_ELF_CAREERS.values())
+    elif species == "Wood Elf":
+        return list(WOOD_ELF_CAREERS.values())
+    raise NotImplementedError("Invalid species sent to list careers")
+
+
+def get_career(species, die_roll):
+    if species == "Human":
+        career_list = HUMAN_CAREERS
+    elif species == "Halfling":
+        career_list = HALFLING_CAREERS
+    elif species == "Dwarf":
+        career_list = DWARF_CAREERS
+    elif species == "High Elf":
+        career_list = HIGH_ELF_CAREERS
+    elif species == "Wood Elf":
+        career_list = WOOD_ELF_CAREERS
+    else:
+        raise NotImplementedError("Invalid species sent to get career")
+    while True:
+        try:
+            return career_list[die_roll]
+        except KeyError:
+            die_roll += 1
+
+
 CAREER_DATA = {
     # Academics
     "Apothecary": {
@@ -29,7 +65,34 @@ CAREER_DATA = {
             ],
         },
     },
-    "Engineer": {},
+    "Engineer": {
+        "class": "Academics",
+        "Student Engineer": {
+            "status": {"tier": "Brass", "standing": 4},
+            "attributes": ["Ballistic Skill", "Dexterity", "Intelligence"],
+            "skills": [
+                "Consume Alcohol",
+                "Cool",
+                "Endurance",
+                "Language (Classical)",
+                "Lore (Engineer)",
+                "Perception",
+                "Ranged (Blackpowder)",
+                "Trade (Engineer)",
+            ],
+            "talents": [
+                "Artistic",
+                "Gunner",
+                "Read/Write",
+                "Tinker",
+            ],
+            "trappings": [
+                "Book (Engineer)",
+                "Hammer",
+                "Spikes",
+            ],
+        },
+    },
     "Lawyer": {},
     "Nun": {},
     "Physician": {},
@@ -332,39 +395,3 @@ WOOD_ELF_CAREERS = {
     96: "Pit Fighter",
     100: "Soldier",
 }
-
-
-def list_careers(species=None):
-    if species is None:
-        return list(CAREER_DATA.keys())
-    if species == "Human":
-        return list(HUMAN_CAREERS.values())
-    elif species == "Halfling":
-        return list(HALFLING_CAREERS.values())
-    elif species == "Dwarf":
-        return list(DWARF_CAREERS.values())
-    elif species == "High Elf":
-        return list(HIGH_ELF_CAREERS.values())
-    elif species == "Wood Elf":
-        return list(WOOD_ELF_CAREERS.values())
-    raise NotImplementedError("Invalid species sent to list careers")
-
-
-def get_career(species, die_roll):
-    if species == "Human":
-        career_list = HUMAN_CAREERS
-    elif species == "Halfling":
-        career_list = HALFLING_CAREERS
-    elif species == "Dwarf":
-        career_list = DWARF_CAREERS
-    elif species == "High Elf":
-        career_list = HIGH_ELF_CAREERS
-    elif species == "Wood Elf":
-        career_list = WOOD_ELF_CAREERS
-    else:
-        raise NotImplementedError("Invalid species sent to get career")
-    while True:
-        try:
-            return career_list[die_roll]
-        except KeyError:
-            die_roll += 1
