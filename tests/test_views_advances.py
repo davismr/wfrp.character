@@ -28,7 +28,6 @@ def test_get_view(new_character):
     assert response["advances"] == ["Toughness", "Dexterity", "Intelligence"]
 
 
-@pytest.mark.current
 @pytest.mark.views
 def test_submit_view(new_character):
     new_character.species = "Human"

@@ -42,7 +42,6 @@ def test_reroll_view(new_character):
     assert "Soldier" in choices
 
 
-@pytest.mark.current
 @pytest.mark.parametrize(
     "career_choice, experience",
     [("Soldier", 50), ("Soldier,Seaman,Bawd", 25), ("Bawd", 0)],
