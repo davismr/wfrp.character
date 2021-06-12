@@ -1,3 +1,5 @@
+import colander
+import deform
 from pyramid.httpexceptions import HTTPFound
 from pyramid.view import view_config
 from pyramid.view import view_defaults
@@ -9,8 +11,7 @@ from wfrp.character.views.base_view import BaseView
 
 @view_defaults(route_name="advances")
 class AdvancesViews(BaseView):
-    @view_config(request_method="GET", renderer=__name__ + ":../templates/advances.pt")
-    def get_view(self):
+    def initialise_form(self):
         attributes = {}
         for attribute in ATTRIBUTES:
             attribute_lower = attribute.lower().replace(" ", "_")
@@ -20,14 +21,73 @@ class AdvancesViews(BaseView):
         career_advances = career_details["attributes"]
         return {"attributes": attributes, "advances": career_advances}
 
-    @view_config(request_method="POST", renderer=__name__ + ":../templates/advances.pt")
-    def submit_view(self):
-        for attribute in self.request.POST:
-            if self.request.POST[attribute]:
-                attribute_lower = attribute.lower().replace(" ", "_")
-                current_value = getattr(self.character, attribute_lower)
-                new_value = current_value + int(self.request.POST[attribute])
-                setattr(self.character, attribute_lower, new_value)
-        url = self.request.route_url("species_skills", uuid=self.character.uuid)
-        self.character.status = {"species_skills": ""}
-        return HTTPFound(location=url)
+    def schema(self, data):
+        schema = colander.SchemaNode(
+            colander.Mapping(),
+            title="Advance characteristics",
+        )
+        advances_schema = colander.SchemaNode(
+            colander.Mapping(),
+            title="Attributes",
+            validator=self.validate,
+            description=(
+                "You can allocate a total of 5 Advances across these Characteristics"
+            ),
+        )
+        # TODO add some field validation, each must be <=5 and should be int field
+        for advance in data["advances"]:
+            advances_schema.add(
+                colander.SchemaNode(
+                    colander.String(),
+                    missing="",
+                    widget=deform.widget.TextInputWidget(),
+                    name=advance,
+                )
+            )
+        schema.add(advances_schema)
+        return schema
+
+    def validate(self, form, values):
+        total = 0
+        for value in values:
+            if values[value]:
+                total += int(values[value])
+        if total > 5:
+            raise colander.Invalid(form, "You can only add a total of 5 advances")
+        elif total < 5:
+            raise colander.Invalid(form, "You have to add a total of 5 advances")
+
+    @view_config(renderer=__name__ + ":../templates/advances.pt")
+    def form_view(self):
+        data = self.initialise_form()
+        schema = self.schema(data)
+        form = deform.Form(
+            schema,
+            buttons=("Accept Advances",),
+        )
+
+        if "Accept_Advances" in self.request.POST:
+            try:
+                captured = form.validate(self.request.POST.items())
+            except deform.ValidationFailure as error:
+                html = error.render()
+            else:
+                for advance in captured[""]:
+                    if not captured[""][advance]:
+                        continue
+                    attribute_lower = advance.lower().replace(" ", "_")
+                    current_value = getattr(self.character, attribute_lower)
+                    new_value = current_value + int(captured[""][advance])
+                    setattr(self.character, attribute_lower, new_value)
+                url = self.request.route_url("species_skills", uuid=self.character.uuid)
+                self.character.status = {"species_skills": ""}
+                return HTTPFound(location=url)
+        else:
+            html = form.render()
+
+        static_assets = self.get_widget_resources(form)
+        return {
+            "form": html,
+            "css_links": static_assets["css"],
+            "js_links": static_assets["js"],
+        }

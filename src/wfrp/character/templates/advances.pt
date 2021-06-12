@@ -2,25 +2,7 @@
     <div metal:fill-slot="content">
 
         <h2>Advances</h2>
-        <form method="POST">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Advances</th>
-                        <th>&nbsp;</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><td colspan="2">You can allocate a total of 5 Advances across these Characteristics</td></tr>
-                    <tr tal:repeat="attribute attributes">
-                        <td>${attribute} (${attributes[attribute]})</td>
-                        <td tal:condition="python: attribute not in advances">&nbsp;</td>
-                        <td tal:condition="python: attribute in advances"><input name="${attribute}" /></td>
-                    </tr>
-                </tbody>
-            </table>
-            <input type="submit" value="Select Advances" />
-        </form>
+        <span tal:replace="structure form"/>
 
     </div>
 </div>
