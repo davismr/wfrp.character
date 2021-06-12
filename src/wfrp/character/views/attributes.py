@@ -1,3 +1,5 @@
+import colander
+import deform
 from pyramid.httpexceptions import HTTPFound
 from pyramid.view import view_config
 from pyramid.view import view_defaults
@@ -61,10 +63,7 @@ class AttributesViews(BaseView):
             raise NotImplementedError(f"{species} is not defined for bonus attributes")
         return attributes
 
-    @view_config(
-        request_method="GET", renderer=__name__ + ":../templates/attributes.pt"
-    )
-    def get_view(self):
+    def initialise_form(self):
         if self.character.status["attributes"]:
             base_attributes = self.character.status["attributes"]
         else:
@@ -80,17 +79,67 @@ class AttributesViews(BaseView):
             "total_attributes": total_attributes,
         }
 
-    @view_config(
-        request_method="POST", renderer=__name__ + ":../templates/attributes.pt"
-    )
-    def submit_view(self):
-        bonus_attributes = self._get_bonus_attributes(self.character.species)
-        base_attributes = self.character.status["attributes"]
+    def schema(self, data):
+        schema = colander.SchemaNode(
+            colander.Mapping(),
+            title="Career Skills and Talents",
+        )
+        attribute_schema = colander.SchemaNode(
+            colander.Mapping(),
+            title="Attributes",
+            description="Accept these results and gain 50XP. ",
+        )
+        for attribute in data["base_attributes"]:
+            attribute_schema.add(
+                colander.SchemaNode(
+                    colander.String(),
+                    validator=True,
+                    missing="",
+                    widget=deform.widget.TextInputWidget(readonly=True),
+                    name=attribute,
+                )
+            )
+        schema.add(attribute_schema)
+        return schema
+
+    @view_config(renderer=__name__ + ":../templates/attributes.pt")
+    def form_view(self):
+        data = self.initialise_form()
+        schema = self.schema(data)
+        # TODO must be a better way to do this
+        values = {"": {}}
         for attribute in ATTRIBUTES:
-            value = int(base_attributes[attribute])
-            value += bonus_attributes[attribute]
-            attribute_lower = attribute.lower().replace(" ", "_")
-            setattr(self.character, attribute_lower, value)
-        url = self.request.route_url("attributes", uuid=self.character.uuid)
-        self.character.status = {"advances": ""}
-        return HTTPFound(location=url)
+            values[""][attribute] = data["base_attributes"][attribute]
+        form = deform.Form(
+            schema,
+            buttons=("Accept Attributes",),
+            appstruct=values,
+        )
+        # TODO need 3 extra buttons
+        # rearrange the results for 25XP
+        # roll again for no XP
+        # allocate 100 points across your attributes for no XP. Your attribute total is
+        if "Accept_Attributes" in self.request.POST:
+            try:
+                form.validate(self.request.POST.items())
+            except deform.ValidationFailure as error:
+                html = error.render()
+            else:
+                self.character.experience += 50
+                for attribute in ATTRIBUTES:
+                    value = int(data["base_attributes"][attribute])
+                    value += data["bonus_attributes"][attribute]
+                    attribute_lower = attribute.lower().replace(" ", "_")
+                    setattr(self.character, attribute_lower, value)
+                url = self.request.route_url("advances", uuid=self.character.uuid)
+                self.character.status = {"advances": ""}
+                return HTTPFound(location=url)
+        else:
+            html = form.render()
+
+        static_assets = self.get_widget_resources(form)
+        return {
+            "form": html,
+            "css_links": static_assets["css"],
+            "js_links": static_assets["js"],
+        }

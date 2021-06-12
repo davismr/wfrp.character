@@ -21,7 +21,7 @@ def test_get_view(new_character):
     request.matched_route = DummyRoute(name="attributes")
     request.matchdict = {"uuid": new_character.uuid}
     view = AttributesViews(request)
-    response = view.get_view()
+    response = view.initialise_form()
     assert "base_attributes" in response
     assert "bonus_attributes" in response
     expected_total = 0
@@ -61,11 +61,11 @@ def test_submit_view(new_character):
             "Fellowship": 30,
         }
     }
-    request = testing.DummyRequest()
+    request = testing.DummyRequest(post={"Accept_Attributes": "Accept_Attributes"})
     request.matched_route = DummyRoute(name="attributes")
     request.matchdict = {"uuid": new_character.uuid}
     view = AttributesViews(request)
-    response = view.submit_view()
+    response = view.form_view()
     assert isinstance(response, HTTPFound)
     assert new_character.weapon_skill == 41
     assert new_character.ballistic_skill == 42
