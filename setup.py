@@ -4,8 +4,6 @@ from setuptools import find_packages
 from setuptools import setup
 
 here = os.path.abspath(os.path.dirname(__file__))
-with open(os.path.join(here, "src", "wfrp", "character", "version.txt")) as infile:
-    VERSION = infile.read().strip()
 with open(os.path.join(here, "README.md")) as infile:
     README = infile.read()
 with open(os.path.join(here, "docs", "HISTORY.md")) as infile:
@@ -34,7 +32,6 @@ tests_require = [
 
 setup(
     name="wfrp.character",
-    version=VERSION,
     description="Character generator for Warhammer Fantasy Roleplay Version 4.",
     long_description=README + "\n\n" + CHANGES,
     classifiers=[
