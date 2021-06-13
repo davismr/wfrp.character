@@ -12,6 +12,7 @@ def configure_app(global_config, **settings):
     Base.metadata.bind = engine
     config = Configurator(settings=settings)
     config.include("wfrp.character.routes")
+    config.add_static_view("static", "wfrp.character:static")
     config.add_static_view("static_deform", "deform:static")
     config.scan()
     return config

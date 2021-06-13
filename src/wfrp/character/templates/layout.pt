@@ -1,8 +1,13 @@
 <!DOCTYPE html metal:define-macro="layout">
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      lang="en">
     <head>
         <meta charset="utf-8">
         <title>WFRP Character Generator</title>
+        <link rel="shortcut icon"
+              href="${request.static_url('wfrp.character:static/favicon.ico')}" />
         <script tal:condition="js_links|nothing"
                 tal:repeat="js_link js_links"
                 src="${request.static_url(js_link)}"
