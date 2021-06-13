@@ -81,7 +81,7 @@ class DetailsViews(BaseView):
         )
         return schema
 
-    @view_config(renderer=__name__ + ":../templates/details.pt")
+    @view_config(renderer="wfrp.character:templates/details.pt")
     def form_view(self):
         data = self.initialise_form()
         schema = self.schema(data)

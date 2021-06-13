@@ -93,7 +93,7 @@ class CareerSkillsViews(BaseView):
                 f"You must allocate all 40 advances, you have only allocated {total}",
             )
 
-    @view_config(renderer=__name__ + ":../templates/career_skills.pt")
+    @view_config(renderer="wfrp.character:templates/career_skills.pt")
     def form_view(self):
         data = self.initialise_form()
         schema = self.schema(data)

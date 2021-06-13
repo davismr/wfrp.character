@@ -35,7 +35,7 @@ class SpeciesViews(BaseView):
             raise NotImplementedError(f"result {result} does not return a species")
         return species
 
-    @view_config(renderer=__name__ + ":../templates/species.pt")
+    @view_config(renderer="wfrp.character:templates/species.pt")
     def form_view(self):
         if self.character.status["species"]:
             species = self.character.status["species"]

@@ -10,7 +10,7 @@ class HomePageViews:
     def __init__(self, request):
         self.request = request
 
-    @view_config(request_method="GET", renderer=__name__ + ":../templates/homepage.pt")
+    @view_config(request_method="GET", renderer="wfrp.character:templates/homepage.pt")
     def get_view(self):
         characters = DBSession.query(Character).all()
         character_list = {}

@@ -105,7 +105,7 @@ class CareerViews(BaseView):
                 form, f"{selected[0]} is not available for {self.character.species}"
             )
 
-    @view_config(renderer=__name__ + ":../templates/career.pt")
+    @view_config(renderer="wfrp.character:templates/career.pt")
     def form_view(self):
         if "Reroll" in self.request.POST:
             self.reroll_career_view()

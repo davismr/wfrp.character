@@ -96,7 +96,7 @@ class TrappingsViews(BaseView):
         schema.add(money_schema)
         return schema
 
-    @view_config(renderer=__name__ + ":../templates/trappings.pt")
+    @view_config(renderer="wfrp.character:templates/trappings.pt")
     def form_view(self):
         data = self.initialise_form()
         schema = self.schema(data)

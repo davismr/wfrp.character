@@ -57,7 +57,7 @@ class AdvancesViews(BaseView):
         elif total < 5:
             raise colander.Invalid(form, "You have to add a total of 5 advances")
 
-    @view_config(renderer=__name__ + ":../templates/advances.pt")
+    @view_config(renderer="wfrp.character:templates/advances.pt")
     def form_view(self):
         data = self.initialise_form()
         schema = self.schema(data)

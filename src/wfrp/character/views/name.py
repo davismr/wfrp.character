@@ -22,7 +22,7 @@ class NameViews(BaseView):
         )
         return schema
 
-    @view_config(renderer=__name__ + ":../templates/name.pt")
+    @view_config(renderer="wfrp.character:templates/name.pt")
     def form_view(self):
         schema = self.schema()
         form = deform.Form(schema, buttons=("Select Name",))

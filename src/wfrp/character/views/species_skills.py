@@ -108,7 +108,7 @@ class SpeciesSkillsViews(BaseView):
         if errors:
             raise colander.Invalid(form, ". ".join(errors))
 
-    @view_config(renderer=__name__ + ":../templates/species_skills.pt")
+    @view_config(renderer="wfrp.character:templates/species_skills.pt")
     def form_view(self):
         data = self.initialise_form()
         schema = self.schema(data)
