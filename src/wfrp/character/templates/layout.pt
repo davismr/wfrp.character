@@ -25,5 +25,7 @@
         <div><a href="/">Homepage</a></div>
         <div><a href="/character/new">Create new character</a></div>
         <div metal:define-slot="content">No content</div>
+        <hr />
+        <div metal:use-macro="load: footer.pt" />
     </body>
 </html>
