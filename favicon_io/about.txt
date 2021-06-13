@@ -1,0 +1,6 @@
+This favicon was generated using the following font:
+
+- Font Title: MedievalSharp
+- Font Author: wmk69 SIL Open Font License v.1.1
+- Font Source: http://fonts.gstatic.com/s/medievalsharp/v14/EvOJzAlL3oU5AQl2mP5KdgptAq96MwvXLDk.ttf
+- Font License: SIL Open Font License, 1.1 (http://scripts.sil.org/OFL)
