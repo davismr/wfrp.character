@@ -14,7 +14,7 @@ class AdvancesViews(BaseView):
     def initialise_form(self):
         attributes = {}
         for attribute in ATTRIBUTES:
-            attribute_lower = attribute.lower().replace(" ", "_")
+            attribute_lower = f'{attribute.lower().replace(" ", "_")}_initial'
             attributes[attribute] = getattr(self.character, attribute_lower)
         career_data = CAREER_DATA[self.character.career]
         career_details = career_data[list(career_data)[1]]
@@ -75,7 +75,7 @@ class AdvancesViews(BaseView):
                 for advance in captured[""]:
                     if not captured[""][advance]:
                         continue
-                    attribute_lower = advance.lower().replace(" ", "_")
+                    attribute_lower = f'{advance.lower().replace(" ", "_")}_advances'
                     current_value = getattr(self.character, attribute_lower)
                     new_value = current_value + int(captured[""][advance])
                     setattr(self.character, attribute_lower, new_value)

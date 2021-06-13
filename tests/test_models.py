@@ -17,19 +17,27 @@ def test_save_character(session_db):
 
 
 @pytest.mark.models
+def test_toughness(new_character):
+    new_character.species = "Human"
+    new_character.toughness_initial = 36
+    new_character.toughness_advances = 5
+    assert new_character.toughness == 41
+
+
+@pytest.mark.models
 def test_wounds(new_character):
     new_character.species = "Human"
-    new_character.strength = 26
-    new_character.toughness = 36
-    new_character.willpower = 46
+    new_character.strength_initial = 26
+    new_character.toughness_initial = 36
+    new_character.willpower_initial = 46
     assert new_character.calculate_wounds() == 12
 
 
 @pytest.mark.models
 def test_wounds_halfling(new_character):
     new_character.species = "Halfling"
-    new_character.toughness = 36
-    new_character.willpower = 46
+    new_character.toughness_initial = 36
+    new_character.willpower_initial = 46
     assert new_character.calculate_wounds() == 10
 
 

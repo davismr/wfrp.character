@@ -33,7 +33,7 @@ def test_submit_view(new_character):
     new_character.species = "Human"
     new_character.career = "Apothecary"
     new_character.status = {"advances": ""}
-    old_toughness = new_character.toughness = 40
+    old_toughness = new_character.toughness_initial = 40
     request = testing.DummyRequest(
         post={"": {"Toughness": "5"}, "Accept_Advances": "Accept_Advances"}
     )
@@ -42,4 +42,5 @@ def test_submit_view(new_character):
     view = AdvancesViews(request)
     response = view.form_view()
     assert isinstance(response, HTTPFound)
+    assert new_character.toughness_advances == 5
     assert new_character.toughness == old_toughness + 5

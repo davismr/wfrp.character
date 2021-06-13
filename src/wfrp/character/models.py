@@ -30,26 +30,76 @@ class Character(Base):
     career = Column(Text)
     experience = Column(Integer, default=0)
     experience_spent = Column(Integer, default=0)
-    weapon_skill = Column(Integer)
-    ballistic_skill = Column(Integer)
-    strength = Column(Integer)
-    toughness = Column(Integer)
-    initiative = Column(Integer)
-    agility = Column(Integer)
-    dexterity = Column(Integer)
-    intelligence = Column(Integer)
-    willpower = Column(Integer)
-    fellowship = Column(Integer)
-    wounds = Column(Integer)
+    weapon_skill_initial = Column(Integer, default=0)
+    ballistic_skill_initial = Column(Integer, default=0)
+    strength_initial = Column(Integer, default=0)
+    toughness_initial = Column(Integer, default=0)
+    initiative_initial = Column(Integer, default=0)
+    agility_initial = Column(Integer, default=0)
+    dexterity_initial = Column(Integer, default=0)
+    intelligence_initial = Column(Integer, default=0)
+    willpower_initial = Column(Integer, default=0)
+    fellowship_initial = Column(Integer, default=0)
+    weapon_skill_advances = Column(Integer, default=0)
+    ballistic_skill_advances = Column(Integer, default=0)
+    strength_advances = Column(Integer, default=0)
+    toughness_advances = Column(Integer, default=0)
+    initiative_advances = Column(Integer, default=0)
+    agility_advances = Column(Integer, default=0)
+    dexterity_advances = Column(Integer, default=0)
+    intelligence_advances = Column(Integer, default=0)
+    willpower_advances = Column(Integer, default=0)
+    fellowship_advances = Column(Integer, default=0)
+    wounds = Column(Integer, default=0)
     fate = Column(Integer, default=0)
     resilience = Column(Integer, default=0)
-    extra_points = Column(Integer)
+    extra_points = Column(Integer, default=0)
     movement = Column(Integer, default=3)
     skills = Column(MutableDict.as_mutable(JSON), default={})
     talents = Column(MutableList.as_mutable(JSON), default=[])
     trappings = Column(JSON, default=[])
     wealth = Column(JSON, default={})
     status = Column(JSON, default={})
+
+    @property
+    def weapon_skill(self):
+        return self.weapon_skill_initial + self.weapon_skill_advances
+
+    @property
+    def ballistic_skill(self):
+        return self.ballistic_skill_initial + self.ballistic_skill_advances
+
+    @property
+    def strength(self):
+        return self.strength_initial + self.strength_advances
+
+    @property
+    def toughness(self):
+        return self.toughness_initial + self.toughness_advances
+
+    @property
+    def initiative(self):
+        return self.initiative_initial + self.initiative_advances
+
+    @property
+    def agility(self):
+        return self.agility_initial + self.agility_advances
+
+    @property
+    def dexterity(self):
+        return self.dexterity_initial + self.dexterity_advances
+
+    @property
+    def intelligence(self):
+        return self.intelligence_initial + self.intelligence_advances
+
+    @property
+    def willpower(self):
+        return self.willpower_initial + self.willpower_advances
+
+    @property
+    def fellowship(self):
+        return self.fellowship_initial + self.fellowship_advances
 
     def calculate_wounds(self):
         if self.species == "Halfling":

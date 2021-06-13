@@ -67,13 +67,13 @@ def test_submit_view(new_character):
     view = AttributesViews(request)
     response = view.form_view()
     assert isinstance(response, HTTPFound)
-    assert new_character.weapon_skill == 41
-    assert new_character.ballistic_skill == 42
-    assert new_character.strength == 43
-    assert new_character.toughness == 44
-    assert new_character.initiative == 45
-    assert new_character.agility == 46
-    assert new_character.dexterity == 47
-    assert new_character.intelligence == 48
-    assert new_character.willpower == 49
-    assert new_character.fellowship == 50
+    assert new_character.weapon_skill_initial == 41
+    assert new_character.ballistic_skill_initial == 42
+    assert new_character.strength_initial == 43
+    assert new_character.toughness_initial == 44
+    assert new_character.initiative_initial == 45
+    assert new_character.agility_initial == 46
+    assert new_character.dexterity_initial == 47
+    assert new_character.intelligence_initial == 48
+    assert new_character.willpower_initial == 49
+    assert new_character.fellowship_initial == 50

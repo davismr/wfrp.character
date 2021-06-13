@@ -129,7 +129,7 @@ class AttributesViews(BaseView):
                 for attribute in ATTRIBUTES:
                     value = int(data["base_attributes"][attribute])
                     value += data["bonus_attributes"][attribute]
-                    attribute_lower = attribute.lower().replace(" ", "_")
+                    attribute_lower = f'{attribute.lower().replace(" ", "_")}_initial'
                     setattr(self.character, attribute_lower, value)
                 url = self.request.route_url("advances", uuid=self.character.uuid)
                 self.character.status = {"advances": ""}
