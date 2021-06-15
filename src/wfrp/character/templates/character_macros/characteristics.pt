@@ -1,4 +1,4 @@
-<table metal:define-macro="characteristics" border="1">
+<table id="characteristics">
     <thead>
         <tr>
             <th colspan="11">CHARACTERISTICS</th>

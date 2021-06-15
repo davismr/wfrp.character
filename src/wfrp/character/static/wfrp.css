@@ -1,0 +1,6 @@
+table#characteristics,
+table#characteristics th,
+table#characteristics td {
+    border: 1px solid black;
+    padding: 5px;
+}
