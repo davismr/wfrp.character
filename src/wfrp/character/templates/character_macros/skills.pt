@@ -224,11 +224,16 @@
     </thead>
     <tbody>
         <tr tal:repeat="skill character.skills">
-            <td>${skill}</td>
-            <td>TODO</td>
-            <td>TODO</td>
-            <td>${character.skills[skill]}</td>
-            <td>TODO</td>
+            <div tal:condition="python:skill in skill_data">
+                <td>${skill}</td>
+                <td>${skill_data[skill]["characteristic"][1]}</td>
+                <td>${getattr(character, skill_data[skill]["characteristic"][0])}</td>
+                <td>${character.skills[skill]}</td>
+                <td>${character.skills[skill] + getattr(character, skill_data[skill]["characteristic"][0])}</td>
+            </div>
+            <div tal:condition="python:skill not in skill_data">
+                <td colspan="5">${skill} TODO</td>
+            </div>
         </tr>
     </tbody>
 </table>
