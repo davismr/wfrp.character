@@ -5,7 +5,7 @@ from pyramid.view import view_config
 from pyramid.view import view_defaults
 
 from wfrp.character.species_data import SPECIES_DATA
-from wfrp.character.talents_data import get_random_talent
+from wfrp.character.talent_data import get_random_talent
 from wfrp.character.utils import roll_d100
 from wfrp.character.views.base_view import BaseView
 

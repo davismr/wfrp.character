@@ -1,3 +1,11 @@
+def get_random_talent(die_roll):
+    while True:
+        try:
+            return TALENT_LIST[die_roll]
+        except KeyError:
+            die_roll += 1
+
+
 TALENT_LIST = {
     3: "Acute Sense (any one)",
     6: "Ambidextrous",
@@ -32,11 +40,3 @@ TALENT_LIST = {
     97: "Very Strong",
     100: "Warrior Born",
 }
-
-
-def get_random_talent(die_roll):
-    while True:
-        try:
-            return TALENT_LIST[die_roll]
-        except KeyError:
-            die_roll += 1
