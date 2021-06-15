@@ -5,6 +5,7 @@
         <h3>${character.get_display_title()}</h3>
         <div tal:content="python:character.__dict__" />
         <div metal:use-macro="load: character_macros/characteristics.pt" />
+        <div metal:use-macro="load: character_macros/skills.pt" />
 
     </div>
 </div>
