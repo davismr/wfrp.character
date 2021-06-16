@@ -6,6 +6,7 @@
         <div tal:content="python:character.__dict__" />
         <div metal:use-macro="load: character_macros/characteristics.pt" />
         <div metal:use-macro="load: character_macros/skills.pt" />
+        <div metal:use-macro="load: character_macros/talents.pt" />
 
     </div>
 </div>
