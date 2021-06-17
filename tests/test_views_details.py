@@ -2,6 +2,7 @@ from dataclasses import dataclass
 
 import pytest
 from pyramid import testing
+from pyramid.httpexceptions import HTTPFound
 
 from wfrp.character.species_data import SPECIES_DATA
 from wfrp.character.species_data import SPECIES_LIST
@@ -65,3 +66,26 @@ def test_eye_colour(new_character, species):
             break
     else:
         raise AssertionError
+
+
+@pytest.mark.current
+@pytest.mark.views
+def test_details_submit(new_character):
+    payload = {
+        "Choose_Details": "Choose_Details",
+    }
+    new_character.species = "High Elf"
+    new_character.status = {"details": ""}
+    request = testing.DummyRequest(post=payload)
+    request.matched_route = DummyRoute(name="details")
+    request.matchdict = {"uuid": new_character.uuid}
+    view = DetailsViews(request)
+    initial_values = view.initialise_form()
+    stored_values = new_character.status["details"]
+    response = view.form_view()
+    assert isinstance(response, HTTPFound)
+    assert initial_values == stored_values
+    assert new_character.eyes == initial_values["eye_colour"]
+    assert new_character.hair == initial_values["hair_colour"]
+    assert new_character.height == initial_values["height"]
+    assert new_character.age == initial_values["age"]

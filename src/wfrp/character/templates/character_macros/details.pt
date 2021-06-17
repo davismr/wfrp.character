@@ -1,0 +1,28 @@
+<table id="characteristics">
+    <thead>
+        <tr>
+            <th colspan="4">Logo</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="2">Name: ${character.name}</td>
+            <td>Species: ${character.species}</td>
+            <td>Class: ${character.career_class}</td>
+        </tr>
+        <tr>
+            <td colspan="2">Career: ${character.career}</td>
+            <td colspan="2">Career Tier: ${character.career_title}</td>
+        </tr>
+        <tr>
+            <td colspan="3">Career Path: ${", ".join(character.career_path)}</td>
+            <td>Status: ${character.career_tier} ${character.career_standing}</td>
+        </tr>
+        <tr>
+            <td>Age: ${character.age} years</td>
+            <td>Height: ${character.height//12}'${character.height % 12}"</td>
+            <td>Hair: ${character.hair}</td>
+            <td>Eyes: ${character.eyes}</td>
+        </tr>
+    </tbody>
+</table>

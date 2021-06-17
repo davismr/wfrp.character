@@ -59,7 +59,7 @@ class TrappingsViews(BaseView):
             class_schema.add(
                 colander.SchemaNode(
                     colander.String(),
-                    widget=deform.widget.TextInputWidget(template="readonly/textinput"),
+                    widget=deform.widget.TextInputWidget(readonly=True),
                     missing="",
                     name=trapping,
                 )
@@ -73,7 +73,7 @@ class TrappingsViews(BaseView):
             career_schema.add(
                 colander.SchemaNode(
                     colander.String(),
-                    widget=deform.widget.TextInputWidget(template="readonly/textinput"),
+                    widget=deform.widget.TextInputWidget(readonly=True),
                     missing="",
                     name=trapping,
                 )
@@ -86,7 +86,7 @@ class TrappingsViews(BaseView):
         money_schema.add(
             colander.SchemaNode(
                 colander.String(),
-                widget=deform.widget.TextInputWidget(template="readonly/textinput"),
+                widget=deform.widget.TextInputWidget(readonly=True),
                 missing="",
                 name="money_field",
             )

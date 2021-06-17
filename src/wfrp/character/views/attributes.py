@@ -82,7 +82,7 @@ class AttributesViews(BaseView):
     def schema(self, data):
         schema = colander.SchemaNode(
             colander.Mapping(),
-            title="Career Skills and Talents",
+            title="Character Attributes",
         )
         attribute_schema = colander.SchemaNode(
             colander.Mapping(),

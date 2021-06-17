@@ -47,12 +47,18 @@ TALENT_DATA = {
     "Acute Sense (any one)": {
         "description": "You are an exceptional shot and know where to shoot an enemy in order to inflict maximum damage. You deal your Accurate Shot level in extra Damage with all ranged weapons."
     },
+    "Aethyric Attunement": {
+        "description": "Your experience, talent or training lets you more safely manipulate the Winds of Magic. You do not suffer a Miscast if you roll a double on a successful Channel Test."
+    },
     "Ambidextrous": {
         "description": "You can use your off-hand far better than most folk, either by training or innate talent. You only suffer a penalty of –10 to Tests relying solely on your secondary hand, not –20. If you have this Talent twice, you suffer no penalty at all."
     },
     "Animal Affinity": {"description": ""},
     "Artistic": {"description": ""},
     "Attractive": {"description": ""},
+    "Blather": {
+        "description": "Attempt an Opposed Charm/Intelligence Test. Success gives your opponent a Stunned Condition. Further, for each level you have in Blather, your opponent gains another Stunned Condition. Targets Stunned by Blather may do nothing other than stare at you dumbfounded as they try to catch-up with or understand what you are saying. "
+    },
     "Coolheaded": {"description": ""},
     "Craftsman (any one)": {"description": ""},
     "Disarm": {

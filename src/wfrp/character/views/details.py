@@ -21,6 +21,8 @@ class DetailsViews(BaseView):
         return get_eye_colour(species, roll_2d10())
 
     def initialise_form(self):
+        if self.character.status["details"]:
+            return self.character.status["details"]
         species = self.character.species
         eye_colour = self._get_eye_colour(species)
         if species == "Human":
@@ -38,61 +40,75 @@ class DetailsViews(BaseView):
             eye_colour += f", {self._get_eye_colour(species)}"
         else:
             raise NotImplementedError(f"{species} is not defined")
-        return {
+        data = {
             "age": age,
             "height": height,
             "hair_colour": self._get_hair_colour(species),
             "eye_colour": eye_colour,
         }
+        self.character.status = {"details": data}
+        return data
 
     def schema(self, data):
-        schema = colander.SchemaNode(colander.Mapping(), title="Character Details")
-        schema.add(
+        schema = colander.SchemaNode(
+            colander.Mapping(), title=self.character.get_display_title()
+        )
+        details_schema = colander.SchemaNode(
+            colander.Mapping(),
+            name="character_details",
+        )
+        details_schema.add(
             colander.SchemaNode(
                 colander.String(),
-                widget=deform.widget.TextInputWidget(template="readonly/textinput"),
+                widget=deform.widget.TextInputWidget(readonly=True),
                 missing="",
                 name="eye_colour",
             )
         )
-        schema.add(
+        details_schema.add(
             colander.SchemaNode(
                 colander.String(),
-                widget=deform.widget.TextInputWidget(template="readonly/textinput"),
+                widget=deform.widget.TextInputWidget(readonly=True),
                 missing="",
                 name="hair_colour",
             )
         )
-        schema.add(
+        details_schema.add(
             colander.SchemaNode(
                 colander.String(),
-                widget=deform.widget.TextInputWidget(template="readonly/textinput"),
+                widget=deform.widget.TextInputWidget(readonly=True),
                 missing="",
                 name="height",
             )
         )
-        schema.add(
+        details_schema.add(
             colander.SchemaNode(
                 colander.String(),
-                widget=deform.widget.TextInputWidget(template="readonly/textinput"),
+                widget=deform.widget.TextInputWidget(readonly=True),
                 missing=data["age"],
                 name="age",
             )
         )
+        schema.add(details_schema)
         return schema
 
     @view_config(renderer="wfrp.character:templates/details.pt")
     def form_view(self):
         data = self.initialise_form()
         schema = self.schema(data)
-        form = deform.Form(schema, buttons=("Choose Details",))
+        form = deform.Form(
+            schema, buttons=("Choose Details",), appstruct={"character_details": data}
+        )
         if "Choose_Details" in self.request.POST:
             try:
                 form.validate(self.request.POST.items())
             except deform.ValidationFailure as error:
                 html = error.render()
             else:
-                # XXX
+                self.character.eyes = self.character.status["details"]["eye_colour"]
+                self.character.hair = self.character.status["details"]["hair_colour"]
+                self.character.height = self.character.status["details"]["height"]
+                self.character.age = self.character.status["details"]["age"]
                 url = self.request.route_url("name", uuid=self.character.uuid)
                 self.character.status = {"name": ""}
                 return HTTPFound(location=url)

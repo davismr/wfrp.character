@@ -4,6 +4,7 @@ from pyramid.httpexceptions import HTTPFound
 from pyramid.view import view_config
 from pyramid.view import view_defaults
 
+from wfrp.character.career_data import CAREER_DATA
 from wfrp.character.career_data import get_career
 from wfrp.character.career_data import list_careers
 from wfrp.character.utils import roll_d100
@@ -137,6 +138,16 @@ class CareerViews(BaseView):
                     else:
                         self.character.experience += 25
                 self.character.career = career
+                self.character.career_class = CAREER_DATA[career]["class"]
+                career_level = list(CAREER_DATA[career].keys())[1]
+                self.character.career_path.append(career_level)
+                self.character.career_title = career_level
+                self.character.career_tier = CAREER_DATA[career][career_level][
+                    "status"
+                ]["tier"]
+                self.character.career_standing = CAREER_DATA[career][career_level][
+                    "status"
+                ]["standing"]
                 url = self.request.route_url("attributes", uuid=self.character.uuid)
                 self.character.status = {"attributes": ""}
                 return HTTPFound(location=url)
