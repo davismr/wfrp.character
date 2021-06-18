@@ -52,7 +52,6 @@ class TrappingsViews(BaseView):
         )
         class_schema = colander.SchemaNode(
             colander.Mapping(),
-            title="Class Trappings",
             name="class_trappings",
         )
         for trapping in data["class_trappings"]:
@@ -66,10 +65,9 @@ class TrappingsViews(BaseView):
             )
         career_schema = colander.SchemaNode(
             colander.Mapping(),
-            title="Career Trappings",
             name="career_trappings",
         )
-        for trapping in data["class_trappings"]:
+        for trapping in data["career_trappings"]:
             career_schema.add(
                 colander.SchemaNode(
                     colander.String(),
@@ -80,7 +78,6 @@ class TrappingsViews(BaseView):
             )
         money_schema = colander.SchemaNode(
             colander.Mapping(),
-            title="Money",
             name="money",
         )
         money_schema.add(
@@ -100,7 +97,17 @@ class TrappingsViews(BaseView):
     def form_view(self):
         data = self.initialise_form()
         schema = self.schema(data)
-        form = deform.Form(schema, buttons=("Choose trappings",))
+        values = {"career_trappings": {}, "class_trappings": {}}
+        values["money"] = {
+            "money_field": (
+                f"{data['money'][list(data['money'])[0]]} {list(data['money'])[0]}"
+            )
+        }
+        for item in data["career_trappings"]:
+            values["career_trappings"][item] = item
+        for item in data["class_trappings"]:
+            values["class_trappings"][item] = item
+        form = deform.Form(schema, buttons=("Choose trappings",), appstruct=values)
         if "Choose_trappings" in self.request.POST:
             try:
                 form.validate(self.request.POST.items())
