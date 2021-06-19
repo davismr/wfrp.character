@@ -13,7 +13,7 @@
         <tr tal:repeat="talent character.talents">
             <td>${talent}</td>
             <td>TODO</td>
-            <td>${talent_data[talent]["description"]}</td>
+            <td>${character.get_talent_description(talent)}</td>
         </tr>
     </tbody>
 </table>

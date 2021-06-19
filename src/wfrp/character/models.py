@@ -15,6 +15,8 @@ from sqlalchemy.orm import scoped_session
 from sqlalchemy.orm import sessionmaker
 from zope.sqlalchemy import register
 
+from wfrp.character.talent_data import TALENT_DATA
+
 DBSession = scoped_session(sessionmaker())
 register(DBSession)
 Base = declarative_base()
@@ -129,6 +131,11 @@ class Character(Base):
         if not display_title:
             display_title += "Unknown"
         return display_title
+
+    def get_talent_description(self, talent):
+        if talent in TALENT_DATA:
+            return TALENT_DATA[talent]["description"]
+        return TALENT_DATA[talent.split(" (")[0]]["description"]
 
 
 class Root(object):

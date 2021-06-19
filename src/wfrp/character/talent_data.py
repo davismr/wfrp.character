@@ -44,8 +44,15 @@ TALENT_DATA = {
     "Accurate Shot": {
         "description": "You are an exceptional shot and know where to shoot an enemy in order to inflict maximum damage. You deal your Accurate Shot level in extra Damage with all ranged weapons."
     },
-    "Acute Sense (any one)": {
-        "description": "You are an exceptional shot and know where to shoot an enemy in order to inflict maximum damage. You deal your Accurate Shot level in extra Damage with all ranged weapons."
+    "Acute Sense": {
+        "description": "One of your primary five senses is highly developed, allowing you to spot what others miss. You may take Perception Tests to detect normally imperceptible details with the associated sense, as dictated by the GM. This could include: seeing an eagle beyond everyone else’s eyeshot, smelling an almost odourless poison, hearing the breath of an unmoving mouse within a wall, feeling a worn away letter in a carving, or tasting that two beers from the same brewer have been drawn from two different barrels.",
+        "specialisations": [
+            "Touch",
+            "Sight",
+            "Hearing",
+            "Smell",
+            "Taste",
+        ],
     },
     "Aethyric Attunement": {
         "description": "Your experience, talent or training lets you more safely manipulate the Winds of Magic. You do not suffer a Miscast if you roll a double on a successful Channel Test."
@@ -62,16 +69,43 @@ TALENT_DATA = {
     "Blather": {
         "description": "Attempt an Opposed Charm/Intelligence Test. Success gives your opponent a Stunned Condition. Further, for each level you have in Blather, your opponent gains another Stunned Condition. Targets Stunned by Blather may do nothing other than stare at you dumbfounded as they try to catch-up with or understand what you are saying. "
     },
-    "Coolheaded": {"description": ""},
-    "Craftsman (any one)": {"description": ""},
+    "Coolheaded": {
+        "max": 1,
+        "description": "You gain a permanent +5 bonus to your starting Willpower Characteristic this does not count towards your Advances.",
+    },
+    "Crack the Whip": {
+        "description": "You know how to get the most out of your animals. When an animal you control is Fleeing or Running, it gains +1 Movement if you are using a whip.",
+    },
+    "Craftsman": {
+        "description": "You have true creative talent. Add the associated Trade Skill to any Career you enter. If the Trade Skill is already in your Career, you may instead purchase the Skill for 5 XP fewer per Advance.",
+        "specialisations": [
+            "Apothecary",
+            "Calligrapher",
+            "Chandler",
+            "Carpenter",
+            "Cook",
+            "Embalmer",
+            "Smith",
+            "Tanner",
+        ],
+    },
     "Disarm": {
         "description": "You are able to disarm an opponent with a careful flick of the wrist or a well-aimed blow to the hand."
     },
     "Doomed": {
         "description": "At the age of 10, a Priest of Morr called a Doomsayer took you aside to foretell your death in an incense-laden, coming-of-age ritual called the Dooming. In conjunction with your GM, come up with a suitable Dooming. Should your character die in a fashion that matches your Dooming, your next character gains a bonus of half the total XP your dead character accrued during play."
     },
-    "Etiquette (Social Group)": {
-        "description": "You can blend in socially with the chosen group so long as you are dressed and acting appropriately. Example social groups for this Talent are: Criminals, Cultists, Guilders, Nobles, Scholars, Servants, and Soldiers. If you do not have the Talent, those with it will note your discomfort in the unfamiliar environment. This is primarily a matter for roleplaying, but may confer a bonus to Fellowship Tests at the GM’s discretion."
+    "Etiquette": {
+        "description": "You can blend in socially with the chosen group so long as you are dressed and acting appropriately. Example social groups for this Talent are: Criminals, Cultists, Guilders, Nobles, Scholars, Servants, and Soldiers. If you do not have the Talent, those with it will note your discomfort in the unfamiliar environment. This is primarily a matter for roleplaying, but may confer a bonus to Fellowship Tests at the GM’s discretion.",
+        "specialisations": [
+            "Criminals",
+            "Cultists",
+            "Guilders",
+            "Nobles",
+            "Scholars",
+            "Servants",
+            "Soldiers",
+        ],
     },
     "Flee!": {"description": ""},
     "Gregarious": {
@@ -100,8 +134,9 @@ TALENT_DATA = {
     "Relentless": {
         "description": "When you have your mind set on a target, there is nothing anyone can do to stop you reaching them. If you use Advantage when Disengaging, you may keep a number of Advantage equal to your level of Relentless. Further, you may use Advantage to Disengage even if you have lower Advantage than your opponents."
     },
-    "Resistance (any one)": {
-        "description": "Your strong constitution allows you to more readily survive a specific threat. You may automatically pass the first Test to resist the specified threat, such as Magic, Poison, Disease, Mutation, every session. If SL is important, use your Toughness Bonus as SL for the Test."
+    "Resistance": {
+        "description": "Your strong constitution allows you to more readily survive a specific threat. You may automatically pass the first Test to resist the specified threat, such as Magic, Poison, Disease, Mutation, every session. If SL is important, use your Toughness Bonus as SL for the Test.",
+        "specialisations": ["Magic", "Poison", "Disease", "Mutation"],
     },
     "Savvy": {
         "description": "You gain a permanent +5 bonus to your starting Intelligence Characteristic (this does not count towards your Advances)"
