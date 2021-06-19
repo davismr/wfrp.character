@@ -1,0 +1,21 @@
+<table id="wealth">
+    <thead>
+        <tr>
+            <th colspan="2">WEALTH</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>D</td>
+            <td>${character.wealth['brass pennies']|0}</td>
+        </tr>
+        <tr>
+            <td>SS</td>
+            <td>${character.wealth['silver shillings']|0}</td>
+        </tr>
+        <tr>
+            <td>GC</td>
+            <td>${character.wealth['gold crowns']|0}</td>
+        </tr>
+    </tbody>
+</table>

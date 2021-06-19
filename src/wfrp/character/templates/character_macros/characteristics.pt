@@ -59,3 +59,75 @@
         </tr>
     </tbody>
 </table>
+<table id="fate">
+    <thead>
+        <tr>
+            <th colspan="2">FATE</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Fate</td>
+            <td>${character.fate}</td>
+        </tr>
+        <tr>
+            <td>Fortune</td>
+            <td>TODO</td>
+        </tr>
+    </tbody>
+</table>
+<table id="resilience">
+    <thead>
+        <tr>
+            <th colspan="3">RESILIENCE</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Resilience</td>
+            <td>Resolve</td>
+            <td>Motivation</td>
+        </tr>
+        <tr>
+            <td>${character.resilience}</td>
+            <td>TODO</td>
+            <td>TODO</td>
+        </tr>
+    </tbody>
+</table>
+<table id="experience">
+    <thead>
+        <tr>
+            <th colspan="3">EXPERIENCE</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Current</td>
+            <td>Spent</td>
+            <td>Total</td>
+        </tr>
+        <tr>
+            <td>${character.experience}</td>
+            <td>${character.experience_spent}</td>
+            <td>${character.experience + character.experience_spent}</td>
+        </tr>
+    </tbody>
+</table>
+<table id="movement">
+    <thead>
+        <tr>
+            <th colspan="6">MOVEMENT</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Movement</td>
+            <td>TODO</td>
+            <td>Walk</td>
+            <td>TODO</td>
+            <td>Run</td>
+            <td>TODO</td>
+        </tr>
+    </tbody>
+</table>
