@@ -1,6 +1,14 @@
 table#characteristics,
 table#characteristics th,
 table#characteristics td {
-    border: 1px solid black;
+    border: 5px dotted black;
     padding: 5px;
+}
+
+/* TODO temp to see layout */
+table,
+table th,
+table td {
+    border: 1px dotted red !important;
+    padding: 10px !important;
 }
