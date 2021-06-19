@@ -28,19 +28,30 @@ class AdvancesViews(BaseView):
         )
         advances_schema = colander.SchemaNode(
             colander.Mapping(),
-            title="Attributes",
+            name="attributes",
             validator=self.validate,
             description=(
                 "You can allocate a total of 5 Advances across these Characteristics"
             ),
         )
         # TODO add some field validation, each must be <=5 and should be int field
+        advances_choices = [
+            (0, 0),
+            (1, 1),
+            (2, 2),
+            (3, 3),
+            (4, 4),
+            (5, 5),
+        ]
         for advance in data["advances"]:
             advances_schema.add(
                 colander.SchemaNode(
-                    colander.String(),
-                    missing="",
-                    widget=deform.widget.TextInputWidget(),
+                    colander.Int(),
+                    validator=colander.OneOf([x[0] for x in advances_choices]),
+                    widget=deform.widget.RadioChoiceWidget(
+                        values=advances_choices, inline=True
+                    ),
+                    default=0,
                     name=advance,
                 )
             )
@@ -72,12 +83,10 @@ class AdvancesViews(BaseView):
             except deform.ValidationFailure as error:
                 html = error.render()
             else:
-                for advance in captured[""]:
-                    if not captured[""][advance]:
-                        continue
+                for advance in captured["attributes"]:
                     attribute_lower = f'{advance.lower().replace(" ", "_")}_advances'
                     current_value = getattr(self.character, attribute_lower)
-                    new_value = current_value + int(captured[""][advance])
+                    new_value = current_value + captured["attributes"][advance]
                     setattr(self.character, attribute_lower, new_value)
                 url = self.request.route_url("species_skills", uuid=self.character.uuid)
                 self.character.status = {"species_skills": ""}

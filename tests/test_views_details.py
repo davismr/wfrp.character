@@ -68,7 +68,6 @@ def test_eye_colour(new_character, species):
         raise AssertionError
 
 
-@pytest.mark.current
 @pytest.mark.views
 def test_details_submit(new_character):
     payload = {
