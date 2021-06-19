@@ -86,7 +86,7 @@ class AttributesViews(BaseView):
         )
         attribute_schema = colander.SchemaNode(
             colander.Mapping(),
-            title="Attributes",
+            name="attributes",
             description="Accept these results and gain 50XP. ",
         )
         for attribute in data["base_attributes"]:
@@ -107,9 +107,9 @@ class AttributesViews(BaseView):
         data = self.initialise_form()
         schema = self.schema(data)
         # TODO must be a better way to do this
-        values = {"": {}}
+        values = {"attributes": {}}
         for attribute in ATTRIBUTES:
-            values[""][attribute] = data["base_attributes"][attribute]
+            values["attributes"][attribute] = data["base_attributes"][attribute]
         form = deform.Form(
             schema,
             buttons=("Accept Attributes",),

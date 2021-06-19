@@ -44,7 +44,6 @@ class SpeciesSkillsViews(BaseView):
         )
         skill_schema = colander.SchemaNode(
             colander.Mapping(),
-            title="Species Skills",
             description=(
                 "You may choose 3 Skills to gain 5 Advances each, and 3 Skills to gain "
                 "3 Advances each."
@@ -68,7 +67,6 @@ class SpeciesSkillsViews(BaseView):
 
         talent_schema = colander.SchemaNode(
             colander.Mapping(),
-            title="Species Talents",
             description=(
                 "If a Talent listing presents a choice, you select one Talent from "
                 "the choices given."

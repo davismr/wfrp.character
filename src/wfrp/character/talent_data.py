@@ -63,6 +63,9 @@ TALENT_DATA = {
     "Animal Affinity": {"description": ""},
     "Artistic": {"description": ""},
     "Attractive": {"description": ""},
+    "Beat Blade": {
+        "description": "You are trained to make sharp controlled blows to your opponent’s weapon, creating an opening for an attack or simply impeding an incoming attack. For your Action, you can choose to Beat Blade before rolling. Perform a Melee Test; if successful, your opponent loses –1 Advantage, and loses a further –1 per SL you score. This Test is not Opposed. This Talent is of no use if your opponent has no weapon, or has a larger Size than you (see page 341)."
+    },
     "Beneath Notice": {
         "description": "The high and mighty pay no attention to your presence, knowing you are well beneath their notice. Assuming you are properly attired and not in an incongruous position, those of a higher Status Tier will normally ignore you unless your presence becomes inappropriate, which can make it very easy to listen into conversations you perhaps shouldn’t. Further, characters with a higher Status Tier than you gain no Advantage for striking or wounding you in combat, as there is nothing to be gained for defeating such a lowly cur."
     },
@@ -107,11 +110,36 @@ TALENT_DATA = {
             "Soldiers",
         ],
     },
-    "Flee!": {"description": ""},
+    "Flee!": {
+        "description": "When your life is on the line you are capable of impressive bursts of speed. Your Movement Attribute counts as 1 higher when Fleeing (see page 165)."
+    },
     "Gregarious": {
         "description": "You just like talking to other folk and it seems they like talking to you. You may reverse any failed Gossip Test if this allows the Test to succeed."
     },
-    "Hardy": {"description": ""},
+    "Gunner": {
+        "description": "You can reload blackpowder weapons with practiced ease. Add SL equal to your level in Gunner to any Extended Test to reload a Blackpowder weapon."
+    },
+    "Hardy": {
+        "description": "You gain a permanent addition to your Wounds, equal to your Toughness Bonus. If your Toughness Bonus should increase, then the number of Wounds Hardy provides also increases."
+    },
+    "Hatred": {
+        "description": "You are consumed with hatred for something in the Old World, as described on page 190. Each time you take this Talent you develop hatred for a new group. Examples you could take include: Beastmen, Greenskins, Monsters, Outlaws, Sigmarites, Undead, Witches.",
+        "specialisations": [
+            "Beastmen",
+            "Greenskins",
+            "Monsters",
+            "Outlaws",
+            "Sigmarites",
+            "Undead",
+            "Witches",
+        ],
+    },
+    "Holy Hatred": {
+        "description": "Your prayers drip with the hatred you feel for your blasphemous enemies. You deal +1 Damage with Miracles for each level in this Talent."
+    },
+    "Holy Visions": {
+        "description": "You clearly see the great works of the Gods all around you. You automatically know when you enter Holy Ground, and may take anIntuitionTesttoreceivevisions(oftenobscure,andseenthrough the paradigm of your cult or individual belief-system) regarding the local area if significant events have occurred there in the past."
+    },
     "Lightning Reflexes": {"description": ""},
     "Linguistics": {"description": ""},
     "Luck": {"description": ""},
@@ -130,13 +158,21 @@ TALENT_DATA = {
     "Pure Soul": {
         "description": "Your soul is pure, quite resistant to the depredations of Chaos. You may gain extra Corruption points equal to your level of Pure Soul before having to Test to see if you become corrupt."
     },
-    "Read/Write": {"description": ""},
+    "Read/Write": {
+        "description": "You are one of the rare literate individuals in the Old World. You are assumed to be able to read and write (if appropriate) all of the Languages you can speak."
+    },
     "Relentless": {
         "description": "When you have your mind set on a target, there is nothing anyone can do to stop you reaching them. If you use Advantage when Disengaging, you may keep a number of Advantage equal to your level of Relentless. Further, you may use Advantage to Disengage even if you have lower Advantage than your opponents."
     },
     "Resistance": {
         "description": "Your strong constitution allows you to more readily survive a specific threat. You may automatically pass the first Test to resist the specified threat, such as Magic, Poison, Disease, Mutation, every session. If SL is important, use your Toughness Bonus as SL for the Test.",
         "specialisations": ["Magic", "Poison", "Disease", "Mutation"],
+    },
+    "Roughrider": {
+        "description": "You are at home in the saddle in even the most difficult of circumstances, and know how to get the best out of your mount during conflict. Assuming you have the Ride skill, you can direct your mount to take an Action, not just a Move, without a Ride test."
+    },
+    "Rover": {
+        "description": "You are at home roaming the wild places. When using Stealth in a rural environment, bystanders do not get passive Perception Tests to detect you; they can only spot you if they are specifically on look-out, or watching for hidden spies."
     },
     "Savvy": {
         "description": "You gain a permanent +5 bonus to your starting Intelligence Characteristic (this does not count towards your Advances)"
@@ -175,5 +211,19 @@ TALENT_DATA = {
     "Super Numerate": {"description": ""},
     "Very Resilient": {"description": ""},
     "Very Strong": {"description": ""},
-    "Warrior Born": {"description": ""},
+    "Warrior Born": {
+        "description": "You gain a permanent +5 bonus to your starting Weapon Skill Characteristic (doesn’t count as Advances)."
+    },
+    "Waterman": {
+        "description": "You are an experienced freshwater sailor and are well-versed with river vessels. You can ignore all negatives to your Tests when onboard a barge derived from rolling waters, swaying vessels, unsure footing, and similar. Further, you count as two boatmen towards the minimum number of crew to pilot a river vessel."
+    },
+    "Wealthy": {
+        "description": "You are fabulously wealthy, and are rarely ever short of coin. When Earning (including Income Endeavours) you secure +1 GC per time you have this Talent."
+    },
+    "Well-prepared": {
+        "description": "You are used to anticipating the needs of others, and yourself. A number of times per session equal to your level of Well-Prepared, you may pull the trapping required for the current situation from your backpack (or similar) as long as it is Encumbrance 0, could feasibly been bought recently, and doesn’t stretch credibility too far. This could be anything from a flask of spirits to fortify a wounded comrade to a pfennig-whistle needed by a passing entertainer. Whenever you do this, you must deduct the cost for the prepared item from your purse, representing the coin you spent earlier."
+    },
+    "Witch!": {
+        "description": "You have learned magic through trial and error. Add Language (Magick) to any Career you enter; if it is already in your Career, you may purchase the Skill for 5 XP fewer per Advance. Further, you may spend 1 Resilience point to immediately cast any spell as if it were one of your Arcane Lore spells; you also instantly memorise that spell as one of your Arcane Lore spells for 0 XP. You can do this a number of times equal to your level in this Talent."
+    },
 }

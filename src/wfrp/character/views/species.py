@@ -35,25 +35,39 @@ class SpeciesViews(BaseView):
             raise NotImplementedError(f"result {result} does not return a species")
         return species
 
-    @view_config(renderer="wfrp.character:templates/species.pt")
-    def form_view(self):
+    def initialise_form(self):
         if self.character.status["species"]:
             species = self.character.status["species"]
         else:
             species = self._roll_new_species()
             self.character.status = {"species": species}
         species_list = self._get_species_list()
+        return species_list
 
-        class Schema(colander.Schema):
-            species_field = colander.SchemaNode(
+    def schema(self, data):
+        species = self.character.status["species"]
+        schema = colander.SchemaNode(colander.Mapping(), title="Character Species")
+        species_schema = colander.SchemaNode(
+            colander.Mapping(),
+            name="species",
+        )
+        species_schema.add(
+            colander.SchemaNode(
                 colander.String(),
+                name="species",
                 default=species,
-                validator=colander.OneOf([x[0] for x in species_list]),
-                widget=deform.widget.RadioChoiceWidget(values=species_list),
+                validator=colander.OneOf([x[0] for x in data]),
+                widget=deform.widget.RadioChoiceWidget(values=data),
                 description=f"Select {species} for 20XP or select another species",
             )
+        )
+        schema.add(species_schema)
+        return schema
 
-        schema = Schema()
+    @view_config(renderer="wfrp.character:templates/species.pt")
+    def form_view(self):
+        data = self.initialise_form()
+        schema = self.schema(data)
         form = deform.Form(schema, buttons=("Choose Species",))
 
         if "Choose_Species" in self.request.POST:
@@ -62,7 +76,7 @@ class SpeciesViews(BaseView):
             except deform.ValidationFailure as error:
                 html = error.render()
             else:
-                selected = captured["species_field"]
+                selected = captured["species"]["species"]
                 if selected == self.character.status["species"]:
                     self.character.experience += 20
                 self.character.species = selected

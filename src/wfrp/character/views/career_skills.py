@@ -23,7 +23,6 @@ class CareerSkillsViews(BaseView):
         )
         skill_schema = colander.SchemaNode(
             colander.Mapping(),
-            title="Career Skills",
             description=(
                 "Allocate 40 Advances to your eight starting Skills, with no more than "
                 "10 Advances allocated to any single Skill at this stage."
@@ -59,7 +58,6 @@ class CareerSkillsViews(BaseView):
 
         talent_schema = colander.SchemaNode(
             colander.Mapping(),
-            title="Career Talents",
             description=("You may choose a single Talent to learn."),
             name="career_talents",
         )

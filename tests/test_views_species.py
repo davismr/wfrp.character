@@ -32,7 +32,7 @@ def test_get_view(new_character):
 def test_submit_view(new_character, species, experience):
     new_character.status = {"species": "Human"}
     request = testing.DummyRequest(
-        post={"species_field": species, "Choose_Species": "Choose_Species"}
+        post={"species": {"species": species}, "Choose_Species": "Choose_Species"}
     )
     request.matched_route = DummyRoute(name="species")
     request.matchdict = {"uuid": new_character.uuid}
@@ -47,7 +47,7 @@ def test_submit_view(new_character, species, experience):
 def test_submit_attributes_view(new_character):
     new_character.status = {"species": "Human"}
     request = testing.DummyRequest(
-        post={"species_field": "Human", "Choose_Species": "Choose_Species"}
+        post={"species": {"species": "Human"}, "Choose_Species": "Choose_Species"}
     )
     request.matched_route = DummyRoute(name="species")
     request.matchdict = {"uuid": new_character.uuid}

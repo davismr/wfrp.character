@@ -561,7 +561,7 @@ CAREER_DATA = {
                 "Step Aside",
             ],
             "trappings": [
-                ": Hand Weapon or Rapier",
+                "Hand Weapon or Rapier",
                 "Sling Bag containing Clothing",
                 f"{roll_d10()} Bandages",
             ],
