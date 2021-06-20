@@ -70,7 +70,13 @@ TALENT_DATA = {
         "description": "The high and mighty pay no attention to your presence, knowing you are well beneath their notice. Assuming you are properly attired and not in an incongruous position, those of a higher Status Tier will normally ignore you unless your presence becomes inappropriate, which can make it very easy to listen into conversations you perhaps shouldn’t. Further, characters with a higher Status Tier than you gain no Advantage for striking or wounding you in combat, as there is nothing to be gained for defeating such a lowly cur."
     },
     "Blather": {
-        "description": "Attempt an Opposed Charm/Intelligence Test. Success gives your opponent a Stunned Condition. Further, for each level you have in Blather, your opponent gains another Stunned Condition. Targets Stunned by Blather may do nothing other than stare at you dumbfounded as they try to catch-up with or understand what you are saying. "
+        "description": "Attempt an Opposed Charm/Intelligence Test. Success gives your opponent a Stunned Condition. Further, for each level you have in Blather, your opponent gains another Stunned Condition. Targets Stunned by Blather may do nothing other than stare at you dumbfounded as they try to catch-up with or understand what you are saying..."
+    },
+    "Concoct": {
+        "description": "You are skilled at making potions, philtres, and draughts on the go. You may take one free Crafting Endeavour to use Lore (Apothecary) without need of a Workshop. Other Crafting Endeavours use the normal rules.",
+    },
+    "Contortionist": {
+        "description": "You can bend and manipulate your body in a myriad of seemingly unnatural ways. This allows you to squeeze through unlikely gaps and bend your body in crazy ways, giving benefits determined by the GM, possibly with a successful Agility test.",
     },
     "Coolheaded": {
         "max": 1,
@@ -91,6 +97,24 @@ TALENT_DATA = {
             "Smith",
             "Tanner",
         ],
+    },
+    "Criminal": {
+        "description": "You are an active criminal making money from illegal sources, and you’re not always quiet about it..."
+    },
+    "Deadeye Shot": {
+        "description": "You always hit an opponent right between the eyes... or wherever else you intended to hit. Instead of reversing the dice to determine which Hit Location is struck with your ranged weapons, you may pick a location."
+    },
+    "Dealmaker": {
+        "description": "You are a skilled businessman who knows how to close a deal. When using the Haggle skill, you reduce or increase the price of the products by an extra 10%."
+    },
+    "Detect Artefact": {
+        "description": "You are able to sense when magic lies within an artefact. You may attempt an Intuition Test for any magical artefact touched. If successful, you sense the item is magical; further, each SL also provides a specific special rule the item uses, if it has any. Normally, you may only attempt this Test once per artefact touched."
+    },
+    "Diceman": {
+        "description": "You are a dicing master, and all claims you cheat are clearly wrong. When you successfully use Gamble or Sleight of Hand when playing with dice, you can choose to either use your rolled SL, or the number rolled on your units die. So, a successful roll of 06 could be used for +6 SL. If you play any real-life dice games to represent in-game dice games, always roll extra dice equal to your Diceman level and choose the best results."
+    },
+    "Dirty Fighting": {
+        "description": "You have been taught all the dirty tricks of unarmed combat. You may choose to cause an extra +1 Damage for each level in Dirty Fighting with any successful Melee (Brawling) hit."
     },
     "Disarm": {
         "description": "You are able to disarm an opponent with a careful flick of the wrist or a well-aimed blow to the hand."
@@ -140,6 +164,12 @@ TALENT_DATA = {
     "Holy Visions": {
         "description": "You clearly see the great works of the Gods all around you. You automatically know when you enter Holy Ground, and may take anIntuitionTesttoreceivevisions(oftenobscure,andseenthrough the paradigm of your cult or individual belief-system) regarding the local area if significant events have occurred there in the past."
     },
+    "In-fighter": {
+        "description": "You are skilled at drawing in close to an opponent. You suffer no penalties for fighting against an opponent with a longer weapon than you. Further, if you use the optional rules for In-fighting (see page 297), gain a bonus of +10 to hit your opponent."
+    },
+    "Inspiring": {
+        "description": "Your rousing words and pleas can turn the tide of a battle. Refer to the following table to see how many people you can now influence with your Leadership Skill (see page 126) when at war."
+    },
     "Lightning Reflexes": {"description": ""},
     "Linguistics": {"description": ""},
     "Luck": {"description": ""},
@@ -183,6 +213,41 @@ TALENT_DATA = {
     "Sixth Sense": {
         "description": "You get a strange feeling when you are threatened, and can react accordingly. The GM may warn you if you are walking into danger; this will normally come after a secret Intuition Test on your behalf. Further, you may ignore Surprise if you pass an Intuition Test."
     },
+    "Slayer": {
+        "description": "When determining Damage use your opponent’s Toughness Bonus as your Strength Bonus if it is higher; always determine this before any other rules modify your Strength or Strength Bonus. Further, if your target is larger than you, and your score a Critical (see page 159), multiply all melee Damage you cause by the number of steps larger your target is (so, 2 steps = ×2, 3 steps = ×3, and so on); this multiplication is calculated after all modifiers are applied. See page 341 for more about Size."
+    },
+    "Small": {
+        "description": "You are much shorter than most folk in the Old World. The full rules for different Sizes are found in Chapter 12: Bestiary on page 341."
+    },
+    "Sniper": {
+        "description": "Distance is of no import to your shooting skills, and you are just as adept at picking off far away targets as those nearby. You suffer no penalties for shooting at Long range, and half the penalties for Extreme range."
+    },
+    "Speedreader": {
+        "description": "You read books at a voracious pace. You may reverse a failed Research Test if this will grant success. If the speed at which you read is important during combat, a successful Language Test lets you read and fully comprehend a number of pages per Round equal to your SL plus Speedreader level (minimum of 1, even if you fail the Test)."
+    },
+    "Sprinter": {
+        "description": "You are a swift runner. Your Movement Attribute counts as 1 higher when Running."
+    },
+    "Step Aside": {
+        "description": "You are skilled at being where enemy weapons are not. If you use Dodge to defend against an incoming attack and win the Opposed Test, you may move up to 2 yards as you dive away, and no longer count as Engaged. None of your opponents will gain a Free Attack when you do this."
+    },
+    "Stone Soup": {
+        "description": "You are used to getting by with less, and know how to survive lean times. You can subsist on half the amount of food required without any negative penalties (bar feeling really hungry), and need only test for Starvation every 3 days, not 2 (see page 181)."
+    },
+    "Stout-hearted": {
+        "description": "No matter how bad things get, you always seem to come back for more. You may attempt a Cool Test to remove a Broken Condition at the end of each of your Turns as well as at the end of the Round (see page 168 for more on this)."
+    },
+    "Strider": {
+        "description": "You are experienced in traversing difficult ground. You ignore all movement penalties when crossing over or through a specified terrain. Typical specialities include: Coastal, Deserts, Marshes, Rocky, Tundra, Woodlands.",
+        "specialisations": [
+            "Coastal",
+            "Deserts",
+            "Marshes",
+            "Rocky",
+            "Tundra",
+            "Woodlands",
+        ],
+    },
     "Strike Mighty Blow": {
         "description": "You know how to hit hard! You deal your level of Strike Mighty Blow in extra Damage with melee weapons."
     },
@@ -207,8 +272,24 @@ TALENT_DATA = {
     "Sturdy": {
         "description": "You have a brawny physique, or are very used to carrying things. Increase the number of Encumbrance Points you can carry by your Sturdy level x 2."
     },
-    "Suave": {"description": ""},
-    "Super Numerate": {"description": ""},
+    "Suave": {
+        "description": "You gain a permanent +5 bonus to your starting Fellowship Characteristic (this does not count towards your Advances)."
+    },
+    "Super Numerate": {
+        "description": "You have a gift for calculation and can work out the solution to most mathematical problems with ease. You may use a simple calculator to represent what your PC is capable of mentally computing."
+    },
+    "Supportive": {
+        "description": "You know what to say and when to make the most impact upon your superiors. When you successfully use a social Skill to influence those with a higher Status tier, you can choose to either use your rolled SL, or the number rolled on your units die. So, a successful roll of 46 could be used for +6 SL."
+    },
+    "Sure Shot": {
+        "description": "You know how to find the weak spots in a target’s armour. When you hit a target with a Ranged weapon, you may ignore Armour Points equal to your Sure Shot level."
+    },
+    "Surgery": {
+        "description": "You are a surgeon, able to open and close the flesh in order to heal others. You can treat any Critical Wound marked as needing Surgery. You can also perform surgery to resolve internal issues with an Extended Challenging (+0) Heal Test with a target SL determined by the GM (usually 5–10) depending upon the difficulty of the procedure at hand. This will cause 1d10 Wounds and 1 Bleeding Condition per Test, meaning surgery has a high chance of killing a patient if the surgeon is not careful. After surgery, the patient must pass an Average (+20) Endurance Test or gain a Minor Infection (see page 187)."
+    },
+    "Tenacious": {
+        "description": "You never give up, no matter how impossible your travails appear. You can double the length of time successful Endurance Tests allow you to endure a hardship. This includes enduring prolonged riding, exposure, rituals, and similar adversities."
+    },
     "Very Resilient": {"description": ""},
     "Very Strong": {"description": ""},
     "Warrior Born": {
