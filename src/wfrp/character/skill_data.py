@@ -59,7 +59,19 @@ ADVANCED_SKILL_DATA = {
     "Sleight of Hand": {"characteristic": ("dexterity", "Dex")},
     "Swim": {"characteristic": ("strength", "S")},
     "Track": {"characteristic": ("initiative", "I")},
-    "Trade": {"characteristic": ("dexterity", "Dex")},
+    "Trade": {
+        "characteristic": ("dexterity", "Dex"),
+        "specialisations": [
+            "Apothecary",
+            "Calligrapher",
+            "Chandler",
+            "Carpenter",
+            "Cook",
+            "Embalmer",
+            "Smith",
+            "Tanner",
+        ],
+    },
 }
 
 

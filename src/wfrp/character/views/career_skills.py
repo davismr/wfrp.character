@@ -5,6 +5,7 @@ from pyramid.view import view_config
 from pyramid.view import view_defaults
 
 from wfrp.character.career_data import CAREER_DATA
+from wfrp.character.skill_data import SKILL_DATA
 from wfrp.character.views.base_view import BaseView
 
 
@@ -18,6 +19,14 @@ class CareerSkillsViews(BaseView):
         return {"career_skills": career_skills, "career_talents": career_talents}
 
     def schema(self, data):
+        skill_list = []
+        for skill in data["career_skills"]:
+            if "(Any)" in skill:
+                root_skill = skill.split(" (")[0]
+                for item in SKILL_DATA[root_skill]["specialisations"]:
+                    skill_list.append(f"{root_skill} ({item})")
+                continue
+            skill_list.append(skill)
         schema = colander.SchemaNode(
             colander.Mapping(), title="Career Skills and Talents"
         )
@@ -43,7 +52,7 @@ class CareerSkillsViews(BaseView):
             (9, 9),
             (10, 10),
         ]
-        for skill in data["career_skills"]:
+        for skill in skill_list:
             skill_schema.add(
                 colander.SchemaNode(
                     colander.Int(),
@@ -78,6 +87,21 @@ class CareerSkillsViews(BaseView):
         return schema
 
     def validate(self, form, values):
+        # FIXME
+        career_skills = self.initialise_form()["career_skills"]
+        for career in career_skills:
+            if "(Any)" in career:
+                career = career.replace(" (Any)", "")
+                selected = ""
+                for value in values:
+                    if value.startswith(career) and values[value] > 0:
+                        if selected:
+                            raise colander.Invalid(
+                                form,
+                                f"You can only select one {career}. You selected "
+                                f"{selected} and {value}",
+                            )
+                        selected = value
         total = 0
         for item in values:
             total += values[item]

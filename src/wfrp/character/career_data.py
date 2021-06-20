@@ -537,7 +537,7 @@ CAREER_DATA = {
             ],
             "talents": [
                 "Artistic",
-                "Craftsman (any)",
+                "Craftsman (Any)",
                 "Strong Back",
                 "Very Strong",
             ],
