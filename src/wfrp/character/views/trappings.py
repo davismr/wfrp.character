@@ -55,12 +55,16 @@ class TrappingsViews(BaseView):
             name="class_trappings",
         )
         for trapping in data["class_trappings"]:
+            choices = []
+            for item in trapping.split(" or "):
+                choices.append((item, item))
             class_schema.add(
                 colander.SchemaNode(
                     colander.String(),
-                    widget=deform.widget.TextInputWidget(readonly=True),
-                    missing="",
                     name=trapping,
+                    validator=colander.OneOf([x[0] for x in choices]),
+                    widget=deform.widget.RadioChoiceWidget(values=choices, inline=True),
+                    default=trapping,
                 )
             )
         career_schema = colander.SchemaNode(
@@ -68,12 +72,16 @@ class TrappingsViews(BaseView):
             name="career_trappings",
         )
         for trapping in data["career_trappings"]:
+            choices = []
+            for item in trapping.split(" or "):
+                choices.append((item, item))
             career_schema.add(
                 colander.SchemaNode(
                     colander.String(),
-                    widget=deform.widget.TextInputWidget(readonly=True),
-                    missing="",
                     name=trapping,
+                    validator=colander.OneOf([x[0] for x in choices]),
+                    widget=deform.widget.RadioChoiceWidget(values=choices, inline=True),
+                    default=trapping,
                 )
             )
         money_schema = colander.SchemaNode(
@@ -97,27 +105,35 @@ class TrappingsViews(BaseView):
     def form_view(self):
         data = self.initialise_form()
         schema = self.schema(data)
-        values = {"career_trappings": {}, "class_trappings": {}}
-        values["money"] = {
-            "money_field": (
-                f"{data['money'][list(data['money'])[0]]} {list(data['money'])[0]}"
-            )
+        values = {
+            "money": {
+                "money_field": (
+                    f"{data['money'][list(data['money'])[0]]} {list(data['money'])[0]}"
+                )
+            }
         }
-        for item in data["career_trappings"]:
-            values["career_trappings"][item] = item
-        for item in data["class_trappings"]:
-            values["class_trappings"][item] = item
         form = deform.Form(schema, buttons=("Choose trappings",), appstruct=values)
         if "Choose_trappings" in self.request.POST:
             try:
-                form.validate(self.request.POST.items())
+                captured = form.validate(self.request.POST.items())
             except deform.ValidationFailure as error:
                 html = error.render()
             else:
-                data = self.character.status["trappings"]
-                self.character.trappings = (
-                    data["class_trappings"] + data["career_trappings"]
+                trappings = []
+                items = (
+                    self.character.status["trappings"]["class_trappings"]
+                    + self.character.status["trappings"]["career_trappings"]
                 )
+                for item in items:
+                    if " or " in item:
+                        if item in captured["class_trappings"]:
+                            trappings.append(captured["class_trappings"][item])
+                        else:
+                            trappings.append(captured["career_trappings"][item])
+                    else:
+                        trappings.append(item)
+                data = self.character.status["trappings"]
+                self.character.trappings = trappings
                 self.character.wealth = data["money"]
                 url = self.request.route_url("details", uuid=self.character.uuid)
                 self.character.status = {"details": ""}

@@ -57,9 +57,22 @@ def test_money(new_character):
 
 @pytest.mark.views
 def test_submit_view(new_character):
-    new_character.career = "Apothecary"
+    new_character.career = "Protagonist"
     new_character.status = {"trappings": ""}
-    payload = {"Choose_trappings": "Choose_trappings"}
+    payload = {
+        "class_trappings": {
+            "Clothing": "Clothing",
+            "Hand Weapon": "Hand Weapon",
+            "Dagger": "Dagger",
+            "Pouch": "Pouch",
+        },
+        "career_trappings": {
+            "Hood or Mask": "Mask",
+            "Knuckledusters": "Knuckledusters",
+            "Leather Jack": "Leather Jack",
+        },
+        "Choose_trappings": "Choose_trappings",
+    }
     request = testing.DummyRequest(post=payload)
     request.matched_route = DummyRoute(name="trappings")
     request.matchdict = {"uuid": new_character.uuid}
@@ -68,8 +81,8 @@ def test_submit_view(new_character):
     assert isinstance(response, HTTPFound)
     assert "brass pennies" in new_character.wealth
     assert isinstance(new_character.wealth["brass pennies"], int)
-    assert "Pestle and Mortar" in new_character.trappings
-    assert "Writing Kit" in new_character.trappings
+    assert "Mask" in new_character.trappings
+    assert "Dagger" in new_character.trappings
 
 
 @pytest.mark.xfail
