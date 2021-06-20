@@ -21,6 +21,18 @@ def test_get_career(species, career):
 
 
 @pytest.mark.data
+def test_get_career_invalid():
+    with pytest.raises(NotImplementedError):
+        get_career("Not a species", 42)
+
+
+@pytest.mark.data
+def test_not_integer():
+    with pytest.raises(TypeError):
+        get_career("Human", "Not a number")
+
+
+@pytest.mark.data
 def test_list_careers():
     careers = list_careers()
     assert len(careers) == 64
@@ -64,3 +76,9 @@ def test_list_wood_elf_careers():
     assert len(careers) == 22
     assert "Slayer" not in careers
     assert "Wrecker" in careers
+
+
+@pytest.mark.data
+def test_list_careers_invalid():
+    with pytest.raises(NotImplementedError):
+        list_careers("Not a species")

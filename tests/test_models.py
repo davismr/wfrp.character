@@ -50,3 +50,9 @@ def test_character_title(new_character):
     assert new_character.get_display_title() == "Halfling Bawd"
     new_character.name = "Frodo"
     assert new_character.get_display_title() == "Frodo the Halfling Bawd"
+
+
+@pytest.mark.models
+def test_talent_description(new_character):
+    description = new_character.get_talent_description("Flee!")
+    assert "Your Movement Attribute counts as 1 higher when Fleeing" in description

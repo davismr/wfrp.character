@@ -27,7 +27,7 @@ def test_get_view(new_character):
 @pytest.mark.views
 @pytest.mark.parametrize(
     "species, experience",
-    [("Human", 20), ("Halfling", 0)],
+    [("Human", 20), ("Halfling", 0), ("Dwarf", 0), ("High Elf", 0), ("Wood Elf", 0)],
 )
 def test_submit_view(new_character, species, experience):
     new_character.status = {"species": "Human"}

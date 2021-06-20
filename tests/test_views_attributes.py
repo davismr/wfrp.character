@@ -45,6 +45,56 @@ def test_bonus_attributes_view(new_character):
 
 
 @pytest.mark.views
+def test_bonus_attributes_halfling(new_character):
+    new_character.status = {"attributes": ""}
+    request = testing.DummyRequest()
+    request.matched_route = DummyRoute(name="attributes")
+    request.matchdict = {"uuid": new_character.uuid}
+    view = AttributesViews(request)
+    response = view._get_bonus_attributes("Halfling")
+    assert len(response) == 10
+    assert response["Ballistic Skill"] == 30
+    assert response["Willpower"] == 10
+
+
+@pytest.mark.views
+def test_bonus_attributes_dwarf(new_character):
+    new_character.status = {"attributes": ""}
+    request = testing.DummyRequest()
+    request.matched_route = DummyRoute(name="attributes")
+    request.matchdict = {"uuid": new_character.uuid}
+    view = AttributesViews(request)
+    response = view._get_bonus_attributes("Dwarf")
+    assert len(response) == 10
+    assert response["Agility"] == 10
+    assert response["Willpower"] == 40
+
+
+@pytest.mark.views
+def test_bonus_attributes_elf(new_character):
+    new_character.status = {"attributes": ""}
+    request = testing.DummyRequest()
+    request.matched_route = DummyRoute(name="attributes")
+    request.matchdict = {"uuid": new_character.uuid}
+    view = AttributesViews(request)
+    response = view._get_bonus_attributes("High Elf")
+    assert len(response) == 10
+    assert response["Intelligence"] == 30
+    assert response["Initiative"] == 40
+
+
+@pytest.mark.views
+def test_bonus_attributes_invalid(new_character):
+    new_character.status = {"attributes": ""}
+    request = testing.DummyRequest()
+    request.matched_route = DummyRoute(name="attributes")
+    request.matchdict = {"uuid": new_character.uuid}
+    view = AttributesViews(request)
+    with pytest.raises(NotImplementedError):
+        view._get_bonus_attributes("Not a species")
+
+
+@pytest.mark.views
 def test_submit_view(new_character):
     new_character.species = "Human"
     new_character.status = {
