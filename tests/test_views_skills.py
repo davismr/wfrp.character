@@ -89,6 +89,46 @@ def test_species_skills_submit(new_character):
 
 
 @pytest.mark.views
+def test_species_skills_invalid(new_character):
+    payload = {
+        "species_skills": {
+            "Cool": "0",
+            "Entertain (Sing)": "0",
+            "Evaluate": "0",
+            "Language (Eltharin)": "0",
+            "Leadership": "0",
+            "Melee (Basic)": "0",
+            "Navigation": "0",
+            "Perception": "0",
+            "Play (any one)": "0",
+            "Ranged (Bow)": "0",
+            "Sail": "0",
+            "Swim": "0",
+        },
+        "species_talents": {
+            "Acute Sense (Sight)": "Acute Sense (Sight)",
+            "Coolheaded or Savvy": "Coolheaded",
+            "Night Vision": "Night Vision",
+            "Read/Write": "Read/Write",
+            "Second Sight or Sixth Sense": "Second Sight",
+        },
+        "Choose_Skills": "Choose_Skills",
+    }
+    new_character.species = "High Elf"
+    new_character.career = "Apothecary"
+    new_character.status = {"species_skills": ""}
+    request = testing.DummyRequest(post=payload)
+    request.matched_route = DummyRoute(name="species_skills")
+    request.matchdict = {"uuid": new_character.uuid}
+    view = SpeciesSkillsViews(request)
+    response = view.form_view()
+    assert isinstance(response, dict)
+    assert "form" in response
+    assert "You must select 3 skills for 3 advances" in response["form"]
+    assert "You must select 3 skills for 5 advances" in response["form"]
+
+
+@pytest.mark.views
 def test_career_skills_view(new_character):
     new_character.career = "Apothecary"
     new_character.status = {"career_skills": ""}

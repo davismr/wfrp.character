@@ -68,11 +68,11 @@ class CareerViews(BaseView):
                 validator=colander.OneOf([x[0] for x in career_choices]),
                 widget=deform.widget.RadioChoiceWidget(values=career_choices),
                 missing="",
+                name="random_career",
             )
         )
         career_schema = colander.SchemaNode(
             colander.Mapping(),
-            title="Career",
             name="career",
         )
         career_choices = [("", "Select a random career above")]
@@ -85,6 +85,7 @@ class CareerViews(BaseView):
                 validator=colander.OneOf([x[0] for x in career_choices]),
                 widget=deform.widget.RadioChoiceWidget(values=career_choices),
                 missing="",
+                name="career",
             )
         )
         schema.add(random_career_schema)
@@ -128,9 +129,9 @@ class CareerViews(BaseView):
             except deform.ValidationFailure as error:
                 html = error.render()
             else:
-                career = captured.get("random_career").get("") or captured.get(
-                    "career"
-                ).get("")
+                career = captured.get("random_career").get(
+                    "random_career"
+                ) or captured.get("career").get("career")
                 career_choice = self.character.status["career"].split(",")
                 if career in career_choice:
                     if len(career_choice) == 1:

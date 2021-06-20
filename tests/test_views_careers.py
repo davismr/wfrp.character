@@ -46,22 +46,23 @@ def test_reroll_view(new_character):
     "career_choice, experience",
     [("Soldier", 50), ("Soldier,Seaman,Bawd", 25), ("Bawd", 0)],
 )
+@pytest.mark.views
 def test_submit_experience(new_character, career_choice, experience):
     new_character.species = "Human"
     new_character.status = {"career": career_choice}
     if career_choice == "Bawd":
         request = testing.DummyRequest(
             post={
-                "random_career": {"": ""},
-                "career": {"": "Soldier"},
+                "random_career": {"random_career": ""},
+                "career": {"career": "Soldier"},
                 "Choose_Career": "Choose_Career",
             }
         )
     else:
         request = testing.DummyRequest(
             post={
-                "random_career": {"": "Soldier"},
-                "career": {"": ""},
+                "random_career": {"random_career": "Soldier"},
+                "career": {"career": ""},
                 "Choose_Career": "Choose_Career",
             }
         )
@@ -72,3 +73,22 @@ def test_submit_experience(new_character, career_choice, experience):
     response = view.form_view()
     assert isinstance(response, HTTPFound)
     assert new_character.experience == experience
+
+
+@pytest.mark.views
+def test_invalid_submit(new_character):
+    new_character.species = "Human"
+    new_character.status = {"career": "Seaman"}
+    request = testing.DummyRequest(
+        post={
+            "random_career": {"random_career": "Seaman"},
+            "career": {"career": "Soldier"},
+            "Choose_Career": "Choose_Career",
+        }
+    )
+    request.matched_route = DummyRoute(name="career")
+    request.matchdict = {"uuid": new_character.uuid}
+    view = CareerViews(request)
+    response = view.form_view()
+    assert isinstance(response, dict)
+    assert "You can only select a single career" in response["form"]
