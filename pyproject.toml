@@ -5,6 +5,7 @@ build-backend = "setuptools.build_meta:__legacy__"
 [tool.pytest.ini_options]
 filterwarnings = ["ignore::DeprecationWarning:pkg_resources"]
 markers = [
+    "data",
     "models",
     "package",
     "views",
