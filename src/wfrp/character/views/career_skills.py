@@ -87,7 +87,7 @@ class CareerSkillsViews(BaseView):
         return schema
 
     def validate(self, form, values):
-        # FIXME
+        # FIXME this does not work with pit fighter
         career_skills = self.initialise_form()["career_skills"]
         for career in career_skills:
             if "(Any)" in career:
