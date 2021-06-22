@@ -290,8 +290,36 @@ TALENT_DATA = {
     "Tenacious": {
         "description": "You never give up, no matter how impossible your travails appear. You can double the length of time successful Endurance Tests allow you to endure a hardship. This includes enduring prolonged riding, exposure, rituals, and similar adversities."
     },
-    "Very Resilient": {"description": ""},
-    "Very Strong": {"description": ""},
+    "Tinker": {
+        "description": "You are somewhat of a Johann-of-all-trades, able to repair almost anything. You count all non-magical Trade Skills as Basic when repairing broken items."
+    },
+    "Tower of Memories": {
+        "description": "A recollection technique first instigated by the Cult of Verena, reputedly from Elven practices taught by the Loremasters of Hoeth, Tower of Memories allows you to perfectly recall a sequence of facts by storing them in an imaginary spire. You can recall a sequence as long as your Intelligence without having to make a Test. For every 10 more items you attempt to memorise, you must make an increasingly difficult Intelligence Test to recall the list correctly, starting at Very Easy (+60) for +10, Easy (+40) for +20, Average (+20) for +30, and so on. Beyond it’s obvious utility for Gamble Tests, where having this Talent adds a bonus of +20 to +60 depending upon how useful recalling sequences is to the game at hand, the GM can apply bonuses to other Tests as appropriate. Each time you take this Talent you may recall an extra sequence without having to forget a previously stored one."
+    },
+    "Trapper": {
+        "description": "You are skilled at spotting and using traps. You may take a Perception Test to spot traps automatically without having to tell the GM of your intention; the GM may prefer to make some of these Tests on your behalf in private."
+    },
+    "Trick Riding": {
+        "description": "You are capable of amazing feats of agility on horseback. You can use any of your Performer Skills and unmodified Dodge skill when on horseback. Further, when mounted, you can make your Move at the start of the Round instead of on your Turn."
+    },
+    "Tunnel Rat": {
+        "description": "You are at home in tunnels, sewers, and other underground environments.When using Stealth in an underground environment, bystanders do not get passive Perception Tests to detect you; they can only spot you if they are specifically on look-out, or watching for hidden others."
+    },
+    "Unshakable": {
+        "description": "You are a jaded veteran who has survived more than one hail of shots from Blackpowder weapons. You need only take a Cool Test to resist a Broken Condition if you are successfully wounded by a Blackpowder weapon, not just if you are shot at."
+    },
+    "Very Resilient": {
+        "description": "You gain a permanent +5 bonus to your starting Toughness Characteristic (this does not count towards your Advances)."
+    },
+    "Very Strong": {
+        "description": "You gain a permanent +5 bonus to your starting Strength Characteristic (this does not count towards your Advances)."
+    },
+    "War Leader": {
+        "description": "Your stern gaze and inspiring words motivate your soldiers to fight on to the end. All subordinates able to see you may add your level in War Leader to their SL in one Willpower Test per Round. This bonus does not stack."
+    },
+    "War Wizard": {
+        "description": "You are trained to cast magic while in the thick of combat. On your Turn, you may cast one Spell with a Casting Number of 5 or less for free without using your Action. However, if you do this, you may not cast another spell this Turn."
+    },
     "Warrior Born": {
         "description": "You gain a permanent +5 bonus to your starting Weapon Skill Characteristic (doesn’t count as Advances)."
     },
