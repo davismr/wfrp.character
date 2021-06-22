@@ -273,19 +273,26 @@ def test_career_skills_any(new_character):
     new_character.status = {"career_skills": ""}
     payload = {
         "career_skills": {
-            "Athletics": "10",
+            "Athletics": "5",
             "Cool": "5",
-            "Consume Alcohol": "0",
+            "Consume Alcohol": "10",
             "Dodge": "5",
-            "Endurance": "5",
+            "Endurance": "0",
             "Evaluate": "0",
             "Stealth (Urban)": "5",
             "Trade (Any)": "10",
-            "Trade (Any) specialisation": "Embalmer",
         },
         "career_talents": {"career_talent": "Artistic"},
         "Choose_Skills": "Choose_Skills",
     }
+    request = testing.DummyRequest(post=payload)
+    request.matched_route = DummyRoute(name="career_skills")
+    request.matchdict = {"uuid": new_character.uuid}
+    view = CareerSkillsViews(request)
+    response = view.form_view()
+    assert isinstance(response, dict)
+    assert "You have to select a specialisation for Trade (Any)" in response["form"]
+    payload["career_skills"]["Trade (Any) specialisation"] = "Embalmer"
     request = testing.DummyRequest(post=payload)
     request.matched_route = DummyRoute(name="career_skills")
     request.matchdict = {"uuid": new_character.uuid}
@@ -299,23 +306,22 @@ def test_career_skills_any(new_character):
 
 
 @pytest.mark.views
-def test_career_skills_multiple_any(new_character):
-    new_character.species = "Wood Elf"
-    new_character.career = "Artisan"
+def test_career_skills_or_fail(new_character):
+    new_character.species = "Human"
+    new_character.career = "Pedlar"
     new_character.status = {"career_skills": ""}
     payload = {
         "career_skills": {
-            "Athletics": "5",
-            "Cool": "5",
-            "Consume Alcohol": "0",
-            "Dodge": "5",
-            "Endurance": "0",
-            "Evaluate": "0",
-            "Stealth (Urban)": "5",
-            "Trade (Any)": "10",
-            "Trade (Amy) specialisation": "Embalmer",
+            "Charm": "5",
+            "Endurance": "5",
+            "Entertain (Storytelling)": "10",
+            "Gossip": "5",
+            "Haggle": "0",
+            "Intuition": "0",
+            "Outdoor Survival": "5",
+            "Stealth (Rural or Urban)": "10",
         },
-        "career_talents": {"career_talent": "Artistic"},
+        "career_talents": {"career_talent": "Tinker"},
         "Choose_Skills": "Choose_Skills",
     }
     request = testing.DummyRequest(post=payload)
@@ -324,4 +330,16 @@ def test_career_skills_multiple_any(new_character):
     view = CareerSkillsViews(request)
     response = view.form_view()
     assert isinstance(response, dict)
-    assert "You have to select a specialisation for Trade (Any)" in response["form"]
+    assert (
+        "You have to select a specialisation for Stealth (Rural or Urban)"
+        in response["form"]
+    )
+    payload["career_skills"]["Stealth (Rural or Urban) specialisation"] = "Urban"
+    request = testing.DummyRequest(post=payload)
+    request.matched_route = DummyRoute(name="career_skills")
+    request.matchdict = {"uuid": new_character.uuid}
+    view = CareerSkillsViews(request)
+    response = view.form_view()
+    assert isinstance(response, HTTPFound)
+    assert "Stealth (Rural or Urban)" not in new_character.skills
+    assert new_character.skills["Stealth (Urban)"] == 10

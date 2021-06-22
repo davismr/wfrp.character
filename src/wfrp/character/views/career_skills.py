@@ -60,9 +60,13 @@ class CareerSkillsViews(BaseView):
                 )
             )
         for skill in data["career_skills"]:
-            if "(Any)" in skill:
+            if "(Any)" in skill or " or " in skill:
                 specialisation_choices = []
-                for item in SKILL_DATA[skill.split(" (")[0]]["specialisations"]:
+                if "(Any)" in skill:
+                    choices = SKILL_DATA[skill.split(" (")[0]]["specialisations"]
+                else:
+                    choices = skill.split("(")[1].replace(")", "").split(" or ")
+                for item in choices:
                     specialisation_choices.append((item, item))
                 skill_schema.add(
                     colander.SchemaNode(
@@ -110,7 +114,9 @@ class CareerSkillsViews(BaseView):
             except TypeError:
                 # ignore talent and specialisation strings
                 continue
-            if "(Any)" in value and not values[f"{value} specialisation"]:
+            if ("(Any)" in value or " or " in value) and not values[
+                f"{value} specialisation"
+            ]:
                 raise colander.Invalid(
                     form, f"You have to select a specialisation for {value}"
                 )
@@ -146,6 +152,14 @@ class CareerSkillsViews(BaseView):
                         )
                         self.character.skills[
                             item.replace("Any", specialisation)
+                        ] = int(value)
+                    elif " or " in item:
+                        specialisation = captured["career_skills"].get(
+                            f"{item} specialisation"
+                        )
+                        option = item.split("(")[1].replace(")", "")
+                        self.character.skills[
+                            item.replace(option, specialisation)
                         ] = int(value)
                     else:
                         self.character.skills[item] = int(value)
