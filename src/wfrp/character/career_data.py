@@ -1226,7 +1226,7 @@ CAREER_DATA = {
                 "Gossip",
                 "Haggle",
                 "Perform (Any)",
-                "Play (any)",
+                "Play (Any)",
                 "Sleight of Hand",
             ],
             "talents": [

@@ -280,14 +280,8 @@ def test_career_skills_any(new_character):
             "Endurance": "5",
             "Evaluate": "0",
             "Stealth (Urban)": "5",
-            "Trade (Chandler)": "10",
-            "Trade (Apothecary)": "0",
-            "Trade (Calligrapher)": "0",
-            "Trade (Carpenter)": "0",
-            "Trade (Cook)": "0",
-            "Trade (Embalmer)": "0",
-            "Trade (Smith)": "0",
-            "Trade (Tanner)": "0",
+            "Trade (Any)": "10",
+            "Trade (Any) specialisation": "Embalmer",
         },
         "career_talents": {"career_talent": "Artistic"},
         "Choose_Skills": "Choose_Skills",
@@ -300,9 +294,8 @@ def test_career_skills_any(new_character):
     assert isinstance(response, HTTPFound)
     assert "Artistic" in new_character.talents
     assert "Evaluate" not in new_character.skills
-    assert "Trade (Tanner)" not in new_character.skills
     assert "Trade (Any)" not in new_character.skills
-    assert new_character.skills["Trade (Chandler)"] == 10
+    assert new_character.skills["Trade (Embalmer)"] == 10
 
 
 @pytest.mark.views
@@ -319,14 +312,8 @@ def test_career_skills_multiple_any(new_character):
             "Endurance": "0",
             "Evaluate": "0",
             "Stealth (Urban)": "5",
-            "Trade (Chandler)": "10",
-            "Trade (Apothecary)": "0",
-            "Trade (Calligrapher)": "0",
-            "Trade (Carpenter)": "10",
-            "Trade (Cook)": "0",
-            "Trade (Embalmer)": "0",
-            "Trade (Smith)": "0",
-            "Trade (Tanner)": "0",
+            "Trade (Any)": "10",
+            "Trade (Amy) specialisation": "Embalmer",
         },
         "career_talents": {"career_talent": "Artistic"},
         "Choose_Skills": "Choose_Skills",
@@ -337,7 +324,4 @@ def test_career_skills_multiple_any(new_character):
     view = CareerSkillsViews(request)
     response = view.form_view()
     assert isinstance(response, dict)
-    assert (
-        "You can only select one Trade. You selected Trade (Chandler) and "
-        "Trade (Carpenter)" in response["form"]
-    )
+    assert "You have to select a specialisation for Trade (Any)" in response["form"]

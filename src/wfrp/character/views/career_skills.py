@@ -19,14 +19,6 @@ class CareerSkillsViews(BaseView):
         return {"career_skills": career_skills, "career_talents": career_talents}
 
     def schema(self, data):
-        skill_list = []
-        for skill in data["career_skills"]:
-            if "(Any)" in skill:
-                root_skill = skill.split(" (")[0]
-                for item in SKILL_DATA[root_skill]["specialisations"]:
-                    skill_list.append(f"{root_skill} ({item})")
-                continue
-            skill_list.append(skill)
         schema = colander.SchemaNode(
             colander.Mapping(), title="Career Skills and Talents"
         )
@@ -52,7 +44,7 @@ class CareerSkillsViews(BaseView):
             (9, 9),
             (10, 10),
         ]
-        for skill in skill_list:
+        for skill in data["career_skills"]:
             skill_schema.add(
                 colander.SchemaNode(
                     colander.Int(),
@@ -61,9 +53,30 @@ class CareerSkillsViews(BaseView):
                         values=skill_choices, inline=True
                     ),
                     default=0,
+                    description="(Any)" in skill
+                    and "Choose the specialisation below"
+                    or "",
                     name=skill,
                 )
             )
+        for skill in data["career_skills"]:
+            if "(Any)" in skill:
+                specialisation_choices = []
+                for item in SKILL_DATA[skill.split(" (")[0]]["specialisations"]:
+                    specialisation_choices.append((item, item))
+                skill_schema.add(
+                    colander.SchemaNode(
+                        colander.String(),
+                        validator=colander.OneOf(
+                            [x[0] for x in specialisation_choices]
+                        ),
+                        widget=deform.widget.RadioChoiceWidget(
+                            values=specialisation_choices, inline=True
+                        ),
+                        missing="",
+                        name=f"{skill} specialisation",
+                    )
+                )
 
         talent_schema = colander.SchemaNode(
             colander.Mapping(),
@@ -87,24 +100,20 @@ class CareerSkillsViews(BaseView):
         return schema
 
     def validate(self, form, values):
-        # FIXME this does not work with pit fighter
-        career_skills = self.initialise_form()["career_skills"]
-        for career in career_skills:
-            if "(Any)" in career:
-                career = career.replace(" (Any)", "")
-                selected = ""
-                for value in values:
-                    if value.startswith(career) and values[value] > 0:
-                        if selected:
-                            raise colander.Invalid(
-                                form,
-                                f"You can only select one {career}. You selected "
-                                f"{selected} and {value}",
-                            )
-                        selected = value
         total = 0
-        for item in values:
-            total += values[item]
+        for value in values:
+            if not values[value]:
+                # ignore zeros and empty strings
+                continue
+            try:
+                total += values[value]
+            except TypeError:
+                # ignore talent and specialisation strings
+                continue
+            if "(Any)" in value and not values[f"{value} specialisation"]:
+                raise colander.Invalid(
+                    form, f"You have to select a specialisation for {value}"
+                )
         if total > 40:
             raise colander.Invalid(
                 form, f"You can only allocate 40 advances, you have allocated {total}"
@@ -129,9 +138,17 @@ class CareerSkillsViews(BaseView):
             else:
                 for item in captured["career_skills"]:
                     value = captured["career_skills"].get(item)
-                    if value == 0:
+                    if not value or "specialisation" in item:
                         continue
-                    self.character.skills[item] = int(value)
+                    if "(Any)" in item:
+                        specialisation = captured["career_skills"].get(
+                            f"{item} specialisation"
+                        )
+                        self.character.skills[
+                            item.replace("Any", specialisation)
+                        ] = int(value)
+                    else:
+                        self.character.skills[item] = int(value)
                 for item in captured["career_talents"]:
                     value = captured["career_talents"].get(item)
                     self.character.talents.append(value)
