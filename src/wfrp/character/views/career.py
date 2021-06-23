@@ -1,5 +1,6 @@
 import colander
 import deform
+from deform.widget import OptGroup
 from pyramid.httpexceptions import HTTPFound
 from pyramid.view import view_config
 from pyramid.view import view_defaults
@@ -42,7 +43,7 @@ class CareerViews(BaseView):
         )
         career_choices = []
         for item in data["career_choice"]:
-            career_choices.append((item, item))
+            career_choices.append((item, f"{item} ({CAREER_DATA[item]['class']})"))
         if len(career_choices) == 1:
             description = (
                 f"Accept {career_choices[0][0]} for 50XP, or reroll for 3 choices and "
@@ -76,14 +77,20 @@ class CareerViews(BaseView):
             name="career",
         )
         career_choices = [("", "Select a random career above")]
-        for item in data["career_list"]:
-            career_choices.append((item, item))
+        career_class = CAREER_DATA[data["career_list"][0]]["class"]
+        career_list = {}
+        for career in data["career_list"]:
+            career_list.setdefault(CAREER_DATA[career]["class"], []).append(
+                (career, career)
+            )
+        for career_class in career_list:
+            career_choices.append(OptGroup(career_class, *career_list[career_class]))
         career_schema.add(
             colander.SchemaNode(
                 colander.String(),
                 description="Choose a different career for no extra XP.",
-                validator=colander.OneOf([x[0] for x in career_choices]),
-                widget=deform.widget.RadioChoiceWidget(values=career_choices),
+                validator=colander.OneOf(data["career_list"]),
+                widget=deform.widget.SelectWidget(values=career_choices),
                 missing="",
                 name="career",
             )
