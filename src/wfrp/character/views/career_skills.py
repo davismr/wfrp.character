@@ -6,6 +6,7 @@ from pyramid.view import view_defaults
 
 from wfrp.character.career_data import CAREER_DATA
 from wfrp.character.skill_data import SKILL_DATA
+from wfrp.character.talent_data import TALENT_DATA
 from wfrp.character.views.base_view import BaseView
 
 
@@ -89,6 +90,12 @@ class CareerSkillsViews(BaseView):
         )
         talent_choices = []
         for item in data["career_talents"]:
+            if "(Any)" in item:
+                item = item.replace(" (Any)", "")
+                for specialisation in TALENT_DATA[item]["specialisations"]:
+                    talent_choices.append(
+                        (f"{item} ({specialisation})", f"{item} ({specialisation})")
+                    )
             talent_choices.append((item, item))
         talent_schema.add(
             colander.SchemaNode(

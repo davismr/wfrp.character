@@ -293,13 +293,22 @@ def test_career_skills_any(new_character):
     assert isinstance(response, dict)
     assert "You have to select a specialisation for Trade (Any)" in response["form"]
     payload["career_skills"]["Trade (Any) specialisation"] = "Embalmer"
+    payload["career_talents"]["career_talent"] = "Craftsman (Any)"
+    request = testing.DummyRequest(post=payload)
+    request.matched_route = DummyRoute(name="career_skills")
+    request.matchdict = {"uuid": new_character.uuid}
+    view = CareerSkillsViews(request)
+    response = view.form_view()
+    assert isinstance(response, dict)
+    assert '"Craftsman (Any)" is not one of ' in response["form"]
+    payload["career_talents"]["career_talent"] = "Craftsman (Calligrapher)"
     request = testing.DummyRequest(post=payload)
     request.matched_route = DummyRoute(name="career_skills")
     request.matchdict = {"uuid": new_character.uuid}
     view = CareerSkillsViews(request)
     response = view.form_view()
     assert isinstance(response, HTTPFound)
-    assert "Artistic" in new_character.talents
+    assert "Craftsman (Calligrapher)" in new_character.talents
     assert "Evaluate" not in new_character.skills
     assert "Trade (Any)" not in new_character.skills
     assert new_character.skills["Trade (Embalmer)"] == 10
