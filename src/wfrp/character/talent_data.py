@@ -86,7 +86,19 @@ TALENT_DATA = {
         "description": "Attempt an Opposed Charm/Intelligence Test. Success gives your opponent a Stunned Condition. Further, for each level you have in Blather, your opponent gains another Stunned Condition. Targets Stunned by Blather may do nothing other than stare at you dumbfounded as they try to catch-up with or understand what you are saying..."
     },
     "Bless": {
-        "description": "You are watched over by one of the Gods and can empower simple prayers. You can now deploy the Blessings of your deity as listed in Chapter 7: Religion and Belief. Under normal circumstances, you may only ever know one Divine Lore for the Bless Talent."
+        "description": "You are watched over by one of the Gods and can empower simple prayers. You can now deploy the Blessings of your deity as listed in Chapter 7: Religion and Belief. Under normal circumstances, you may only ever know one Divine Lore for the Bless Talent.",
+        "specialisations": [
+            "Sigmar",
+            "Ulric",
+            "Taal",
+            "Rhya",
+            "Manaan",
+            "Morr",
+            "Myrmidia",
+            "Shallya",
+            "Verena",
+            "Ranald",
+        ],
     },
     "Bookish": {
         "description": "You are as at home in a library as a seaman at sea or a farmer a-farming. When using Research, you may reverse the dice of any failed Test if this will score a success."

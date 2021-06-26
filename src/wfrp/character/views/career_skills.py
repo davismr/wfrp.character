@@ -96,7 +96,8 @@ class CareerSkillsViews(BaseView):
                     talent_choices.append(
                         (f"{item} ({specialisation})", f"{item} ({specialisation})")
                     )
-            talent_choices.append((item, item))
+            else:
+                talent_choices.append((item, item))
         talent_schema.add(
             colander.SchemaNode(
                 colander.String(),
