@@ -1,3 +1,4 @@
+<div>TODO: basic grouped skills</div>
 <table class="skills_table" id="basic_skills_left" border=1>
     <thead>
         <tr>
@@ -210,6 +211,7 @@
         </tr>
     </tbody>
 </table>
+<div>TODO: remove basic skills</div>
 <table class="skills_table" id="advanced_skills" border=1>
     <thead>
         <tr>
