@@ -6,6 +6,7 @@ from pyramid.httpexceptions import HTTPFound
 
 from wfrp.character.views.career import CareerViews
 from wfrp.character.views.homepage import HomePageViews
+from wfrp.character.views.links import LinksViews
 
 
 @dataclass
@@ -14,10 +15,17 @@ class DummyRoute:
 
 
 @pytest.mark.package
-def test_passing_view(session_db):
+def test_home_view():
     view = HomePageViews(testing.DummyRequest())
     response = view.get_view()
     assert response
+
+
+@pytest.mark.package
+def test_links_view():
+    view = LinksViews(testing.DummyRequest())
+    response = view.links_view()
+    assert response == {}
 
 
 @pytest.mark.package
