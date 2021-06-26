@@ -1205,7 +1205,7 @@ CAREER_DATA = {
             "talents": [
                 "Animal Affinity",
                 "Seasoned Traveller",
-                "Trick-Riding",
+                "Trick Riding",
                 "Tenacious",
             ],
             "trappings": [
@@ -1232,7 +1232,7 @@ CAREER_DATA = {
             "talents": [
                 "Attractive",
                 "Mimic",
-                "Public-Speaking",
+                "Public Speaker",
                 "Suave",
             ],
             "trappings": [
@@ -1766,7 +1766,6 @@ CAREER_DATA = {
             "trappings": [
                 "Knuckledusters",
                 "Leather Jack",
-                "",
             ],
         },
     },
