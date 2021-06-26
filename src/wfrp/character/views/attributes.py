@@ -119,14 +119,19 @@ class AttributesViews(BaseView):
 
     def validate(self, form, values):
         used = list(values.values())
+        not_used = list(values)
         duplicates = []
         while used:
             item = used.pop(0)
+            if item.split("_")[0] in not_used:
+                not_used.remove(item.split("_")[0])
             if item in used:
                 duplicates.append(f"{item.split('_')[1]} ({item.split('_')[0]})")
         if duplicates:
             raise colander.Invalid(
-                form, f"You have used {', '.join(duplicates)} more than once"
+                form,
+                f"You have used {' and '.join(duplicates)} more than once "
+                f"and not used {' or '.join(not_used)}",
             )
 
     @view_config(renderer="wfrp.character:templates/attributes.pt")

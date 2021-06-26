@@ -132,7 +132,7 @@ def test_submit_full_experience(new_character):
     view = AttributesViews(request)
     response = view.form_view()
     assert (
-        "You have used 27 (Dexterity), 28 (Intelligence) more than once"
+        "You have used 27 (Dexterity) and 28 (Intelligence) more than once"
         in response["form"]
     )
     payload["attributes"]["Willpower"] = "Willpower_29"
