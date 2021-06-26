@@ -80,6 +80,7 @@ class AttributesViews(BaseView):
         }
 
     def schema(self, data):
+        species = self.character.species
         schema = colander.SchemaNode(
             colander.Mapping(),
             title="Character Attributes",
@@ -87,50 +88,76 @@ class AttributesViews(BaseView):
         attribute_schema = colander.SchemaNode(
             colander.Mapping(),
             name="attributes",
-            description="Accept these results and gain 50XP. ",
+            description=(
+                "Accept these results and gain 50XP, or rearrange them for 25XP."
+            ),
+            validator=self.validate,
         )
+        choices = []
+        for attribute in data["base_attributes"]:
+            choices.append(
+                (
+                    f"{attribute}_{data['base_attributes'][attribute]}",
+                    f"{data['base_attributes'][attribute]} ({attribute})",
+                )
+            )
         for attribute in data["base_attributes"]:
             attribute_schema.add(
                 colander.SchemaNode(
                     colander.String(),
-                    validator=True,
-                    missing="",
-                    widget=deform.widget.TextInputWidget(readonly=True),
                     name=attribute,
+                    description=(
+                        f"{species} bonus is +{data['bonus_attributes'][attribute]}"
+                    ),
+                    widget=deform.widget.SelectWidget(values=choices),
+                    validator=colander.OneOf([x[0] for x in choices]),
+                    default=f"{attribute}_{data['base_attributes'][attribute]}",
                 )
             )
         schema.add(attribute_schema)
         return schema
 
+    def validate(self, form, values):
+        used = list(values.values())
+        duplicates = []
+        while used:
+            item = used.pop(0)
+            if item in used:
+                duplicates.append(f"{item.split('_')[1]} ({item.split('_')[0]})")
+        if duplicates:
+            raise colander.Invalid(
+                form, f"You have used {', '.join(duplicates)} more than once"
+            )
+
     @view_config(renderer="wfrp.character:templates/attributes.pt")
     def form_view(self):
         data = self.initialise_form()
         schema = self.schema(data)
-        # TODO must be a better way to do this
-        values = {"attributes": {}}
-        for attribute in ATTRIBUTES:
-            values["attributes"][attribute] = data["base_attributes"][attribute]
         form = deform.Form(
             schema,
             buttons=("Accept Attributes",),
-            appstruct=values,
         )
         # TODO need 3 extra buttons
-        # rearrange the results for 25XP
         # roll again for no XP
         # allocate 100 points across your attributes for no XP. Your attribute total is
         if "Accept_Attributes" in self.request.POST:
             try:
-                form.validate(self.request.POST.items())
+                captured = form.validate(self.request.POST.items())
             except deform.ValidationFailure as error:
                 html = error.render()
             else:
-                self.character.experience += 50
-                for attribute in ATTRIBUTES:
-                    value = int(data["base_attributes"][attribute])
+                matched = True
+                for attribute in captured["attributes"]:
+                    if attribute not in captured["attributes"][attribute]:
+                        matched = False
+                    value = int(captured["attributes"][attribute].split("_")[1])
                     value += data["bonus_attributes"][attribute]
                     attribute_lower = f'{attribute.lower().replace(" ", "_")}_initial'
                     setattr(self.character, attribute_lower, value)
+                if matched:
+                    self.character.experience += 50
+                else:
+                    self.character.experience += 25
                 url = self.request.route_url("advances", uuid=self.character.uuid)
                 self.character.status = {"advances": ""}
                 return HTTPFound(location=url)
