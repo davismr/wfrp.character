@@ -58,7 +58,7 @@ def test_species_skills_submit(new_character):
             "Melee (Basic)": "0",
             "Navigation": "5",
             "Perception": "5",
-            "Play (any one)": "5",
+            "Play (Any)": "5",
             "Ranged (Bow)": "3",
             "Sail": "3",
             "Swim": "3",
@@ -80,10 +80,19 @@ def test_species_skills_submit(new_character):
     request.matchdict = {"uuid": new_character.uuid}
     view = SpeciesSkillsViews(request)
     response = view.form_view()
+    assert "You have to select a specialisation for Play (Any)" in response["form"]
+    payload["species_skills"]["Specialisation for Play"] = "Lute"
+    request = testing.DummyRequest(post=payload)
+    request.matched_route = DummyRoute(name="species_skills")
+    request.matchdict = {"uuid": new_character.uuid}
+    view = SpeciesSkillsViews(request)
+    response = view.form_view()
     assert isinstance(response, HTTPFound)
     assert "Cool" not in new_character.skills
+    assert "Specialisation for Play" not in new_character.skills
     assert new_character.skills["Perception"] == 5
     assert new_character.skills["Swim"] == 3
+    assert new_character.skills["Play (Lute)"] == 5
     assert "Second Sight" in new_character.talents
     assert "Night Vision" in new_character.talents
 
@@ -100,7 +109,7 @@ def test_species_skills_invalid(new_character):
             "Melee (Basic)": "0",
             "Navigation": "0",
             "Perception": "0",
-            "Play (any one)": "0",
+            "Play (Any)": "0",
             "Ranged (Bow)": "0",
             "Sail": "0",
             "Swim": "0",
@@ -206,12 +215,12 @@ def test_skills_add_submit(new_character):
             "Cool": "0",
             "Entertain (Sing)": "0",
             "Evaluate": "0",
-            "Language (Eltharin)": "0",
+            "Language (Eltharin)": "5",
             "Leadership": "0",
             "Melee (Basic)": "0",
             "Navigation": "5",
             "Perception": "5",
-            "Play (any one)": "5",
+            "Play (Any)": "0",
             "Ranged (Bow)": "3",
             "Sail": "3",
             "Swim": "3",

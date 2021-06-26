@@ -4,6 +4,7 @@ from pyramid.httpexceptions import HTTPFound
 from pyramid.view import view_config
 from pyramid.view import view_defaults
 
+from wfrp.character.skill_data import SKILL_DATA
 from wfrp.character.species_data import SPECIES_DATA
 from wfrp.character.talent_data import get_random_talent
 from wfrp.character.utils import roll_d100
@@ -64,7 +65,24 @@ class SpeciesSkillsViews(BaseView):
                     name=skill,
                 )
             )
-
+            if "(Any)" in skill:
+                specialisation_choices = []
+                choices = SKILL_DATA[skill.split(" (")[0]]["specialisations"]
+                for choice in choices:
+                    specialisation_choices.append((choice, choice))
+                skill_schema.add(
+                    colander.SchemaNode(
+                        colander.String(),
+                        validator=colander.OneOf(
+                            [x[0] for x in specialisation_choices]
+                        ),
+                        widget=deform.widget.RadioChoiceWidget(
+                            values=specialisation_choices, inline=True
+                        ),
+                        missing="",
+                        name=f"Specialisation for {skill.split(' (')[0]}",
+                    )
+                )
         talent_schema = colander.SchemaNode(
             colander.Mapping(),
             description=(
@@ -92,9 +110,16 @@ class SpeciesSkillsViews(BaseView):
         schema.add(talent_schema)
         return schema
 
-    def validate(self, form, value):
+    def validate(self, form, values):
         errors = []
-        list_values = list(value.values())
+        for value in values:
+            if (
+                "(Any)" in value
+                and values[value]
+                and not values[f"Specialisation for {value.split(' (')[0]}"]
+            ):
+                errors.append(f"You have to select a specialisation for {value}")
+        list_values = list(values.values())
         if list_values.count(3) > 3:
             errors.append("You can only select 3 skills for 3 advances")
         elif list_values.count(3) < 3:
@@ -111,7 +136,6 @@ class SpeciesSkillsViews(BaseView):
         data = self.initialise_form()
         schema = self.schema(data)
         form = deform.Form(schema, buttons=("Choose Skills",))
-
         if "Choose_Skills" in self.request.POST:
             try:
                 captured = form.validate(self.request.POST.items())
@@ -122,7 +146,15 @@ class SpeciesSkillsViews(BaseView):
                     value = captured["species_skills"].get(item)
                     if value == 0:
                         continue
-                    self.character.skills[item] = value
+                    if "(Any)" in item:
+                        specialisation = captured["species_skills"].get(
+                            f"Specialisation for {item.split(' (')[0]}"
+                        )
+                        self.character.skills[
+                            item.replace("Any", specialisation)
+                        ] = value
+                    elif "Specialisation for" not in item:
+                        self.character.skills[item] = value
                 for item in captured["species_talents"]:
                     value = captured["species_talents"].get(item)
                     self.character.talents.append(value)
