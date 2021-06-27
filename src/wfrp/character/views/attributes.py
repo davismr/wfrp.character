@@ -79,11 +79,20 @@ class AttributesViews(BaseView):
             "total_attributes": total_attributes,
         }
 
+    def _reroll(self):
+        if "reroll" not in self.character.status:
+            attributes = self._roll_base_attributes()
+            self.character.status["attributes"] = attributes
+            self.character.status["reroll"] = True
+
     def schema(self, data):
         species = self.character.species
         schema = colander.SchemaNode(
             colander.Mapping(),
             title="Character Attributes",
+            description=(
+                f"Total rolled is {data['total_attributes']} {self.character.status}"
+            ),
         )
         attribute_schema = colander.SchemaNode(
             colander.Mapping(),
@@ -136,14 +145,17 @@ class AttributesViews(BaseView):
 
     @view_config(renderer="wfrp.character:templates/attributes.pt")
     def form_view(self):
+        if "Reroll_Attributes" in self.request.POST:
+            self._reroll()
+        buttons = ["Accept Attributes"]
+        if "reroll" not in self.character.status:
+            buttons.append("Reroll Attributes")
         data = self.initialise_form()
         schema = self.schema(data)
         form = deform.Form(
             schema,
-            buttons=("Accept Attributes",),
+            buttons=buttons,
         )
-        # TODO need 3 extra buttons
-        # roll again for no XP
         # allocate 100 points across your attributes for no XP. Your attribute total is
         if "Accept_Attributes" in self.request.POST:
             try:
@@ -159,10 +171,11 @@ class AttributesViews(BaseView):
                     value += data["bonus_attributes"][attribute]
                     attribute_lower = f'{attribute.lower().replace(" ", "_")}_initial'
                     setattr(self.character, attribute_lower, value)
-                if matched:
-                    self.character.experience += 50
-                else:
-                    self.character.experience += 25
+                if "reroll" not in self.character.status:
+                    if matched:
+                        self.character.experience += 50
+                    else:
+                        self.character.experience += 25
                 url = self.request.route_url("advances", uuid=self.character.uuid)
                 self.character.status = {"advances": ""}
                 return HTTPFound(location=url)

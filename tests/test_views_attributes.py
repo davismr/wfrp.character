@@ -156,7 +156,6 @@ def test_submit_full_experience(new_character):
     assert new_character.experience == 50
 
 
-@pytest.mark.current
 @pytest.mark.views
 def test_submit_rearrange(new_character):
     new_character.species = "Human"
@@ -206,3 +205,40 @@ def test_submit_rearrange(new_character):
     assert new_character.willpower_initial == 44
     assert new_character.fellowship_initial == 43
     assert new_character.experience == 25
+
+
+@pytest.mark.views
+def test_reroll(new_character):
+    new_character.species = "Dwarf"
+    new_character.status = {"attributes": ""}
+    request = testing.DummyRequest(
+        post={
+            "Reroll_Attributes": "Reroll_Attributes",
+        }
+    )
+    request.matched_route = DummyRoute(name="attributes")
+    request.matchdict = {"uuid": new_character.uuid}
+    view = AttributesViews(request)
+    response = view.initialise_form()
+    assert "reroll" not in new_character.status
+    attributes = new_character.status["attributes"]
+    response = view._reroll()
+    assert new_character.status["attributes"] != attributes
+    attributes = new_character.status["attributes"]
+    assert "reroll" in new_character.status
+    response = view._reroll()
+    assert new_character.status["attributes"] == attributes
+    assert "reroll" in new_character.status
+    payload = {
+        "attributes": {},
+        "Accept_Attributes": "Accept_Attributes",
+    }
+    for attribute in attributes:
+        payload["attributes"][attribute] = f"{attribute}_{attributes[attribute]}"
+    request = testing.DummyRequest(post=payload)
+    request.matched_route = DummyRoute(name="attributes")
+    request.matchdict = {"uuid": new_character.uuid}
+    view = AttributesViews(request)
+    response = view.form_view()
+    assert isinstance(response, HTTPFound)
+    assert new_character.experience == 0

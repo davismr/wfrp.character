@@ -69,9 +69,9 @@ class Character(Base):
     movement = Column(Integer, default=3)
     skills = Column(MutableDict.as_mutable(JSON), default={})
     talents = Column(MutableList.as_mutable(JSON), default=[])
-    trappings = Column(JSON, default=[])
-    wealth = Column(JSON, default={})
-    status = Column(JSON, default={})
+    trappings = Column(MutableList.as_mutable(JSON), default=[])
+    wealth = Column(MutableDict.as_mutable(JSON), default={})
+    status = Column(MutableDict.as_mutable(JSON), default={})
 
     @property
     def weapon_skill(self):
