@@ -71,7 +71,7 @@ class Character(Base):
     talents = Column(MutableList.as_mutable(JSON), default=[])
     trappings = Column(MutableList.as_mutable(JSON), default=[])
     wealth = Column(MutableDict.as_mutable(JSON), default={})
-    status = Column(MutableDict.as_mutable(JSON), default={})
+    status = Column(JSON, default={})  # this is intentionally not mutable
 
     @property
     def weapon_skill(self):

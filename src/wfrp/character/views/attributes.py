@@ -82,8 +82,7 @@ class AttributesViews(BaseView):
     def _reroll(self):
         if "reroll" not in self.character.status:
             attributes = self._roll_base_attributes()
-            self.character.status["attributes"] = attributes
-            self.character.status["reroll"] = True
+            self.character.status = {"attributes": attributes, "reroll": True}
 
     def schema(self, data):
         species = self.character.species

@@ -242,3 +242,32 @@ def test_reroll(new_character):
     response = view.form_view()
     assert isinstance(response, HTTPFound)
     assert new_character.experience == 0
+
+
+@pytest.mark.views
+def test_reroll_submit(new_character):
+    new_character.species = "Dwarf"
+    new_character.status = {"attributes": ""}
+    payload = {
+        "Reroll_Attributes": "Reroll_Attributes",
+    }
+    request = testing.DummyRequest(post=payload)
+    request.matched_route = DummyRoute(name="attributes")
+    request.matchdict = {"uuid": new_character.uuid}
+    view = AttributesViews(request)
+    response = view.form_view()
+    attributes = new_character.status["attributes"]
+    assert "reroll" in new_character.status
+    payload = {
+        "attributes": {},
+        "Accept_Attributes": "Accept_Attributes",
+    }
+    for attribute in attributes:
+        payload["attributes"][attribute] = f"{attribute}_{attributes[attribute]}"
+    request = testing.DummyRequest(post=payload)
+    request.matched_route = DummyRoute(name="attributes")
+    request.matchdict = {"uuid": new_character.uuid}
+    view = AttributesViews(request)
+    response = view.form_view()
+    assert isinstance(response, HTTPFound)
+    assert new_character.experience == 0
