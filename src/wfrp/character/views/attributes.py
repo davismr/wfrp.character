@@ -85,13 +85,18 @@ class AttributesViews(BaseView):
             self.character.status = {"attributes": attributes, "reroll": True}
 
     def schema(self, data):
+        attribute_list = "-".join(
+            [str(x) for x in sorted(data["base_attributes"].values())]
+        )
+        form_description = (
+            f"Rolled attributes are: {attribute_list}. Total rolled is "
+            f"{data['total_attributes']}"
+        )
         species = self.character.species
         schema = colander.SchemaNode(
             colander.Mapping(),
             title="Character Attributes",
-            description=(
-                f"Total rolled is {data['total_attributes']} {self.character.status}"
-            ),
+            description=form_description,
         )
         attribute_schema = colander.SchemaNode(
             colander.Mapping(),
@@ -102,11 +107,13 @@ class AttributesViews(BaseView):
             validator=self.validate,
         )
         choices = []
-        for attribute in data["base_attributes"]:
+        for attribute in sorted(
+            data["base_attributes"], key=data["base_attributes"].get
+        ):
             choices.append(
                 (
-                    f"{attribute}_{data['base_attributes'][attribute]}",
-                    f"{data['base_attributes'][attribute]} ({attribute})",
+                    str(data["base_attributes"][attribute]),
+                    str(data["base_attributes"][attribute]),
                 )
             )
         for attribute in data["base_attributes"]:
@@ -115,11 +122,12 @@ class AttributesViews(BaseView):
                     colander.String(),
                     name=attribute,
                     description=(
-                        f"{species} bonus is +{data['bonus_attributes'][attribute]}"
+                        f"Rolled was {data['base_attributes'][attribute]} and {species}"
+                        f" bonus is +{data['bonus_attributes'][attribute]}"
                     ),
                     widget=deform.widget.SelectWidget(values=choices),
                     validator=colander.OneOf([x[0] for x in choices]),
-                    default=f"{attribute}_{data['base_attributes'][attribute]}",
+                    default=str(data["base_attributes"][attribute]),
                 )
             )
         schema.add(attribute_schema)
@@ -127,18 +135,18 @@ class AttributesViews(BaseView):
 
     def validate(self, form, values):
         used = list(values.values())
-        not_used = list(values)
+        not_used = [str(x) for x in self.character.status["attributes"].values()]
         duplicates = []
         while used:
             item = used.pop(0)
-            if item.split("_")[0] in not_used:
-                not_used.remove(item.split("_")[0])
-            if item in used:
-                duplicates.append(f"{item.split('_')[1]} ({item.split('_')[0]})")
+            try:
+                not_used.remove(item)
+            except ValueError:
+                duplicates.append(str(item))
         if duplicates:
             raise colander.Invalid(
                 form,
-                f"You have used {' and '.join(duplicates)} more than once "
+                f"You have used {' and '.join(duplicates)} too many times "
                 f"and not used {' or '.join(not_used)}",
             )
 
@@ -164,9 +172,12 @@ class AttributesViews(BaseView):
             else:
                 matched = True
                 for attribute in captured["attributes"]:
-                    if attribute not in captured["attributes"][attribute]:
+                    if (
+                        int(captured["attributes"][attribute])
+                        != self.character.status["attributes"][attribute]
+                    ):
                         matched = False
-                    value = int(captured["attributes"][attribute].split("_")[1])
+                    value = int(captured["attributes"][attribute])
                     value += data["bonus_attributes"][attribute]
                     attribute_lower = f'{attribute.lower().replace(" ", "_")}_initial'
                     setattr(self.character, attribute_lower, value)

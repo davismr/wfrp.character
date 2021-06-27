@@ -113,16 +113,16 @@ def test_submit_full_experience(new_character):
     }
     payload = {
         "attributes": {
-            "Weapon Skill": "Weapon Skill_21",
-            "Ballistic Skill": "Ballistic Skill_22",
-            "Strength": "Strength_23",
-            "Toughness": "Toughness_24",
-            "Initiative": "Initiative_25",
-            "Agility": "Agility_26",
-            "Dexterity": "Dexterity_27",
-            "Intelligence": "Intelligence_28",
-            "Willpower": "Dexterity_27",
-            "Fellowship": "Intelligence_28",
+            "Weapon Skill": "21",
+            "Ballistic Skill": "22",
+            "Strength": "23",
+            "Toughness": "24",
+            "Initiative": "25",
+            "Agility": "26",
+            "Dexterity": "27",
+            "Intelligence": "28",
+            "Willpower": "27",
+            "Fellowship": "28",
         },
         "Accept_Attributes": "Accept_Attributes",
     }
@@ -132,11 +132,11 @@ def test_submit_full_experience(new_character):
     view = AttributesViews(request)
     response = view.form_view()
     assert (
-        "You have used 27 (Dexterity) and 28 (Intelligence) more than once"
+        "You have used 27 and 28 too many times and not used 29 or 30"
         in response["form"]
     )
-    payload["attributes"]["Willpower"] = "Willpower_29"
-    payload["attributes"]["Fellowship"] = "Fellowship_30"
+    payload["attributes"]["Willpower"] = "29"
+    payload["attributes"]["Fellowship"] = "30"
     request = testing.DummyRequest(post=payload)
     request.matched_route = DummyRoute(name="attributes")
     request.matchdict = {"uuid": new_character.uuid}
@@ -175,16 +175,16 @@ def test_submit_rearrange(new_character):
     }
     payload = {
         "attributes": {
-            "Weapon Skill": "Ballistic Skill_22",
-            "Ballistic Skill": "Weapon Skill_21",
-            "Strength": "Fellowship_30",
-            "Toughness": "Willpower_29",
-            "Initiative": "Initiative_25",
-            "Agility": "Agility_26",
-            "Dexterity": "Dexterity_27",
-            "Intelligence": "Intelligence_28",
-            "Willpower": "Toughness_24",
-            "Fellowship": "Strength_23",
+            "Weapon Skill": "22",
+            "Ballistic Skill": "21",
+            "Strength": "30",
+            "Toughness": "29",
+            "Initiative": "25",
+            "Agility": "26",
+            "Dexterity": "27",
+            "Intelligence": "28",
+            "Willpower": "24",
+            "Fellowship": "23",
         },
         "Accept_Attributes": "Accept_Attributes",
     }
@@ -234,7 +234,7 @@ def test_reroll(new_character):
         "Accept_Attributes": "Accept_Attributes",
     }
     for attribute in attributes:
-        payload["attributes"][attribute] = f"{attribute}_{attributes[attribute]}"
+        payload["attributes"][attribute] = str(attributes[attribute])
     request = testing.DummyRequest(post=payload)
     request.matched_route = DummyRoute(name="attributes")
     request.matchdict = {"uuid": new_character.uuid}
@@ -263,7 +263,7 @@ def test_reroll_submit(new_character):
         "Accept_Attributes": "Accept_Attributes",
     }
     for attribute in attributes:
-        payload["attributes"][attribute] = f"{attribute}_{attributes[attribute]}"
+        payload["attributes"][attribute] = str(attributes[attribute])
     request = testing.DummyRequest(post=payload)
     request.matched_route = DummyRoute(name="attributes")
     request.matchdict = {"uuid": new_character.uuid}
