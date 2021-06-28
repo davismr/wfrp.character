@@ -205,8 +205,7 @@ class AttributesViews(BaseView):
                 f"Total must be 100, total is currently {total}",
             )
 
-    @view_config(renderer="wfrp.character:templates/attributes.pt")
-    def form_view(self):
+    def setup_form(self):
         buttons = []
         if "Reroll_Attributes" in self.request.POST:
             self._reroll()
@@ -229,6 +228,11 @@ class AttributesViews(BaseView):
             schema,
             buttons=buttons,
         )
+        return data, form
+
+    @view_config(renderer="wfrp.character:templates/attributes.pt")
+    def form_view(self):  # noqa: C901
+        data, form = self.setup_form()
         if "Choose_Attributes" in self.request.POST:
             if self.character.status["choose"] is False:
                 # choose attributes, but form not submitted yet
