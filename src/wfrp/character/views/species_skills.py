@@ -98,12 +98,12 @@ class SpeciesSkillsViews(BaseView):
             talent_schema.add(
                 colander.SchemaNode(
                     colander.String(),
+                    name=talent,
                     validator=colander.OneOf([x[0] for x in talent_choices]),
                     widget=deform.widget.RadioChoiceWidget(
                         values=talent_choices, inline=True
                     ),
                     default=talent_choices[0][0],
-                    name=talent,
                 )
             )
         schema.add(skill_schema)

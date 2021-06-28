@@ -1137,7 +1137,7 @@ CAREER_DATA = {
     "Villager": {
         "class": "Peasants",
         "": {
-            "status": {"tier": "Brass", "standing": 0},
+            "status": {"tier": "Brass", "standing": 2},
             "attributes": ["Strength", "Toughness", "Agility"],
             "skills": [
                 "Animal Care",
@@ -1353,7 +1353,7 @@ CAREER_DATA = {
     "Witch Hunter": {
         "class": "Rangers",
         "": {
-            "status": {"tier": "Brass", "standing": 0},
+            "status": {"tier": "Silver", "standing": 1},
             "attributes": ["Weapon Skill", "Toughness", "Willpower"],
             "skills": [
                 "Charm",

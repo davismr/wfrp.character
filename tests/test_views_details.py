@@ -15,7 +15,7 @@ class DummyRoute:
 
 
 @pytest.mark.views
-def test_initialise_form(new_character):
+def test_initialise_form_elf(new_character):
     new_character.species = "Wood Elf"
     new_character.status = {"details": ""}
     request = testing.DummyRequest()
@@ -66,6 +66,32 @@ def test_eye_colour(new_character, species):
             break
     else:
         raise AssertionError
+
+
+@pytest.mark.views
+def test_initialise_invalid_species(new_character):
+    new_character.species = "Not a species"
+    new_character.status = {"details": ""}
+    request = testing.DummyRequest()
+    request.matched_route = DummyRoute(name="details")
+    request.matchdict = {"uuid": new_character.uuid}
+    view = DetailsViews(request)
+    with pytest.raises(NotImplementedError):
+        view.initialise_form()
+
+
+@pytest.mark.views
+@pytest.mark.parametrize("species", SPECIES_LIST)
+def test_initialise_form_speciesx(new_character, species):
+    new_character.species = species
+    new_character.status = {"details": ""}
+    request = testing.DummyRequest()
+    request.matched_route = DummyRoute(name="details")
+    request.matchdict = {"uuid": new_character.uuid}
+    view = DetailsViews(request)
+    initial_values = view.initialise_form()
+    for key in ["age", "eye_colour", "hair_colour", "height"]:
+        assert key in initial_values
 
 
 @pytest.mark.views

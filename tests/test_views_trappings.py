@@ -50,9 +50,15 @@ def test_money(new_character):
     request.matched_route = DummyRoute(name="trappings")
     request.matchdict = {"uuid": new_character.uuid}
     view = TrappingsViews(request)
-    response = view._get_money("Brass", 4)
+    response = view._get_money("Brass", 2)
     assert "brass pennies" in response
     assert response["brass pennies"] >= 4
+    assert response["brass pennies"] <= 40
+    response = view._get_money("Silver", 2)
+    assert response["silver shillings"] >= 2
+    assert response["silver shillings"] <= 20
+    response = view._get_money("Gold", 2)
+    assert response == {"Gold crown": 2}
 
 
 @pytest.mark.views

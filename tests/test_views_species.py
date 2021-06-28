@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from unittest.mock import patch
 
 import pytest
 from pyramid import testing
@@ -22,6 +23,32 @@ def test_get_view(new_character):
     assert "form" in response
     assert "Wood Elf" in response["form"]
     assert "Choose species" in response["form"]
+
+
+@pytest.mark.current
+@pytest.mark.views
+@pytest.mark.parametrize(
+    "species, roll",
+    [
+        ("Human", 42),
+        ("Halfling", 93),
+        ("Dwarf", 98),
+        ("High Elf", 99),
+        ("Wood Elf", 100),
+    ],
+)
+def test_roll_new_species(new_character, species, roll):
+    request = testing.DummyRequest(path="species")
+    request.matched_route = DummyRoute(name="species")
+    request.matchdict = {"uuid": new_character.uuid}
+    view = SpeciesViews(request)
+    with patch("wfrp.character.views.species.roll_d100") as mock_roll:
+        mock_roll.return_value = roll
+        response = view._roll_new_species()
+        assert response == species
+        mock_roll.return_value = 101
+        with pytest.raises(NotImplementedError):
+            view._roll_new_species()
 
 
 @pytest.mark.views
