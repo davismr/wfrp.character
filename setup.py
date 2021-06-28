@@ -1,6 +1,5 @@
 import os
 
-from setuptools import find_packages
 from setuptools import setup
 
 here = os.path.abspath(os.path.dirname(__file__))
@@ -44,8 +43,6 @@ setup(
     author_email="m.r.davis@me.com",
     url="",
     keywords="web pyramid pylons",
-    packages=find_packages("src", exclude=["tests"]),
-    package_dir={"": "src"},
     include_package_data=True,
     zip_safe=False,
     extras_require={"testing": tests_require},
