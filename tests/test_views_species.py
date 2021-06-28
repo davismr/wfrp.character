@@ -26,6 +26,23 @@ def test_get_view(new_character):
 
 @pytest.mark.views
 @pytest.mark.parametrize(
+    "species, movement",
+    [("Human", 4), ("Halfling", 3), ("Dwarf", 3), ("High Elf", 5)],
+)
+def test_set_attributes(new_character, species, movement):
+    new_character.status = {"species": ""}
+    request = testing.DummyRequest()
+    request.matched_route = DummyRoute(name="species")
+    request.matchdict = {"uuid": new_character.uuid}
+    view = SpeciesViews(request)
+    with pytest.raises(NotImplementedError):
+        view._set_species_attributes("Not a species")
+    view._set_species_attributes(species)
+    assert new_character.movement == movement
+
+
+@pytest.mark.views
+@pytest.mark.parametrize(
     "species, experience",
     [("Human", 20), ("Halfling", 0), ("Dwarf", 0), ("High Elf", 0), ("Wood Elf", 0)],
 )

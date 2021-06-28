@@ -56,3 +56,5 @@ def test_character_title(new_character):
 def test_talent_description(new_character):
     description = new_character.get_talent_description("Flee!")
     assert "Your Movement Attribute counts as 1 higher when Fleeing" in description
+    description = new_character.get_talent_description("Acute Sense (Taste)")
+    assert "One of your primary five senses is highly developed," in description

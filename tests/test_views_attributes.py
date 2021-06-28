@@ -271,3 +271,66 @@ def test_reroll_submit(new_character):
     response = view.form_view()
     assert isinstance(response, HTTPFound)
     assert new_character.experience == 0
+
+
+@pytest.mark.views
+def test_choose_submit(new_character):
+    new_character.species = "Human"
+    new_character.status = {"attributes": ""}
+    request = testing.DummyRequest()
+    request.matched_route = DummyRoute(name="attributes")
+    request.matchdict = {"uuid": new_character.uuid}
+    view = AttributesViews(request)
+    response = view.form_view()
+    assert "form" in response
+    payload = {"Choose_Attributes": "Choose_Attributes"}
+    request = testing.DummyRequest(post=payload)
+    request.matched_route = DummyRoute(name="attributes")
+    request.matchdict = {"uuid": new_character.uuid}
+    view = AttributesViews(request)
+    response = view.form_view()
+    assert "form" in response
+    payload["attributes"] = {}
+    payload["attributes"]["Weapon Skill"] = "1"
+    payload["attributes"]["Ballistic Skill"] = "20"
+    payload["attributes"]["Strength"] = "6"
+    payload["attributes"]["Toughness"] = "14"
+    payload["attributes"]["Initiative"] = "13"
+    payload["attributes"]["Agility"] = "7"
+    payload["attributes"]["Dexterity"] = "8"
+    payload["attributes"]["Intelligence"] = "9"
+    payload["attributes"]["Willpower"] = "11"
+    payload["attributes"]["Fellowship"] = "12"
+    request = testing.DummyRequest(post=payload)
+    request.matched_route = DummyRoute(name="attributes")
+    request.matchdict = {"uuid": new_character.uuid}
+    view = AttributesViews(request)
+    response = view.form_view()
+    assert "Must be a minimum of 4" in response["form"]
+    assert "Must be a maximum of 18" in response["form"]
+    payload["attributes"]["Weapon Skill"] = "5"
+    payload["attributes"]["Ballistic Skill"] = "17"
+    request = testing.DummyRequest(post=payload)
+    request.matched_route = DummyRoute(name="attributes")
+    request.matchdict = {"uuid": new_character.uuid}
+    view = AttributesViews(request)
+    response = view.form_view()
+    assert "Total must be 100, total is currently 102" in response["form"]
+    payload["attributes"]["Ballistic Skill"] = "15"
+    request = testing.DummyRequest(post=payload)
+    request.matched_route = DummyRoute(name="attributes")
+    request.matchdict = {"uuid": new_character.uuid}
+    view = AttributesViews(request)
+    response = view.form_view()
+    assert isinstance(response, HTTPFound)
+    assert new_character.weapon_skill_initial == 25
+    assert new_character.ballistic_skill_initial == 35
+    assert new_character.strength_initial == 26
+    assert new_character.toughness_initial == 34
+    assert new_character.initiative_initial == 33
+    assert new_character.agility_initial == 27
+    assert new_character.dexterity_initial == 28
+    assert new_character.intelligence_initial == 29
+    assert new_character.willpower_initial == 31
+    assert new_character.fellowship_initial == 32
+    assert new_character.experience == 0

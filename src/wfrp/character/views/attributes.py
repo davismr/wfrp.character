@@ -66,6 +66,8 @@ class AttributesViews(BaseView):
     def initialise_form(self):
         if self.character.status["attributes"]:
             base_attributes = self.character.status["attributes"]
+        elif "choose" in self.character.status:
+            base_attributes = []
         else:
             base_attributes = self._roll_base_attributes()
             self.character.status = {"attributes": base_attributes}
@@ -150,21 +152,109 @@ class AttributesViews(BaseView):
                 f"and not used {' or '.join(not_used)}",
             )
 
+    def choose_schema(self, data):
+        species = self.character.species
+        schema = colander.SchemaNode(
+            colander.Mapping(),
+            title="Character Attributes",
+        )
+        attribute_schema = colander.SchemaNode(
+            colander.Mapping(),
+            name="attributes",
+            description=(
+                "Allocate 100 points across the 10 Characteristics as you prefer, with "
+                "a minimum of 4 and a maximum of 18 allocated to any single "
+                "Characteristic"
+            ),
+            validator=self.choose_validate,
+        )
+        for attribute in ATTRIBUTES:
+            attribute_schema.add(
+                colander.SchemaNode(
+                    colander.String(),
+                    name=attribute,
+                    description=(
+                        f"{species} bonus is +{data['bonus_attributes'][attribute]}"
+                    ),
+                    widget=deform.widget.TextInputWidget(),
+                    validator=self.validate_choose_field,
+                )
+            )
+        schema.add(attribute_schema)
+        return schema
+
+    def validate_choose_field(self, form, values):
+        if int(values) < 4:
+            raise colander.Invalid(
+                form,
+                "Must be a minimum of 4",
+            )
+        elif int(values) > 18:
+            raise colander.Invalid(
+                form,
+                "Must be a maximum of 18",
+            )
+
+    def choose_validate(self, form, values):
+        total = 0
+        for value in values.values():
+            total += int(value)
+        if total != 100:
+            raise colander.Invalid(
+                form,
+                f"Total must be 100, total is currently {total}",
+            )
+
     @view_config(renderer="wfrp.character:templates/attributes.pt")
     def form_view(self):
+        buttons = []
         if "Reroll_Attributes" in self.request.POST:
             self._reroll()
-        buttons = ["Accept Attributes"]
-        if "reroll" not in self.character.status:
-            buttons.append("Reroll Attributes")
-        data = self.initialise_form()
-        schema = self.schema(data)
+        if (
+            "Choose_Attributes" in self.request.POST
+            and "choose" not in self.character.status
+        ):
+            self.character.status = {"attributes": "", "reroll": True, "choose": False}
+        if "choose" not in self.character.status:
+            buttons.append("Accept Attributes")
+            if "reroll" not in self.character.status:
+                buttons.append("Reroll Attributes")
+            data = self.initialise_form()
+            schema = self.schema(data)
+        else:
+            data = self.initialise_form()
+            schema = self.choose_schema(data)
+        buttons.append("Choose Attributes")
         form = deform.Form(
             schema,
             buttons=buttons,
         )
-        # allocate 100 points across your attributes for no XP. Your attribute total is
-        if "Accept_Attributes" in self.request.POST:
+        if "Choose_Attributes" in self.request.POST:
+            if self.character.status["choose"] is False:
+                # choose attributes, but form not submitted yet
+                self.character.status = {
+                    "attributes": "",
+                    "reroll": True,
+                    "choose": True,
+                }
+                html = form.render()
+            else:
+                try:
+                    captured = form.validate(self.request.POST.items())
+                except deform.ValidationFailure as error:
+                    html = error.render()
+                else:
+                    for attribute in captured["attributes"]:
+                        value = int(captured["attributes"][attribute])
+                        value += data["bonus_attributes"][attribute]
+                        attribute_lower = (
+                            f'{attribute.lower().replace(" ", "_")}_initial'
+                        )
+                        setattr(self.character, attribute_lower, value)
+                    url = self.request.route_url("advances", uuid=self.character.uuid)
+                    self.character.status = {"advances": ""}
+                    return HTTPFound(location=url)
+        elif "Accept_Attributes" in self.request.POST:
             try:
                 captured = form.validate(self.request.POST.items())
             except deform.ValidationFailure as error:
