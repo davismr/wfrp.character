@@ -24,7 +24,7 @@ class DetailsViews(BaseView):
         if self.character.status["details"]:
             return self.character.status["details"]
         species = self.character.species
-        eye_colour = self._get_eye_colour(species)
+        eye_colour = ""
         if species == "Human":
             age = 15 + roll_d10()
             height = 57 + roll_2d10()
@@ -40,6 +40,7 @@ class DetailsViews(BaseView):
             eye_colour += f", {self._get_eye_colour(species)}"
         else:
             raise NotImplementedError(f"{species} is not defined")
+        eye_colour += self._get_eye_colour(species)
         data = {
             "age": age,
             "height": height,
