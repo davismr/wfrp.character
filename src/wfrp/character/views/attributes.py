@@ -124,7 +124,7 @@ class AttributesViews(BaseView):
                     colander.String(),
                     name=attribute,
                     description=(
-                        f"Rolled was {data['base_attributes'][attribute]} and {species}"
+                        f"Roll was {data['base_attributes'][attribute]} and {species}"
                         f" bonus is +{data['bonus_attributes'][attribute]}"
                     ),
                     widget=deform.widget.SelectWidget(values=choices),

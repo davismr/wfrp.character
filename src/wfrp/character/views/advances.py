@@ -34,7 +34,6 @@ class AdvancesViews(BaseView):
                 "You can allocate a total of 5 Advances across these Characteristics"
             ),
         )
-        # TODO add some field validation, each must be <=5 and should be int field
         advances_choices = [
             (0, 0),
             (1, 1),
@@ -47,12 +46,16 @@ class AdvancesViews(BaseView):
             advances_schema.add(
                 colander.SchemaNode(
                     colander.Int(),
+                    name=advance,
+                    description=(
+                        f"{advance} is current "
+                        f"{getattr(self.character, advance.lower().replace(' ', '_'))}"
+                    ),
                     validator=colander.OneOf([x[0] for x in advances_choices]),
                     widget=deform.widget.RadioChoiceWidget(
                         values=advances_choices, inline=True
                     ),
                     default=0,
-                    name=advance,
                 )
             )
         schema.add(advances_schema)
@@ -96,6 +99,7 @@ class AdvancesViews(BaseView):
 
         static_assets = self.get_widget_resources(form)
         return {
+            "character": self.character,
             "form": html,
             "css_links": static_assets["css"],
             "js_links": static_assets["js"],
