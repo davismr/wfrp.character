@@ -6,6 +6,14 @@ table#characteristics td {
 }
 
 /* TODO temp to see layout */
+#character-page,
+#character-page th,
+#character-page td {
+    border: 1px solid blue !important;
+    padding: 10px !important;
+}
+
+/* TODO temp to see layout */
 table,
 table th,
 table td {

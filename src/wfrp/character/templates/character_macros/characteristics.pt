@@ -1,133 +1,65 @@
-<table id="characteristics">
-    <thead>
-        <tr>
-            <th colspan="11">CHARACTERISTICS</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>&nbsp;</td>
-            <td>WS</td>
-            <td>BS</td>
-            <td>S</td>
-            <td>T</td>
-            <td>I</td>
-            <td>Ag</td>
-            <td>Dex</td>
-            <td>Int</td>
-            <td>WP</td>
-            <td>Fel</td>
-        </tr>
-        <tr>
-            <td>Initial</td>
-            <td>${character.weapon_skill_initial}</td>
-            <td>${character.ballistic_skill_initial}</td>
-            <td>${character.strength_initial}</td>
-            <td>${character.toughness_initial}</td>
-            <td>${character.initiative_initial}</td>
-            <td>${character.agility_initial}</td>
-            <td>${character.dexterity_initial}</td>
-            <td>${character.intelligence_initial}</td>
-            <td>${character.willpower_initial}</td>
-            <td>${character.fellowship_initial}</td>
-        </tr>
-        <tr>
-            <td>Advances</td>
-            <td>${character.weapon_skill_advances}</td>
-            <td>${character.ballistic_skill_advances}</td>
-            <td>${character.strength_advances}</td>
-            <td>${character.toughness_advances}</td>
-            <td>${character.initiative_advances}</td>
-            <td>${character.agility_advances}</td>
-            <td>${character.dexterity_advances}</td>
-            <td>${character.intelligence_advances}</td>
-            <td>${character.willpower_advances}</td>
-            <td>${character.fellowship_advances}</td>
-        </tr>
-        <tr>
-            <td>Current</td>
-            <td>${character.weapon_skill}</td>
-            <td>${character.ballistic_skill}</td>
-            <td>${character.strength}</td>
-            <td>${character.toughness}</td>
-            <td>${character.initiative}</td>
-            <td>${character.agility}</td>
-            <td>${character.dexterity}</td>
-            <td>${character.intelligence}</td>
-            <td>${character.willpower}</td>
-            <td>${character.fellowship}</td>
-        </tr>
-    </tbody>
-</table>
-<table id="fate">
-    <thead>
-        <tr>
-            <th colspan="2">FATE</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>Fate</td>
-            <td>${character.fate}</td>
-        </tr>
-        <tr>
-            <td>Fortune</td>
-            <td>TODO</td>
-        </tr>
-    </tbody>
-</table>
-<table id="resilience">
-    <thead>
-        <tr>
-            <th colspan="3">RESILIENCE</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>Resilience</td>
-            <td>Resolve</td>
-            <td>Motivation</td>
-        </tr>
-        <tr>
-            <td>${character.resilience}</td>
-            <td>TODO</td>
-            <td>TODO</td>
-        </tr>
-    </tbody>
-</table>
-<table id="experience">
-    <thead>
-        <tr>
-            <th colspan="3">EXPERIENCE</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>Current</td>
-            <td>Spent</td>
-            <td>Total</td>
-        </tr>
-        <tr>
-            <td>${character.experience}</td>
-            <td>${character.experience_spent}</td>
-            <td>${character.experience + character.experience_spent}</td>
-        </tr>
-    </tbody>
-</table>
-<table id="movement">
-    <thead>
-        <tr>
-            <th colspan="6">MOVEMENT</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>Movement</td>
-            <td>TODO</td>
-            <td>Walk</td>
-            <td>TODO</td>
-            <td>Run</td>
-            <td>TODO</td>
-        </tr>
-    </tbody>
+<table>
+    <tr>
+        <td>
+            <table id="fate">
+                <thead>
+                    <tr>
+                        <th colspan="2">FATE</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Fate</td>
+                        <td>${character.fate}</td>
+                    </tr>
+                    <tr>
+                        <td>Fortune</td>
+                        <td>TODO</td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td>
+            <table id="resilience">
+                <thead>
+                    <tr>
+                        <th colspan="3">RESILIENCE</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Resilience</td>
+                        <td>Resolve</td>
+                        <td>Motivation</td>
+                    </tr>
+                    <tr>
+                        <td>${character.resilience}</td>
+                        <td>TODO</td>
+                        <td>TODO</td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td>
+            <table id="experience">
+                <thead>
+                    <tr>
+                        <th colspan="3">EXPERIENCE</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Current</td>
+                        <td>Spent</td>
+                        <td>Total</td>
+                    </tr>
+                    <tr>
+                        <td>${character.experience}</td>
+                        <td>${character.experience_spent}</td>
+                        <td>${character.experience + character.experience_spent}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
 </table>
