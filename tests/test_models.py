@@ -2,6 +2,7 @@ import pytest
 
 from wfrp.character.models import Character
 from wfrp.character.models import DBSession
+from wfrp.character.views.attributes import ATTRIBUTES_LOWER
 
 
 @pytest.mark.models
@@ -22,6 +23,31 @@ def test_toughness(new_character):
     new_character.toughness_initial = 36
     new_character.toughness_advances = 5
     assert new_character.toughness == 41
+    new_character.talents = ["Very Resilient"]
+    assert new_character.toughness == 46
+
+
+@pytest.mark.models
+def test_talents(new_character):
+    new_character.species = "Human"
+    for attribute in ATTRIBUTES_LOWER:
+        setattr(new_character, f"{attribute}_initial", 25)
+    for attribute in ATTRIBUTES_LOWER:
+        assert getattr(new_character, attribute) == 25
+    new_character.talents = [
+        "Warrior Born",
+        "Marksman",
+        "Very Strong",
+        "Very Resilient",
+        "Sharp",
+        "Lightning Reflexes",
+        "Nimble Fingered",
+        "Savvy",
+        "Coolheaded",
+        "Suave",
+    ]
+    for attribute in ATTRIBUTES_LOWER:
+        assert getattr(new_character, attribute) == 30
 
 
 @pytest.mark.models

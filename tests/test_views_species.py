@@ -25,7 +25,6 @@ def test_get_view(new_character):
     assert "Choose species" in response["form"]
 
 
-@pytest.mark.current
 @pytest.mark.views
 @pytest.mark.parametrize(
     "species, roll",

@@ -76,43 +76,73 @@ class Character(Base):
 
     @property
     def weapon_skill(self):
-        return self.weapon_skill_initial + self.weapon_skill_advances
+        weapon_skill = self.weapon_skill_initial + self.weapon_skill_advances
+        if "Warrior Born" in self.talents:
+            weapon_skill += 5
+        return weapon_skill
 
     @property
     def ballistic_skill(self):
-        return self.ballistic_skill_initial + self.ballistic_skill_advances
+        ballistic_skill = self.ballistic_skill_initial + self.ballistic_skill_advances
+        if "Marksman" in self.talents:
+            ballistic_skill += 5
+        return ballistic_skill
 
     @property
     def strength(self):
-        return self.strength_initial + self.strength_advances
+        strength = self.strength_initial + self.strength_advances
+        if "Very Strong" in self.talents:
+            strength += 5
+        return strength
 
     @property
     def toughness(self):
-        return self.toughness_initial + self.toughness_advances
+        toughness = self.toughness_initial + self.toughness_advances
+        if "Very Resilient" in self.talents:
+            toughness += 5
+        return toughness
 
     @property
     def initiative(self):
-        return self.initiative_initial + self.initiative_advances
+        initiative = self.initiative_initial + self.initiative_advances
+        if "Sharp" in self.talents:
+            initiative += 5
+        return initiative
 
     @property
     def agility(self):
-        return self.agility_initial + self.agility_advances
+        agility = self.agility_initial + self.agility_advances
+        if "Lightning Reflexes" in self.talents:
+            agility += 5
+        return agility
 
     @property
     def dexterity(self):
-        return self.dexterity_initial + self.dexterity_advances
+        dexterity = self.dexterity_initial + self.dexterity_advances
+        if "Nimble Fingered" in self.talents:
+            dexterity += 5
+        return dexterity
 
     @property
     def intelligence(self):
-        return self.intelligence_initial + self.intelligence_advances
+        intelligence = self.intelligence_initial + self.intelligence_advances
+        if "Savvy" in self.talents:
+            intelligence += 5
+        return intelligence
 
     @property
     def willpower(self):
-        return self.willpower_initial + self.willpower_advances
+        willpower = self.willpower_initial + self.willpower_advances
+        if "Coolheaded" in self.talents:
+            willpower += 5
+        return willpower
 
     @property
     def fellowship(self):
-        return self.fellowship_initial + self.fellowship_advances
+        fellowship = self.fellowship_initial + self.fellowship_advances
+        if "Suave" in self.talents:
+            fellowship += 5
+        return fellowship
 
     def calculate_wounds(self):
         if self.species == "Halfling":
