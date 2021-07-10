@@ -15,6 +15,7 @@ from sqlalchemy.orm import scoped_session
 from sqlalchemy.orm import sessionmaker
 from zope.sqlalchemy import register
 
+from wfrp.character.skill_data import SKILL_DATA
 from wfrp.character.talent_data import TALENT_DATA
 
 DBSession = scoped_session(sessionmaker())
@@ -131,6 +132,10 @@ class Character(Base):
         if not display_title:
             display_title += "Unknown"
         return display_title
+
+    def get_skill_level(self, skill):
+        skill_data = SKILL_DATA[skill.split(" (")[0]]
+        return self.skills[skill] + getattr(self, skill_data["characteristic"][0])
 
     def get_talent_description(self, talent):
         if talent in TALENT_DATA:

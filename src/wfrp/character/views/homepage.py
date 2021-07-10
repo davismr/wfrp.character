@@ -15,6 +15,6 @@ class HomePageViews:
         characters = DBSession.query(Character).all()
         character_list = {}
         for character in characters:
-            url = self.request.route_url("character", uuid=character.uuid)
+            url = self.request.route_url("character_summary", uuid=character.uuid)
             character_list[url] = character.get_display_title()
         return {"characters": character_list}

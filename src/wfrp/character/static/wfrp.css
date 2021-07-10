@@ -1,22 +1,17 @@
-table#characteristics,
-table#characteristics th,
-table#characteristics td {
-    border: 5px dotted black;
-    padding: 5px;
-}
-
-/* TODO temp to see layout */
 #character-page,
 #character-page th,
 #character-page td {
-    border: 1px solid blue !important;
-    padding: 10px !important;
+    border: 2px solid black;
+    padding: 0px;
 }
 
-/* TODO temp to see layout */
-table,
-table th,
-table td {
-    border: 1px dotted red !important;
-    padding: 10px !important;
+#character-page table {
+    height: 100%;
+    width: 100%;
+}
+
+#character-page table th,
+#character-page table td {
+    border: 2px solid black;
+    padding: 5px;
 }

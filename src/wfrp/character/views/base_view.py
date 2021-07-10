@@ -9,7 +9,12 @@ class BaseView:
         self.request = request
         uuid = request.matchdict["uuid"]
         self.character = DBSession.query(Character).filter(Character.uuid == uuid).one()
-        if self.request.matched_route.name not in self.character.status:
+        if "complete" in self.character.status and self.request.matched_route.name in [
+            "character_summary",
+            "character_full",
+        ]:
+            pass
+        elif self.request.matched_route.name not in self.character.status:
             self.redirect_request(list(self.character.status)[0])
 
     def redirect_request(self, route):

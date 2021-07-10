@@ -11,5 +11,6 @@ def includeme(config):
     config.add_route("trappings", "/character/{uuid}/trappings")
     config.add_route("details", "/character/{uuid}/details")
     config.add_route("name", "/character/{uuid}/name")
-    config.add_route("character", "/character/{uuid}/view")
+    config.add_route("character_full", "/character/{uuid}/view")
+    config.add_route("character_summary", "/character/{uuid}/summary")
     config.scan("wfrp.character.views")
