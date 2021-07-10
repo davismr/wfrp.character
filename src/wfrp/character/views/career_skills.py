@@ -173,7 +173,7 @@ class CareerSkillsViews(BaseView):
                         self.character.skills[item] = int(value)
                 for item in captured["career_talents"]:
                     value = captured["career_talents"].get(item)
-                    self.character.talents.append(value)
+                    self.character.talents[value] = 1
                 url = self.request.route_url("trappings", uuid=self.character.uuid)
                 self.character.status = {"trappings": ""}
                 return HTTPFound(location=url)

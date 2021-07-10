@@ -69,7 +69,7 @@ class Character(Base):
     extra_points = Column(Integer, default=0)
     movement = Column(Integer, default=3)
     skills = Column(MutableDict.as_mutable(JSON), default={})
-    talents = Column(MutableList.as_mutable(JSON), default=[])
+    talents = Column(MutableDict.as_mutable(JSON), default={})
     trappings = Column(MutableList.as_mutable(JSON), default=[])
     wealth = Column(MutableDict.as_mutable(JSON), default={})
     status = Column(JSON, default={})  # this is intentionally not mutable

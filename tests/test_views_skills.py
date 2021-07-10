@@ -263,7 +263,7 @@ def test_skills_add_submit(new_character):
     request.matchdict = {"uuid": new_character.uuid}
     view = CareerSkillsViews(request)
     response = view.form_view()
-    assert new_character.talents == [
+    assert list(new_character.talents.keys()) == [
         "Acute Sense (Sight)",
         "Coolheaded",
         "Night Vision",
@@ -271,6 +271,8 @@ def test_skills_add_submit(new_character):
         "Read/Write",
         "Concoct",
     ]
+    for talent in new_character.talents:
+        assert new_character.talents[talent] == 1
     assert new_character.skills["Swim"] == 3
     assert new_character.skills["Perception"] == 5
 

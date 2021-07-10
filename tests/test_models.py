@@ -23,7 +23,7 @@ def test_toughness(new_character):
     new_character.toughness_initial = 36
     new_character.toughness_advances = 5
     assert new_character.toughness == 41
-    new_character.talents = ["Very Resilient"]
+    new_character.talents = {"Very Resilient": 1}
     assert new_character.toughness == 46
 
 
@@ -34,18 +34,18 @@ def test_talents(new_character):
         setattr(new_character, f"{attribute}_initial", 25)
     for attribute in ATTRIBUTES_LOWER:
         assert getattr(new_character, attribute) == 25
-    new_character.talents = [
-        "Warrior Born",
-        "Marksman",
-        "Very Strong",
-        "Very Resilient",
-        "Sharp",
-        "Lightning Reflexes",
-        "Nimble Fingered",
-        "Savvy",
-        "Coolheaded",
-        "Suave",
-    ]
+    new_character.talents = {
+        "Warrior Born": 1,
+        "Marksman": 1,
+        "Very Strong": 1,
+        "Very Resilient": 1,
+        "Sharp": 1,
+        "Lightning Reflexes": 1,
+        "Nimble Fingered": 1,
+        "Savvy": 1,
+        "Coolheaded": 1,
+        "Suave": 1,
+    }
     for attribute in ATTRIBUTES_LOWER:
         assert getattr(new_character, attribute) == 30
 
