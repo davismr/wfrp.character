@@ -8,7 +8,7 @@
                     <span tal:replace="structure form"/>
                 </td>
                 <td>
-                    <div metal:use-macro="load: character_macros/characteristics.pt" />
+                    <div metal:use-macro="load: character_macros/attributes.pt" />
                 </td>
             </tr>
         </table>

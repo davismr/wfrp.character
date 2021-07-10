@@ -37,9 +37,10 @@ class DetailsViews(BaseView):
         elif species in ["High Elf", "Wood Elf"]:
             age = 30 + roll_5d10() + roll_5d10()
             height = 71 + roll_d10()
-            eye_colour += f", {self._get_eye_colour(species)}"
+            eye_colour += f"{self._get_eye_colour(species)}, "
         else:
             raise NotImplementedError(f"{species} is not defined")
+        # eye colour is set here to allow previous catch to raise the error
         eye_colour += self._get_eye_colour(species)
         data = {
             "age": age,
