@@ -12,6 +12,7 @@ class BaseView:
         if "complete" in self.character.status and self.request.matched_route.name in [
             "character_summary",
             "character_full",
+            "experience",
         ]:
             pass
         elif self.request.matched_route.name not in self.character.status:

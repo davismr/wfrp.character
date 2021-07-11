@@ -86,3 +86,18 @@ def test_talent_description(new_character):
     assert "Your Movement Attribute counts as 1 higher when Fleeing" in description
     description = new_character.get_talent_description("Acute Sense (Taste)")
     assert "One of your primary five senses is highly developed," in description
+
+
+@pytest.mark.models
+def test_experience_characteristic_cost(new_character):
+    assert new_character.cost_characteristic(0) == 25
+    assert new_character.cost_characteristic(9) == 30
+    assert new_character.cost_characteristic(15) == 40
+
+
+@pytest.mark.models
+def test_experience_skill_cost(new_character):
+    assert new_character.cost_skill(0) == 10
+    assert new_character.cost_skill(9) == 15
+    assert new_character.cost_skill(15) == 20
+    assert new_character.cost_skill(71) == 440

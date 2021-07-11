@@ -172,6 +172,70 @@ class Character(Base):
             return TALENT_DATA[talent]["description"]
         return TALENT_DATA[talent.split(" (")[0]]["description"]
 
+    def cost_characteristic(self, advance):
+        """Return the experience cost of an increase in a charateristic."""
+        if advance <= 5:
+            return 25
+        if advance <= 10:
+            return 30
+        if advance <= 15:
+            return 40
+        if advance <= 20:
+            return 50
+        if advance <= 25:
+            return 70
+        if advance <= 30:
+            return 90
+        if advance <= 35:
+            return 120
+        if advance <= 40:
+            return 150
+        if advance <= 45:
+            return 190
+        if advance <= 50:
+            return 230
+        if advance <= 55:
+            return 280
+        if advance <= 60:
+            return 330
+        if advance <= 65:
+            return 390
+        if advance <= 70:
+            return 450
+        return 520
+
+    def cost_skill(self, advance):
+        """Return the experience cost of an increase in a skill."""
+        if advance <= 5:
+            return 10
+        if advance <= 10:
+            return 15
+        if advance <= 15:
+            return 20
+        if advance <= 20:
+            return 30
+        if advance <= 25:
+            return 40
+        if advance <= 30:
+            return 60
+        if advance <= 35:
+            return 80
+        if advance <= 40:
+            return 110
+        if advance <= 45:
+            return 140
+        if advance <= 50:
+            return 180
+        if advance <= 55:
+            return 220
+        if advance <= 60:
+            return 270
+        if advance <= 65:
+            return 320
+        if advance <= 70:
+            return 380
+        return 440
+
 
 class Root(object):
     __acl__ = [(Allow, Everyone, "view"), (Allow, "group:editors", "edit")]
