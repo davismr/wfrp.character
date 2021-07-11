@@ -172,7 +172,7 @@ class Character(Base):
             return TALENT_DATA[talent]["description"]
         return TALENT_DATA[talent.split(" (")[0]]["description"]
 
-    def cost_characteristic(self, advance):
+    def cost_characteristic(self, advance):  # noqa: C901
         """Return the experience cost of an increase in a charateristic."""
         if advance <= 5:
             return 25
@@ -204,7 +204,7 @@ class Character(Base):
             return 450
         return 520
 
-    def cost_skill(self, advance):
+    def cost_skill(self, advance):  # noqa: C901
         """Return the experience cost of an increase in a skill."""
         if advance <= 5:
             return 10
