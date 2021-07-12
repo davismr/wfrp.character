@@ -34,7 +34,7 @@ def test_increase_characteristic(new_character):
     new_character.status = {"complete": ""}
     payload = {
         "__formid__": "characteristic_form",
-        "increase_characteristics": {"characteristics": "weapon_skill"},
+        "increase_characteristic": {"characteristic": "weapon_skill"},
         "Select_Name": "Select_Name",
     }
     request = testing.DummyRequest(post=payload)
@@ -52,3 +52,48 @@ def test_increase_characteristic(new_character):
     assert new_character.weapon_skill_advances == 11
     assert new_character.experience == 130
     assert new_character.experience_spent == 70
+
+
+@pytest.mark.views
+def test_increase_skill(new_character):
+    new_character.species = "Wood Elf"
+    new_character.career = "Soldier"
+    new_character.skills = {"Athletics": 5, "Language (Battle)": 9, "Play (Drum)": 14}
+    new_character.experience = 200
+    new_character.status = {"complete": ""}
+    payload = {
+        "__formid__": "skill_form",
+        "increase_skill": {"skill": "Language (Battle)"},
+    }
+    request = testing.DummyRequest(post=payload)
+    request.matched_route = DummyRoute(name="experience")
+    request.matchdict = {"uuid": new_character.uuid}
+    view = ExperienceViews(request)
+    view.form_view()
+    assert new_character.skills["Language (Battle)"] == 10
+    assert new_character.experience == 185
+    assert new_character.experience_spent == 15
+    view.form_view()
+    assert new_character.skills["Language (Battle)"] == 11
+    assert new_character.experience == 165
+    assert new_character.experience_spent == 35
+
+
+@pytest.mark.xfail
+# Need to take into account skill choices
+def test_increase_choice_skill(new_character):
+    new_character.species = "Wood Elf"
+    new_character.career = "Soldier"
+    new_character.skills = {"Athletics": 5, "Language (Battle)": 9, "Play (Drum)": 14}
+    new_character.experience = 200
+    new_character.status = {"complete": ""}
+    payload = {
+        "__formid__": "skill_form",
+        "increase_skill": {"skill": "Play (Drum)"},
+    }
+    request = testing.DummyRequest(post=payload)
+    request.matched_route = DummyRoute(name="experience")
+    request.matchdict = {"uuid": new_character.uuid}
+    view = ExperienceViews(request)
+    view.form_view()
+    assert new_character.skills["Play (Drum)"] == 15

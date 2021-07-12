@@ -19,7 +19,7 @@ class ExperienceViews(BaseView):
         schema = colander.SchemaNode(colander.Mapping(), title="Characteristics")
         characteristic_schema = colander.SchemaNode(
             colander.Mapping(),
-            name="increase_characteristics",
+            name="increase_characteristic",
             description=f"You have {self.character.experience} experience to spend",
         )
         choices = []
@@ -38,7 +38,7 @@ class ExperienceViews(BaseView):
         characteristic_schema.add(
             colander.SchemaNode(
                 colander.String(),
-                name="characteristics",
+                name="characteristic",
                 widget=deform.widget.RadioChoiceWidget(values=choices),
                 validator=colander.OneOf([x[0] for x in choices]),
                 description="Choose a characteristic to increase",
@@ -47,37 +47,80 @@ class ExperienceViews(BaseView):
         schema.add(characteristic_schema)
         return schema
 
-    @view_config(renderer="wfrp.character:templates/name.pt")
+    def skill_schema(self):
+        career_data = CAREER_DATA[self.character.career]
+        career_details = career_data[list(career_data)[1]]
+        career_skills = career_details["skills"]
+        schema = colander.SchemaNode(colander.Mapping(), title="Skills")
+        skill_schema = colander.SchemaNode(
+            colander.Mapping(),
+            name="increase_skill",
+            description=f"You have {self.character.experience} experience to spend",
+        )
+        choices = []
+        for skill in career_skills:
+            try:
+                advances = self.character.skills[skill]
+            except KeyError:
+                advances = 0
+            choices.append(
+                (
+                    skill,
+                    f"{skill}({advances}), "
+                    f"{self.character.cost_skill(advances + 1)} experience to increase",
+                )
+            )
+        skill_schema.add(
+            colander.SchemaNode(
+                colander.String(),
+                name="skill",
+                widget=deform.widget.RadioChoiceWidget(values=choices),
+                validator=colander.OneOf([x[0] for x in choices]),
+                description="Choose a characteristic to increase",
+            )
+        )
+        schema.add(skill_schema)
+        return schema
+
+    @view_config(renderer="wfrp.character:templates/experience.pt")
     def form_view(self):
         html = []
-        all_forms = ["characteristic"]
+        all_forms = ["characteristic", "skill"]
         forms = {}
         counter = itertools.count()
         for form in all_forms:
             attribute_schema = getattr(self, f"{form}_schema")()
             forms[f"{form}_form"] = deform.Form(
                 attribute_schema,
-                buttons=("Select Name",),
+                buttons=(f"Increase {form}",),
                 formid=f"{form}_form",
                 counter=counter,
             )
-        if "Select_Name" in self.request.POST:
+        if "__formid__" in self.request.POST:
             form = forms[self.request.POST["__formid__"]]
             try:
                 captured = form.validate(self.request.POST.items())
             except deform.ValidationFailure as error:
                 html = error.render()
             else:
-                attribute = captured["increase_characteristics"]["characteristics"]
-                setattr(
-                    self.character,
-                    f"{attribute}_advances",
-                    getattr(self.character, f"{attribute}_advances") + 1,
-                )
-                # attribute has increased, so this is the cost for getting to that value
-                cost = self.character.cost_characteristic(
-                    getattr(self.character, f"{attribute}_advances")
-                )
+                if form.formid == "characteristic_form":
+                    attribute = captured["increase_characteristic"]["characteristic"]
+                    setattr(
+                        self.character,
+                        f"{attribute}_advances",
+                        getattr(self.character, f"{attribute}_advances") + 1,
+                    )
+                    # attribute has increased, so this is the cost for getting there
+                    cost = self.character.cost_characteristic(
+                        getattr(self.character, f"{attribute}_advances")
+                    )
+                elif form.formid == "skill_form":
+                    skill = captured["increase_skill"]["skill"]
+                    if skill in self.character.skills:
+                        self.character.skills[skill] += 1
+                    else:
+                        self.character.skills[skill] = 1
+                    cost = self.character.cost_skill(self.character.skills[skill])
                 self.character.experience -= cost
                 self.character.experience_spent += cost
                 url = self.request.route_url("experience", uuid=self.character.uuid)
@@ -93,4 +136,5 @@ class ExperienceViews(BaseView):
             "form": "".join(html),
             "css_links": static_assets["css"],
             "js_links": static_assets["js"],
+            "character": self.character,
         }
