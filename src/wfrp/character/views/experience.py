@@ -118,7 +118,7 @@ class ExperienceViews(BaseView):
         return schema
 
     @view_config(renderer="wfrp.character:templates/experience.pt")
-    def form_view(self):
+    def form_view(self):  # noqa: C901
         html = []
         all_forms = ["characteristic", "skill", "talent"]
         forms = {}
