@@ -236,6 +236,10 @@ class Character(Base):
             return 380
         return 440
 
+    def cost_talent(self, advance):
+        """Return the experience cost of an increase in a talent."""
+        return 100 * advance
+
 
 class Root(object):
     __acl__ = [(Allow, Everyone, "view"), (Allow, "group:editors", "edit")]

@@ -101,6 +101,7 @@ def test_increase_existing_skill(new_character):
 
 
 @pytest.mark.xfail
+@pytest.mark.views
 # Need to take into account skill choices
 def test_increase_choice_skill(new_character):
     new_character.species = "Wood Elf"
@@ -118,3 +119,45 @@ def test_increase_choice_skill(new_character):
     view = ExperienceViews(request)
     view.form_view()
     assert new_character.skills["Play (Drum)"] == 15
+
+
+@pytest.mark.views
+def test_increase_talent(new_character):
+    new_character.species = "Wood Elf"
+    new_character.career = "Soldier"
+    new_character.talents = {"Marksman": 1}
+    new_character.experience = 200
+    new_character.status = {"complete": ""}
+    payload = {
+        "__formid__": "talent_form",
+        "add_talent": {"talent": "Marksman"},
+    }
+    request = testing.DummyRequest(post=payload)
+    request.matched_route = DummyRoute(name="experience")
+    request.matchdict = {"uuid": new_character.uuid}
+    view = ExperienceViews(request)
+    view.form_view()
+    assert new_character.talents["Marksman"] == 2
+    assert new_character.experience == 0
+    assert new_character.experience_spent == 200
+
+
+@pytest.mark.views
+def test_add_talent(new_character):
+    new_character.species = "Wood Elf"
+    new_character.career = "Soldier"
+    new_character.talents = {"Marksman": 1}
+    new_character.experience = 200
+    new_character.status = {"complete": ""}
+    payload = {
+        "__formid__": "talent_form",
+        "add_talent": {"talent": "Warrior Born"},
+    }
+    request = testing.DummyRequest(post=payload)
+    request.matched_route = DummyRoute(name="experience")
+    request.matchdict = {"uuid": new_character.uuid}
+    view = ExperienceViews(request)
+    view.form_view()
+    assert new_character.talents["Warrior Born"] == 1
+    assert new_character.experience == 100
+    assert new_character.experience_spent == 100

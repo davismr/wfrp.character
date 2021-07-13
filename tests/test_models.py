@@ -136,3 +136,16 @@ def test_experience_characteristic_cost(new_character, advances, cost):
 )
 def test_experience_skill_cost(new_character, advances, cost):
     assert new_character.cost_skill(advances) == cost
+
+
+@pytest.mark.models
+@pytest.mark.parametrize(
+    "advances, cost",
+    [
+        (1, 100),
+        (2, 200),
+        (3, 300),
+    ],
+)
+def test_experience_talent_cost(new_character, advances, cost):
+    assert new_character.cost_talent(advances) == cost

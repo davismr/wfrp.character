@@ -66,7 +66,7 @@ class ExperienceViews(BaseView):
             choices.append(
                 (
                     skill,
-                    f"{skill}({advances}), "
+                    f"{skill} ({advances}), "
                     f"{self.character.cost_skill(advances + 1)} experience to increase",
                 )
             )
@@ -76,16 +76,51 @@ class ExperienceViews(BaseView):
                 name="skill",
                 widget=deform.widget.RadioChoiceWidget(values=choices),
                 validator=colander.OneOf([x[0] for x in choices]),
-                description="Choose a characteristic to increase",
+                description="Choose a skill to increase",
             )
         )
         schema.add(skill_schema)
         return schema
 
+    def talent_schema(self):
+        career_data = CAREER_DATA[self.character.career]
+        career_details = career_data[list(career_data)[1]]
+        career_talents = career_details["talents"]
+        schema = colander.SchemaNode(colander.Mapping(), title="talents")
+        talent_schema = colander.SchemaNode(
+            colander.Mapping(),
+            name="add_talent",
+            description=f"You have {self.character.experience} experience to spend",
+        )
+        choices = []
+        for talent in career_talents:
+            try:
+                advances = self.character.talents[talent]
+            except KeyError:
+                advances = 0
+            choices.append(
+                (
+                    talent,
+                    f"{talent} ({advances}), {self.character.cost_talent(advances + 1)}"
+                    f" experience to increase",
+                )
+            )
+        talent_schema.add(
+            colander.SchemaNode(
+                colander.String(),
+                name="talent",
+                widget=deform.widget.RadioChoiceWidget(values=choices),
+                validator=colander.OneOf([x[0] for x in choices]),
+                description="Choose a talent to increase",
+            )
+        )
+        schema.add(talent_schema)
+        return schema
+
     @view_config(renderer="wfrp.character:templates/experience.pt")
     def form_view(self):
         html = []
-        all_forms = ["characteristic", "skill"]
+        all_forms = ["characteristic", "skill", "talent"]
         forms = {}
         counter = itertools.count()
         for form in all_forms:
@@ -121,6 +156,13 @@ class ExperienceViews(BaseView):
                     else:
                         self.character.skills[skill] = 1
                     cost = self.character.cost_skill(self.character.skills[skill])
+                elif form.formid == "talent_form":
+                    talent = captured["add_talent"]["talent"]
+                    if talent in self.character.talents:
+                        self.character.talents[talent] += 1
+                    else:
+                        self.character.talents[talent] = 1
+                    cost = self.character.cost_talent(self.character.talents[talent])
                 self.character.experience -= cost
                 self.character.experience_spent += cost
                 url = self.request.route_url("experience", uuid=self.character.uuid)

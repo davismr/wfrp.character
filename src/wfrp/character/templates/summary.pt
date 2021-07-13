@@ -45,5 +45,6 @@
             ${", ".join(character.trappings)}
             , ${", ".join([str(character.wealth[x]) + " " + x for x in character.wealth])}
         </div>
+        <div><a href="/character/${character.uuid}/experience">Spend experience</a></div>
     </div>
 </div>
