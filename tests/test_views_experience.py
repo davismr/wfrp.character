@@ -55,7 +55,28 @@ def test_increase_characteristic(new_character):
 
 
 @pytest.mark.views
-def test_increase_skill(new_character):
+def test_increase_unowned_skill(new_character):
+    new_character.species = "Wood Elf"
+    new_character.career = "Soldier"
+    new_character.skills = {"Language (Battle)": 9, "Play (Drum)": 14}
+    new_character.experience = 200
+    new_character.status = {"complete": ""}
+    payload = {
+        "__formid__": "skill_form",
+        "increase_skill": {"skill": "Athletics"},
+    }
+    request = testing.DummyRequest(post=payload)
+    request.matched_route = DummyRoute(name="experience")
+    request.matchdict = {"uuid": new_character.uuid}
+    view = ExperienceViews(request)
+    view.form_view()
+    assert new_character.skills["Athletics"] == 1
+    assert new_character.experience == 190
+    assert new_character.experience_spent == 10
+
+
+@pytest.mark.views
+def test_increase_existing_skill(new_character):
     new_character.species = "Wood Elf"
     new_character.career = "Soldier"
     new_character.skills = {"Athletics": 5, "Language (Battle)": 9, "Play (Drum)": 14}
@@ -84,7 +105,7 @@ def test_increase_skill(new_character):
 def test_increase_choice_skill(new_character):
     new_character.species = "Wood Elf"
     new_character.career = "Soldier"
-    new_character.skills = {"Athletics": 5, "Language (Battle)": 9, "Play (Drum)": 14}
+    new_character.skills = {"Language (Battle)": 9, "Play (Drum)": 14}
     new_character.experience = 200
     new_character.status = {"complete": ""}
     payload = {
