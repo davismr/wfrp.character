@@ -21,6 +21,7 @@ class ExperienceViews(BaseView):
             colander.Mapping(),
             name="increase_characteristic",
             description=f"You have {self.character.experience} experience to spend",
+            validator=self.validate_characteristic,
         )
         choices = []
         for characteristic in career_advances:
@@ -47,6 +48,19 @@ class ExperienceViews(BaseView):
         schema.add(characteristic_schema)
         return schema
 
+    def validate_characteristic(self, form, values):
+        characteristic = values["characteristic"]
+        cost = self.character.cost_characteristic(
+            getattr(self.character, f"{characteristic}_advances") + 1
+        )
+        if cost > self.character.experience:
+            characteristic_display = characteristic.replace("_", " ").title()
+            raise colander.Invalid(
+                form,
+                f"You do not have enought experience to increase "
+                f"{characteristic_display}, you need {cost} XP",
+            )
+
     def skill_schema(self):
         career_data = CAREER_DATA[self.character.career]
         career_details = career_data[list(career_data)[1]]
@@ -56,6 +70,7 @@ class ExperienceViews(BaseView):
             colander.Mapping(),
             name="increase_skill",
             description=f"You have {self.character.experience} experience to spend",
+            validator=self.validate_skill,
         )
         choices = []
         for skill in career_skills:
@@ -82,6 +97,19 @@ class ExperienceViews(BaseView):
         schema.add(skill_schema)
         return schema
 
+    def validate_skill(self, form, values):
+        skill = values["skill"]
+        if skill in self.character.skills:
+            cost = self.character.cost_skill(self.character.skills[skill] + 1)
+        else:
+            cost = self.character.cost_skill(1)
+        if cost > self.character.experience:
+            raise colander.Invalid(
+                form,
+                f"You do not have enought experience to increase {skill}, "
+                f"you need {cost} XP",
+            )
+
     def talent_schema(self):
         career_data = CAREER_DATA[self.character.career]
         career_details = career_data[list(career_data)[1]]
@@ -91,6 +119,7 @@ class ExperienceViews(BaseView):
             colander.Mapping(),
             name="add_talent",
             description=f"You have {self.character.experience} experience to spend",
+            validator=self.validate_talent,
         )
         choices = []
         for talent in career_talents:
@@ -116,6 +145,19 @@ class ExperienceViews(BaseView):
         )
         schema.add(talent_schema)
         return schema
+
+    def validate_talent(self, form, values):
+        talent = values["talent"]
+        if talent in self.character.talents:
+            cost = self.character.cost_talent(self.character.talents[talent] + 1)
+        else:
+            cost = self.character.cost_talent(1)
+        if cost > self.character.experience:
+            raise colander.Invalid(
+                form,
+                f"You do not have enought experience to increase {talent}, "
+                f"you need {cost} XP",
+            )
 
     @view_config(renderer="wfrp.character:templates/experience.pt")
     def form_view(self):  # noqa: C901

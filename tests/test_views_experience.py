@@ -55,6 +55,32 @@ def test_increase_characteristic(new_character):
 
 
 @pytest.mark.views
+def test_increase_characteristic_too_much(new_character):
+    new_character.species = "Wood Elf"
+    new_character.career = "Soldier"
+    new_character.weapon_skill_initial = 40
+    new_character.weapon_skill_advances = 9
+    new_character.experience = 20
+    new_character.status = {"complete": ""}
+    payload = {
+        "__formid__": "characteristic_form",
+        "increase_characteristic": {"characteristic": "weapon_skill"},
+    }
+    request = testing.DummyRequest(post=payload)
+    request.matched_route = DummyRoute(name="experience")
+    request.matchdict = {"uuid": new_character.uuid}
+    view = ExperienceViews(request)
+    response = view.form_view()
+    assert (
+        "You do not have enought experience to increase Weapon Skill, you need 30 XP"
+    ) in response["form"]
+    assert new_character.weapon_skill == 49
+    assert new_character.weapon_skill_advances == 9
+    assert new_character.experience == 20
+    assert new_character.experience_spent == 0
+
+
+@pytest.mark.views
 def test_increase_unowned_skill(new_character):
     new_character.species = "Wood Elf"
     new_character.career = "Soldier"
@@ -122,6 +148,30 @@ def test_increase_choice_skill(new_character):
 
 
 @pytest.mark.views
+def test_increase_skill_too_much(new_character):
+    new_character.species = "Wood Elf"
+    new_character.career = "Soldier"
+    new_character.skills = {"Athletics": 9, "Play (Drum)": 14}
+    new_character.experience = 10
+    new_character.status = {"complete": ""}
+    payload = {
+        "__formid__": "skill_form",
+        "increase_skill": {"skill": "Athletics"},
+    }
+    request = testing.DummyRequest(post=payload)
+    request.matched_route = DummyRoute(name="experience")
+    request.matchdict = {"uuid": new_character.uuid}
+    view = ExperienceViews(request)
+    response = view.form_view()
+    assert (
+        "You do not have enought experience to increase Athletics, you need 15 XP"
+    ) in response["form"]
+    assert new_character.skills["Athletics"] == 9
+    assert new_character.experience == 10
+    assert new_character.experience_spent == 0
+
+
+@pytest.mark.views
 def test_increase_talent(new_character):
     new_character.species = "Wood Elf"
     new_character.career = "Soldier"
@@ -161,3 +211,26 @@ def test_add_talent(new_character):
     assert new_character.talents["Warrior Born"] == 1
     assert new_character.experience == 100
     assert new_character.experience_spent == 100
+
+
+@pytest.mark.views
+def test_talent_too_much(new_character):
+    new_character.species = "Wood Elf"
+    new_character.career = "Soldier"
+    new_character.experience = 50
+    new_character.status = {"complete": ""}
+    payload = {
+        "__formid__": "talent_form",
+        "add_talent": {"talent": "Warrior Born"},
+    }
+    request = testing.DummyRequest(post=payload)
+    request.matched_route = DummyRoute(name="experience")
+    request.matchdict = {"uuid": new_character.uuid}
+    view = ExperienceViews(request)
+    response = view.form_view()
+    assert (
+        "You do not have enought experience to increase Warrior Born, you need 100 XP"
+    ) in response["form"]
+    assert new_character.talents == {}
+    assert new_character.experience == 50
+    assert new_character.experience_spent == 0
