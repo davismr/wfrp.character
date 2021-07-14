@@ -52,7 +52,7 @@ class SpeciesSkillsViews(BaseView):
             validator=self.validate,
             name="species_skills",
         )
-        skill_choices = ((5, "5 Advances"), (3, "3 Advances"), (0, "No Advances"))
+        skill_choices = ((0, "No Advances"), (3, "3 Advances"), (5, "5 Advances"))
         for skill in species_skills:
             skill_schema.add(
                 colander.SchemaNode(
