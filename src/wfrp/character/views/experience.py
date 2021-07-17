@@ -7,6 +7,7 @@ from pyramid.view import view_config
 from pyramid.view import view_defaults
 
 from wfrp.character.career_data import CAREER_DATA
+from wfrp.character.skill_data import SKILL_DATA
 from wfrp.character.views.base_view import BaseView
 
 
@@ -61,10 +62,40 @@ class ExperienceViews(BaseView):
                 f"{characteristic_display}, you need {cost} XP",
             )
 
-    def skill_schema(self):
+    def skill_schema(self):  # noqa: C901
         career_data = CAREER_DATA[self.character.career]
         career_details = career_data[list(career_data)[1]]
-        career_skills = career_details["skills"]
+        career_skills = []
+        for skill in career_details["skills"]:
+            if " or " in skill:
+                # TODO this needs to be refactored
+                root_skill = skill.split(" (")[0]
+                specialisations = skill.split(" (")[1][:-1].split(" or ")
+                for specialisation in specialisations:
+                    if f"{root_skill} ({specialisation})" in self.character.skills:
+                        career_skills.append(f"{root_skill} ({specialisation})")
+                        break
+                else:
+                    for specialisation in specialisations:
+                        career_skills.append(f"{root_skill} ({specialisation})")
+            elif "(Any)" in skill:
+                current_skills_length = len(career_skills)
+                # TODO this should not allow increases in species skills
+                # eg Human Pit Fighter can take Melee(Basic) as species skill
+                # and has Melee(Any) but second stage career explicitly includes
+                # Melee (Basic)
+                root_skill = skill.split(" (")[0]
+                for existing_skill in self.character.skills:
+                    if existing_skill.startswith(root_skill):
+                        career_skills.append(existing_skill)
+                if len(career_skills) == current_skills_length:
+                    # none chosen yet, so add all to allow a choice
+                    for specialisation in SKILL_DATA[root_skill]["specialisations"]:
+                        career_skills.append(f"{root_skill} ({specialisation})")
+            else:
+                career_skills.append(skill)
+        # deduplicate the list, then sort it again
+        career_skills = sorted(list(set(career_skills)))
         schema = colander.SchemaNode(colander.Mapping(), title="Skills")
         skill_schema = colander.SchemaNode(
             colander.Mapping(),

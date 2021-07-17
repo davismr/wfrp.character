@@ -126,9 +126,7 @@ def test_increase_existing_skill(new_character):
     assert new_character.experience_spent == 35
 
 
-@pytest.mark.xfail
 @pytest.mark.views
-# Need to take into account skill choices
 def test_increase_choice_skill(new_character):
     new_character.species = "Wood Elf"
     new_character.career = "Soldier"
@@ -145,6 +143,37 @@ def test_increase_choice_skill(new_character):
     view = ExperienceViews(request)
     view.form_view()
     assert new_character.skills["Play (Drum)"] == 15
+
+
+@pytest.mark.views
+def test_multiple_grouped_skills(new_character):
+    new_character.species = "Human"
+    new_character.career = "Pit Fighter"
+    new_character.skills = {
+        "Melee (Basic)": 4,
+        "Melee (Fencing)": 9,
+        "Melee (Brawling)": 14,
+    }
+    new_character.experience = 200
+    new_character.status = {"complete": ""}
+    request = testing.DummyRequest()
+    request.matched_route = DummyRoute(name="experience")
+    request.matchdict = {"uuid": new_character.uuid}
+    view = ExperienceViews(request)
+    response = view.form_view()
+    assert response["form"].count("Melee (Basic) (4)") == 1
+    assert response["form"].count("Melee (Fencing) (9)") == 1
+    assert response["form"].count("Melee (Brawling) (14)") == 1
+    payload = {
+        "__formid__": "skill_form",
+        "increase_skill": {"skill": "Melee (Basic)"},
+    }
+    request = testing.DummyRequest(post=payload)
+    request.matched_route = DummyRoute(name="experience")
+    request.matchdict = {"uuid": new_character.uuid}
+    view = ExperienceViews(request)
+    view.form_view()
+    assert new_character.skills["Melee (Basic)"] == 5
 
 
 @pytest.mark.views
