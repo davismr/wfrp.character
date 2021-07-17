@@ -60,7 +60,6 @@ class CareerSkillsViews(BaseView):
                     name=skill,
                 )
             )
-        for skill in data["career_skills"]:
             if "(Any)" in skill or " or " in skill:
                 specialisation_choices = []
                 if "(Any)" in skill:
