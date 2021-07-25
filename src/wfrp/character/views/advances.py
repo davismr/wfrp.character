@@ -48,7 +48,7 @@ class AdvancesViews(BaseView):
                     colander.Int(),
                     name=advance,
                     description=(
-                        f"{advance} is current "
+                        f"{advance} is currently "
                         f"{getattr(self.character, advance.lower().replace(' ', '_'))}"
                     ),
                     validator=colander.OneOf([x[0] for x in advances_choices]),

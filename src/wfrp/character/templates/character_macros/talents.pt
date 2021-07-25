@@ -12,7 +12,7 @@
     <tbody>
         <tr tal:repeat="talent character.talents">
             <td>${talent}</td>
-            <td>TODO</td>
+            <td>${character.talents[talent]}</td>
             <td>${character.get_talent_description(talent)}</td>
         </tr>
     </tbody>

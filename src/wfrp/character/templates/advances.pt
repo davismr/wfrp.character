@@ -2,16 +2,7 @@
     <div metal:fill-slot="content">
 
         <h2>Advances</h2>
-        <table>
-            <tr>
-                <td>
-                    <span tal:replace="structure form"/>
-                </td>
-                <td>
-                    <div metal:use-macro="load: character_macros/attributes.pt" />
-                </td>
-            </tr>
-        </table>
+        <span tal:replace="structure form"/>
 
     </div>
 </div>

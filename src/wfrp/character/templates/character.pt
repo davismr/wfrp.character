@@ -1,5 +1,7 @@
 <div metal:use-macro="load: layout.pt">
     <div metal:fill-slot="content">
+        <div><a href="/character/${character.uuid}/experience">Spend experience</a></div>
+        <div><a href="/character/${character.uuid}/summary">Character summary</a></div>
 
         <table id="character-page" style="border: 1px solid blue;">
             <tr>

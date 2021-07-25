@@ -4,6 +4,7 @@
         <h2>${character.get_display_title()}</h2>
         <span tal:replace="structure form"/>
         <div><a href="/character/${character.uuid}/summary">Character summary</a></div>
+        <div><a href="/character/${character.uuid}/view">Character sheet</a></div>
 
     </div>
 </div>
