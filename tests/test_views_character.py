@@ -31,3 +31,23 @@ def test_summary_view(new_character):
     view = CharacterViews(request)
     response = view.summary_view()
     assert "character" in response
+
+
+def mock_static_url(static_path):
+    return "not_a_path"
+
+
+@pytest.mark.views
+def test_pdf_view(new_character):
+    new_character.status = {"character": ""}
+    # TODO need a fully created character
+    new_character.height = 66
+    request = testing.DummyRequest()
+    # TODO fix crude mock method
+    request.static_url = mock_static_url
+    request.matched_route = DummyRoute(name="character")
+    request.matchdict = {"uuid": new_character.uuid}
+    view = CharacterViews(request)
+    response = view.pdf_print()
+    # TODO fix headers
+    assert "example.pdf" in response.headers.get("Content-Disposition")

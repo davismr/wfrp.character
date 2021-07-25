@@ -14,4 +14,5 @@ def includeme(config):
     config.add_route("experience", "/character/{uuid}/experience")
     config.add_route("character_full", "/character/{uuid}/view")
     config.add_route("character_summary", "/character/{uuid}/summary")
+    config.add_route("pdf_print", "/character/{uuid}/pdf_print")
     config.scan("wfrp.character.views")

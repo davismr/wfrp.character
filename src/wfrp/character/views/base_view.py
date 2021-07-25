@@ -13,6 +13,7 @@ class BaseView:
             "character_summary",
             "character_full",
             "experience",
+            "pdf_print",
         ]:
             pass
         elif self.request.matched_route.name not in self.character.status:
