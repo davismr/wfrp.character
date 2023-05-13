@@ -1,11 +1,22 @@
+import logging
+
 from pyramid.renderers import render_to_response
 from pyramid.response import Response
 from pyramid.view import view_config
-from weasyprint import HTML
 
 from wfrp.character.skill_data import SKILL_DATA
 from wfrp.character.talent_data import TALENT_DATA
 from wfrp.character.views.base_view import BaseView
+
+logger = logging.getLogger(__name__)
+
+try:
+    from weasyprint import HTML
+
+    WEASYPRINT_INSTALLED = True
+except (ImportError, OSError):
+    logger.exception("weasyprint not correctly installed")
+    WEASYPRINT_INSTALLED = False
 
 
 class CharacterViews(BaseView):

@@ -3,6 +3,7 @@ from dataclasses import dataclass
 import pytest
 from pyramid import testing
 
+from wfrp.character.views.character import WEASYPRINT_INSTALLED
 from wfrp.character.views.character import CharacterViews
 
 
@@ -38,6 +39,9 @@ def mock_static_url(static_path):
 
 
 @pytest.mark.views
+@pytest.mark.skipif(
+    not WEASYPRINT_INSTALLED, reason="weasyprint not installed correctly"
+)
 def test_pdf_view(new_character):
     new_character.status = {"character": ""}
     # TODO need a fully created character
