@@ -72,12 +72,16 @@ def test_wounds_halfling(new_character):
 @pytest.mark.models
 def test_character_title(new_character):
     assert new_character.get_display_title() == "Unknown"
+    assert new_character.get_filename() == "unknown"
     new_character.species = "Halfling"
     assert new_character.get_display_title() == "Halfling"
+    assert new_character.get_filename() == "halfling"
     new_character.career = "Bawd"
     assert new_character.get_display_title() == "Halfling Bawd"
+    assert new_character.get_filename() == "halfling_bawd"
     new_character.name = "Frodo"
     assert new_character.get_display_title() == "Frodo the Halfling Bawd"
+    assert new_character.get_filename() == "frodo_the_halfling_bawd"
 
 
 @pytest.mark.models

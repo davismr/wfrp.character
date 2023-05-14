@@ -1,63 +1,11 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:tal="http://xml.zope.org/namespaces/tal"
-      xmlns:metal="http://xml.zope.org/namespaces/metal"
-      lang="en">
-    <head>
-        <meta charset="utf-8">
-        <title>WFRP Character Generator</title>
+<div metal:use-macro="load: layout.pt">
+    <div metal:fill-slot="header">
         <link rel="stylesheet" type="text/css"
-              href="${request.static_url('wfrp.character:static/wfrp.css')}"/>
-    </head>
-    <body>
-        <table id="character-page">
-            <tr>
-                <td colspan="6">
-                    <div metal:use-macro="load: character_macros/details.pt" />
-                </td>
-            </tr>
-            <tr>
-                <td colspan="3" rowspan="2">
-                    <div metal:use-macro="load: character_macros/attributes.pt" />
-                </td>
-                <td colspan="3">
-                    <div metal:use-macro="load: character_macros/characteristics.pt" />
-                </td>
-            </tr>
-            <tr>
-                <td colspan="3">
-                    <div metal:use-macro="load: character_macros/movement.pt" />
-                </td>
-            </tr>
-            <tr>
-                <td colspan="6">
-                    <div metal:use-macro="load: character_macros/skills.pt" />
-                </td>
-            </tr>
-            <tr>
-                <td colspan="4">
-                    <div metal:use-macro="load: character_macros/talents.pt" />
-                </td>
-                <td colspan="2">
-                    TODO: Ambitions
-                </td>
-            </tr>
-            <tr>
-                <td colspan="4">TODO: Armour</td>
-                <td colspan="2" rowspan="2">TODO: Armour layout</td>
-            </tr>
-            <tr>
-                <td colspan="2" rowspan="2">
-                    <div metal:use-macro="load: character_macros/trappings.pt" />
-                </td>
-                <td colspan="2">TODO: psychology</td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <div metal:use-macro="load: character_macros/wealth.pt" />
-                </td>
-                <td colspan="2">TODO: wounds</td>
-            </tr>
-        </table>
-    </body>
-</html>
+              href="${request.static_url('wfrp.character:static/print.css')}"/>
+    </div>
+    <div metal:fill-slot="page_links"/>
+    <div metal:fill-slot="content">
+        <div metal:use-macro="load: character_sheet.pt"/>
+    </div>
+    <div metal:fill-slot="footer"/>
+</div>

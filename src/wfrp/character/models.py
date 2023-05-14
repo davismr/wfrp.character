@@ -163,6 +163,9 @@ class Character(Base):
             display_title += "Unknown"
         return display_title
 
+    def get_filename(self):
+        return self.get_display_title().lower().replace(" ", "_")
+
     def get_skill_level(self, skill):
         skill_data = SKILL_DATA[skill.split(" (")[0]]
         return self.skills[skill] + getattr(self, skill_data["characteristic"][0])

@@ -1,56 +1,14 @@
 <div metal:use-macro="load: layout.pt">
     <div metal:fill-slot="content">
-        <div><a href="/character/${character.uuid}/experience">Spend experience</a></div>
+        <div>
+            <a href="/character/${character.uuid}/experience">Spend experience</a>
+        </div>
         <div><a href="/character/${character.uuid}/summary">Character summary</a></div>
-
-        <table id="character-page" style="border: 1px solid blue;">
-            <tr>
-                <td colspan="6">
-                    <div metal:use-macro="load: character_macros/details.pt" />
-                </td>
-            </tr>
-            <tr>
-                <td colspan="3" rowspan="2">
-                    <div metal:use-macro="load: character_macros/attributes.pt" />
-                </td>
-                <td colspan="3">
-                    <div metal:use-macro="load: character_macros/characteristics.pt" />
-                </td>
-            </tr>
-            <tr>
-                <td colspan="3">
-                    <div metal:use-macro="load: character_macros/movement.pt" />
-                </td>
-            </tr>
-            <tr>
-                <td colspan="6">
-                    <div metal:use-macro="load: character_macros/skills.pt" />
-                </td>
-            </tr>
-            <tr>
-                <td colspan="4">
-                    <div metal:use-macro="load: character_macros/talents.pt" />
-                </td>
-                <td colspan="2">
-                    TODO: Ambitions
-                </td>
-            </tr>
-            <tr>
-                <td colspan="4">TODO: Armour</td>
-                <td colspan="2" rowspan="2">TODO: Armour layout</td>
-            </tr>
-            <tr>
-                <td colspan="2" rowspan="2">
-                    <div metal:use-macro="load: character_macros/trappings.pt" />
-                </td>
-                <td colspan="2">TODO: psychology</td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <div metal:use-macro="load: character_macros/wealth.pt" />
-                </td>
-                <td colspan="2">TODO: wounds</td>
-            </tr>
-        </table>
+        <div>
+            <a href="/character/${character.uuid}/pdf_print">
+                Print Character
+            </a>
+        </div>
+        <div metal:use-macro="load: character_sheet.pt"/>
     </div>
 </div>

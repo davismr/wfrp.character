@@ -54,4 +54,4 @@ def test_pdf_view(new_character):
     view = CharacterViews(request)
     response = view.pdf_print()
     # TODO fix headers
-    assert "example.pdf" in response.headers.get("Content-Disposition")
+    assert "unknown.pdf" in response.headers.get("Content-Disposition")

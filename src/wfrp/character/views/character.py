@@ -41,6 +41,7 @@ class CharacterViews(BaseView):
         html = render_to_response(
             "wfrp.character:templates/pdf.pt", self.full_view(), request=self.request
         )
+        filename = f"{self.character.get_filename()}.pdf"
         response = Response(body=HTML(string=html.body).write_pdf())
-        response.headers["Content-Disposition"] = "attachment;filename=example.pdf"
+        response.headers["Content-Disposition"] = f"attachment;filename={filename}"
         return response

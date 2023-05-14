@@ -6,29 +6,35 @@
     <head>
         <meta charset="utf-8">
         <title>WFRP Character Generator</title>
-        <link rel="shortcut icon"
-              href="${request.static_url('wfrp.character:static/favicon.ico')}" />
-        <script tal:condition="js_links|nothing"
-                tal:repeat="js_link js_links"
-                src="${request.static_url(js_link)}"
-                type="text/javascript"></script>
-        <link tal:condition="css_links|nothing"
-              tal:repeat="css_link css_links"
-              rel="stylesheet" type="text/css"
-              href="${request.static_url(css_link)}"/>
+        <div metal:define-slot="header" tal:omit-tag="">
+            <link rel="shortcut icon"
+                  href="${request.static_url('wfrp.character:static/favicon.ico')}"/>
+            <script tal:condition="js_links|nothing"
+                    tal:repeat="js_link js_links"
+                    src="${request.static_url(js_link)}"
+                    type="text/javascript"></script>
+            <link tal:condition="css_links|nothing"
+                  tal:repeat="css_link css_links"
+                  rel="stylesheet" type="text/css"
+                  href="${request.static_url(css_link)}"/>
+            <link rel="stylesheet" type="text/css"
+                  href="${request.static_url('deform:static/css/form.css')}"/>
+          </div>
         <link rel="stylesheet" type="text/css"
               href="${request.static_url('deform:static/css/bootstrap.min.css')}"/>
-        <link rel="stylesheet" type="text/css"
-              href="${request.static_url('deform:static/css/form.css')}"/>
         <link rel="stylesheet" type="text/css"
               href="${request.static_url('wfrp.character:static/wfrp.css')}"/>
     </head>
     <body>
-        <div><a href="/">Homepage</a></div>
-        <div><a href="/character/new">Create new character</a></div>
-        <div><a href="/links">Links</a></div>
+        <div metal:define-slot="page_links" tal:omit-tag="">
+            <div><a href="/">Homepage</a></div>
+            <div><a href="/character/new">Create new character</a></div>
+            <div><a href="/links">Links</a></div>
+        </div>
         <div metal:define-slot="content">No content</div>
-        <hr />
-        <div metal:use-macro="load: footer.pt" />
+        <div metal:define-slot="footer" tal:omit-tag="">
+            <hr />
+            <div metal:use-macro="load: footer.pt"/>
+        </div>
     </body>
 </html>
