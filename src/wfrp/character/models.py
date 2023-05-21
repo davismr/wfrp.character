@@ -8,9 +8,9 @@ from sqlalchemy import JSON
 from sqlalchemy import Column
 from sqlalchemy import Integer
 from sqlalchemy import Text
-from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.ext.mutable import MutableDict
 from sqlalchemy.ext.mutable import MutableList
+from sqlalchemy.orm import declarative_base
 from sqlalchemy.orm import scoped_session
 from sqlalchemy.orm import sessionmaker
 from zope.sqlalchemy import register

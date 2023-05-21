@@ -3,7 +3,11 @@ requires = ["setuptools", "wheel"]
 build-backend = "setuptools.build_meta:__legacy__"
 
 [tool.pytest.ini_options]
-filterwarnings = ["ignore::DeprecationWarning:pkg_resources"]
+filterwarnings = [
+    "ignore::DeprecationWarning:pkg_resources",
+    "ignore::DeprecationWarning:importlib",
+    "ignore::DeprecationWarning:webob",
+]
 markers = [
     "data",
     "models",
