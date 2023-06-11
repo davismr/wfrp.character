@@ -14,6 +14,14 @@ class AuthViews:
         self.request = request
         self.logged_in = request.authenticated_userid
 
+    # @view_config(route_name="home")
+    # def home(self):
+    #     return {"name": "Home View"}
+    #
+    # @view_config(route_name="hello")
+    # def hello(self):
+    #     return {"name": "Hello View"}
+
     @view_config(route_name="login", renderer="wfrp.character:templates/login.pt")
     def login(self):
         request = self.request

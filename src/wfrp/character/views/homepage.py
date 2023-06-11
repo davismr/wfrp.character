@@ -9,6 +9,10 @@ from wfrp.character.models import DBSession
 class HomePageViews:
     def __init__(self, request):
         self.request = request
+        import pdb
+
+        pdb.set_trace()
+        self.auth_enabled = request.authenticated_userid
         self.logged_in = request.authenticated_userid
 
     @view_config(request_method="GET", renderer="wfrp.character:templates/homepage.pt")

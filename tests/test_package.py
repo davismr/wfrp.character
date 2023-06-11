@@ -18,7 +18,16 @@ class DummyRoute:
 def test_home_view():
     view = HomePageViews(testing.DummyRequest())
     response = view.get_view()
+    import pdb
+
+    pdb.set_trace()
     assert response
+
+
+@pytest.mark.current
+def test_home_template(testapp, session_db):
+    response = testapp.get("/", status=200)
+    assert 'href="http://localhost/login">Log In</a>' in response.ubody
 
 
 @pytest.mark.package

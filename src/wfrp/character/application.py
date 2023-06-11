@@ -1,4 +1,5 @@
 from pyramid.config import Configurator
+from pyramid.settings import asbool
 from sqlalchemy import engine_from_config
 
 from wfrp.character.models import Base
@@ -11,6 +12,8 @@ def configure_app(global_config, **settings):
     engine = engine_from_config(settings, "sqlalchemy.")
     DBSession.configure(bind=engine)
     Base.metadata.bind = engine
+    enable_authentication = asbool(settings.get("enable_authentication", "false"))
+    settings["enable_authentication"] = enable_authentication
     config = Configurator(settings=settings)
     config.set_security_policy(
         SecurityPolicy(

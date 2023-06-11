@@ -1,4 +1,6 @@
 def includeme(config):
+    # import pdb;pdb.set_trace()
+    # if config.registry.settings.get('enable_authentication') is True:
     config.add_route("login", "/login")
     config.add_route("logout", "/logout")
     config.add_route("homepage", "/")

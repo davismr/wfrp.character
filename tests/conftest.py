@@ -29,6 +29,37 @@ def testapp():
     return TestApp(config.make_wsgi_app())
 
 
+@pytest.fixture()
+def testapp():
+    """Create an instance of our app for testing."""
+    from wfrp.character.application import main
+
+    settings = {
+        "sqlalchemy.url": "sqlite:///:memory:",
+        "wfrp.character.secret": "secret",
+    }
+    # app = main({}, **settings)
+    # app = main({}, **{"sqlalchemy.url": "sqlite://", "wfrp.character.secret": "secret"})
+    # import pdb;pdb.set_trace()
+
+    engine = engine_from_config(settings, "sqlalchemy.")
+    config = testing.setUp()
+    config.include("pyramid_chameleon")
+    config.include("wfrp.character.routes")
+    config.add_static_view("static", "wfrp.character:static")
+    config.add_static_view("static_deform", "deform:static")
+    config.scan()
+    DBSession.configure(bind=engine)
+    Base.metadata.bind = engine
+    Base.metadata.create_all(engine)
+    # SessionFactory = app.registry["dbsession_factory"]
+    # engine = SessionFactory().bind
+    # Base.metadata.create_all(bind=engine)
+    # DBSession.configure(bind=engine)
+    # Base.metadata.bind = engine
+    return TestApp(config.make_wsgi_app())
+
+
 @pytest.fixture
 def new_character(testapp):
     new_uuid = str(uuid.uuid4())
