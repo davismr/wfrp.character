@@ -21,6 +21,12 @@ def test_home_view():
     assert response
 
 
+@pytest.mark.current
+def test_home_template(testapp):
+    response = testapp.get("/", status=200)
+    assert 'href="http://localhost/login">Log In</a>' in response.ubody
+
+
 @pytest.mark.package
 def test_links_view():
     view = LinksViews(testing.DummyRequest())

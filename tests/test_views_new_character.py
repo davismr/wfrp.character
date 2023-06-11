@@ -12,7 +12,7 @@ class DummyRoute:
 
 
 @pytest.mark.views
-def test_get_view(session_db):
+def test_get_view(testapp):
     view = NewCharacterViews(testing.DummyRequest())
     response = view.get_view()
     assert response.status_code == 302

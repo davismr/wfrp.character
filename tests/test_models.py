@@ -6,7 +6,7 @@ from wfrp.character.views.attributes import ATTRIBUTES_LOWER
 
 
 @pytest.mark.models
-def test_save_character(session_db):
+def test_save_character(testapp):
     # make sure db is empty
     DBSession.query(Character).delete()
     new_character = Character()
