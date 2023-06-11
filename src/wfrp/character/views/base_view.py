@@ -7,6 +7,7 @@ from wfrp.character.models import DBSession
 class BaseView:
     def __init__(self, request):
         self.request = request
+        self.logged_in = request.authenticated_userid
         uuid = request.matchdict["uuid"]
         self.character = DBSession.query(Character).filter(Character.uuid == uuid).one()
         if "complete" in self.character.status and self.request.matched_route.name in [

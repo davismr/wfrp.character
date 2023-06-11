@@ -6,6 +6,7 @@ from pyramid.view import view_defaults
 class LinksViews:
     def __init__(self, request):
         self.request = request
+        self.logged_in = request.authenticated_userid
 
     @view_config()
     def links_view(self):

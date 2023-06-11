@@ -4,25 +4,25 @@ from pyramid.security import remember
 from pyramid.view import view_config
 from pyramid.view import view_defaults
 
-from .security import USERS
-from .security import check_password
+from wfrp.character.security import USERS
+from wfrp.character.security import check_password
 
 
-@view_defaults(renderer="home.pt")
+@view_defaults(renderer="wfrp.character:templates/homepage.pt")
 class AuthViews:
     def __init__(self, request):
         self.request = request
         self.logged_in = request.authenticated_userid
 
-    @view_config(route_name="home")
-    def home(self):
-        return {"name": "Home View"}
+    # @view_config(route_name="home")
+    # def home(self):
+    #     return {"name": "Home View"}
+    #
+    # @view_config(route_name="hello")
+    # def hello(self):
+    #     return {"name": "Hello View"}
 
-    @view_config(route_name="hello")
-    def hello(self):
-        return {"name": "Hello View"}
-
-    @view_config(route_name="login", renderer="login.pt")
+    @view_config(route_name="login", renderer="wfrp.character:templates/login.pt")
     def login(self):
         request = self.request
         login_url = request.route_url("login")
