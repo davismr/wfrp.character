@@ -12,6 +12,7 @@ from wfrp.character.models import DBSession
 class NewCharacterViews:
     def __init__(self, request):
         self.request = request
+        self.logged_in = request.authenticated_userid
 
     @view_config(request_method="GET")
     def get_view(self):

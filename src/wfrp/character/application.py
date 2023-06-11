@@ -3,6 +3,7 @@ from sqlalchemy import engine_from_config
 
 from wfrp.character.models import Base
 from wfrp.character.models import DBSession
+from wfrp.character.security import SecurityPolicy
 
 
 def configure_app(global_config, **settings):
@@ -11,6 +12,11 @@ def configure_app(global_config, **settings):
     DBSession.configure(bind=engine)
     Base.metadata.bind = engine
     config = Configurator(settings=settings)
+    config.set_security_policy(
+        SecurityPolicy(
+            secret=settings["wfrp.character.secret"],
+        ),
+    )
     config.include("wfrp.character.routes")
     config.add_static_view("static", "wfrp.character:static")
     config.add_static_view("static_deform", "deform:static")
