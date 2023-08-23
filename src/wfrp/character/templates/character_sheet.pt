@@ -44,6 +44,8 @@
         <td colspan="2">
             <div metal:use-macro="load: character_macros/wealth.pt" />
         </td>
-        <td colspan="2">TODO: wounds</td>
+        <td colspan="2">
+            <div metal:use-macro="load: character_macros/wounds.pt" />
+        </td>
     </tr>
 </table>

@@ -148,9 +148,12 @@ class Character(Base):
         return fellowship
 
     def calculate_wounds(self):
-        if self.species == "Halfling":
-            return 2 * (self.toughness // 10) + self.willpower // 10
-        return self.strength // 10 + 2 * (self.toughness // 10) + self.willpower // 10
+        total_wounds = 2 * (self.toughness // 10) + self.willpower // 10
+        if "Small" not in self.talents:
+            total_wounds += self.strength // 10
+        if "Hardy" in self.talents:
+            total_wounds += self.toughness // 10
+        return total_wounds
 
     def get_display_title(self):
         display_title = ""

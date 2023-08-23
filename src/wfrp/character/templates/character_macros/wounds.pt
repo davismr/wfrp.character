@@ -1,0 +1,31 @@
+<table id="wealth">
+    <thead>
+        <tr>
+            <th colspan="2">WOUNDS</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>SB</td>
+            <td tal:condition="python: 'Hardy' in character.talents">${character.strength // 10}</td>
+            <td tal:condition="python: 'Hardy' not in character.talents">0</td>
+        </tr>
+        <tr>
+            <td>TBx2</td>
+            <td>${character.toughness // 10 * 2}</td>
+        </tr>
+        <tr>
+            <td>WPB</td>
+            <td>${character.willpower // 10}</td>
+        </tr>
+        <tr>
+            <td>Hardy</td>
+            <td tal:condition="python: 'Hardy' in character.talents">${character.toughness // 10}</td>
+            <td tal:condition="python: 'Hardy' not in character.talents">0</td>
+        </tr>
+        <tr>
+            <td>Wounds</td>
+            <td>${character.calculate_wounds()}</td>
+        </tr>
+    </tbody>
+</table>

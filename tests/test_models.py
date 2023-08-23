@@ -66,7 +66,18 @@ def test_wounds_halfling(new_character):
     new_character.species = "Halfling"
     new_character.toughness_initial = 36
     new_character.willpower_initial = 46
+    new_character.talents = {"Small": 1}
     assert new_character.calculate_wounds() == 10
+
+
+@pytest.mark.models
+def test_wounds_hardy_halfling(new_character):
+    new_character.species = "Halfling"
+    new_character.strength_initial = 80
+    new_character.toughness_initial = 36
+    new_character.willpower_initial = 46
+    new_character.talents = {"Hardy": 1, "Small": 1}
+    assert new_character.calculate_wounds() == 13
 
 
 @pytest.mark.models
