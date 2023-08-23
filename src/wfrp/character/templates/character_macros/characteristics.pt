@@ -14,7 +14,7 @@
                     </tr>
                     <tr>
                         <td>Fortune</td>
-                        <td>TODO</td>
+                        <td>${character.fortune}</td>
                     </tr>
                 </tbody>
             </table>
@@ -34,7 +34,7 @@
                     </tr>
                     <tr>
                         <td>${character.resilience}</td>
-                        <td>TODO</td>
+                        <td>${character.resolve}</td>
                         <td>TODO</td>
                     </tr>
                 </tbody>
