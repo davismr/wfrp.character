@@ -7,11 +7,11 @@
     <tbody>
         <tr>
             <td>Movement</td>
-            <td>TODO</td>
+            <td>${character.movement}</td>
             <td>Walk</td>
-            <td>TODO</td>
+            <td>${character.movement * 2}</td>
             <td>Run</td>
-            <td>TODO</td>
+            <td>${character.movement * 4}</td>
         </tr>
     </tbody>
 </table>
