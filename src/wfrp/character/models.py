@@ -68,6 +68,7 @@ class Character(Base):
     fortune = Column(Integer, default=0)
     resilience = Column(Integer, default=0)
     resolve = Column(Integer, default=0)
+    motivation = Column(Text)
     extra_points = Column(Integer, default=0)
     movement = Column(Integer, default=3)
     skills = Column(MutableDict.as_mutable(JSON), default={})

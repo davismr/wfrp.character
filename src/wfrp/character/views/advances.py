@@ -85,7 +85,7 @@ class AdvancesViews(BaseView):
             colander.SchemaNode(
                 colander.Int(),
                 name="resilience",
-                description=(f"Resilience is currently {self.character.resilience}"),
+                description=f"Resilience is currently {self.character.resilience}",
                 validator=colander.OneOf([x[0] for x in fate_choices]),
                 widget=deform.widget.RadioChoiceWidget(
                     values=fate_choices, inline=True
@@ -94,6 +94,31 @@ class AdvancesViews(BaseView):
             )
         )
         schema.add(fate_schema)
+        motivation_schema = colander.SchemaNode(
+            colander.Mapping(),
+            name="motivation",
+            # validator=self.validate_fate,
+            description="Enter a motivation, this can be done later if you prefer.",
+        )
+        motivation_schema.add(
+            colander.SchemaNode(
+                colander.String(),
+                name="motivation",
+                # TODO separate description into paragraphs
+                description=(
+                    "Enter a motivation for your character. This should be a word or "
+                    "short phrase that sums up what your character lives for.\n"
+                    "When considering your Motivation, think of something that is "
+                    "fundamental to your character’s nature. Also try to make your "
+                    "Motivation something fun to roleplay, and something that will "
+                    "work well with the other PCs and their motivations"
+                ),
+                validator=colander.Length(max=100),
+                widget=deform.widget.TextInputWidget(),
+                missing="",
+            )
+        )
+        schema.add(motivation_schema)
         return schema
 
     def validate(self, form, values):
@@ -155,6 +180,7 @@ class AdvancesViews(BaseView):
                 self.character.fortune = self.character.fate
                 self.character.resolve = self.character.resilience
                 self.character.extra_points = 0
+                self.character.motivation = captured["motivation"]["motivation"]
                 url = self.request.route_url("species_skills", uuid=self.character.uuid)
                 self.character.status = {"species_skills": ""}
                 return HTTPFound(location=url)

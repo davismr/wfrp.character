@@ -100,3 +100,44 @@ def test_invalid_fate_submit_view(new_character):
     assert isinstance(response, dict)
     assert "form" in response
     assert "You can only add a total of 5 advances" in response["form"]
+
+
+@pytest.mark.views
+def test_motivation(new_character):
+    new_character.species = "Human"
+    new_character.career = "Apothecary"
+    new_character.status = {"advances": ""}
+    request = testing.DummyRequest(
+        post={
+            "attributes": {"Toughness": "5", "Dexterity": "0", "Intelligence": "0"},
+            "fate & resilience": {"fate": "0", "resilience": "0"},
+            "motivation": {"motivation": "Protect the weak"},
+            "Accept_Advances": "Accept_Advances",
+        }
+    )
+    request.matched_route = DummyRoute(name="advances")
+    request.matchdict = {"uuid": new_character.uuid}
+    view = AdvancesViews(request)
+    response = view.form_view()
+    assert isinstance(response, HTTPFound)
+    assert new_character.motivation == "Protect the weak"
+
+
+@pytest.mark.views
+def test_motivation_not_required(new_character):
+    new_character.species = "Human"
+    new_character.career = "Apothecary"
+    new_character.status = {"advances": ""}
+    request = testing.DummyRequest(
+        post={
+            "attributes": {"Toughness": "5", "Dexterity": "0", "Intelligence": "0"},
+            "fate & resilience": {"fate": "0", "resilience": "0"},
+            "Accept_Advances": "Accept_Advances",
+        }
+    )
+    request.matched_route = DummyRoute(name="advances")
+    request.matchdict = {"uuid": new_character.uuid}
+    view = AdvancesViews(request)
+    response = view.form_view()
+    assert isinstance(response, HTTPFound)
+    assert new_character.motivation == ""
