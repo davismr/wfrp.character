@@ -1,0 +1,29 @@
+<table id="wealth">
+    <thead>
+        <tr>
+            <th colspan="2">ENCUMBERANCE</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Weapons</td>
+            <td>TODO</td>
+        </tr>
+        <tr>
+            <td>Armour</td>
+            <td>TODO</td>
+        </tr>
+        <tr>
+            <td>Trappings</td>
+            <td>TODO</td>
+        </tr>
+        <tr>
+            <td>Max Enc.</td>
+            <td>${(character.strength // 10) + (character.toughness // 10)}</td>
+        </tr>
+        <tr>
+            <td>Total</td>
+            <td>TODO</td>
+        </tr>
+    </tbody>
+</table>
