@@ -1,0 +1,23 @@
+<table id="wealth">
+    <thead>
+        <tr>
+            <th colspan="5">Armour</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Name</td>
+            <td>Locations</td>
+            <td>Enc</td>
+            <td>AP</td>
+            <td>Qualities</td>
+        </tr>
+        <tr tal:repeat="armour python:character.armour">
+            <td>${armour}</td>
+            <td>${", ".join(armour_data[armour]["Locations"])}</td>
+            <td>${armour_data[armour]["Enc"]}</td>
+            <td>${armour_data[armour]["APs"]}</td>
+            <td>${armour_data[armour]["Qualities"]|"&nbsp;"}</td>
+        </tr>
+    </tbody>
+</table>

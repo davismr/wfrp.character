@@ -4,9 +4,11 @@ from pyramid.renderers import render_to_response
 from pyramid.response import Response
 from pyramid.view import view_config
 
+from wfrp.character.armour_data import ARMOUR_DATA
 from wfrp.character.skill_data import SKILL_DATA
 from wfrp.character.talent_data import TALENT_DATA
 from wfrp.character.views.base_view import BaseView
+from wfrp.character.weapons_data import WEAPONS_DATA
 
 logger = logging.getLogger(__name__)
 
@@ -28,6 +30,8 @@ class CharacterViews(BaseView):
             "character": self.character,
             "skill_data": SKILL_DATA,
             "talent_data": TALENT_DATA,
+            "weapons_data": WEAPONS_DATA,
+            "armour_data": ARMOUR_DATA,
         }
 
     @view_config(

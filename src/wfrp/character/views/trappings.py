@@ -4,10 +4,12 @@ from pyramid.httpexceptions import HTTPFound
 from pyramid.view import view_config
 from pyramid.view import view_defaults
 
+from wfrp.character.armour_data import ARMOUR_DATA
 from wfrp.character.career_data import CAREER_DATA
 from wfrp.character.trappings import CLASS_TRAPPINGS
 from wfrp.character.utils import roll_d10
 from wfrp.character.views.base_view import BaseView
+from wfrp.character.weapons_data import WEAPONS_DATA
 
 
 @view_defaults(route_name="trappings")
@@ -119,7 +121,7 @@ class TrappingsViews(BaseView):
             except deform.ValidationFailure as error:
                 html = error.render()
             else:
-                trappings = []
+                all_items = []
                 items = (
                     self.character.status["trappings"]["class_trappings"]
                     + self.character.status["trappings"]["career_trappings"]
@@ -127,14 +129,22 @@ class TrappingsViews(BaseView):
                 for item in items:
                     if " or " in item:
                         if item in captured["class_trappings"]:
-                            trappings.append(captured["class_trappings"][item])
+                            all_items.append(captured["class_trappings"][item])
                         else:
-                            trappings.append(captured["career_trappings"][item])
+                            all_items.append(captured["career_trappings"][item])
                     else:
-                        trappings.append(item)
-                data = self.character.status["trappings"]
-                self.character.trappings = trappings
-                self.character.wealth = data["money"]
+                        all_items.append(item)
+                for item in set(all_items):
+                    if item in WEAPONS_DATA:
+                        self.character.weapons.append(item)
+                    elif item in ARMOUR_DATA:
+                        self.character.armour.append(item)
+                    else:
+                        self.character.trappings.append(item)
+                self.character.weapons.sort()
+                self.character.armour.sort()
+                self.character.trappings.sort()
+                self.character.wealth = self.character.status["trappings"]["money"]
                 url = self.request.route_url("details", uuid=self.character.uuid)
                 self.character.status = {"details": ""}
                 return HTTPFound(location=url)

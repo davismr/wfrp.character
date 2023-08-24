@@ -87,8 +87,40 @@ def test_submit_view(new_character):
     assert isinstance(response, HTTPFound)
     assert "brass pennies" in new_character.wealth
     assert isinstance(new_character.wealth["brass pennies"], int)
-    assert "Mask" in new_character.trappings
-    assert "Dagger" in new_character.trappings
+    assert new_character.weapons == ["Dagger", "Hand Weapon", "Knuckledusters"]
+    assert new_character.armour == ["Leather Jack"]
+    assert new_character.trappings == ["Clothing", "Mask", "Pouch"]
+
+
+@pytest.mark.views
+def test_submit_view_duplicate_item(new_character):
+    new_character.career = "Soldier"
+    new_character.status = {"trappings": ""}
+    payload = {
+        "class_trappings": {
+            "Clothing": "Clothing",
+            "Hand Weapon": "Hand Weapon",
+            "Dagger": "Dagger",
+            "Pouch": "Pouch",
+        },
+        "career_trappings": {
+            "Dagger": "Dagger",
+            "Leather Breastplate": "Leather Breastplate",
+            "Uniform": "Uniform",
+        },
+        "Choose_trappings": "Choose_trappings",
+    }
+    request = testing.DummyRequest(post=payload)
+    request.matched_route = DummyRoute(name="trappings")
+    request.matchdict = {"uuid": new_character.uuid}
+    view = TrappingsViews(request)
+    response = view.form_view()
+    assert isinstance(response, HTTPFound)
+    assert "silver shillings" in new_character.wealth
+    assert isinstance(new_character.wealth["silver shillings"], int)
+    assert new_character.weapons == ["Dagger", "Hand Weapon"]
+    assert new_character.armour == ["Leather Breastplate"]
+    assert new_character.trappings == ["Clothing", "Pouch", "Uniform"]
 
 
 @pytest.mark.xfail

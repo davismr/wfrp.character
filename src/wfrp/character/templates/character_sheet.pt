@@ -31,7 +31,9 @@
         </td>
     </tr>
     <tr>
-        <td colspan="4">TODO: Armour</td>
+        <td colspan="4">
+            <div metal:use-macro="load: character_macros/armour.pt" />
+        </td>
         <td colspan="2" rowspan="2">TODO: Armour layout</td>
     </tr>
     <tr>
@@ -46,6 +48,11 @@
         </td>
         <td colspan="2">
             <div metal:use-macro="load: character_macros/wounds.pt" />
+        </td>
+    </tr>
+    <tr>
+        <td colspan="6">
+            <div metal:use-macro="load: character_macros/weapons.pt" />
         </td>
     </tr>
 </table>
