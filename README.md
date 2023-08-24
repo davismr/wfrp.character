@@ -46,6 +46,12 @@ pytest
 
 Run the project
 ---------------
+Initialise the database, this will silently not do anything if a db already exists.
+You have to delete the db and re-initialise on any db structure change. There is no db
+migration facility yet.
+```bash
+init_db development.ini
+```
 
 ```bash
 pserve development.ini
