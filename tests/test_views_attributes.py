@@ -4,8 +4,8 @@ import pytest
 from pyramid import testing
 from pyramid.httpexceptions import HTTPFound
 
-from wfrp.character.views.attributes import ATTRIBUTES
-from wfrp.character.views.attributes import AttributesViews
+from wfrp.character.forms.create.attributes import ATTRIBUTES
+from wfrp.character.forms.create.attributes import AttributesViews
 
 
 @dataclass

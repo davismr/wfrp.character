@@ -4,8 +4,8 @@ import pytest
 from pyramid import testing
 from pyramid.httpexceptions import HTTPFound
 
-from wfrp.character.views.career_skills import CareerSkillsViews
-from wfrp.character.views.species_skills import SpeciesSkillsViews
+from wfrp.character.forms.create.career_skills import CareerSkillsViews
+from wfrp.character.forms.create.species_skills import SpeciesSkillsViews
 
 
 @dataclass

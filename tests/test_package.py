@@ -4,7 +4,7 @@ import pytest
 from pyramid import testing
 from pyramid.httpexceptions import HTTPFound
 
-from wfrp.character.views.career import CareerViews
+from wfrp.character.forms.create.career import CareerViews
 from wfrp.character.views.homepage import HomePageViews
 from wfrp.character.views.links import LinksViews
 

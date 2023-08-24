@@ -4,7 +4,7 @@ import pytest
 from pyramid import testing
 from pyramid.httpexceptions import HTTPFound
 
-from wfrp.character.views.trappings import TrappingsViews
+from wfrp.character.forms.create.trappings import TrappingsViews
 
 
 @dataclass

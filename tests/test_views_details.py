@@ -6,7 +6,7 @@ from pyramid.httpexceptions import HTTPFound
 
 from wfrp.character.data.species import SPECIES_DATA
 from wfrp.character.data.species import SPECIES_LIST
-from wfrp.character.views.details import DetailsViews
+from wfrp.character.forms.create.details import DetailsViews
 
 
 @dataclass

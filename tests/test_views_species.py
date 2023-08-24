@@ -5,7 +5,7 @@ import pytest
 from pyramid import testing
 from pyramid.httpexceptions import HTTPFound
 
-from wfrp.character.views.species import SpeciesViews
+from wfrp.character.forms.create.species import SpeciesViews
 
 
 @dataclass
@@ -41,7 +41,7 @@ def test_roll_new_species(new_character, species, roll):
     request.matched_route = DummyRoute(name="species")
     request.matchdict = {"uuid": new_character.uuid}
     view = SpeciesViews(request)
-    with patch("wfrp.character.views.species.roll_d100") as mock_roll:
+    with patch("wfrp.character.forms.create.species.roll_d100") as mock_roll:
         mock_roll.return_value = roll
         response = view._roll_new_species()
         assert response == species

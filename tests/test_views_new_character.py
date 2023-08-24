@@ -3,7 +3,7 @@ from dataclasses import dataclass
 import pytest
 from pyramid import testing
 
-from wfrp.character.views.new_character import NewCharacterViews
+from wfrp.character.forms.create.new_character import NewCharacterViews
 
 
 @dataclass
