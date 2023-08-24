@@ -4,12 +4,12 @@ from pyramid.httpexceptions import HTTPFound
 from pyramid.view import view_config
 from pyramid.view import view_defaults
 
-from wfrp.character.armour_data import ARMOUR_DATA
-from wfrp.character.career_data import CAREER_DATA
-from wfrp.character.trappings import CLASS_TRAPPINGS
+from wfrp.character.data.armour import ARMOUR_DATA
+from wfrp.character.data.careers import CAREER_DATA
+from wfrp.character.data.class_trappings import CLASS_TRAPPINGS
+from wfrp.character.data.weapons import WEAPONS_DATA
 from wfrp.character.utils import roll_d10
 from wfrp.character.views.base_view import BaseView
-from wfrp.character.weapons_data import WEAPONS_DATA
 
 
 @view_defaults(route_name="trappings")

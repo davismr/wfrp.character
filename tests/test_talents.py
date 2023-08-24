@@ -1,9 +1,9 @@
 import pytest
 
-from wfrp.character.career_data import CAREER_DATA
-from wfrp.character.talent_data import TALENT_DATA
-from wfrp.character.talent_data import TALENT_LIST
-from wfrp.character.talent_data import get_random_talent
+from wfrp.character.data.careers import CAREER_DATA
+from wfrp.character.data.talents import TALENT_DATA
+from wfrp.character.data.talents import TALENT_LIST
+from wfrp.character.data.talents import get_random_talent
 
 
 @pytest.mark.data

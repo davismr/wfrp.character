@@ -4,11 +4,11 @@ from pyramid.renderers import render_to_response
 from pyramid.response import Response
 from pyramid.view import view_config
 
-from wfrp.character.armour_data import ARMOUR_DATA
-from wfrp.character.skill_data import SKILL_DATA
-from wfrp.character.talent_data import TALENT_DATA
+from wfrp.character.data.armour import ARMOUR_DATA
+from wfrp.character.data.skills import SKILL_DATA
+from wfrp.character.data.talents import TALENT_DATA
+from wfrp.character.data.weapons import WEAPONS_DATA
 from wfrp.character.views.base_view import BaseView
-from wfrp.character.weapons_data import WEAPONS_DATA
 
 logger = logging.getLogger(__name__)
 

@@ -4,8 +4,8 @@ from pyramid.httpexceptions import HTTPFound
 from pyramid.view import view_config
 from pyramid.view import view_defaults
 
-from wfrp.character.species_data import get_eye_colour
-from wfrp.character.species_data import get_hair_colour
+from wfrp.character.data.species import get_eye_colour
+from wfrp.character.data.species import get_hair_colour
 from wfrp.character.utils import roll_2d10
 from wfrp.character.utils import roll_5d10
 from wfrp.character.utils import roll_d10

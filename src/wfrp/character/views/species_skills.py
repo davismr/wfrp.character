@@ -4,9 +4,9 @@ from pyramid.httpexceptions import HTTPFound
 from pyramid.view import view_config
 from pyramid.view import view_defaults
 
-from wfrp.character.skill_data import SKILL_DATA
-from wfrp.character.species_data import SPECIES_DATA
-from wfrp.character.talent_data import get_random_talent
+from wfrp.character.data.skills import SKILL_DATA
+from wfrp.character.data.species import SPECIES_DATA
+from wfrp.character.data.talents import get_random_talent
 from wfrp.character.utils import roll_d100
 from wfrp.character.views.base_view import BaseView
 

@@ -15,8 +15,8 @@ from sqlalchemy.orm import scoped_session
 from sqlalchemy.orm import sessionmaker
 from zope.sqlalchemy import register
 
-from wfrp.character.skill_data import SKILL_DATA
-from wfrp.character.talent_data import TALENT_DATA
+from wfrp.character.data.skills import SKILL_DATA
+from wfrp.character.data.talents import TALENT_DATA
 
 DBSession = scoped_session(sessionmaker())
 register(DBSession)

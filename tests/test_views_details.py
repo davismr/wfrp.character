@@ -4,8 +4,8 @@ import pytest
 from pyramid import testing
 from pyramid.httpexceptions import HTTPFound
 
-from wfrp.character.species_data import SPECIES_DATA
-from wfrp.character.species_data import SPECIES_LIST
+from wfrp.character.data.species import SPECIES_DATA
+from wfrp.character.data.species import SPECIES_LIST
 from wfrp.character.views.details import DetailsViews
 
 

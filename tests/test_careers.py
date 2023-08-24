@@ -1,7 +1,7 @@
 import pytest
 
-from wfrp.character.career_data import get_career
-from wfrp.character.career_data import list_careers
+from wfrp.character.data.careers import get_career
+from wfrp.character.data.careers import list_careers
 
 
 @pytest.mark.data
