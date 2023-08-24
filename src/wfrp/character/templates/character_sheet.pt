@@ -23,24 +23,38 @@
         </td>
     </tr>
     <tr>
-        <td colspan="4">
+        <td colspan="3" rowspan="2">
             <div metal:use-macro="load: character_macros/talents.pt" />
         </td>
-        <td colspan="2">
-            TODO: Ambitions
+        <td colspan="3">
+            <div metal:use-macro="load: character_macros/ambitions.pt" />
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3">
+            <div metal:use-macro="load: character_macros/party.pt" />
         </td>
     </tr>
     <tr>
         <td colspan="4">
             <div metal:use-macro="load: character_macros/armour.pt" />
         </td>
-        <td colspan="2" rowspan="2">TODO: Armour layout</td>
+        <td colspan="2" rowspan="3">
+            <div metal:use-macro="load: character_macros/armour_layout.pt" />
+        </td>
     </tr>
     <tr>
-        <td colspan="2" rowspan="2">
+        <td colspan="2" rowspan="3">
             <div metal:use-macro="load: character_macros/trappings.pt" />
         </td>
-        <td colspan="2">TODO: psychology</td>
+        <td colspan="2">
+            <div metal:use-macro="load: character_macros/psychology.pt" />
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <div metal:use-macro="load: character_macros/corruption.pt" />
+        </td>
     </tr>
     <tr>
         <td colspan="1">
