@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from unittest.mock import patch
 
 import pytest
 from pyramid import testing
@@ -13,7 +14,7 @@ class DummyRoute:
     name: str
 
 
-@pytest.mark.views
+@pytest.mark.create
 def test_species_skills_view(new_character):
     new_character.species = "Wood Elf"
     new_character.career = "Apothecary"
@@ -28,7 +29,48 @@ def test_species_skills_view(new_character):
     assert "Rover" in response["form"]
 
 
-@pytest.mark.views
+@pytest.mark.create
+def test_initialise_form_return(new_character):
+    new_character.species = "Human"
+    new_character.career = "Witch"
+    new_character.status = {"species_skills": ["talent1", "talent2"]}
+    request = testing.DummyRequest()
+    request.matched_route = DummyRoute(name="species_skills")
+    request.matchdict = {"uuid": new_character.uuid}
+    view = SpeciesSkillsViews(request)
+    response = view.initialise_form()
+    assert response["species_talents"] == [
+        "Doomed",
+        "Savvy or Suave",
+        "talent1",
+        "talent2",
+    ]
+
+
+@pytest.mark.create
+def test_initialise_form_extra(new_character):
+    new_character.species = "Human"
+    new_character.career = "Witch"
+    new_character.status = {"species_skills": ""}
+    request = testing.DummyRequest()
+    request.matched_route = DummyRoute(name="species_skills")
+    request.matchdict = {"uuid": new_character.uuid}
+    view = SpeciesSkillsViews(request)
+    with patch(
+        "wfrp.character.forms.create.species_skills.get_random_talent"
+    ) as mock_roll:
+        mock_roll.side_effect = ["Savvy", "Mimic", "Mimic", "Hardy", "talent1"]
+        response = view.initialise_form()
+    assert response["species_talents"] == [
+        "Doomed",
+        "Savvy or Suave",
+        "Mimic",
+        "Hardy",
+        "talent1",
+    ]
+
+
+@pytest.mark.create
 @pytest.mark.parametrize("species, expected_talents", (("Human", 5), ("Halfling", 6)))
 def test_random_talents(new_character, species, expected_talents):
     new_character.species = species
@@ -46,7 +88,7 @@ def test_random_talents(new_character, species, expected_talents):
         assert "Small" in response["form"]
 
 
-@pytest.mark.views
+@pytest.mark.create
 def test_species_skills_submit(new_character):
     payload = {
         "species_skills": {
@@ -97,8 +139,48 @@ def test_species_skills_submit(new_character):
     assert "Night Vision" in new_character.talents
 
 
-@pytest.mark.views
+@pytest.mark.create
 def test_species_skills_invalid(new_character):
+    payload = {
+        "species_skills": {
+            "Cool": "5",
+            "Entertain (Sing)": "5",
+            "Evaluate": "5",
+            "Language (Eltharin)": "5",
+            "Leadership": "3",
+            "Melee (Basic)": "3",
+            "Navigation": "3",
+            "Perception": "3",
+            "Play (Any)": "0",
+            "Ranged (Bow)": "0",
+            "Sail": "0",
+            "Swim": "0",
+        },
+        "species_talents": {
+            "Acute Sense (Sight)": "Acute Sense (Sight)",
+            "Coolheaded or Savvy": "Coolheaded",
+            "Night Vision": "Night Vision",
+            "Read/Write": "Read/Write",
+            "Second Sight or Sixth Sense": "Second Sight",
+        },
+        "Choose_Skills": "Choose_Skills",
+    }
+    new_character.species = "High Elf"
+    new_character.career = "Apothecary"
+    new_character.status = {"species_skills": ""}
+    request = testing.DummyRequest(post=payload)
+    request.matched_route = DummyRoute(name="species_skills")
+    request.matchdict = {"uuid": new_character.uuid}
+    view = SpeciesSkillsViews(request)
+    response = view.form_view()
+    assert isinstance(response, dict)
+    assert "form" in response
+    assert "You can only select 3 skills for 3 advances" in response["form"]
+    assert "You can only select 3 skills for 5 advances" in response["form"]
+
+
+@pytest.mark.create
+def test_species_skills_invalid_none(new_character):
     payload = {
         "species_skills": {
             "Cool": "0",
@@ -137,7 +219,7 @@ def test_species_skills_invalid(new_character):
     assert "You must select 3 skills for 5 advances" in response["form"]
 
 
-@pytest.mark.views
+@pytest.mark.create
 def test_career_skills_view(new_character):
     new_character.career = "Apothecary"
     new_character.status = {"career_skills": ""}
@@ -152,7 +234,19 @@ def test_career_skills_view(new_character):
     assert "Concoct" in response["career_talents"]
 
 
-@pytest.mark.views
+@pytest.mark.create
+def test_form_view(new_character):
+    new_character.career = "Apothecary"
+    new_character.status = {"career_skills": ""}
+    request = testing.DummyRequest()
+    request.matched_route = DummyRoute(name="career_skills")
+    request.matchdict = {"uuid": new_character.uuid}
+    view = CareerSkillsViews(request)
+    response = view.form_view()
+    assert "form" in response
+
+
+@pytest.mark.create
 def test_career_skills_submit(new_character):
     payload = {
         "career_skills": {
@@ -179,11 +273,15 @@ def test_career_skills_submit(new_character):
     assert isinstance(response, HTTPFound)
 
 
-@pytest.mark.views
-def test_validation_error(new_character):
+@pytest.mark.create
+@pytest.mark.parametrize(
+    "skill_level, message",
+    (("4", "you have only allocated 39"), ("6", "you have allocated 41")),
+)
+def test_validation_error(new_character, skill_level, message):
     payload = {
         "career_skills": {
-            "Consume Alcohol": "4",
+            "Consume Alcohol": skill_level,
             "Heal": "6",
             "Language (Classical)": "5",
             "Lore (Chemistry)": "6",
@@ -205,10 +303,10 @@ def test_validation_error(new_character):
     response = view.form_view()
     assert "form" in response
     assert "There was a problem with your submission" in response["form"]
-    assert "you have only allocated 39" in response["form"]
+    assert message in response["form"]
 
 
-@pytest.mark.views
+@pytest.mark.create
 def test_skills_add_submit(new_character):
     payload = {
         "species_skills": {
@@ -277,7 +375,7 @@ def test_skills_add_submit(new_character):
     assert new_character.skills["Perception"] == 5
 
 
-@pytest.mark.views
+@pytest.mark.create
 def test_career_skills_any(new_character):
     new_character.species = "Wood Elf"
     new_character.career = "Artisan"
@@ -325,7 +423,7 @@ def test_career_skills_any(new_character):
     assert new_character.skills["Trade (Embalmer)"] == 10
 
 
-@pytest.mark.views
+@pytest.mark.create
 def test_career_skills_or_fail(new_character):
     new_character.species = "Human"
     new_character.career = "Pedlar"

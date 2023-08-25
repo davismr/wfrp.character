@@ -107,12 +107,8 @@ class CareerViews(BaseView):
                     selected.append(values[item][value])
         if len(selected) > 1:
             raise colander.Invalid(form, "You can only select a single career")
-        elif not selected:
+        if not selected:
             raise colander.Invalid(form, "You have to select a career")
-        if selected[0] not in list_careers(self.character.species):
-            raise colander.Invalid(
-                form, f"{selected[0]} is not available for {self.character.species}"
-            )
 
     @view_config(renderer="wfrp.character:templates/career.pt")
     def form_view(self):

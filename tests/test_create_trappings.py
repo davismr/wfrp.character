@@ -4,6 +4,7 @@ import pytest
 from pyramid import testing
 from pyramid.httpexceptions import HTTPFound
 
+from wfrp.character.data.class_trappings import CLASS_TRAPPINGS
 from wfrp.character.forms.create.trappings import TrappingsViews
 
 
@@ -12,20 +13,7 @@ class DummyRoute:
     name: str
 
 
-@pytest.mark.views
-def test_get_view(new_character):
-    new_character.species = "Wood Elf"
-    new_character.career = "Apothecary"
-    new_character.status = {"trappings": ""}
-    request = testing.DummyRequest()
-    request.matched_route = DummyRoute(name="trappings")
-    request.matchdict = {"uuid": new_character.uuid}
-    view = TrappingsViews(request)
-    response = view.form_view()
-    assert "form" in response
-
-
-@pytest.mark.views
+@pytest.mark.create
 def test_initalise_form(new_character):
     new_character.species = "Wood Elf"
     new_character.career = "Apothecary"
@@ -35,6 +23,7 @@ def test_initalise_form(new_character):
     request.matchdict = {"uuid": new_character.uuid}
     view = TrappingsViews(request)
     response = view.initialise_form()
+    assert isinstance(response, dict)
     assert "class_trappings" in response
     assert "Writing Kit" in response["class_trappings"]
     assert "career_trappings" in response
@@ -43,7 +32,32 @@ def test_initalise_form(new_character):
     assert isinstance(response["money"]["brass pennies"], int)
 
 
-@pytest.mark.views
+@pytest.mark.create
+def test_initalise_form_return(new_character):
+    new_character.status = {"trappings": "foobar"}
+    request = testing.DummyRequest()
+    request.matched_route = DummyRoute(name="trappings")
+    request.matchdict = {"uuid": new_character.uuid}
+    view = TrappingsViews(request)
+    response = view.initialise_form()
+    assert response == "foobar"
+
+
+@pytest.mark.create
+def test_get_view(new_character):
+    new_character.species = "Wood Elf"
+    new_character.career = "Apothecary"
+    new_character.status = {"trappings": ""}
+    request = testing.DummyRequest()
+    request.matched_route = DummyRoute(name="trappings")
+    request.matchdict = {"uuid": new_character.uuid}
+    view = TrappingsViews(request)
+    response = view.form_view()
+    assert isinstance(response, dict)
+    assert "form" in response
+
+
+@pytest.mark.create
 def test_money(new_character):
     new_character.status = {"trappings": ""}
     request = testing.DummyRequest()
@@ -59,9 +73,12 @@ def test_money(new_character):
     assert response["silver shillings"] <= 20
     response = view._get_money("Gold", 2)
     assert response == {"Gold crown": 2}
+    with pytest.raises(NotImplementedError) as error:
+        view._get_money("Bronze", 5)
+    assert str(error.value) == "Bronze is not defined"
 
 
-@pytest.mark.views
+@pytest.mark.create
 def test_submit_view(new_character):
     new_character.career = "Protagonist"
     new_character.status = {"trappings": ""}
@@ -92,7 +109,72 @@ def test_submit_view(new_character):
     assert new_character.trappings == ["Clothing", "Mask", "Pouch"]
 
 
-@pytest.mark.views
+@pytest.mark.create
+def test_submit_artist(new_character):
+    new_character.career = "Artist"
+    new_character.status = {"trappings": ""}
+    payload = {
+        "class_trappings": {
+            "Dagger": "Dagger",
+            "Fine Clothing": "Fine Clothing",
+            "Pouch": "Pouch",
+            "Tweezers": "Tweezers",
+            "Ear Pick": "Ear Pick",
+            "Comb": "Comb",
+        },
+        "career_trappings": {
+            "Brush or Chisel or Quill Pen": "Quill Pen",
+        },
+        "Choose_trappings": "Choose_trappings",
+    }
+    request = testing.DummyRequest(post=payload)
+    request.matched_route = DummyRoute(name="trappings")
+    request.matchdict = {"uuid": new_character.uuid}
+    view = TrappingsViews(request)
+    response = view.form_view()
+    assert isinstance(response, HTTPFound)
+    assert "silver shillings" in new_character.wealth
+    assert isinstance(new_character.wealth["silver shillings"], int)
+    assert new_character.weapons == ["Dagger"]
+    assert new_character.armour == []
+    assert new_character.trappings == [
+        "Comb",
+        "Ear Pick",
+        "Fine Clothing",
+        "Pouch",
+        "Quill Pen",
+        "Tweezers",
+    ]
+
+
+@pytest.mark.create
+def test_submit_bawd(new_character):
+    new_character.career = "Bawd"
+    new_character.status = {"trappings": ""}
+    # FIXME: get class trappings from data as number of matches is defined on startup
+    class_trappings = {x: x for x in CLASS_TRAPPINGS["Rogues"]}
+    class_trappings["Hood or Mask"] = "Hood"
+    payload = {
+        "class_trappings": class_trappings,
+        "career_trappings": {
+            "Flask of Spirits": "Flask of Spirits",
+        },
+        "Choose_trappings": "Choose_trappings",
+    }
+    request = testing.DummyRequest(post=payload)
+    request.matched_route = DummyRoute(name="trappings")
+    request.matchdict = {"uuid": new_character.uuid}
+    view = TrappingsViews(request)
+    response = view.form_view()
+    assert isinstance(response, HTTPFound)
+    assert "brass pennies" in new_character.wealth
+    assert isinstance(new_character.wealth["brass pennies"], int)
+    assert new_character.weapons == ["Dagger"]
+    assert new_character.armour == []
+    assert "Hood" in new_character.trappings
+
+
+@pytest.mark.create
 def test_submit_view_duplicate_item(new_character):
     new_character.career = "Soldier"
     new_character.status = {"trappings": ""}
@@ -121,6 +203,24 @@ def test_submit_view_duplicate_item(new_character):
     assert new_character.weapons == ["Dagger", "Hand Weapon"]
     assert new_character.armour == ["Leather Breastplate"]
     assert new_character.trappings == ["Clothing", "Pouch", "Uniform"]
+
+
+@pytest.mark.create
+def test_submit_invalid(new_character):
+    new_character.career = "Soldier"
+    new_character.status = {"trappings": ""}
+    payload = {
+        "class_trappings": {},
+        "career_trappings": {},
+        "Choose_trappings": "Choose_trappings",
+    }
+    request = testing.DummyRequest(post=payload)
+    request.matched_route = DummyRoute(name="trappings")
+    request.matchdict = {"uuid": new_character.uuid}
+    view = TrappingsViews(request)
+    response = view.form_view()
+    assert isinstance(response, dict)
+    assert "There was a problem with your submission" in response["form"]
 
 
 @pytest.mark.xfail

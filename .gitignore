@@ -9,3 +9,5 @@ __pycache__/
 
 /testing.sqlite
 /wfrp.sqlite
+
+/.coverage

@@ -1,17 +1,10 @@
-from dataclasses import dataclass
-
 import pytest
 from pyramid import testing
 
 from wfrp.character.forms.create.new_character import NewCharacterViews
 
 
-@dataclass
-class DummyRoute:
-    name: str
-
-
-@pytest.mark.views
+@pytest.mark.create
 def test_get_view(testapp):
     view = NewCharacterViews(testing.DummyRequest())
     response = view.get_view()

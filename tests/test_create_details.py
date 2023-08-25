@@ -14,7 +14,7 @@ class DummyRoute:
     name: str
 
 
-@pytest.mark.views
+@pytest.mark.create
 def test_initialise_form_elf(new_character):
     new_character.species = "Wood Elf"
     new_character.status = {"details": ""}
@@ -23,6 +23,7 @@ def test_initialise_form_elf(new_character):
     request.matchdict = {"uuid": new_character.uuid}
     view = DetailsViews(request)
     response = view.initialise_form()
+    assert isinstance(response, dict)
     assert "age" in response
     assert "height" in response
     assert "hair_colour" in response
@@ -30,7 +31,20 @@ def test_initialise_form_elf(new_character):
     assert len(response["eye_colour"].split(","))
 
 
-@pytest.mark.views
+@pytest.mark.create
+def test_form_view(new_character):
+    new_character.species = "Wood Elf"
+    new_character.status = {"details": ""}
+    request = testing.DummyRequest()
+    request.matched_route = DummyRoute(name="details")
+    request.matchdict = {"uuid": new_character.uuid}
+    view = DetailsViews(request)
+    response = view.form_view()
+    assert isinstance(response, dict)
+    assert "form" in response
+
+
+@pytest.mark.create
 @pytest.mark.parametrize("species", SPECIES_LIST)
 def test_hair_colour(new_character, species):
     new_character.status = {"details": ""}
@@ -49,7 +63,7 @@ def test_hair_colour(new_character, species):
         raise AssertionError
 
 
-@pytest.mark.views
+@pytest.mark.create
 @pytest.mark.parametrize("species", SPECIES_LIST)
 def test_eye_colour(new_character, species):
     new_character.status = {"details": ""}
@@ -68,7 +82,7 @@ def test_eye_colour(new_character, species):
         raise AssertionError
 
 
-@pytest.mark.views
+@pytest.mark.create
 def test_initialise_invalid_species(new_character):
     new_character.species = "Not a species"
     new_character.status = {"details": ""}
@@ -80,9 +94,9 @@ def test_initialise_invalid_species(new_character):
         view.initialise_form()
 
 
-@pytest.mark.views
+@pytest.mark.create
 @pytest.mark.parametrize("species", SPECIES_LIST)
-def test_initialise_form_speciesx(new_character, species):
+def test_initialise_form_species(new_character, species):
     new_character.species = species
     new_character.status = {"details": ""}
     request = testing.DummyRequest()
@@ -94,7 +108,7 @@ def test_initialise_form_speciesx(new_character, species):
         assert key in initial_values
 
 
-@pytest.mark.views
+@pytest.mark.create
 def test_details_submit(new_character):
     payload = {
         "Choose_Details": "Choose_Details",
@@ -114,3 +128,21 @@ def test_details_submit(new_character):
     assert new_character.hair == initial_values["hair_colour"]
     assert new_character.height == initial_values["height"]
     assert new_character.age == initial_values["age"]
+
+
+@pytest.mark.create
+def test_invalid_submit(new_character):
+    payload = {
+        "character_details": {"age": 42},
+        "Choose_Details": "Choose_Details",
+    }
+    new_character.species = "High Elf"
+    new_character.status = {"details": ""}
+    request = testing.DummyRequest(post=payload)
+    request.matched_route = DummyRoute(name="details")
+    request.matchdict = {"uuid": new_character.uuid}
+    view = DetailsViews(request)
+    response = view.form_view()
+    assert isinstance(response, dict)
+    assert "form" in response
+    assert "Pstruct is not a string" in response["form"]

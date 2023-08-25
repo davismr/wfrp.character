@@ -12,8 +12,8 @@ class DummyRoute:
     name: str
 
 
-@pytest.mark.views
-def test_get_view(new_character):
+@pytest.mark.create
+def test_initialise_form(new_character):
     new_character.species = "Human"
     new_character.career = "Apothecary"
     new_character.status = {"advances": ""}
@@ -22,13 +22,28 @@ def test_get_view(new_character):
     request.matchdict = {"uuid": new_character.uuid}
     view = AdvancesViews(request)
     response = view.initialise_form()
+    assert isinstance(response, dict)
     assert "attributes" in response
     assert len(response["attributes"]) == 10
     assert "advances" in response
     assert response["advances"] == ["Toughness", "Dexterity", "Intelligence"]
 
 
-@pytest.mark.views
+@pytest.mark.create
+def test_form_view(new_character):
+    new_character.species = "Human"
+    new_character.career = "Apothecary"
+    new_character.status = {"advances": ""}
+    request = testing.DummyRequest()
+    request.matched_route = DummyRoute(name="advances")
+    request.matchdict = {"uuid": new_character.uuid}
+    view = AdvancesViews(request)
+    response = view.form_view()
+    assert isinstance(response, dict)
+    assert "form" in response
+
+
+@pytest.mark.create
 def test_submit_view(new_character):
     new_character.species = "Human"
     new_character.career = "Apothecary"
@@ -60,14 +75,21 @@ def test_submit_view(new_character):
     assert new_character.resolve == 1
 
 
-@pytest.mark.views
-def test_invalid_submit_view(new_character):
+@pytest.mark.create
+@pytest.mark.parametrize(
+    "advance, message",
+    (
+        ("1", "You have to add a total of 5 advances"),
+        ("3", "You can only add a total of 5 advances"),
+    ),
+)
+def test_invalid_submit_view(new_character, advance, message):
     new_character.species = "Human"
     new_character.career = "Apothecary"
     new_character.status = {"advances": ""}
     request = testing.DummyRequest(
         post={
-            "attributes": {"Toughness": "3", "Dexterity": "2", "Intelligence": "1"},
+            "attributes": {"Toughness": advance, "Dexterity": "2", "Intelligence": "1"},
             "Accept_Advances": "Accept_Advances",
         }
     )
@@ -77,19 +99,20 @@ def test_invalid_submit_view(new_character):
     response = view.form_view()
     assert isinstance(response, dict)
     assert "form" in response
-    assert "You can only add a total of 5 advances" in response["form"]
+    assert message in response["form"]
 
 
-@pytest.mark.views
-def test_invalid_fate_submit_view(new_character):
+@pytest.mark.create
+@pytest.mark.parametrize("advance", ("1", "3"))
+def test_invalid_fate_submit_view(new_character, advance):
     new_character.species = "Human"
     new_character.career = "Apothecary"
     new_character.extra_points = 3
     new_character.status = {"advances": ""}
     request = testing.DummyRequest(
         post={
-            "attributes": {"Toughness": "3", "Dexterity": "2", "Intelligence": "1"},
-            "fate & resilience": {"fate": "2", "resilience": "2"},
+            "attributes": {"Toughness": "2", "Dexterity": "2", "Intelligence": "1"},
+            "fate & resilience": {"fate": "1", "resilience": advance},
             "Accept_Advances": "Accept_Advances",
         }
     )
@@ -99,10 +122,10 @@ def test_invalid_fate_submit_view(new_character):
     response = view.form_view()
     assert isinstance(response, dict)
     assert "form" in response
-    assert "You can only add a total of 5 advances" in response["form"]
+    assert "spread 3 points between fate and resilience" in response["form"]
 
 
-@pytest.mark.views
+@pytest.mark.create
 def test_motivation(new_character):
     new_character.species = "Human"
     new_character.career = "Apothecary"
@@ -123,7 +146,7 @@ def test_motivation(new_character):
     assert new_character.motivation == "Protect the weak"
 
 
-@pytest.mark.views
+@pytest.mark.create
 def test_motivation_not_required(new_character):
     new_character.species = "Human"
     new_character.career = "Apothecary"

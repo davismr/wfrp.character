@@ -13,7 +13,7 @@ class DummyRoute:
     name: str
 
 
-@pytest.mark.views
+@pytest.mark.create
 def test_get_view(new_character):
     new_character.species = "Human"
     new_character.status = {"attributes": ""}
@@ -30,7 +30,7 @@ def test_get_view(new_character):
     assert response["total_attributes"] == expected_total
 
 
-@pytest.mark.views
+@pytest.mark.create
 def test_bonus_attributes_view(new_character):
     new_character.status = {"attributes": ""}
     request = testing.DummyRequest()
@@ -44,7 +44,7 @@ def test_bonus_attributes_view(new_character):
         assert response[attribute] == 20
 
 
-@pytest.mark.views
+@pytest.mark.create
 def test_bonus_attributes_halfling(new_character):
     new_character.status = {"attributes": ""}
     request = testing.DummyRequest()
@@ -57,7 +57,7 @@ def test_bonus_attributes_halfling(new_character):
     assert response["Willpower"] == 10
 
 
-@pytest.mark.views
+@pytest.mark.create
 def test_bonus_attributes_dwarf(new_character):
     new_character.status = {"attributes": ""}
     request = testing.DummyRequest()
@@ -70,7 +70,7 @@ def test_bonus_attributes_dwarf(new_character):
     assert response["Willpower"] == 40
 
 
-@pytest.mark.views
+@pytest.mark.create
 def test_bonus_attributes_elf(new_character):
     new_character.status = {"attributes": ""}
     request = testing.DummyRequest()
@@ -83,7 +83,7 @@ def test_bonus_attributes_elf(new_character):
     assert response["Initiative"] == 40
 
 
-@pytest.mark.views
+@pytest.mark.create
 def test_bonus_attributes_invalid(new_character):
     new_character.status = {"attributes": ""}
     request = testing.DummyRequest()
@@ -94,7 +94,7 @@ def test_bonus_attributes_invalid(new_character):
         view._get_bonus_attributes("Not a species")
 
 
-@pytest.mark.views
+@pytest.mark.create
 def test_submit_full_experience(new_character):
     new_character.species = "Human"
     new_character.status = {
@@ -156,7 +156,7 @@ def test_submit_full_experience(new_character):
     assert new_character.experience == 50
 
 
-@pytest.mark.views
+@pytest.mark.create
 def test_submit_rearrange(new_character):
     new_character.species = "Human"
     new_character.status = {
@@ -207,7 +207,7 @@ def test_submit_rearrange(new_character):
     assert new_character.experience == 25
 
 
-@pytest.mark.views
+@pytest.mark.create
 def test_reroll(new_character):
     new_character.species = "Dwarf"
     new_character.status = {"attributes": ""}
@@ -244,7 +244,7 @@ def test_reroll(new_character):
     assert new_character.experience == 0
 
 
-@pytest.mark.views
+@pytest.mark.create
 def test_reroll_submit(new_character):
     new_character.species = "Dwarf"
     new_character.status = {"attributes": ""}
@@ -273,7 +273,7 @@ def test_reroll_submit(new_character):
     assert new_character.experience == 0
 
 
-@pytest.mark.views
+@pytest.mark.create
 def test_choose_submit(new_character):
     new_character.species = "Human"
     new_character.status = {"attributes": ""}

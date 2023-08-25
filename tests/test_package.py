@@ -21,7 +21,7 @@ def test_home_view():
     assert response
 
 
-@pytest.mark.current
+@pytest.mark.package
 def test_home_template(testapp):
     response = testapp.get("/", status=200)
     assert 'href="http://localhost/login">Log In</a>' in response.ubody

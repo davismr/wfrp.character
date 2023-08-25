@@ -12,7 +12,7 @@ class DummyRoute:
     name: str
 
 
-@pytest.mark.views
+@pytest.mark.create
 def test_get_view(new_character):
     new_character.status = {"name": ""}
     request = testing.DummyRequest()
@@ -20,10 +20,11 @@ def test_get_view(new_character):
     request.matchdict = {"uuid": new_character.uuid}
     view = NameViews(request)
     response = view.form_view()
+    assert isinstance(response, dict)
     assert "form" in response
 
 
-@pytest.mark.views
+@pytest.mark.create
 def test_submit_view(new_character):
     new_character.status = {"name": ""}
     request = testing.DummyRequest(
@@ -35,3 +36,18 @@ def test_submit_view(new_character):
     response = view.form_view()
     assert isinstance(response, HTTPFound)
     assert new_character.name == "Frodo Baggins"
+
+
+@pytest.mark.create
+def test_submit_invalid(new_character):
+    new_character.status = {"name": ""}
+    request = testing.DummyRequest(
+        post={"character_name": "a" * 101, "Select_Name": "Select_Name"}
+    )
+    request.matched_route = DummyRoute(name="name")
+    request.matchdict = {"uuid": new_character.uuid}
+    view = NameViews(request)
+    response = view.form_view()
+    assert isinstance(response, dict)
+    assert "form" in response
+    assert "Longer than maximum length 100" in response["form"]

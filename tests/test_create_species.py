@@ -13,7 +13,7 @@ class DummyRoute:
     name: str
 
 
-@pytest.mark.views
+@pytest.mark.create
 def test_get_view(new_character):
     request = testing.DummyRequest(path="species")
     request.matched_route = DummyRoute(name="species")
@@ -25,7 +25,7 @@ def test_get_view(new_character):
     assert "Choose species" in response["form"]
 
 
-@pytest.mark.views
+@pytest.mark.create
 @pytest.mark.parametrize(
     "species, roll",
     [
@@ -50,7 +50,7 @@ def test_roll_new_species(new_character, species, roll):
             view._roll_new_species()
 
 
-@pytest.mark.views
+@pytest.mark.create
 @pytest.mark.parametrize(
     "species, movement",
     [("Human", 4), ("Halfling", 3), ("Dwarf", 3), ("High Elf", 5)],
@@ -67,7 +67,7 @@ def test_set_attributes(new_character, species, movement):
     assert new_character.movement == movement
 
 
-@pytest.mark.views
+@pytest.mark.create
 @pytest.mark.parametrize(
     "species, experience",
     [("Human", 20), ("Halfling", 0), ("Dwarf", 0), ("High Elf", 0), ("Wood Elf", 0)],
@@ -86,8 +86,8 @@ def test_submit_view(new_character, species, experience):
     assert new_character.experience == experience
 
 
-@pytest.mark.views
-def test_submit_attributes_view(new_character):
+@pytest.mark.create
+def test_submit_species(new_character):
     new_character.status = {"species": "Human"}
     request = testing.DummyRequest(
         post={"species": {"species": "Human"}, "Choose_Species": "Choose_Species"}
@@ -102,3 +102,18 @@ def test_submit_attributes_view(new_character):
     assert new_character.resilience == 1
     assert new_character.extra_points == 3
     assert new_character.movement == 4
+
+
+@pytest.mark.create
+def test_submit_invalid_species(new_character):
+    new_character.status = {"species": "Human"}
+    request = testing.DummyRequest(
+        post={"species": {"species": "Cat"}, "Choose_Species": "Choose_Species"}
+    )
+    request.matched_route = DummyRoute(name="species")
+    request.matchdict = {"uuid": new_character.uuid}
+    view = SpeciesViews(request)
+    response = view.form_view()
+    assert isinstance(response, dict)
+    assert "form" in response
+    assert '"Cat" is not one of' in response["form"]
