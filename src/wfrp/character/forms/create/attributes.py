@@ -66,11 +66,15 @@ class AttributesViews(BaseView):
     def initialise_form(self):
         if self.character.status["attributes"]:
             base_attributes = self.character.status["attributes"]
-        elif "choose" in self.character.status:
-            base_attributes = []
         else:
             base_attributes = self._roll_base_attributes()
-            self.character.status = {"attributes": base_attributes}
+            if "stage" in self.character.status:
+                self.character.status = {
+                    "attributes": base_attributes,
+                    "stage": self.character.status["stage"],
+                }
+            else:
+                self.character.status = {"attributes": base_attributes}
         bonus_attributes = self._get_bonus_attributes(self.character.species)
         total_attributes = 0
         for attribute in base_attributes:
@@ -81,12 +85,7 @@ class AttributesViews(BaseView):
             "total_attributes": total_attributes,
         }
 
-    def _reroll(self):
-        if "reroll" not in self.character.status:
-            attributes = self._roll_base_attributes()
-            self.character.status = {"attributes": attributes, "reroll": True}
-
-    def schema(self, data):
+    def schema_initial(self, data):
         attribute_list = "-".join(
             [str(x) for x in sorted(data["base_attributes"].values())]
         )
@@ -97,47 +96,80 @@ class AttributesViews(BaseView):
         species = self.character.species
         schema = colander.SchemaNode(
             colander.Mapping(),
-            title="Character Attributes",
+            name="character_attributes",
             description=form_description,
         )
         attribute_schema = colander.SchemaNode(
             colander.Mapping(),
             name="attributes",
-            description=(
-                "Accept these results and gain 50XP, or rearrange them for 25XP."
-            ),
-            validator=self.validate,
         )
-        choices = []
-        for attribute in sorted(
-            data["base_attributes"], key=data["base_attributes"].get
-        ):
-            choices.append(
-                (
-                    str(data["base_attributes"][attribute]),
-                    str(data["base_attributes"][attribute]),
-                )
-            )
         for attribute in data["base_attributes"]:
             attribute_schema.add(
                 colander.SchemaNode(
-                    colander.String(),
+                    colander.Integer(),
                     name=attribute,
                     description=(
-                        f"Roll was {data['base_attributes'][attribute]} and {species}"
-                        f" bonus is +{data['bonus_attributes'][attribute]}"
+                        f"Roll was {data['base_attributes'][attribute]} and {species} "
+                        f"bonus is +{data['bonus_attributes'][attribute]}"
                     ),
-                    widget=deform.widget.SelectWidget(values=choices),
-                    validator=colander.OneOf([x[0] for x in choices]),
-                    default=str(data["base_attributes"][attribute]),
+                    widget=deform.widget.TextInputWidget(readonly=True),
+                    default=(
+                        data["base_attributes"][attribute]
+                        + data["bonus_attributes"][attribute]
+                    ),
+                    missing=0,
                 )
             )
         schema.add(attribute_schema)
         return schema
 
-    def validate(self, form, values):
-        used = list(values.values())
-        not_used = [str(x) for x in self.character.status["attributes"].values()]
+    def arrange_schema(self, data):
+        attribute_list = "-".join(
+            [str(x) for x in sorted(data["base_attributes"].values())]
+        )
+        choices = [(0, "Select")]
+        for attribute in sorted(
+            data["base_attributes"], key=data["base_attributes"].get
+        ):
+            choices.append(
+                (
+                    data["base_attributes"][attribute],
+                    data["base_attributes"][attribute],
+                )
+            )
+        form_description = (
+            f"Rolled attributes are: {attribute_list}. Total rolled is "
+            f"{data['total_attributes']}"
+        )
+        species = self.character.species
+        schema = colander.SchemaNode(
+            colander.Mapping(),
+            name="character_attributes",
+            description=form_description,
+            validator=self.validate_arrange,
+        )
+        attribute_schema = colander.SchemaNode(
+            colander.Mapping(),
+            name="attributes",
+        )
+        for attribute in data["base_attributes"]:
+            attribute_schema.add(
+                colander.SchemaNode(
+                    colander.Integer(),
+                    name=attribute,
+                    description=(
+                        f"{species} bonus is +{data['bonus_attributes'][attribute]}"
+                    ),
+                    widget=deform.widget.SelectWidget(values=choices),
+                    validator=colander.OneOf(data["base_attributes"].values()),
+                )
+            )
+        schema.add(attribute_schema)
+        return schema
+
+    def validate_arrange(self, form, values):
+        used = list(values["attributes"].values())
+        not_used = list(self.character.status["attributes"].values())
         duplicates = []
         while used:
             item = used.pop(0)
@@ -149,10 +181,10 @@ class AttributesViews(BaseView):
             raise colander.Invalid(
                 form,
                 f"You have used {' and '.join(duplicates)} too many times "
-                f"and not used {' or '.join(not_used)}",
+                f"and not used {' or '.join([str(x) for x in not_used])}",
             )
 
-    def choose_schema(self, data):
+    def schema_allocate(self, data):
         species = self.character.species
         schema = colander.SchemaNode(
             colander.Mapping(),
@@ -166,24 +198,24 @@ class AttributesViews(BaseView):
                 "a minimum of 4 and a maximum of 18 allocated to any single "
                 "Characteristic"
             ),
-            validator=self.choose_validate,
+            validator=self.validate_allocate,
         )
         for attribute in ATTRIBUTES:
             attribute_schema.add(
                 colander.SchemaNode(
-                    colander.String(),
+                    colander.Integer(),
                     name=attribute,
                     description=(
                         f"{species} bonus is +{data['bonus_attributes'][attribute]}"
                     ),
                     widget=deform.widget.TextInputWidget(),
-                    validator=self.validate_choose_field,
+                    validator=self.validate_allocate_field,
                 )
             )
         schema.add(attribute_schema)
         return schema
 
-    def validate_choose_field(self, form, values):
+    def validate_allocate_field(self, form, values):
         if int(values) < 4:
             raise colander.Invalid(
                 form,
@@ -195,7 +227,7 @@ class AttributesViews(BaseView):
                 "Must be a maximum of 18",
             )
 
-    def choose_validate(self, form, values):
+    def validate_allocate(self, form, values):
         total = 0
         for value in values.values():
             total += int(value)
@@ -207,23 +239,22 @@ class AttributesViews(BaseView):
 
     def setup_form(self):
         buttons = []
-        if "Reroll_Attributes" in self.request.POST:
-            self._reroll()
-        if (
-            "Choose_Attributes" in self.request.POST
-            and "choose" not in self.character.status
-        ):
-            self.character.status = {"attributes": "", "reroll": True, "choose": False}
-        if "choose" not in self.character.status:
-            buttons.append("Accept Attributes")
-            if "reroll" not in self.character.status:
-                buttons.append("Reroll Attributes")
-            data = self.initialise_form()
-            schema = self.schema(data)
-        else:
-            data = self.initialise_form()
-            schema = self.choose_schema(data)
-        buttons.append("Choose Attributes")
+        try:
+            stage = self.character.status["stage"]
+        except KeyError:
+            stage = "initial"
+        data = self.initialise_form()
+        buttons.append("Accept Attributes")
+        if stage == "initial":
+            schema = self.schema_initial(data)
+            buttons.append("Rearrange Attributes")
+        if stage in ["initial", "rearrange"]:
+            buttons.append("Reroll Attributes")
+            buttons.append("Allocate Attributes")
+        if stage in ["rearrange", "reroll"]:
+            schema = self.arrange_schema(data)
+        if stage == "allocate":
+            schema = self.schema_allocate(data)
         form = deform.Form(
             schema,
             buttons=buttons,
@@ -231,61 +262,45 @@ class AttributesViews(BaseView):
         return data, form
 
     @view_config(renderer="wfrp.character:templates/attributes.pt")
-    def form_view(self):  # noqa: C901
+    def form_view(self):
+        bonus_attributes = self._get_bonus_attributes(self.character.species)
+        if "Rearrange_Attributes" in self.request.POST:
+            self.character.status = {
+                "attributes": self.character.status["attributes"],
+                "stage": "rearrange",
+            }
+        elif "Reroll_Attributes" in self.request.POST:
+            attributes = self._roll_base_attributes()
+            self.character.status = {"attributes": attributes, "stage": "reroll"}
+        elif "Allocate_Attributes" in self.request.POST:
+            self.character.status = {"attributes": None, "stage": "allocate"}
         data, form = self.setup_form()
-        if "Choose_Attributes" in self.request.POST:
-            if self.character.status["choose"] is False:
-                # choose attributes, but form not submitted yet
-                self.character.status = {
-                    "attributes": "",
-                    "reroll": True,
-                    "choose": True,
-                }
-                html = form.render()
-            else:
-                try:
-                    captured = form.validate(self.request.POST.items())
-                except deform.ValidationFailure as error:
-                    html = error.render()
-                else:
-                    for attribute in captured["attributes"]:
-                        value = int(captured["attributes"][attribute])
-                        value += data["bonus_attributes"][attribute]
-                        attribute_lower = (
-                            f'{attribute.lower().replace(" ", "_")}_initial'
-                        )
-                        setattr(self.character, attribute_lower, value)
-                    url = self.request.route_url("advances", uuid=self.character.uuid)
-                    self.character.status = {"advances": ""}
-                    return HTTPFound(location=url)
-        elif "Accept_Attributes" in self.request.POST:
+        if "Accept_Attributes" in self.request.POST:
             try:
                 captured = form.validate(self.request.POST.items())
             except deform.ValidationFailure as error:
                 html = error.render()
             else:
-                matched = True
-                for attribute in captured["attributes"]:
-                    if (
-                        int(captured["attributes"][attribute])
-                        != self.character.status["attributes"][attribute]
-                    ):
-                        matched = False
-                    value = int(captured["attributes"][attribute])
-                    value += data["bonus_attributes"][attribute]
-                    attribute_lower = f'{attribute.lower().replace(" ", "_")}_initial'
-                    setattr(self.character, attribute_lower, value)
-                if "reroll" not in self.character.status:
-                    if matched:
-                        self.character.experience += 50
-                    else:
-                        self.character.experience += 25
+                if "stage" not in self.character.status:
+                    # get base attributes from status initial form has calculated values
+                    base_attributes = self.character.status["attributes"]
+                else:
+                    base_attributes = captured["attributes"]
+                for attribute in ATTRIBUTES:
+                    field_name = f'{attribute.lower().replace(" ", "_")}_initial'
+                    value = (
+                        int(base_attributes[attribute]) + bonus_attributes[attribute]
+                    )
+                    setattr(self.character, field_name, value)
+                if "stage" not in self.character.status:
+                    self.character.experience += 50
+                elif self.character.status["stage"] == "rearrange":
+                    self.character.experience += 25
                 url = self.request.route_url("advances", uuid=self.character.uuid)
                 self.character.status = {"advances": ""}
                 return HTTPFound(location=url)
         else:
             html = form.render()
-
         static_assets = self.get_widget_resources(form)
         return {
             "form": html,
