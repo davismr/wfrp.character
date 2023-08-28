@@ -90,8 +90,9 @@ class AttributesViews(BaseView):
             [str(x) for x in sorted(data["base_attributes"].values())]
         )
         form_description = (
-            f"Rolled attributes are: {attribute_list}. Total rolled is "
-            f"{data['total_attributes']}"
+            "You can accept these results for +50XP, or rearrange them for +25XP, or "
+            "reroll once for no extra XP. Alternatively, you can allocate 100 points "
+            "across your 10 attributes."
         )
         species = self.character.species
         schema = colander.SchemaNode(
@@ -102,6 +103,10 @@ class AttributesViews(BaseView):
         attribute_schema = colander.SchemaNode(
             colander.Mapping(),
             name="attributes",
+            description=(
+                f"Rolled attributes are: {attribute_list}. Total rolled is "
+                f"{data['total_attributes']}"
+            ),
         )
         for attribute in data["base_attributes"]:
             attribute_schema.add(
@@ -137,20 +142,31 @@ class AttributesViews(BaseView):
                     data["base_attributes"][attribute],
                 )
             )
-        form_description = (
-            f"Rolled attributes are: {attribute_list}. Total rolled is "
-            f"{data['total_attributes']}"
-        )
+        if self.character.status["stage"] == "rearrange":
+            form_description = (
+                "Rearrange the ten rolls, assigning each to a different attribute for "
+                "+25XP, or reroll once for no extra XP, and you will be able to "
+                "rearrange across your attributes. Alternatively, you can allocate 100 "
+                "points across your 10 attributes."
+            )
+        else:
+            form_description = (
+                "Rearrange the ten rolls, assigning each to a different attribute"
+            )
         species = self.character.species
         schema = colander.SchemaNode(
             colander.Mapping(),
             name="character_attributes",
-            description=form_description,
+            description=(
+                f"Rolled attributes are: {attribute_list}. Total rolled is "
+                f"{data['total_attributes']}"
+            ),
             validator=self.validate_arrange,
         )
         attribute_schema = colander.SchemaNode(
             colander.Mapping(),
             name="attributes",
+            description=form_description,
         )
         for attribute in data["base_attributes"]:
             attribute_schema.add(
