@@ -1,8 +1,0 @@
-<div metal:use-macro="load: layout.pt">
-    <div metal:fill-slot="content">
-
-        <h2>Advances</h2>
-        <span tal:replace="structure form"/>
-
-    </div>
-</div>

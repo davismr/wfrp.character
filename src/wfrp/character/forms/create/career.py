@@ -110,7 +110,7 @@ class CareerViews(BaseView):
         if not selected:
             raise colander.Invalid(form, "You have to select a career")
 
-    @view_config(renderer="wfrp.character:templates/career.pt")
+    @view_config(renderer="wfrp.character:templates/form.pt")
     def form_view(self):
         if "Reroll" in self.request.POST:
             self.reroll_career_view()

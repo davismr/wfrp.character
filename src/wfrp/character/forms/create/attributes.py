@@ -277,7 +277,7 @@ class AttributesViews(BaseView):
         )
         return data, form
 
-    @view_config(renderer="wfrp.character:templates/attributes.pt")
+    @view_config(renderer="wfrp.character:templates/form.pt")
     def form_view(self):
         bonus_attributes = self._get_bonus_attributes(self.character.species)
         if "Rearrange_Attributes" in self.request.POST:
