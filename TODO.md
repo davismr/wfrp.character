@@ -4,6 +4,6 @@ Transfer character to another user
 Give character from GM to player
 Open character for editing
 
-### Additional funcitonality
+### Additional functionality
 Enter character manually
 Print

@@ -1,7 +1,7 @@
 <div metal:use-macro="load: layout.pt">
     <div metal:fill-slot="content">
 
-        <h2>WFRP Realated sites</h2>
+        <h2>WFRP Related sites</h2>
         <ul>
             <li><a href="https://www.cubicle7games.com/our-games/warhammer-fantasy-roleplay-2/" target="_blank">Cubicle 7</a></li>
             <li><a href="https://warhammerfantasy.fandom.com" target="_blank">Warhammer Fantasy Wiki</a></li>
