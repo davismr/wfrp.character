@@ -4,21 +4,13 @@ from pyramid.httpexceptions import HTTPFound
 from pyramid.view import view_config
 from pyramid.view import view_defaults
 
+from wfrp.character.data.species import SPECIES_LIST
 from wfrp.character.utils import roll_d100
 from wfrp.character.views.base_view import BaseView
 
 
 @view_defaults(route_name="species")
 class SpeciesViews(BaseView):
-    def _get_species_list(self):
-        return (
-            ("Human", "Human"),
-            ("Halfling", "Halfling"),
-            ("Dwarf", "Dwarf"),
-            ("High Elf", "High Elf"),
-            ("Wood Elf", "Wood Elf"),
-        )
-
     def _roll_new_species(self):
         result = roll_d100()
         if result <= 90:
@@ -41,10 +33,8 @@ class SpeciesViews(BaseView):
         else:
             species = self._roll_new_species()
             self.character.status = {"species": species}
-        species_list = self._get_species_list()
-        return species_list
 
-    def schema(self, data):
+    def schema(self):
         species = self.character.status["species"]
         schema = colander.SchemaNode(colander.Mapping(), title="Character Species")
         species_schema = colander.SchemaNode(
@@ -56,8 +46,10 @@ class SpeciesViews(BaseView):
                 colander.String(),
                 name="species",
                 default=species,
-                validator=colander.OneOf([x[0] for x in data]),
-                widget=deform.widget.RadioChoiceWidget(values=data),
+                validator=colander.OneOf(SPECIES_LIST),
+                widget=deform.widget.RadioChoiceWidget(
+                    values=[(x, x) for x in SPECIES_LIST]
+                ),
                 description=f"Select {species} for 20XP or select another species",
             )
         )
@@ -66,8 +58,8 @@ class SpeciesViews(BaseView):
 
     @view_config(renderer="wfrp.character:templates/form.pt")
     def form_view(self):
-        data = self.initialise_form()
-        schema = self.schema(data)
+        self.initialise_form()
+        schema = self.schema()
         form = deform.Form(schema, buttons=("Choose Species",))
 
         if "Choose_Species" in self.request.POST:
