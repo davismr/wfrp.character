@@ -11,6 +11,7 @@ filterwarnings = [
 markers = [
     "create",
     "data",
+    "edit",
     "models",
     "package",
     "views",

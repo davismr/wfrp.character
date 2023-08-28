@@ -11,8 +11,9 @@ class BaseView:
         uuid = request.matchdict["uuid"]
         self.character = DBSession.query(Character).filter(Character.uuid == uuid).one()
         if "complete" in self.character.status and self.request.matched_route.name in [
-            "character_summary",
+            "character_edit",
             "character_full",
+            "character_summary",
             "experience",
             "pdf_print",
         ]:

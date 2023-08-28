@@ -47,5 +47,6 @@
         </div>
         <div><a href="/character/${character.uuid}/experience">Spend experience</a></div>
         <div><a href="/character/${character.uuid}/view">Character sheet</a></div>
+        <div><a href="/character/${character.uuid}/edit">Edit Character</a></div>
     </div>
 </div>
