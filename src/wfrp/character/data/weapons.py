@@ -1,7 +1,7 @@
 MELEE_WEAPONS_DATA = {
     "Dagger": {
         "Group": "Basic",
-        "Price": {},
+        "Price": {"SS": 16},
         "Enc": 0,
         "Availability": "Common",
         "Reach": "Very Short",
@@ -9,7 +9,7 @@ MELEE_WEAPONS_DATA = {
     },
     "Hand Weapon": {
         "Group": "Basic",
-        "Price": {},
+        "Price": {"GC": 1},
         "Enc": 1,
         "Availability": "Common",
         "Reach": "Average",
@@ -17,7 +17,7 @@ MELEE_WEAPONS_DATA = {
     },
     "Foil": {
         "Group": "Fencing",
-        "Price": {},
+        "Price": {"GC": 5},
         "Enc": 1,
         "Availability": "Scarce",
         "Reach": "Medium",
@@ -26,7 +26,7 @@ MELEE_WEAPONS_DATA = {
     },
     "Rapier": {
         "Group": "Fencing",
-        "Price": {},
+        "Price": {"GC": 5},
         "Enc": 1,
         "Availability": "Scarce",
         "Reach": "Long",
@@ -35,7 +35,7 @@ MELEE_WEAPONS_DATA = {
     },
     "Knuckledusters": {
         "Group": "Brawling",
-        "Price": {},
+        "Price": {"SS": 2, "BP": 6},
         "Enc": 0,
         "Availability": "Common",
         "Reach": "Personal",
@@ -43,7 +43,7 @@ MELEE_WEAPONS_DATA = {
     },
     "Flail": {
         "Group": "Flail",
-        "Price": {},
+        "Price": {"GC": 2},
         "Enc": 1,
         "Availability": "Scarce",
         "Reach": "Average",
@@ -52,7 +52,7 @@ MELEE_WEAPONS_DATA = {
     },
     "Quarterstaff": {
         "Group": "Polearm",
-        "Price": {},
+        "Price": {"SS": 3},
         "Enc": 2,
         "Availability": "Common",
         "Reach": "Long",
@@ -64,7 +64,7 @@ MELEE_WEAPONS_DATA = {
 RANGED_WEAPONS_DATA = {
     "Crossbow": {
         "Group": "Crossbow",
-        "Price": {},
+        "Price": {"GC": 5},
         "Enc": 2,
         "Availability": "Common",
         "Reach": 60,
@@ -73,7 +73,7 @@ RANGED_WEAPONS_DATA = {
     },
     "Whip": {
         "Group": "Entangling",
-        "Price": {},
+        "Price": {"SS": 5},
         "Enc": 0,
         "Availability": "Common",
         "Reach": 60,
@@ -82,7 +82,7 @@ RANGED_WEAPONS_DATA = {
     },
     "Sling": {
         "Group": "Sling",
-        "Price": {},
+        "Price": {"SS": 1},
         "Enc": 0,
         "Availability": "Common",
         "Reach": 60,

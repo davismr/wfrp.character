@@ -579,7 +579,7 @@ CAREER_DATA = {
         "class": "Burghers",
         "Sleuth": {
             "status": {"tier": "Silver", "standing": 1},
-            "attributes": ["", "", ""],
+            "attributes": ["Initiative", "Agility", "Intelligence"],
             "skills": [
                 "Charm",
                 "Climb",
@@ -1136,7 +1136,7 @@ CAREER_DATA = {
     },
     "Villager": {
         "class": "Peasants",
-        "": {
+        "Peasant": {
             "status": {"tier": "Brass", "standing": 2},
             "attributes": ["Strength", "Toughness", "Agility"],
             "skills": [
@@ -1352,7 +1352,7 @@ CAREER_DATA = {
     },
     "Witch Hunter": {
         "class": "Rangers",
-        "": {
+        "Interrogator": {
             "status": {"tier": "Silver", "standing": 1},
             "attributes": ["Weapon Skill", "Toughness", "Willpower"],
             "skills": [
@@ -1799,7 +1799,7 @@ CAREER_DATA = {
     },
     "Witch": {
         "class": "Rogues",
-        "": {
+        "Hexer": {
             "status": {"tier": "Brass", "standing": 1},
             "attributes": ["Weapon Skill", "Toughness", "Willpower"],
             "skills": [
@@ -1884,7 +1884,7 @@ CAREER_DATA = {
     },
     "Knight": {
         "class": "Warriors",
-        "": {
+        "Squire": {
             "status": {"tier": "Silver", "standing": 3},
             "attributes": ["Strength", "Initiative", "Agility"],
             "skills": [
