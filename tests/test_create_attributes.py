@@ -108,7 +108,7 @@ def test_submit_full_experience(new_character):
     assert new_character.experience == 50
 
 
-@pytest.mark.current
+@pytest.mark.create
 def test_submit_rearrange(new_character):
     new_character.species = "Human"
     new_character.status = {

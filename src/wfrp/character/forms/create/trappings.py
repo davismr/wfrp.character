@@ -104,7 +104,7 @@ class TrappingsViews(BaseView):
         return schema
 
     @view_config(renderer="wfrp.character:templates/form.pt")
-    def form_view(self):
+    def form_view(self):  # noqa C901
         data = self.initialise_form()
         schema = self.schema(data)
         values = {
@@ -137,10 +137,11 @@ class TrappingsViews(BaseView):
                 for item in set(all_items):
                     if item in WEAPONS_DATA:
                         self.character.weapons.append(item)
+                    elif item.split()[0] in WEAPONS_DATA:
+                        self.character.weapons.append(item.split()[0])
                     elif item in ARMOUR_DATA:
                         self.character.armour.append(item)
-                    else:
-                        self.character.trappings.append(item)
+                    self.character.trappings.append(item)
                 self.character.weapons.sort()
                 self.character.armour.sort()
                 self.character.trappings.sort()
@@ -150,7 +151,6 @@ class TrappingsViews(BaseView):
                 return HTTPFound(location=url)
         else:
             html = form.render()
-
         static_assets = form.get_widget_resources()
         return {
             "form": html,

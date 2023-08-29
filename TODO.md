@@ -3,7 +3,6 @@ Species Talents with Any
     Acute Sense (any one)
     Craftsman (any one
     Resistance (any one)
-Weapons with extra, eg crossbow with 10 bolts
 Lazy values
 
 ### Layout
