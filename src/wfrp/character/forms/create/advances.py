@@ -189,8 +189,8 @@ class AdvancesViews(BaseView):
 
         static_assets = self.get_widget_resources(form)
         return {
-            "character": self.character,
             "form": html,
+            "character": self.character,
             "css_links": static_assets["css"],
             "js_links": static_assets["js"],
         }

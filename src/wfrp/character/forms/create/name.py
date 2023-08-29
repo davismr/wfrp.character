@@ -45,6 +45,7 @@ class NameViews(BaseView):
         static_assets = form.get_widget_resources()
         return {
             "form": html,
+            "character": self.character,
             "css_links": static_assets["css"],
             "js_links": static_assets["js"],
         }

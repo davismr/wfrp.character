@@ -320,6 +320,7 @@ class AttributesViews(BaseView):
         static_assets = self.get_widget_resources(form)
         return {
             "form": html,
+            "character": self.character,
             "css_links": static_assets["css"],
             "js_links": static_assets["js"],
         }

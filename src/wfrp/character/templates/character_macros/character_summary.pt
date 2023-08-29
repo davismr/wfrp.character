@@ -1,0 +1,47 @@
+<h4>${character.get_display_title()}</h4>
+<table id="character-page">
+    <tr>
+        <td>M</td>
+        <td>WS</td>
+        <td>BS</td>
+        <td>S</td>
+        <td>T</td>
+        <td>I</td>
+        <td>Ag</td>
+        <td>Dex</td>
+        <td>Int</td>
+        <td>WP</td>
+        <td>Fel</td>
+        <td>W</td>
+    </tr>
+    <tr>
+        <td>${character.movement}</td>
+        <td>${character.weapon_skill}</td>
+        <td>${character.ballistic_skill}</td>
+        <td>${character.strength}</td>
+        <td>${character.toughness}</td>
+        <td>${character.initiative}</td>
+        <td>${character.agility}</td>
+        <td>${character.dexterity}</td>
+        <td>${character.intelligence}</td>
+        <td>${character.willpower}</td>
+        <td>${character.fellowship}</td>
+        <td>${character.wounds}</td>
+    </tr>
+</table>
+<div>
+    <b>Skills:</b>
+    ${", ".join([skill + " " + str(character.get_skill_level(skill)) for skill in character.skills])}
+</div>
+<div>
+    <b>Talents:</b>
+    ${", ".join(character.talents)}
+</div>
+<div>
+    <b>Possessions:</b>
+    ${", ".join(character.trappings)}
+    , ${", ".join([str(character.wealth[x]) + " " + x for x in character.wealth])}
+</div>
+<div><a href="/character/${character.uuid}/experience">Spend experience</a></div>
+<div><a href="/character/${character.uuid}/view">Character sheet</a></div>
+<div><a href="/character/${character.uuid}/edit">Edit Character</a></div>
