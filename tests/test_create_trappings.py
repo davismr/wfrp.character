@@ -1,10 +1,11 @@
 from dataclasses import dataclass
+from unittest.mock import patch
 
 import pytest
 from pyramid import testing
 from pyramid.httpexceptions import HTTPFound
 
-from wfrp.character.data.class_trappings import CLASS_TRAPPINGS
+from wfrp.character.data.class_trappings import get_class_trappings
 from wfrp.character.forms.create.trappings import TrappingsViews
 
 
@@ -157,11 +158,12 @@ def test_submit_artist(new_character):
 
 
 @pytest.mark.create
-def test_submit_bawd(new_character):
+@patch("wfrp.character.data.class_trappings.roll_d10")
+def test_submit_bawd(mock_rolld10, new_character):
+    mock_rolld10.return_value = 7
     new_character.career = "Bawd"
     new_character.status = {"trappings": ""}
-    # FIXME: get class trappings from data as number of matches is defined on startup
-    class_trappings = {x: x for x in CLASS_TRAPPINGS["Rogues"]}
+    class_trappings = {x: x for x in get_class_trappings("Rogues")}
     class_trappings["Hood or Mask"] = "Hood"
     payload = {
         "class_trappings": class_trappings,
@@ -273,8 +275,11 @@ def test_submit_invalid(new_character):
     assert "There was a problem with your submission" in response["form"]
 
 
-@pytest.mark.xfail
-def test_randomise_trappings(new_character, second_character):
+@pytest.mark.current
+@patch("wfrp.character.data.class_trappings.roll_d10")
+def test_randomise_trappings(mock_rolld10, new_character, second_character):
+    # mock_rolld10.side_effect = [5, 6]
+    mock_rolld10.return_value = 5
     new_character.species = "Wood Elf"
     new_character.career = "Apothecary"
     new_character.status = {"trappings": ""}
@@ -282,16 +287,18 @@ def test_randomise_trappings(new_character, second_character):
     request.matched_route = DummyRoute(name="trappings")
     request.matchdict = {"uuid": new_character.uuid}
     view = TrappingsViews(request)
-    response = view.form_view()
+    response = view.initialise_form()
     class_trappings = response["class_trappings"]
+    assert "5 sheets of Parchment" in class_trappings
+    mock_rolld10.return_value = 6
     second_character.species = "Wood Elf"
     second_character.career = "Apothecary"
     second_character.status = {"trappings": ""}
     request = testing.DummyRequest()
     request.matched_route = DummyRoute(name="trappings")
-    request.matchdict = {"uuid": new_character.uuid}
+    request.matchdict = {"uuid": second_character.uuid}
     view = TrappingsViews(request)
-    response = view.form_view()
+    response = view.initialise_form()
     second_class_trappings = response["class_trappings"]
-    # these should be different in 90% of cases
+    assert "6 sheets of Parchment" in second_class_trappings
     assert class_trappings != second_class_trappings

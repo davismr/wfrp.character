@@ -3,7 +3,6 @@ Species Talents with Any
     Acute Sense (any one)
     Craftsman (any one
     Resistance (any one)
-Lazy values
 
 ### Layout
 Fix layout
@@ -21,6 +20,7 @@ Enter character manually
 Input/edit forms
 Delete character
 Copy character
+Import/export
 Ready made characters
 Name generator
 Tool tips

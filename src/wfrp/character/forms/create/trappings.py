@@ -6,7 +6,7 @@ from pyramid.view import view_defaults
 
 from wfrp.character.data.armour import ARMOUR_DATA
 from wfrp.character.data.careers import CAREER_DATA
-from wfrp.character.data.class_trappings import CLASS_TRAPPINGS
+from wfrp.character.data.class_trappings import get_class_trappings
 from wfrp.character.data.weapons import WEAPONS_DATA
 from wfrp.character.utils import roll_d10
 from wfrp.character.views.base_view import BaseView
@@ -33,7 +33,7 @@ class TrappingsViews(BaseView):
         if self.character.status["trappings"]:
             return self.character.status["trappings"]
         career_data = CAREER_DATA[self.character.career]
-        class_trappings = CLASS_TRAPPINGS[career_data["class"]]
+        class_trappings = get_class_trappings(career_data["class"])
         # TODO find a better way to do this
         career_details = career_data[list(career_data)[1]]
         career_trappings = career_details["trappings"]
