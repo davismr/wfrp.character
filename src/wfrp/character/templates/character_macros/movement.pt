@@ -1,7 +1,7 @@
 <table id="movement">
     <thead>
         <tr>
-            <th colspan="6">MOVEMENT</th>
+            <th colspan="6" class="section-header">Movement</th>
         </tr>
     </thead>
     <tbody>

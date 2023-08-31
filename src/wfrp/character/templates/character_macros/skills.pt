@@ -4,7 +4,7 @@
             <table class="skills_table" id="basic_skills_left" border=1>
                 <thead>
                     <tr>
-                        <th colspan="5">BASIC SKILLS</th>
+                        <th colspan="5" class="section-header">Basic Skills</th>
                     </tr>
                     <tr>
                         <th>Name</th>
@@ -112,7 +112,7 @@
             <table class="skills_table" id="basic_skills_right" border=1>
                 <thead>
                     <tr>
-                        <th colspan="5">BASIC SKILLS</th>
+                        <th colspan="5" class="section-header">Basic Skills</th>
                     </tr>
                     <tr>
                         <th>Name</th>
@@ -220,7 +220,7 @@
             <table class="skills_table" id="advanced_skills" border=1>
                 <thead>
                     <tr>
-                        <th colspan="5">GROUPED & ADVANCED SKILLS</th>
+                        <th colspan="5" class="section-header">Grouped & Advanced Skills</th>
                     </tr>
                     <tr>
                         <th>Name</th>

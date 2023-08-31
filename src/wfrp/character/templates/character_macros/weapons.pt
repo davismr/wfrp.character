@@ -1,7 +1,7 @@
 <table id="wealth">
     <thead>
         <tr>
-            <th colspan="6">WEAPONS</th>
+            <th colspan="6" class="section-header">Weapons</th>
         </tr>
     </thead>
     <tbody>

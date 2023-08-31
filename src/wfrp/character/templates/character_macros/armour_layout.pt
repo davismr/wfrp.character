@@ -1,7 +1,7 @@
 <table id="wealth">
     <thead>
         <tr>
-            <th>ARMOUR POINTS</th>
+            <th class="section-header">Armour Points</th>
         </tr>
     </thead>
     <tbody>
