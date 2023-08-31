@@ -16,84 +16,85 @@
     padding: 0px;
 }
 
-.grid {
+#character-sheet {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
+    border-collapse: collapse;
 }
 
-.details {
+#character-sheet .details {
     grid-column: 1 / span 6;
 }
 
-.attributes {
+#character-sheet .attributes {
     grid-column: 1 / span 3;
     grid-row: 2 / span 2;
 }
 
-.characteristics {
+#character-sheet .characteristics {
     grid-column: 4 / span 3;
 }
 
-.movement {
+#character-sheet .movement {
     grid-column: 4 / span 3;
 }
 
-.skills {
+#character-sheet .skills {
     grid-column: 1 / span 6;
 }
 
-.talents {
+#character-sheet .talents {
     grid-column: 1 / span 3;
     grid-row: 5 / span 2;
 }
 
-.ambitions {
+#character-sheet .ambitions {
     grid-column: 4 / span 3;
 }
 
-.party {
+#character-sheet .party {
     grid-column: 4 / span 3;
 }
 
-.armour {
+#character-sheet .armour {
     grid-column: 1 / span 4;
 }
 
-.armour_layout {
+#character-sheet .armour_layout {
     grid-column: 5 / span 2;
     grid-row: 7 / span 3;
 }
 
-.trappings {
+#character-sheet .trappings {
     grid-column: 1 / span 2;
     grid-row: 8 / span 3;
 }
 
-.psychology {
+#character-sheet .psychology {
     grid-column: 3 / span 2;
 }
 
-.corruption {
+#character-sheet .corruption {
     grid-column: 3 / span 2;
 }
 
-.wealth {
+#character-sheet .wealth {
     grid-column: 3;
 }
 
-.encumberance {
+#character-sheet .encumberance {
     grid-column: 4;
 }
 
-.wounds {
+#character-sheet .wounds {
     grid-column: 5 / span 2;
 }
 
-.weapons {
+#character-sheet .weapons {
     grid-column: 1 / span 6;
 }
 
-.section-header {
+#character-sheet .section-header {
     text-align: center;
     text-transform: uppercase;
 }

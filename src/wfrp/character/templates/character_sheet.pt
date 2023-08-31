@@ -1,4 +1,4 @@
-<div class="grid">
+<div id="character-sheet">
     <div class="details">
         <div metal:use-macro="load: character_macros/details.pt" />
     </div>
