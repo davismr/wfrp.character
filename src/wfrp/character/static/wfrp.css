@@ -15,3 +15,80 @@
     border: 2px solid black;
     padding: 0px;
 }
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+}
+
+.details {
+    grid-column: 1 / span 6;
+}
+
+.attributes {
+    grid-column: 1 / span 3;
+    grid-row: 2 / span 2;
+}
+
+.characteristics {
+    grid-column: 4 / span 3;
+}
+
+.movement {
+    grid-column: 4 / span 3;
+}
+
+.skills {
+    grid-column: 1 / span 6;
+}
+
+.talents {
+    grid-column: 1 / span 3;
+    grid-row: 5 / span 2;
+}
+
+.ambitions {
+    grid-column: 4 / span 3;
+}
+
+.party {
+    grid-column: 4 / span 3;
+}
+
+.armour {
+    grid-column: 1 / span 4;
+}
+
+.armour_layout {
+    grid-column: 5 / span 2;
+    grid-row: 7 / span 3;
+}
+
+.trappings {
+    grid-column: 1 / span 2;
+    grid-row: 8 / span 3;
+}
+
+.psychology {
+    grid-column: 3 / span 2;
+}
+
+.corruption {
+    grid-column: 3 / span 2;
+}
+
+.wealth {
+    grid-column: 3;
+}
+
+.encumberance {
+    grid-column: 4;
+}
+
+.wounds {
+    grid-column: 5 / span 2;
+}
+
+.weapons {
+    grid-column: 1 / span 6;
+}

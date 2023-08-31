@@ -1,75 +1,53 @@
-<table id="character-page" style="border: 1px solid blue;">
-    <tr>
-        <td colspan="6">
-            <div metal:use-macro="load: character_macros/details.pt" />
-        </td>
-    </tr>
-    <tr>
-        <td colspan="3" rowspan="2">
-            <div metal:use-macro="load: character_macros/attributes.pt" />
-        </td>
-        <td colspan="3">
-            <div metal:use-macro="load: character_macros/characteristics.pt" />
-        </td>
-    </tr>
-    <tr>
-        <td colspan="3">
-            <div metal:use-macro="load: character_macros/movement.pt" />
-        </td>
-    </tr>
-    <tr>
-        <td colspan="6">
-            <div metal:use-macro="load: character_macros/skills.pt" />
-        </td>
-    </tr>
-    <tr>
-        <td colspan="3" rowspan="2">
-            <div metal:use-macro="load: character_macros/talents.pt" />
-        </td>
-        <td colspan="3">
-            <div metal:use-macro="load: character_macros/ambitions.pt" />
-        </td>
-    </tr>
-    <tr>
-        <td colspan="3">
-            <div metal:use-macro="load: character_macros/party.pt" />
-        </td>
-    </tr>
-    <tr>
-        <td colspan="4">
-            <div metal:use-macro="load: character_macros/armour.pt" />
-        </td>
-        <td colspan="2" rowspan="3">
-            <div metal:use-macro="load: character_macros/armour_layout.pt" />
-        </td>
-    </tr>
-    <tr>
-        <td colspan="2" rowspan="3">
-            <div metal:use-macro="load: character_macros/trappings.pt" />
-        </td>
-        <td colspan="2">
-            <div metal:use-macro="load: character_macros/psychology.pt" />
-        </td>
-    </tr>
-    <tr>
-        <td colspan="2">
-            <div metal:use-macro="load: character_macros/corruption.pt" />
-        </td>
-    </tr>
-    <tr>
-        <td colspan="1">
-            <div metal:use-macro="load: character_macros/wealth.pt" />
-        </td>
-        <td colspan="1">
-            <div metal:use-macro="load: character_macros/encumberance.pt" />
-        </td>
-        <td colspan="2">
-            <div metal:use-macro="load: character_macros/wounds.pt" />
-        </td>
-    </tr>
-    <tr>
-        <td colspan="6">
-            <div metal:use-macro="load: character_macros/weapons.pt" />
-        </td>
-    </tr>
-</table>
+<div class="grid">
+    <div class="details">
+        <div metal:use-macro="load: character_macros/details.pt" />
+    </div>
+    <div class="attributes">
+        <div metal:use-macro="load: character_macros/attributes.pt" />
+    </div>
+    <div class="characteristics">
+        <div metal:use-macro="load: character_macros/characteristics.pt" />
+    </div>
+    <div class="movement">
+        <div metal:use-macro="load: character_macros/movement.pt" />
+    </div>
+    <div class="skills">
+        <div metal:use-macro="load: character_macros/skills.pt" />
+    </div>
+    <div class="talents">
+        <div metal:use-macro="load: character_macros/talents.pt" />
+    </div>
+    <div class="ambitions">
+        <div metal:use-macro="load: character_macros/ambitions.pt" />
+    </div>
+    <div class="party">
+        <div metal:use-macro="load: character_macros/party.pt" />
+    </div>
+    <div class="armour">
+        <div metal:use-macro="load: character_macros/armour.pt" />
+    </div>
+    <div class="armour_layout">
+        <div metal:use-macro="load: character_macros/armour_layout.pt" />
+    </div>
+    <div class="trappings">
+        <div metal:use-macro="load: character_macros/trappings.pt" />
+    </div>
+    <div class="psychology">
+        <div metal:use-macro="load: character_macros/psychology.pt" />
+    </div>
+    <div class="corruption">
+        <div metal:use-macro="load: character_macros/corruption.pt" />
+    </div>
+    <div class="wealth">
+        <div metal:use-macro="load: character_macros/wealth.pt" />
+    </div>
+    <div class="encumberance">
+        <div metal:use-macro="load: character_macros/encumberance.pt" />
+    </div>
+    <div class="wounds">
+        <div metal:use-macro="load: character_macros/wounds.pt" />
+    </div>
+    <div class="weapons">
+        <div metal:use-macro="load: character_macros/weapons.pt" />
+    </div>
+</div>
