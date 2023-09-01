@@ -31,8 +31,16 @@
     grid-row: 2 / span 2;
 }
 
-#character-sheet .characteristics {
-    grid-column: 4 / span 3;
+#character-sheet .fate {
+    grid-column: 4;
+}
+
+#character-sheet .resilience {
+    grid-column: 5;
+}
+
+#character-sheet .experience {
+    grid-column: 6;
 }
 
 #character-sheet .movement {

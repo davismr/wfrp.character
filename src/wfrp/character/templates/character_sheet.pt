@@ -5,8 +5,14 @@
     <div class="attributes">
         <div metal:use-macro="load: character_macros/attributes.pt" />
     </div>
-    <div class="characteristics">
-        <div metal:use-macro="load: character_macros/characteristics.pt" />
+    <div class="fate">
+        <div metal:use-macro="load: character_macros/fate.pt" />
+    </div>
+    <div class="resilience">
+        <div metal:use-macro="load: character_macros/resilience.pt" />
+    </div>
+    <div class="experience">
+        <div metal:use-macro="load: character_macros/experience.pt" />
     </div>
     <div class="movement">
         <div metal:use-macro="load: character_macros/movement.pt" />
