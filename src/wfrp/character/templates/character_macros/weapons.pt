@@ -1,10 +1,6 @@
-<table id="wealth">
+<table>
+    <caption>Weapons</caption>
     <thead>
-        <tr>
-            <th colspan="6" class="section-header">Weapons</th>
-        </tr>
-    </thead>
-    <tbody>
         <tr>
             <td>Name</td>
             <td>Group</td>
@@ -13,6 +9,8 @@
             <td>Damage</td>
             <td>Qualities</td>
         </tr>
+    </thead>
+    <tbody>
         <tr tal:repeat="weapon python:character.weapons">
             <td>${weapon}</td>
             <td>${weapons_data[weapon]["Group"]}</td>

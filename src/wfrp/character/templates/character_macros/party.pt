@@ -1,25 +1,19 @@
-<table class="talents_table" id="talents" border=1>
-    <thead>
-        <tr>
-            <th colspan="3" class="section-header">Party</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>Party Name</td>
-            <td>TODO</td>
-        </tr>
-        <tr>
-            <td>Short-term</td>
-            <td>TODO</td>
-        </tr>
-        <tr>
-            <td>Long-term</td>
-            <td>TODO</td>
-        </tr>
-        <tr>
-            <td>Members</td>
-            <td>TODO</td>
-        </tr>
-    </tbody>
+<table>
+    <caption>Party</caption>
+    <tr>
+        <td>Party Name</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td>Short-term</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td>Long-term</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td>Members</td>
+        <td>TODO</td>
+    </tr>
 </table>

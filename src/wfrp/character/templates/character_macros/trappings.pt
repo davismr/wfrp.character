@@ -1,14 +1,12 @@
-<table id="trappings">
+<table>
+    <caption>Trappings</caption>
     <thead>
         <tr>
-            <th colspan="2" class="section-header">Trappings</th>
+            <th>Name</th>
+            <th>Enc</th>
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>Name</td>
-            <td>Enc</td>
-        </tr>
         <tr tal:repeat="trapping python:character.trappings">
             <td>${trapping}</td>
             <td>TODO</td>

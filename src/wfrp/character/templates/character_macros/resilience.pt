@@ -1,15 +1,4 @@
-<table id="fate">
-    <caption>Fate</caption>
-    <tr>
-        <td>Fate</td>
-        <td>${character.fate}</td>
-    </tr>
-    <tr>
-        <td>Fortune</td>
-        <td>${character.fortune}</td>
-    </tr>
-</table>
-<table id="resilience">
+<table>
     <caption>Resilience</caption>
     <tr>
         <td>Resilience</td>
@@ -20,18 +9,5 @@
         <td>${character.resilience}</td>
         <td>${character.resolve}</td>
         <td>${character.motivation}</td>
-    </tr>
-</table>
-<table id="experience">
-    <caption>Experience</caption>
-    <tr>
-        <td>Current</td>
-        <td>Spent</td>
-        <td>Total</td>
-    </tr>
-    <tr>
-        <td>${character.experience}</td>
-        <td>${character.experience_spent}</td>
-        <td>${character.experience + character.experience_spent}</td>
     </tr>
 </table>

@@ -9,29 +9,3 @@
         <td>${character.fortune}</td>
     </tr>
 </table>
-<table id="resilience">
-    <caption>Resilience</caption>
-    <tr>
-        <td>Resilience</td>
-        <td>Resolve</td>
-        <td>Motivation</td>
-    </tr>
-    <tr>
-        <td>${character.resilience}</td>
-        <td>${character.resolve}</td>
-        <td>${character.motivation}</td>
-    </tr>
-</table>
-<table id="experience">
-    <caption>Experience</caption>
-    <tr>
-        <td>Current</td>
-        <td>Spent</td>
-        <td>Total</td>
-    </tr>
-    <tr>
-        <td>${character.experience}</td>
-        <td>${character.experience_spent}</td>
-        <td>${character.experience + character.experience_spent}</td>
-    </tr>
-</table>

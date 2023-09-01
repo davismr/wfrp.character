@@ -1,17 +1,11 @@
-<table id="movement">
-    <thead>
-        <tr>
-            <th colspan="6" class="section-header">Movement</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>Movement</td>
-            <td>${character.movement}</td>
-            <td>Walk</td>
-            <td>${character.movement * 2}</td>
-            <td>Run</td>
-            <td>${character.movement * 4}</td>
-        </tr>
-    </tbody>
+<table>
+    <caption>Movement</caption>
+    <tr>
+        <td>Movement</td>
+        <td>${character.movement}</td>
+        <td>Walk</td>
+        <td>${character.movement * 2}</td>
+        <td>Run</td>
+        <td>${character.movement * 4}</td>
+    </tr>
 </table>

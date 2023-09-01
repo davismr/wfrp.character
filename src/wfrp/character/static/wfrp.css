@@ -106,3 +106,15 @@
     text-align: center;
     text-transform: uppercase;
 }
+
+#character-sheet table {
+    border: 2px solid black;
+    width: 100%;
+    margin: 0px;
+    border-collapse: collapse;
+}
+
+#character-sheet table caption {
+    text-align: center;
+    text-transform: uppercase;
+}

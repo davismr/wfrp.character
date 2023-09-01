@@ -1,29 +1,23 @@
-<table id="wealth">
-    <thead>
-        <tr>
-            <th colspan="2" class="section-header">Encumberance</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>Weapons</td>
-            <td>TODO</td>
-        </tr>
-        <tr>
-            <td>Armour</td>
-            <td>TODO</td>
-        </tr>
-        <tr>
-            <td>Trappings</td>
-            <td>TODO</td>
-        </tr>
-        <tr>
-            <td>Max Enc.</td>
-            <td>${(character.strength // 10) + (character.toughness // 10)}</td>
-        </tr>
-        <tr>
-            <td>Total</td>
-            <td>TODO</td>
-        </tr>
-    </tbody>
+<table>
+    <caption>Encumberance</caption>
+    <tr>
+        <td>Weapons</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td>Armour</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td>Trappings</td>
+        <td>TODO</td>
+    </tr>
+    <tr>
+        <td>Max Enc.</td>
+        <td>${(character.strength // 10) + (character.toughness // 10)}</td>
+    </tr>
+    <tr>
+        <td>Total</td>
+        <td>TODO</td>
+    </tr>
 </table>
