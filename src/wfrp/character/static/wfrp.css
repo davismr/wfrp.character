@@ -19,7 +19,6 @@
 #character-sheet {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
-    border-collapse: collapse;
 }
 
 #character-sheet .details {
@@ -123,6 +122,6 @@
 }
 
 #character-sheet table caption {
-    text-align: center;
     text-transform: uppercase;
+    border: 2px solid black;
 }
