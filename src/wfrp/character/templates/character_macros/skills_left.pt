@@ -1,0 +1,104 @@
+<table>
+    <caption>Basic Skills</caption>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th colspan="2">Characteristic</th>
+            <th>Adv</th>
+            <th>Skill</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Art</td>
+            <td>Dex</td>
+            <td>${character.dexterity}</td>
+            <td>${character.skills.get("Art", "&nbsp;")}</td>
+            <td>${character.skills.get("Art", 0) + character.dexterity}</td>
+        </tr>
+        <tr>
+            <td>Athletics</td>
+            <td>Ag</td>
+            <td>${character.agility}</td>
+            <td>${character.skills.get("Athletics", "&nbsp;")}</td>
+            <td>${character.skills.get("Athletics", 0) + character.agility}</td>
+        </tr>
+        <tr>
+            <td>Bribery</td>
+            <td>Fel</td>
+            <td>${character.fellowship}</td>
+            <td>${character.skills.get("Bribery", "&nbsp;")}</td>
+            <td>${character.skills.get("Bribery", 0) + character.fellowship}</td>
+        </tr>
+        <tr>
+            <td>Charm</td>
+            <td>Fel</td>
+            <td>${character.fellowship}</td>
+            <td>${character.skills.get("Charm", "&nbsp;")}</td>
+            <td>${character.skills.get("Charm", 0) + character.fellowship}</td>
+        </tr>
+        <tr>
+            <td>Charm Animal</td>
+            <td>WP</td>
+            <td>${character.willpower}</td>
+            <td>${character.skills.get("Charm Animal", "&nbsp;")}</td>
+            <td>${character.skills.get("Charm Animal", 0) + character.willpower}</td>
+        </tr>
+        <tr>
+            <td>Climb</td>
+            <td>S</td>
+            <td>${character.strength}</td>
+            <td>${character.skills.get("Climb", "&nbsp;")}</td>
+            <td>${character.skills.get("Climb", 0) + character.strength}</td>
+        </tr>
+        <tr>
+            <td>Cool</td>
+            <td>WP</td>
+            <td>${character.willpower}</td>
+            <td>${character.skills.get("Cool", "&nbsp;")}</td>
+            <td>${character.skills.get("Cool", 0) + character.willpower}</td>
+        </tr>
+        <tr>
+            <td>Consume Alcohol</td>
+            <td>T</td>
+            <td>${character.toughness}</td>
+            <td>${character.skills.get("Consume Alcohol", "&nbsp;")}</td>
+            <td>${character.skills.get("Consume Alcohol", 0) + character.toughness}</td>
+        </tr>
+        <tr>
+            <td>Dodge</td>
+            <td>Ag</td>
+            <td>${character.agility}</td>
+            <td>${character.skills.get("Dodge", "&nbsp;")}</td>
+            <td>${character.skills.get("Dodge", 0) + character.agility}</td>
+        </tr>
+        <tr>
+            <td>Drive</td>
+            <td>Ag</td>
+            <td>${character.agility}</td>
+            <td>${character.skills.get("Drive", "&nbsp;")}</td>
+            <td>${character.skills.get("Drive", 0) + character.agility}</td>
+        </tr>
+        <tr>
+            <td>Endurance</td>
+            <td>T</td>
+            <td>${character.toughness}</td>
+            <td>${character.skills.get("Endurance", "&nbsp;")}</td>
+            <td>${character.skills.get("Endurance", 0) + character.toughness}</td>
+        </tr>
+        <tr>
+            <td>Entertain</td>
+            <td>Fel</td>
+            <td>${character.fellowship}</td>
+            <td>${character.skills.get("Entertain", "&nbsp;")}</td>
+            <td>${character.skills.get("Entertain", 0) + character.fellowship}</td>
+        </tr>
+        <tr>
+            <td>Gamble</td>
+            <td>Int</td>
+            <td>${character.intelligence}</td>
+            <td>${character.skills.get("Gamble", "&nbsp;")}</td>
+            <td>${character.skills.get("Gamble", 0) + character.intelligence}</td>
+        </tr>
+    </tbody>
+</table>

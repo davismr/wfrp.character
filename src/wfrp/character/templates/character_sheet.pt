@@ -17,8 +17,14 @@
     <div class="movement">
         <div metal:use-macro="load: character_macros/movement.pt" />
     </div>
-    <div class="skills">
-        <div metal:use-macro="load: character_macros/skills.pt" />
+    <div class="skills_left">
+        <div metal:use-macro="load: character_macros/skills_left.pt" />
+    </div>
+    <div class="skills_right">
+        <div metal:use-macro="load: character_macros/skills_right.pt" />
+    </div>
+    <div class="skills_advanced">
+        <div metal:use-macro="load: character_macros/skills_advanced.pt" />
     </div>
     <div class="talents">
         <div metal:use-macro="load: character_macros/talents.pt" />

@@ -47,8 +47,16 @@
     grid-column: 4 / span 3;
 }
 
-#character-sheet .skills {
-    grid-column: 1 / span 6;
+#character-sheet .skills_left {
+    grid-column: 1 / span 2;
+}
+
+#character-sheet .skills_right {
+    grid-column: 3 / span 2;
+}
+
+#character-sheet .skills_advanced {
+    grid-column: 5 / span 2;
 }
 
 #character-sheet .talents {
