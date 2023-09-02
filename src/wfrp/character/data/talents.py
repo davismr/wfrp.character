@@ -583,6 +583,8 @@ TALENT_DATA = {
         ),
     },
     "Hardy": {
+        # "max": 1, XXX toughness bonus
+        "short_description": ("+5 wounds"),
         "description": (
             "You gain a permanent addition to your Wounds, equal to your Toughness "
             "Bonus. If your Toughness Bonus should increase, then the number of Wounds "
@@ -690,6 +692,7 @@ TALENT_DATA = {
         ),
     },
     "Lightning Reflexes": {
+        "max": 1,
         "short_description": "+5 Agi, already included",
         "description": (
             "You gain a permanent +5 bonus to your starting Agility Characteristic "
@@ -720,6 +723,8 @@ TALENT_DATA = {
         ),
     },
     "Marksman": {
+        "max": 1,
+        "short_description": ("+5 BS, already included"),
         "description": (
             "You gain a permanent +5 bonus to your starting Ballistic Skill "
             "(this does not count towards your Advances)."
@@ -751,6 +756,8 @@ TALENT_DATA = {
         ),
     },
     "Nimble Fingered": {
+        "max": 1,
+        "short_description": ("+5 Dex, already included"),
         "description": (
             "You gain a permanent +5 bonus to your starting Dexterity "
             "(this does not count towards your Advances)."
@@ -960,6 +967,7 @@ TALENT_DATA = {
         ),
     },
     "Savvy": {
+        "max": 1,
         "short_description": "+5 Int, already included",
         "description": (
             "You gain a permanent +5 bonus to your starting Intelligence "
@@ -1028,6 +1036,7 @@ TALENT_DATA = {
         ),
     },
     "Sharp": {
+        "max": 1,
         "short_description": "+5 Ini, already included",
         "description": (
             "You gain a permanent +5 bonus to your starting Initiative Characteristic "
@@ -1184,6 +1193,7 @@ TALENT_DATA = {
         ),
     },
     "Suave": {
+        "max": 1,
         "short_description": "+5 Fel, already included",
         "description": (
             "You gain a permanent +5 bonus to your starting Fellowship Characteristic "
@@ -1291,6 +1301,7 @@ TALENT_DATA = {
         ),
     },
     "Very Resilient": {
+        "max": 1,
         "short_description": "+5 T, already included",
         "description": (
             "You gain a permanent +5 bonus to your starting Toughness Characteristic "
@@ -1298,6 +1309,7 @@ TALENT_DATA = {
         ),
     },
     "Very Strong": {
+        "max": 1,
         "short_description": "+5 S, already included",
         "description": (
             "You gain a permanent +5 bonus to your starting Strength Characteristic "
@@ -1313,6 +1325,7 @@ TALENT_DATA = {
         ),
     },
     "War Wizard": {
+        "max": 1,
         "description": (
             "You are trained to cast magic while in the thick of combat. On your Turn, "
             "you may cast one Spell with a Casting Number of 5 or less for free "
@@ -1321,6 +1334,8 @@ TALENT_DATA = {
         ),
     },
     "Warrior Born": {
+        "max": 1,
+        "short_description": ("+5 WS, already included"),
         "description": (
             "You gain a permanent +5 bonus to your starting Weapon Skill "
             "Characteristic (doesn’t count as Advances)."
