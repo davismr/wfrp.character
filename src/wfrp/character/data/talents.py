@@ -76,6 +76,7 @@ TALENT_DATA = {
         ),
     },
     "Alley Cat": {
+        "short_description": "Reverse dice on Steath (Urban)",
         "description": (
             "You are at home in shadowy backstreets. When using Stealth (Urban), "
             "you may reverse the dice of any failed Test if this will score a Success."
@@ -294,6 +295,7 @@ TALENT_DATA = {
     },
     "Coolheaded": {
         "max": 1,
+        "short_description": "+5 WP, already included",
         "description": (
             "You gain a permanent +5 bonus to your starting Willpower Characteristic "
             "this does not count towards your Advances."
@@ -307,6 +309,7 @@ TALENT_DATA = {
         ),
     },
     "Craftsman": {
+        "short_description": "Add this skill to any career",
         "description": (
             "You have true creative talent. Add the associated Trade Skill to any "
             "Career you enter. If the Trade Skill is already in your Career, you may "
@@ -384,6 +387,7 @@ TALENT_DATA = {
         ),
     },
     "Doomed": {
+        "short_description": "Lo, I would rather not say",
         "description": (
             "At the age of 10, a Priest of Morr called a Doomsayer took you aside to "
             "foretell your death in an incense-laden, coming-of-age ritual called the "
@@ -686,12 +690,14 @@ TALENT_DATA = {
         ),
     },
     "Lightning Reflexes": {
+        "short_description": "+5 Agi, already included",
         "description": (
             "You gain a permanent +5 bonus to your starting Agility Characteristic "
             "(this does not count towards your Advances)."
         ),
     },
     "Linguistics": {
+        "short_description": "Int test to learn languages",
         "description": (
             "You have a natural affinity for languages. Given a month’s exposure to "
             "any Language, you count the associated Language Skill as a Basic Skill "
@@ -735,6 +741,7 @@ TALENT_DATA = {
         ),
     },
     "Night Vision": {
+        "short_description": "See 20 yards in faint light",
         "description": (
             "You can see very well in natural darkness. Assuming you have at least a "
             "faint source of light (such as starlight, moonlight, or bioluminescence) "
@@ -787,6 +794,7 @@ TALENT_DATA = {
         ),
     },
     "Orientation": {
+        "short_description": "Easily find North",
         "description": (
             "You are an experienced seaman, and are very used to sea life. You can "
             "ignore all negative modifiers to Tests at sea derived from poor weather, "
@@ -802,6 +810,7 @@ TALENT_DATA = {
         ),
     },
     "Perfect Pitch": {
+        "short_description": "Add Entertain (Sing) to career",
         "description": (
             "You are a skilled beggar, able to get even the most jaded individual to "
             "contribute to your cause. You can perform a Charm Test every half hour "
@@ -809,6 +818,7 @@ TALENT_DATA = {
         ),
     },
     "Petty Magic": {
+        "short_description": "Learn and cast Petty spells",
         "description": (
             "You have the spark to cast magic within you and have mastered techniques "
             "to control it at a basic level. When you take this Talent, you manifest, "
@@ -832,6 +842,7 @@ TALENT_DATA = {
         ),
     },
     "Public Speaker": {
+        "short_description": "Charm Influences x 5 people",
         "description": (
             "You are a skilled orator and know how to work large groups of people. "
             "Refer to the following table to see how many people you can now influence "
@@ -863,6 +874,7 @@ TALENT_DATA = {
         ),
     },
     "Read/Write": {
+        "short_description": "You can read and write",
         "description": (
             "You are one of the rare literate individuals in the Old World. You are "
             "assumed to be able to read and write (if appropriate) all of the "
@@ -879,6 +891,7 @@ TALENT_DATA = {
         ),
     },
     "Resistance": {
+        "short_description": "Pass 1 test per session",
         "description": (
             "Your strong constitution allows you to more readily survive a specific "
             "threat. You may automatically pass the first Test to resist the specified "
@@ -938,6 +951,7 @@ TALENT_DATA = {
         ),
     },
     "Rover": {
+        "short_description": "Pass stealthily in Rural areas",
         "description": (
             "You are at home roaming the wild places. When using Stealth in a rural "
             "environment, bystanders do not get passive Perception Tests to detect "
@@ -946,6 +960,7 @@ TALENT_DATA = {
         ),
     },
     "Savvy": {
+        "short_description": "+5 Int, already included",
         "description": (
             "You gain a permanent +5 bonus to your starting Intelligence "
             "Characteristic (this does not count towards your Advances)"
@@ -1013,12 +1028,14 @@ TALENT_DATA = {
         ),
     },
     "Sharp": {
+        "short_description": "+5 Ini, already included",
         "description": (
             "You gain a permanent +5 bonus to your starting Initiative Characteristic "
             "(this does not count towards your Advances)."
         ),
     },
     "Sixth Sense": {
+        "short_description": "GM may warn you of peril",
         "description": (
             "You get a strange feeling when you are threatened, and can react "
             "accordingly. The GM may warn you if you are walking into danger; this "
@@ -1039,6 +1056,7 @@ TALENT_DATA = {
         ),
     },
     "Small": {
+        "short_description": "See WFRP, page 341",
         "description": (
             "You are much shorter than most folk in the Old World. The full rules for "
             "different Sizes are found in Chapter 12: Bestiary on page 341."
@@ -1129,6 +1147,7 @@ TALENT_DATA = {
         ),
     },
     "Strong Back": {
+        "short_description": "+1 Enc, +1 SL to S tests",
         "description": (
             "You have a strong back that is used to hard work. You may add your levels "
             "in Strong Back to your SL in any Opposed Strength Tests, and can carry "
@@ -1150,6 +1169,7 @@ TALENT_DATA = {
         ),
     },
     "Strong Swimmer": {
+        "short_description": "+1 TB when holding breath",
         "description": (
             "You are an especially strong swimmer and used to holding your breath for "
             "a long time underwater. Gain a bonus of your level in Strong Swimmer to "
@@ -1164,6 +1184,7 @@ TALENT_DATA = {
         ),
     },
     "Suave": {
+        "short_description": "+5 Fel, already included",
         "description": (
             "You gain a permanent +5 bonus to your starting Fellowship Characteristic "
             "(this does not count towards your Advances)."
@@ -1270,12 +1291,14 @@ TALENT_DATA = {
         ),
     },
     "Very Resilient": {
+        "short_description": "+5 T, already included",
         "description": (
             "You gain a permanent +5 bonus to your starting Toughness Characteristic "
             "(this does not count towards your Advances)."
         ),
     },
     "Very Strong": {
+        "short_description": "+5 S, already included",
         "description": (
             "You gain a permanent +5 bonus to your starting Strength Characteristic "
             "(this does not count towards your Advances)."

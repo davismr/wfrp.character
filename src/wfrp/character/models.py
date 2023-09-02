@@ -2,8 +2,6 @@ import uuid
 
 from pyramid.authorization import Allow
 from pyramid.authorization import Everyone
-
-# from pyramid_sqlalchemy import BaseObject
 from sqlalchemy import JSON
 from sqlalchemy import Column
 from sqlalchemy import Integer
@@ -179,9 +177,11 @@ class Character(Base):
         return self.skills[skill] + getattr(self, skill_data["characteristic"][0])
 
     def get_talent_description(self, talent):
-        if talent in TALENT_DATA:
-            return TALENT_DATA[talent]["description"]
-        return TALENT_DATA[talent.split(" (")[0]]["description"]
+        if talent not in TALENT_DATA:
+            talent = talent.split(" (")[0]
+        if "short_description" in TALENT_DATA[talent]:
+            return TALENT_DATA[talent]["short_description"]
+        return TALENT_DATA[talent]["description"]
 
     def cost_characteristic(self, advance):  # noqa: C901
         """Return the experience cost of an increase in a charateristic."""
