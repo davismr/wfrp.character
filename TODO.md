@@ -21,6 +21,7 @@ Input/edit forms
 Spells
 Skill descriptions
 Tests and max for talents
+Attribute bonus max for talents
 Delete character
 Copy character
 Import/export

@@ -83,6 +83,7 @@ TALENT_DATA = {
         ),
     },
     "Ambidextrous": {
+        "max": 2,
         "description": (
             "You can use your off-hand far better than most folk, either by training "
             "or innate talent. You only suffer a penalty of –10 to Tests relying "
