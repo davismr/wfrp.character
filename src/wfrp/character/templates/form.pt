@@ -1,6 +1,10 @@
 <div metal:use-macro="load: layout.pt">
-    <div metal:fill-slot="content">
-        <div metal:use-macro="load: character_macros/character_summary.pt" />
-        <span tal:replace="structure form"/>
+    <div metal:fill-slot="content" id="create-form">
+        <div id="input-form">
+            <span tal:replace="structure form"/>
+        </div>
+        <div id="character-summary">
+            <div metal:use-macro="load: character_macros/character_summary.pt" />
+        </div>
     </div>
 </div>

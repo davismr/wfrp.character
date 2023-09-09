@@ -125,3 +125,21 @@
     text-transform: uppercase;
     border: 2px solid black;
 }
+
+#create-form {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+}
+
+#character-summary {
+    grid-column: 4 / span 3;
+}
+
+#input-form {
+    grid-column: 1 / span 3;
+    grid-row: 1 / span 2;
+}
+
+#form-data {
+    grid-column: 4 / span 3;
+}
