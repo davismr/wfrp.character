@@ -1,0 +1,33 @@
+<div metal:use-macro="load: ../layout.pt">
+    <div metal:fill-slot="content" id="create-form">
+        <div id="input-form">
+            <span tal:replace="structure form"/>
+        </div>
+        <div id="character-summary">
+            <div metal:use-macro="load: ../character_macros/character_summary.pt" />
+        </div>
+        <div id="form-data">
+            <div tal:repeat="skill form_data['skills']">
+                <dl>
+                    <dt tal:content="skill" />
+                    <!-- TODO: remove none -->
+                    <dd tal:content="form_data['skills'][skill]['description']|None" />
+                </dl>
+            </div>
+            <div tal:repeat="talent form_data['talents']">
+                <dl>
+                    <dt tal:content="talent" />
+                    <dd tal:condition="'max' in form_data['talents'][talent]">
+                        <b>Max:</b>
+                        <span tal:replace="form_data['talents'][talent]['max']" />
+                    </dd>
+                    <dd tal:condition="'tests' in form_data['talents'][talent]">
+                        <b>Tests:</b>
+                        <span tal:replace="form_data['talents'][talent]['tests']" />
+                    </dd>
+                    <dd tal:content="form_data['talents'][talent]['description']" />
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>

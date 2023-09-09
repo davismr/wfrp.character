@@ -356,6 +356,7 @@ TALENT_DATA = {
         ),
     },
     "Diceman": {
+        "tests": "Gamble and Sleight of Hand when playing dice games",
         "description": (
             "You are a dicing master, and all claims you cheat are clearly wrong. When "
             "you successfully use Gamble or Sleight of Hand when playing with dice, "
@@ -583,7 +584,7 @@ TALENT_DATA = {
         ),
     },
     "Hardy": {
-        # "max": 1, XXX toughness bonus
+        "max": "Toughness bonus",
         "short_description": ("+5 wounds"),
         "description": (
             "You gain a permanent addition to your Wounds, equal to your Toughness "

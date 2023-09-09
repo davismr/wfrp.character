@@ -1,7 +1,7 @@
 ### Fixes
 Species Talents with Any
     Acute Sense (any one)
-    Craftsman (any one
+    Craftsman (any one)
     Resistance (any one)
 
 ### Layout
@@ -18,12 +18,14 @@ Open character for editing
 ### Additional functionality
 Enter character manually
 Input/edit forms
+Spells
+Skill descriptions
+Tests and max for talents
 Delete character
 Copy character
 Import/export
 Ready made characters
 Name generator
-Tool tips
 Complete/incomplete career logic
     To complete a Career, you must have the number of Advances listed below in all
     your Career level’s Characteristics and in eight of your Career level’s

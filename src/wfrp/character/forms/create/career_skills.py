@@ -137,8 +137,8 @@ class CareerSkillsViews(BaseView):
                 f"You must allocate all 40 advances, you have only allocated {total}",
             )
 
-    @view_config(renderer="wfrp.character:templates/form.pt")
-    def form_view(self):
+    @view_config(renderer="wfrp.character:templates/forms/skills.pt")
+    def form_view(self):  # noqa: C901
         data = self.initialise_form()
         schema = self.schema(data)
         form = deform.Form(schema, buttons=("Choose Skills",))
@@ -178,10 +178,21 @@ class CareerSkillsViews(BaseView):
                 return HTTPFound(location=url)
         else:
             html = form.render()
-
         static_assets = self.get_widget_resources(form)
+        form_data = {"skills": {}, "talents": {}}
+        for skill in data["career_skills"]:
+            if skill in SKILL_DATA:
+                form_data["skills"][skill] = SKILL_DATA[skill]
+            else:
+                form_data["skills"][skill] = SKILL_DATA[skill.split(" (")[0]]
+        for talent in data["career_talents"]:
+            if talent in TALENT_DATA:
+                form_data["talents"][talent] = TALENT_DATA[talent]
+            else:
+                form_data["talents"][talent] = TALENT_DATA[talent.split(" (")[0]]
         return {
             "form": html,
+            "form_data": form_data,
             "character": self.character,
             "css_links": static_assets["css"],
             "js_links": static_assets["js"],

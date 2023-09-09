@@ -6,6 +6,7 @@ from pyramid.view import view_defaults
 
 from wfrp.character.data.skills import SKILL_DATA
 from wfrp.character.data.species import SPECIES_DATA
+from wfrp.character.data.talents import TALENT_DATA
 from wfrp.character.data.talents import get_random_talent
 from wfrp.character.utils import roll_d100
 from wfrp.character.views.base_view import BaseView
@@ -131,8 +132,8 @@ class SpeciesSkillsViews(BaseView):
         if errors:
             raise colander.Invalid(form, ". ".join(errors))
 
-    @view_config(renderer="wfrp.character:templates/form.pt")
-    def form_view(self):
+    @view_config(renderer="wfrp.character:templates/forms/skills.pt")
+    def form_view(self):  # noqa: C901
         data = self.initialise_form()
         schema = self.schema(data)
         form = deform.Form(schema, buttons=("Choose Skills",))
@@ -165,8 +166,23 @@ class SpeciesSkillsViews(BaseView):
             html = form.render()
 
         static_assets = self.get_widget_resources(form)
+        form_data = {"skills": {}, "talents": {}}
+        for skill in data["species_skills"]:
+            if skill in SKILL_DATA:
+                form_data["skills"][skill] = SKILL_DATA[skill]
+            else:
+                form_data["skills"][skill] = SKILL_DATA[skill.split(" (")[0]]
+        for talent in data["species_talents"]:
+            if talent in TALENT_DATA:
+                form_data["talents"][talent] = TALENT_DATA[talent]
+            elif " or " in talent:
+                for talent in talent.split(" or "):
+                    form_data["talents"][talent] = TALENT_DATA[talent]
+            else:
+                form_data["talents"][talent] = TALENT_DATA[talent.split(" (")[0]]
         return {
             "form": html,
+            "form_data": form_data,
             "character": self.character,
             "css_links": static_assets["css"],
             "js_links": static_assets["js"],

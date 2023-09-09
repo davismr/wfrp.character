@@ -13,6 +13,11 @@ BASIC_SKILL_DATA = {
     },
     "Athletics": {
         "characteristic": ("agility", "Ag"),
+        "description": (
+            "Your ability to run, jump and move with speed or grace, and to perform "
+            "any general physical activity. Refer to Moving (see page 164) for details "
+            "on using Athletics in combat movement."
+        ),
     },
     "Bribery": {
         "characteristic": ("fellowship", "Fel"),
