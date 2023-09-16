@@ -22,6 +22,7 @@ Spells
 Skill descriptions
 Tests and max for talents
 Attribute bonus max for talents
+Human free choice for eye colour
 Delete character
 Copy character
 Import/export
