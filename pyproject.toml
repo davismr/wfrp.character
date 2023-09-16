@@ -12,6 +12,7 @@ markers = [
     "create",
     "data",
     "edit",
+    "factories",
     "models",
     "package",
     "views",

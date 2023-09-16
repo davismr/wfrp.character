@@ -14,9 +14,9 @@ class DummyRoute:
 
 @pytest.mark.views
 def test_full_view(new_character):
-    new_character.status = {"character": ""}
+    new_character.status = {"complete": ""}
     request = testing.DummyRequest()
-    request.matched_route = DummyRoute(name="character")
+    request.matched_route = DummyRoute(name="character_full")
     request.matchdict = {"uuid": new_character.uuid}
     view = CharacterViews(request)
     response = view.full_view()
@@ -25,33 +25,25 @@ def test_full_view(new_character):
 
 @pytest.mark.views
 def test_summary_view(new_character):
-    new_character.status = {"character": ""}
+    new_character.status = {"complete": ""}
     request = testing.DummyRequest()
-    request.matched_route = DummyRoute(name="character")
+    request.matched_route = DummyRoute(name="character_summary")
     request.matchdict = {"uuid": new_character.uuid}
     view = CharacterViews(request)
     response = view.summary_view()
     assert "character" in response
 
 
-def mock_static_url(static_path):
-    return "not_a_path"
-
-
 @pytest.mark.views
 @pytest.mark.skipif(
     not WEASYPRINT_INSTALLED, reason="weasyprint not installed correctly"
 )
-def test_pdf_view(new_character):
-    new_character.status = {"character": ""}
-    # TODO need a fully created character
-    new_character.height = 66
+def test_pdf_view(complete_character):
     request = testing.DummyRequest()
-    # TODO fix crude mock method
-    request.static_url = mock_static_url
-    request.matched_route = DummyRoute(name="character")
-    request.matchdict = {"uuid": new_character.uuid}
+    request.matched_route = DummyRoute(name="pdf_print")
+    request.matchdict = {"uuid": complete_character.uuid}
     view = CharacterViews(request)
     response = view.pdf_print()
-    # TODO fix headers
-    assert "unknown.pdf" in response.headers.get("Content-Disposition")
+    assert f"{complete_character.get_filename()}.pdf" in response.headers.get(
+        "Content-Disposition"
+    )

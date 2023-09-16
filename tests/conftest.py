@@ -1,13 +1,17 @@
 import uuid
 
 import pytest
+from factories import CharacterFactory
 from pyramid import testing
+from pytest_factoryboy import register
 from sqlalchemy import engine_from_config
 from webtest import TestApp
 
 from wfrp.character.models import Base
 from wfrp.character.models import Character
 from wfrp.character.models import DBSession
+
+register(CharacterFactory)
 
 
 @pytest.fixture(scope="session")
@@ -40,4 +44,14 @@ def second_character(testapp):
     new_character = Character(uuid=new_uuid, status={"species": ""})
     DBSession.add(new_character)
     character = DBSession.query(Character).filter(Character.uuid == new_uuid).one()
+    return character
+
+
+@pytest.fixture
+def complete_character(testapp, character_factory):
+    new_character = character_factory()
+    DBSession.add(new_character)
+    character = (
+        DBSession.query(Character).filter(Character.uuid == new_character.uuid).one()
+    )
     return character

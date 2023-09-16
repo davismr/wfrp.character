@@ -275,7 +275,7 @@ def test_submit_invalid(new_character):
     assert "There was a problem with your submission" in response["form"]
 
 
-@pytest.mark.current
+@pytest.mark.create
 @patch("wfrp.character.data.class_trappings.roll_d10")
 def test_randomise_trappings(mock_rolld10, new_character, second_character):
     # mock_rolld10.side_effect = [5, 6]
