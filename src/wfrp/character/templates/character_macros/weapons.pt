@@ -16,7 +16,7 @@
             <td>${weapons_data[weapon]["Group"]}</td>
             <td>${weapons_data[weapon]["Enc"]}</td>
             <td>${weapons_data[weapon]["Reach"]}</td>
-            <td>TODO ${weapons_data[weapon]["Damage"]}</td>
+            <td><!-- TODO ${weapons_data[weapon]["Damage"]} --></td>
             <td>${weapons_data[weapon]["Qualities"]|"&nbsp;"}</td>
         </tr>
     </tbody>
