@@ -76,7 +76,7 @@ TALENT_DATA = {
         ),
     },
     "Alley Cat": {
-        "short_description": "Reverse dice on Steath (Urban)",
+        "short_description": "Reverse dice on Stealth (Urban)",
         "description": (
             "You are at home in shadowy backstreets. When using Stealth (Urban), "
             "you may reverse the dice of any failed Test if this will score a Success."
