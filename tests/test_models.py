@@ -172,8 +172,8 @@ def test_encumberance_trapping(new_character):
 
 
 @pytest.mark.models
-def test_total_encumberance_trappings(new_character):
-    assert new_character.total_encumberance_trappings() >= 0
+def test_total_encumberance_trappings(complete_character):
+    assert complete_character.total_encumberance_trappings() >= 0
 
 
 @pytest.mark.models
@@ -182,3 +182,13 @@ def test_total_encumberance_trappings_fixed(complete_character):
     complete_character.trappings = ["Fine Clothing", "Cloak", "Backpack"]
     assert complete_character.total_encumberance_trappings() == 4
     complete_character.trappings = old_trappings
+
+
+@pytest.mark.models
+def test_total_encumberance_weapons(complete_character):
+    assert complete_character.total_encumberance_weapons() >= 0
+
+
+@pytest.mark.models
+def test_total_encumberance_armour(complete_character):
+    assert complete_character.total_encumberance_armour() >= 0

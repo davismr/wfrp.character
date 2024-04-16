@@ -13,9 +13,11 @@ from sqlalchemy.orm import scoped_session
 from sqlalchemy.orm import sessionmaker
 from zope.sqlalchemy import register
 
+from wfrp.character.data.armour import ARMOUR_DATA
 from wfrp.character.data.skills import SKILL_DATA
 from wfrp.character.data.talents import TALENT_DATA
 from wfrp.character.data.trappings import TRAPPINGS_DATA
+from wfrp.character.data.weapons import WEAPONS_DATA
 
 DBSession = scoped_session(sessionmaker())
 register(DBSession)
@@ -192,7 +194,22 @@ class Character(Base):
     def total_encumberance_trappings(self):
         total = 0
         for trapping in self.trappings:
-            total += TRAPPINGS_DATA[trapping]["Enc"]
+            if trapping in TRAPPINGS_DATA:
+                total += TRAPPINGS_DATA[trapping]["Enc"]
+        return total
+
+    def total_encumberance_weapons(self):
+        total = 0
+        for weapon in self.weapons:
+            if weapon in WEAPONS_DATA:
+                total += WEAPONS_DATA[weapon]["Enc"]
+        return total
+
+    def total_encumberance_armour(self):
+        total = 0
+        for armour in self.armour:
+            if armour in ARMOUR_DATA:
+                total += ARMOUR_DATA[armour]["Enc"]
         return total
 
     def cost_characteristic(self, advance):  # noqa: C901

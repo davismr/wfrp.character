@@ -1,16 +1,18 @@
-<table>
+<table tal:define="weapons python:character.total_encumberance_weapons();
+                   armour python:character.total_encumberance_armour();
+                   trappings python:character.total_encumberance_trappings()">
     <caption>Encumberance</caption>
     <tr>
         <td>Weapons</td>
-        <td><!-- TODO --></td>
+        <td>${weapons}</td>
     </tr>
     <tr>
         <td>Armour</td>
-        <td><!-- TODO --></td>
+        <td>${armour}</td>
     </tr>
     <tr>
         <td>Trappings</td>
-        <td>${character.total_encumberance_trappings}</td>
+        <td>${trappings}</td>
     </tr>
     <tr>
         <td>Max Enc.</td>
@@ -18,6 +20,6 @@
     </tr>
     <tr>
         <td>Total</td>
-        <td><!-- TODO --></td>
+        <td>${armour + weapons + trappings}</td>
     </tr>
 </table>
