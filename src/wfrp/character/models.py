@@ -15,6 +15,7 @@ from zope.sqlalchemy import register
 
 from wfrp.character.data.skills import SKILL_DATA
 from wfrp.character.data.talents import TALENT_DATA
+from wfrp.character.data.trappings import TRAPPINGS_DATA
 
 DBSession = scoped_session(sessionmaker())
 register(DBSession)
@@ -182,6 +183,17 @@ class Character(Base):
         if "short_description" in TALENT_DATA[talent]:
             return TALENT_DATA[talent]["short_description"]
         return TALENT_DATA[talent]["description"]
+
+    def get_encumberance_trapping(self, trapping):
+        if trapping in TRAPPINGS_DATA:
+            return TRAPPINGS_DATA[trapping]["Enc"]
+        return None
+
+    def total_encumberance_trappings(self):
+        total = 0
+        for trapping in self.trappings:
+            total += TRAPPINGS_DATA[trapping]["Enc"]
+        return total
 
     def cost_characteristic(self, advance):  # noqa: C901
         """Return the experience cost of an increase in a charateristic."""

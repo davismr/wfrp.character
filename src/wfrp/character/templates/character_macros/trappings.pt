@@ -9,7 +9,7 @@
     <tbody>
         <tr tal:repeat="trapping python:character.trappings">
             <td>${trapping}</td>
-            <td><!-- TODO --></td>
+            <td>${character.get_encumberance_trapping(trapping)}</td>
         </tr>
     </tbody>
 </table>

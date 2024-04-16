@@ -30,6 +30,7 @@ class CharacterFactory(factory.Factory):
         )
     )
     status = {"complete": ""}
+    trappings = ["Fine Clothing", "Cloak", "Tinderbox"]
 
     class Params:
         species_param = factory.LazyAttribute(

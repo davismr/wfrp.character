@@ -164,3 +164,21 @@ def test_experience_skill_cost(new_character, advances, cost):
 )
 def test_experience_talent_cost(new_character, advances, cost):
     assert new_character.cost_talent(advances) == cost
+
+
+@pytest.mark.models
+def test_encumberance_trapping(new_character):
+    assert new_character.get_encumberance_trapping("Fine Clothing") == 1
+
+
+@pytest.mark.models
+def test_total_encumberance_trappings(new_character):
+    assert new_character.total_encumberance_trappings() >= 0
+
+
+@pytest.mark.models
+def test_total_encumberance_trappings_fixed(complete_character):
+    old_trappings = complete_character.trappings
+    complete_character.trappings = ["Fine Clothing", "Cloak", "Backpack"]
+    assert complete_character.total_encumberance_trappings() == 4
+    complete_character.trappings = old_trappings

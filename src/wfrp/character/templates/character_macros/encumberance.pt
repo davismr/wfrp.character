@@ -10,7 +10,7 @@
     </tr>
     <tr>
         <td>Trappings</td>
-        <td><!-- TODO --></td>
+        <td>${character.total_encumberance_trappings}</td>
     </tr>
     <tr>
         <td>Max Enc.</td>
