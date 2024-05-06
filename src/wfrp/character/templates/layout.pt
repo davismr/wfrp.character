@@ -9,6 +9,8 @@
         <div metal:define-slot="header" tal:omit-tag="">
             <link rel="shortcut icon"
                   href="${request.static_url('wfrp.character:static/favicon.ico')}"/>
+            <script src="${request.static_url('deform:static/scripts/jquery-2.0.3.min.js')}"
+                type="text/javascript"></script>
             <script tal:condition="js_links|nothing"
                     tal:repeat="js_link js_links"
                     src="${request.static_url(js_link)}"
