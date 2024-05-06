@@ -65,7 +65,7 @@ class AdvancesViews(BaseView):
             validator=self.validate_fate,
             description=(
                 f"You can spread {self.character.extra_points} points across "
-                "fate and fortune"
+                "fate and resilience"
             ),
         )
         fate_choices = [(i, i) for i in range(self.character.extra_points + 1)]
