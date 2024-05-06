@@ -151,17 +151,21 @@ TALENT_DATA = {
         ),
     },
     "Blather": {
-        "description": "Attempt an Opposed Charm/Intelligence Test. Success gives your "
-        "opponent a Stunned Condition. Further, for each level you have in Blather, "
-        "your opponent gains another Stunned Condition. Targets Stunned by Blather may "
-        "do nothing other than stare at you dumbfounded as they try to catch-up with "
-        "or understand what you are saying..."
+        "description": (
+            "Attempt an Opposed Charm/Intelligence Test. Success gives your opponent a "
+            "Stunned Condition. Further, for each level you have in Blather, your "
+            "opponent gains another Stunned Condition. Targets Stunned by Blather may "
+            "do nothing other than stare at you dumbfounded as they try to catch-up "
+            "with or understand what you are saying..."
+        )
     },
     "Bless": {
-        "description": "You are watched over by one of the Gods and can empower simple "
-        "prayers. You can now deploy the Blessings of your deity as listed in "
-        "Chapter 7: Religion and Belief. Under normal circumstances, you may only "
-        "ever know one Divine Lore for the Bless Talent.",
+        "description": (
+            "You are watched over by one of the Gods and can empower simple prayers. "
+            "You can now deploy the Blessings of your deity as listed in Chapter 7: "
+            "Religion and Belief. Under normal circumstances, you may only ever know "
+            "one Divine Lore for the Bless Talent."
+        ),
         "specialisations": [
             "Sigmar",
             "Ulric",
@@ -460,7 +464,7 @@ TALENT_DATA = {
             "Soldiers. If you do not have the Talent, those with it will note your "
             "discomfort in the unfamiliar environment. This is primarily a matter for "
             "roleplaying, but may confer a bonus to Fellowship Tests at the GM’s "
-            "discretion.",
+            "discretion."
         ),
         "specialisations": [
             "Criminals",
