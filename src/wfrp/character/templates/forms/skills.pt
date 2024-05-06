@@ -7,13 +7,19 @@
             <div metal:use-macro="load: ../character_macros/character_summary.pt" />
         </div>
         <div id="form-data">
+            <h4>Skills</h4>
             <div tal:repeat="skill form_data['skills']">
                 <dl>
                     <dt tal:content="skill" />
-                    <!-- TODO: remove none -->
-                    <dd tal:content="form_data['skills'][skill]['description']|None" />
+                    <dd>
+                        <b>Characteristic:</b>
+                        <span tal:replace="form_data['skills'][skill]['characteristic'][0].replace('_', ' ').capitalize()" />
+                    </dd>
+                    <dd tal:condition="form_data['skills'][skill]['description']|None"
+                        tal:content="form_data['skills'][skill]['description']" />
                 </dl>
             </div>
+            <h4>Talents</h4>
             <div tal:repeat="talent form_data['talents']">
                 <dl>
                     <dt tal:content="talent" />
