@@ -46,6 +46,17 @@ def protected(request):
         "Log out</a></p>"
     )
 
+@view_config(route_name="index", request_method="GET")
+def index(request):
+    return Response(
+        f"<p>Your authenticated_userid is: <code>{request.authenticated_userid}</code>.</p>"
+        f"<p>Your permissions are: <code>{request.identity.permissions}</code>.</p>"
+        "<p>You have to be logged in to see "
+        f'<a href="{ request.route_url("protected") }">the protected page</a>.</p>'
+        f'<p><a href="{ request.route_url("pyramid_googleauth.login") }">Log in</a></p>'
+        f'<p><a href="{ request.route_url("pyramid_googleauth.logout") }">Log out</a></p>'
+    )
+
 
 def configure_app(global_config, **settings):
     """Configure the pyramid api."""
@@ -78,6 +89,7 @@ def configure_app(global_config, **settings):
     config.include("wfrp.character.routes")
     config.include("pyramid_googleauth")
     config.add_route("protected", "/protected")
+    config.add_route("index", "/index")
     config.add_static_view("static", "wfrp.character:static")
     config.add_static_view("static_deform", "deform:static")
     config.add_request_method(dbsession, reify=True)
