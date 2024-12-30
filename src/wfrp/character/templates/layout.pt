@@ -6,6 +6,7 @@
     <head>
         <meta charset="utf-8">
         <title>WFRP Character Generator</title>
+        <meta name="google-site-verification" content="PVpDbCxkDxHMQQqqzK20i5HFG3JIRQn2Jk_Pl9Sec5E" />
         <div metal:define-slot="header" tal:omit-tag="">
             <link rel="shortcut icon"
                   href="${request.static_url('wfrp.character:static/favicon.ico')}"/>
