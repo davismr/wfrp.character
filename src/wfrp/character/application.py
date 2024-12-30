@@ -46,6 +46,7 @@ def protected(request):
         "Log out</a></p>"
     )
 
+
 @view_config(route_name="index", request_method="GET")
 def index(request):
     return Response(
