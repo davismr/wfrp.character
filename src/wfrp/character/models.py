@@ -1,7 +1,5 @@
 import uuid
 
-from pyramid.authorization import Allow
-from pyramid.authorization import Everyone
 from sqlalchemy import JSON
 from sqlalchemy import Column
 from sqlalchemy import Integer
@@ -279,10 +277,3 @@ class Character(Base):
     def cost_talent(self, advance):
         """Return the experience cost of an increase in a talent."""
         return 100 * advance
-
-
-class Root(object):
-    __acl__ = [(Allow, Everyone, "view"), (Allow, "group:editors", "edit")]
-
-    def __init__(self, request):
-        pass
