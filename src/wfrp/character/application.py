@@ -1,9 +1,15 @@
 from pyramid.config import Configurator
 from sqlalchemy import engine_from_config
+from sqlalchemy.orm import declarative_base
+from sqlalchemy.orm import scoped_session
+from sqlalchemy.orm import sessionmaker
+from zope.sqlalchemy import register
 
-from wfrp.character.models.character import Base
-from wfrp.character.models.character import DBSession
 from wfrp.character.security import SecurityPolicy
+
+DBSession = scoped_session(sessionmaker())
+register(DBSession)
+Base = declarative_base()
 
 
 def configure_app(global_config, **settings):

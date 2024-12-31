@@ -5,8 +5,8 @@ from pyramid.paster import get_appsettings
 from pyramid.paster import setup_logging
 from sqlalchemy import engine_from_config
 
-from wfrp.character.models.character import Base
-from wfrp.character.models.character import DBSession
+from wfrp.character.application import DBSession
+from wfrp.character.models.character import Character
 
 
 def usage(argv):
@@ -23,4 +23,4 @@ def main(argv=sys.argv):
     settings = get_appsettings(config_uri)
     engine = engine_from_config(settings, "sqlalchemy.")
     DBSession.configure(bind=engine)
-    Base.metadata.create_all(engine)
+    Character.metadata.create_all(engine)

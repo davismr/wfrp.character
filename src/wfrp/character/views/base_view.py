@@ -1,7 +1,7 @@
 from pyramid.httpexceptions import HTTPFound
 
+from wfrp.character.application import DBSession
 from wfrp.character.models.character import Character
-from wfrp.character.models.character import DBSession
 
 
 class BaseView:

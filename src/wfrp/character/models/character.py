@@ -6,20 +6,13 @@ from sqlalchemy import Integer
 from sqlalchemy import Text
 from sqlalchemy.ext.mutable import MutableDict
 from sqlalchemy.ext.mutable import MutableList
-from sqlalchemy.orm import declarative_base
-from sqlalchemy.orm import scoped_session
-from sqlalchemy.orm import sessionmaker
-from zope.sqlalchemy import register
 
+from wfrp.character.application import Base
 from wfrp.character.data.armour import ARMOUR_DATA
 from wfrp.character.data.skills import SKILL_DATA
 from wfrp.character.data.talents import TALENT_DATA
 from wfrp.character.data.trappings import TRAPPINGS_DATA
 from wfrp.character.data.weapons import WEAPONS_DATA
-
-DBSession = scoped_session(sessionmaker())
-register(DBSession)
-Base = declarative_base()
 
 
 class Character(Base):

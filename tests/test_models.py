@@ -1,8 +1,8 @@
 import pytest
 
+from wfrp.character.application import DBSession
 from wfrp.character.forms.create.attributes import ATTRIBUTES_LOWER
 from wfrp.character.models.character import Character
-from wfrp.character.models.character import DBSession
 
 
 @pytest.mark.models
