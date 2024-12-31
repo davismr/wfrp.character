@@ -1,8 +1,8 @@
 from pyramid.view import view_config
 from pyramid.view import view_defaults
 
-from wfrp.character.models import Character
-from wfrp.character.models import DBSession
+from wfrp.character.models.character import Character
+from wfrp.character.models.character import DBSession
 
 
 @view_defaults(route_name="homepage")

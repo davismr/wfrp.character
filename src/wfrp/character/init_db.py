@@ -5,8 +5,8 @@ from pyramid.paster import get_appsettings
 from pyramid.paster import setup_logging
 from sqlalchemy import engine_from_config
 
-from wfrp.character.models import Base
-from wfrp.character.models import DBSession
+from wfrp.character.models.character import Base
+from wfrp.character.models.character import DBSession
 
 
 def usage(argv):

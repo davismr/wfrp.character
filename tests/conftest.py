@@ -7,9 +7,9 @@ from pytest_factoryboy import register
 from sqlalchemy import engine_from_config
 from webtest import TestApp
 
-from wfrp.character.models import Base
-from wfrp.character.models import Character
-from wfrp.character.models import DBSession
+from wfrp.character.models.character import Base
+from wfrp.character.models.character import Character
+from wfrp.character.models.character import DBSession
 
 register(CharacterFactory)
 
