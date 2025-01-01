@@ -41,7 +41,7 @@ TALENT_LIST = {
     100: "Warrior Born",
 }
 
-TALENT_DATA = {
+BASIC_TALENTS = {
     "Accurate Shot": {
         "description": (
             "You are an exceptional shot and know where to shoot an enemy in order to "
@@ -1388,3 +1388,22 @@ TALENT_DATA = {
         ),
     },
 }
+
+
+ROUGH_NIGHTS_TALENTS = {
+    "Suffused with Ulgu": {
+        "max": 1,
+        "description": (
+            "You are suffused with the Grey Wind of Magic, which those with Second "
+            "Sight perceive as a shadowy, shifting mist wreathed about your body. You "
+            "can use your Channelling (Ulgu) Skill in place of the Stealth Skill for "
+            "all relevant Tests. Further, any successful attempts to cast spells from "
+            "the Lore of Shadow within 8 yards of you gain +1 SL. This bonus may only "
+            "be claimed once, no matter how many Characters are Suffused with Ulgu in "
+            "a spellcaster’s vicinity."
+        ),
+    },
+}
+
+
+TALENT_DATA = {**BASIC_TALENTS, **ROUGH_NIGHTS_TALENTS}

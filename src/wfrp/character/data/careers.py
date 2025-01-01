@@ -12,6 +12,8 @@ def list_careers(species=None):
         return list(HALFLING_CAREERS.values())
     elif species == "Dwarf":
         return list(DWARF_CAREERS.values())
+    elif species == "Gnome":
+        return list(GNOME_CAREERS.values())
     elif species == "High Elf":
         return list(HIGH_ELF_CAREERS.values())
     elif species == "Wood Elf":
@@ -26,6 +28,8 @@ def get_career(species, die_roll):
         career_list = HALFLING_CAREERS
     elif species == "Dwarf":
         career_list = DWARF_CAREERS
+    elif species == "Gnome":
+        career_list = GNOME_CAREERS
     elif species == "High Elf":
         career_list = HIGH_ELF_CAREERS
     elif species == "Wood Elf":
@@ -204,6 +208,52 @@ HALFLING_CAREERS = {
     96: "Guard",
     97: "Pit Fighter",
     100: "Soldier",
+}
+
+GNOME_CAREERS = {
+    1: "Apothecary",
+    2: "Lawyer",
+    3: "Physician",
+    5: "Priest",
+    6: "Scholar",
+    8: "Wizard",
+    15: "Agitator",
+    16: "Artisan",
+    18: "Beggar",
+    19: "Investigator",
+    20: "Merchant",
+    22: "Rat Catcher",
+    23: "Townsman",
+    29: "Watchman",
+    30: "Advisor",
+    31: "Artist",
+    32: "Envoy",
+    33: "Noble",
+    34: "Servant",
+    36: "Spy",
+    41: "Warden",
+    43: "Bailiff",
+    44: "Herbalist",
+    45: "Hunter",
+    47: "Miner",
+    55: "Scout",
+    59: "Villager",
+    63: "Bounty Hunter",
+    64: "Entertainer",
+    69: "Messenger",
+    70: "Pedlar",
+    76: "Boatman",
+    77: "Riverwoman",
+    81: "Smuggler",
+    84: "Bawd",
+    86: "Charlatan",
+    91: "Fence",
+    92: "Outlaw",
+    93: "Racketeer",
+    95: "Thief",
+    98: "Guard",
+    99: "Soldier",
+    100: "Warrior Priest",
 }
 
 HIGH_ELF_CAREERS = {

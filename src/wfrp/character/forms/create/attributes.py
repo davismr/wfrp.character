@@ -51,6 +51,16 @@ class AttributesViews(BaseView):
             attributes["Dexterity"] += 10
             attributes["Willpower"] += 20
             attributes["Fellowship"] += -10
+        elif species == "Gnome":
+            attributes["Ballistic Skill"] += -10
+            attributes["Strength"] += -10
+            attributes["Toughness"] += -5
+            attributes["Initiative"] += 10
+            attributes["Agility"] += 10
+            attributes["Dexterity"] += 10
+            attributes["Intelligence"] += 10
+            attributes["Willpower"] += 20
+            attributes["Fellowship"] += -5
         elif species in ["High Elf", "Wood Elf"]:
             attributes["Weapon Skill"] += 10
             attributes["Ballistic Skill"] += 10

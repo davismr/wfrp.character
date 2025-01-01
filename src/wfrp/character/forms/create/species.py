@@ -5,26 +5,43 @@ from pyramid.view import view_config
 from pyramid.view import view_defaults
 
 from wfrp.character.data.species import SPECIES_LIST
+from wfrp.character.switches import is_gnome_active
 from wfrp.character.utils import roll_d100
 from wfrp.character.views.base_view import BaseView
 
 
 @view_defaults(route_name="species")
 class SpeciesViews(BaseView):
-    def _roll_new_species(self):
+    def _roll_new_species(self):  # noqa C901
         result = roll_d100()
-        if result <= 90:
-            species = "Human"
-        elif result <= 94:
-            species = "Halfling"
-        elif result <= 98:
-            species = "Dwarf"
-        elif result == 99:
-            species = "High Elf"
-        elif result == 100:
-            species = "Wood Elf"
+        if is_gnome_active():
+            if result <= 89:
+                species = "Human"
+            elif result <= 93:
+                species = "Halfling"
+            elif result <= 97:
+                species = "Dwarf"
+            elif result == 98:
+                species = "Gnome"
+            elif result == 99:
+                species = "High Elf"
+            elif result == 100:
+                species = "Wood Elf"
+            else:
+                raise NotImplementedError(f"result {result} does not return a species")
         else:
-            raise NotImplementedError(f"result {result} does not return a species")
+            if result <= 90:
+                species = "Human"
+            elif result <= 94:
+                species = "Halfling"
+            elif result <= 98:
+                species = "Dwarf"
+            elif result == 99:
+                species = "High Elf"
+            elif result == 100:
+                species = "Wood Elf"
+            else:
+                raise NotImplementedError(f"result {result} does not return a species")
         return species
 
     def initialise_form(self):
@@ -99,6 +116,10 @@ class SpeciesViews(BaseView):
         elif species == "Dwarf":
             self.character.resilience = 2
             self.character.extra_points = 3
+        elif species == "Gnome":
+            self.character.fate = 2
+            self.character.resilience = 0
+            self.character.extra_points = 2
         elif species in ["High Elf", "Wood Elf"]:
             self.character.extra_points = 2
             self.character.movement = 5

@@ -52,6 +52,33 @@ def test_roll_new_species(new_character, species, roll):
 
 @pytest.mark.create
 @pytest.mark.parametrize(
+    "species, roll",
+    [
+        ("Human", 89),
+        ("Halfling", 90),
+        ("Dwarf", 97),
+        ("Gnome", 98),
+        ("High Elf", 99),
+    ],
+)
+@patch("wfrp.character.forms.create.species.is_gnome_active")
+def test_roll_new_species_gnome(mock_is_gnome_active, new_character, species, roll):
+    mock_is_gnome_active.return_value = True
+    request = testing.DummyRequest(path="species")
+    request.matched_route = DummyRoute(name="species")
+    request.matchdict = {"uuid": new_character.uuid}
+    view = SpeciesViews(request)
+    with patch("wfrp.character.forms.create.species.roll_d100") as mock_roll:
+        mock_roll.return_value = roll
+        response = view._roll_new_species()
+        assert response == species
+        mock_roll.return_value = 101
+        with pytest.raises(NotImplementedError):
+            view._roll_new_species()
+
+
+@pytest.mark.create
+@pytest.mark.parametrize(
     "species, movement",
     [("Human", 4), ("Halfling", 3), ("Dwarf", 3), ("High Elf", 5)],
 )

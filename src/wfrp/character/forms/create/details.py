@@ -34,6 +34,9 @@ class DetailsViews(BaseView):
         elif species == "Dwarf":
             age = 15 + roll_5d10() + roll_5d10()
             height = 51 + roll_d10()
+        elif species == "Gnome":
+            age = 20 + roll_5d10() + roll_5d10()
+            height = 40 + roll_d10()
         elif species in ["High Elf", "Wood Elf"]:
             age = 30 + roll_5d10() + roll_5d10()
             height = 71 + roll_d10()
