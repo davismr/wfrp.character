@@ -7,6 +7,7 @@ from sqlalchemy import engine_from_config
 
 from wfrp.character.application import DBSession
 from wfrp.character.models.character import Character
+from wfrp.character.models.user import User
 
 
 def usage(argv):
@@ -24,3 +25,4 @@ def main(argv=sys.argv):
     engine = engine_from_config(settings, "sqlalchemy.")
     DBSession.configure(bind=engine)
     Character.metadata.create_all(engine)
+    User.metadata.create_all(engine)
