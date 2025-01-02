@@ -15,6 +15,7 @@ markers = [
     "factories",
     "models",
     "package",
+    "register",
     "views",
 ]
 testpaths = "tests"

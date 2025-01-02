@@ -1,0 +1,25 @@
+<div metal:use-macro="load: layout.pt">
+    <div metal:fill-slot="content">
+
+        <h1>Register</h1>
+        <span tal:replace="message"/>
+
+        <form action="${request.route_url('register')}" method="post">
+            <label for="name">Full Name</label>
+            <input type="text" id="name"
+                   name="name"
+                   value="${name}"/><br/>
+            <label for="email">Email address</label>
+            <input type="text" id="email"
+                   name="email"
+                   value="${email}"/><br/>
+            <label for="password">Password</label>
+            <input type="password" id="password"
+                   name="password"
+                   value="${password}"/><br/>
+            <input type="submit" name="form.submitted"
+                   value="Register"/>
+        </form>
+
+    </div>
+</div>
