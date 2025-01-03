@@ -349,6 +349,67 @@ CAREER_DATA = {
                 "Pestle and Mortar",
             ],
         },
+        "Apothecary": {
+            "status": {"tier": "Silver", "standing": 1},
+            "attributes": ["Fellowship"],
+            "skills": [
+                "Charm",
+                "Haggle",
+                "Lore (Science)",
+                "Gossip",
+                "Language (Guilder)",
+                "Perception",
+            ],
+            "talents": [
+                "Criminal",
+                "Dealmaker",
+                "Etiquette (Guilder)",
+                "Pharmacist",
+            ],
+            "trappings": [
+                "Guild Licence",
+                "Trade Tools",
+            ],
+        },
+        "Master Apothecary": {
+            "status": {"tier": "Silver", "standing": 3},
+            "attributes": ["Intelligence"],
+            "skills": [
+                "Intuition",
+                "Leadership",
+                "Research",
+                "Secret Signs (Guilder)",
+            ],
+            "talents": [
+                "Bookish",
+                "Master Tradesman (Apothecary)",
+                "Resistance (Poison)",
+                "Savvy",
+            ],
+            "trappings": [
+                "Book (Apothecary)",
+                "Apprentice",
+                "Workshop",
+            ],
+        },
+        "Apothecary-General ": {
+            "status": {"tier": "Gold", "standing": 1},
+            "attributes": ["Willpower"],
+            "skills": [
+                "Intimidate",
+                "Ride (Horse)",
+            ],
+            "talents": [
+                "Acute Sense (Taste)",
+                "Coolheaded",
+                "Master Tradesman (Poisoner)",
+                "Savant (Apothecary)",
+            ],
+            "trappings": [
+                "Commission Papers",
+                "Large Workshop",
+            ],
+        },
     },
     "Engineer": {
         "class": "Academics",

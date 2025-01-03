@@ -736,6 +736,15 @@ BASIC_TALENTS = {
             "(this does not count towards your Advances)."
         ),
     },
+    "Master Tradesman": {
+        "max": "Dexterity Bonus",
+        "tests": "Any appropriate Extended Trade Tests",
+        "description": (
+            "You are exceptionally skilled at your specified Trade skill. You reduce "
+            "the required SL of any Extended Test using your Trade Skill by the level "
+            "of your Master Tradesman Talent."
+        ),
+    },
     "Menacing": {
         "description": (
             "You have an imposing presence. When using the Intimidate Skill, gain a SL "
@@ -970,6 +979,18 @@ BASIC_TALENTS = {
             "environment, bystanders do not get passive Perception Tests to detect "
             "you; they can only spot you if they are specifically on look-out, or "
             "watching for hidden spies."
+        ),
+    },
+    "Savant": {
+        "max": "Intelligence Bonus",
+        "tests": "Lore (chosen Lore)",
+        "description": (
+            "You are exceptionally learned, and have a significant degree of "
+            "specialised knowledge in a single field of study. You automatically know "
+            "a number of pieces of correct information equal to you Savant (Lore) "
+            "level about a relevant issue without having to test your Lore Skill. "
+            "Testing, as always, will provide yet more information as normal as "
+            "determined by the GM."
         ),
     },
     "Savvy": {
