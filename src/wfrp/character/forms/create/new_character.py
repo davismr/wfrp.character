@@ -8,7 +8,7 @@ from wfrp.character.application import DBSession
 from wfrp.character.models.character import Character
 
 
-@view_defaults(route_name="new_character")
+@view_defaults(route_name="new_character", permission="create_character")
 class NewCharacterViews:
     def __init__(self, request):
         self.request = request

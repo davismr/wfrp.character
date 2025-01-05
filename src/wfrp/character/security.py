@@ -1,5 +1,9 @@
 import bcrypt
 from pyramid.authentication import AuthTktCookieHelper
+from pyramid.security import Allowed
+from pyramid.security import Denied
+
+from wfrp.character.models.user import User
 
 
 def hash_password(pw):
@@ -21,7 +25,9 @@ class SecurityPolicy:
 
     def identity(self, request):
         identity = self.authtkt.identify(request)
-        if identity is not None and identity["userid"] in USERS:
+        if identity is not None:
+            # XXX needs to be wrapped in try/except
+            request.dbsession.query(User).filter(User.email == identity["userid"]).one()
             return identity
 
     def authenticated_userid(self, request):
@@ -34,3 +40,13 @@ class SecurityPolicy:
 
     def forget(self, request, **kw):
         return self.authtkt.forget(request, **kw)
+
+    def permits(self, request, context, permission):
+        identity = self.identity(request)
+        if identity is None:
+            return Denied("User is not signed in.")
+        if identity and permission == "create_character":
+            return Allowed(
+                f"Access granted for user {identity} for {permission} permission."
+            )
+        return Denied(f"Access denied for user {identity} for {permission} permission.")
