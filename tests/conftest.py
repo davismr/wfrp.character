@@ -9,6 +9,7 @@ from webtest import TestApp
 
 from wfrp.character.application import Base
 from wfrp.character.application import DBSession
+from wfrp.character.application import dbsession
 from wfrp.character.models.character import Character
 
 register(CharacterFactory)
@@ -18,6 +19,7 @@ register(CharacterFactory)
 def testapp():
     engine = engine_from_config({"sqlalchemy.url": "sqlite:///:memory:"}, "sqlalchemy.")
     config = testing.setUp()
+    config.add_request_method(dbsession, reify=True)
     config.include("pyramid_chameleon")
     config.include("wfrp.character.routes")
     config.add_static_view("static", "wfrp.character:static")

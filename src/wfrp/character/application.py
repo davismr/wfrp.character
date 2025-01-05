@@ -5,8 +5,6 @@ from sqlalchemy.orm import scoped_session
 from sqlalchemy.orm import sessionmaker
 from zope.sqlalchemy import register
 
-from wfrp.character.security import SecurityPolicy
-
 DBSession = scoped_session(sessionmaker())
 register(DBSession)
 Base = declarative_base()
@@ -18,6 +16,9 @@ def configure_app(global_config, **settings):
     DBSession.configure(bind=engine)
     Base.metadata.bind = engine
     config = Configurator(settings=settings)
+    # to prevent circular imports
+    from wfrp.character.security import SecurityPolicy
+
     config.set_security_policy(
         SecurityPolicy(
             secret=settings["wfrp.character.secret"],
@@ -26,8 +27,13 @@ def configure_app(global_config, **settings):
     config.include("wfrp.character.routes")
     config.add_static_view("static", "wfrp.character:static")
     config.add_static_view("static_deform", "deform:static")
+    config.add_request_method(dbsession, reify=True)
     config.scan()
     return config
+
+
+def dbsession(request):
+    return DBSession
 
 
 def main(global_config, **settings):
