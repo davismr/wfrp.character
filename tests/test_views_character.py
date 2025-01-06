@@ -3,6 +3,7 @@ from dataclasses import dataclass
 import pytest
 from pyramid import testing
 
+from wfrp.character.application import dbsession
 from wfrp.character.views.character import WEASYPRINT_INSTALLED
 from wfrp.character.views.character import CharacterViews
 
@@ -16,6 +17,7 @@ class DummyRoute:
 def test_full_view(new_character):
     new_character.status = {"complete": ""}
     request = testing.DummyRequest()
+    request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="character_full")
     request.matchdict = {"uuid": new_character.uuid}
     view = CharacterViews(request)
@@ -27,6 +29,7 @@ def test_full_view(new_character):
 def test_summary_view(new_character):
     new_character.status = {"complete": ""}
     request = testing.DummyRequest()
+    request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="character_summary")
     request.matchdict = {"uuid": new_character.uuid}
     view = CharacterViews(request)
@@ -40,6 +43,7 @@ def test_summary_view(new_character):
 )
 def test_pdf_view(complete_character):
     request = testing.DummyRequest()
+    request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="pdf_print")
     request.matchdict = {"uuid": complete_character.uuid}
     view = CharacterViews(request)

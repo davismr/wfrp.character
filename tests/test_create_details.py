@@ -4,6 +4,7 @@ import pytest
 from pyramid import testing
 from pyramid.httpexceptions import HTTPFound
 
+from wfrp.character.application import dbsession
 from wfrp.character.data.species import SPECIES_DATA
 from wfrp.character.data.species import SPECIES_LIST
 from wfrp.character.forms.create.details import DetailsViews
@@ -19,6 +20,7 @@ def test_initialise_form_elf(new_character):
     new_character.species = "Wood Elf"
     new_character.status = {"details": ""}
     request = testing.DummyRequest()
+    request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="details")
     request.matchdict = {"uuid": new_character.uuid}
     view = DetailsViews(request)
@@ -36,6 +38,7 @@ def test_form_view(new_character):
     new_character.species = "Wood Elf"
     new_character.status = {"details": ""}
     request = testing.DummyRequest()
+    request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="details")
     request.matchdict = {"uuid": new_character.uuid}
     view = DetailsViews(request)
@@ -49,6 +52,7 @@ def test_form_view(new_character):
 def test_hair_colour(new_character, species):
     new_character.status = {"details": ""}
     request = testing.DummyRequest()
+    request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="details")
     request.matchdict = {"uuid": new_character.uuid}
     view = DetailsViews(request)
@@ -68,6 +72,7 @@ def test_hair_colour(new_character, species):
 def test_eye_colour(new_character, species):
     new_character.status = {"details": ""}
     request = testing.DummyRequest()
+    request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="details")
     request.matchdict = {"uuid": new_character.uuid}
     view = DetailsViews(request)
@@ -87,6 +92,7 @@ def test_initialise_invalid_species(new_character):
     new_character.species = "Not a species"
     new_character.status = {"details": ""}
     request = testing.DummyRequest()
+    request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="details")
     request.matchdict = {"uuid": new_character.uuid}
     view = DetailsViews(request)
@@ -100,6 +106,7 @@ def test_initialise_form_species(new_character, species):
     new_character.species = species
     new_character.status = {"details": ""}
     request = testing.DummyRequest()
+    request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="details")
     request.matchdict = {"uuid": new_character.uuid}
     view = DetailsViews(request)
@@ -116,6 +123,7 @@ def test_details_submit(new_character):
     new_character.species = "High Elf"
     new_character.status = {"details": ""}
     request = testing.DummyRequest(post=payload)
+    request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="details")
     request.matchdict = {"uuid": new_character.uuid}
     view = DetailsViews(request)
@@ -139,6 +147,7 @@ def test_invalid_submit(new_character):
     new_character.species = "High Elf"
     new_character.status = {"details": ""}
     request = testing.DummyRequest(post=payload)
+    request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="details")
     request.matchdict = {"uuid": new_character.uuid}
     view = DetailsViews(request)

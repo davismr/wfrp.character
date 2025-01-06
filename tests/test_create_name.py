@@ -4,6 +4,7 @@ import pytest
 from pyramid import testing
 from pyramid.httpexceptions import HTTPFound
 
+from wfrp.character.application import dbsession
 from wfrp.character.forms.create.name import NameViews
 
 
@@ -16,6 +17,7 @@ class DummyRoute:
 def test_get_view(new_character):
     new_character.status = {"name": ""}
     request = testing.DummyRequest()
+    request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="name")
     request.matchdict = {"uuid": new_character.uuid}
     view = NameViews(request)
@@ -30,6 +32,7 @@ def test_submit_view(new_character):
     request = testing.DummyRequest(
         post={"character_name": "Frodo Baggins", "Select_Name": "Select_Name"}
     )
+    request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="name")
     request.matchdict = {"uuid": new_character.uuid}
     view = NameViews(request)
@@ -44,6 +47,7 @@ def test_submit_invalid(new_character):
     request = testing.DummyRequest(
         post={"character_name": "a" * 101, "Select_Name": "Select_Name"}
     )
+    request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="name")
     request.matchdict = {"uuid": new_character.uuid}
     view = NameViews(request)

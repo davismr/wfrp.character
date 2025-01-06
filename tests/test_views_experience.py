@@ -3,6 +3,7 @@ from dataclasses import dataclass
 import pytest
 from pyramid import testing
 
+from wfrp.character.application import dbsession
 from wfrp.character.views.experience import ExperienceViews
 
 
@@ -17,6 +18,7 @@ def test_form_view(new_character):
     new_character.career = "Soldier"
     new_character.status = {"complete": ""}
     request = testing.DummyRequest()
+    request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="experience")
     request.matchdict = {"uuid": new_character.uuid}
     view = ExperienceViews(request)
@@ -38,6 +40,7 @@ def test_increase_characteristic(new_character):
         "Select_Name": "Select_Name",
     }
     request = testing.DummyRequest(post=payload)
+    request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="experience")
     request.matchdict = {"uuid": new_character.uuid}
     view = ExperienceViews(request)
@@ -67,6 +70,7 @@ def test_increase_characteristic_too_much(new_character):
         "increase_characteristic": {"characteristic": "weapon_skill"},
     }
     request = testing.DummyRequest(post=payload)
+    request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="experience")
     request.matchdict = {"uuid": new_character.uuid}
     view = ExperienceViews(request)
@@ -92,6 +96,7 @@ def test_increase_unowned_skill(new_character):
         "increase_skill": {"skill": "Athletics"},
     }
     request = testing.DummyRequest(post=payload)
+    request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="experience")
     request.matchdict = {"uuid": new_character.uuid}
     view = ExperienceViews(request)
@@ -113,6 +118,7 @@ def test_increase_existing_skill(new_character):
         "increase_skill": {"skill": "Language (Battle)"},
     }
     request = testing.DummyRequest(post=payload)
+    request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="experience")
     request.matchdict = {"uuid": new_character.uuid}
     view = ExperienceViews(request)
@@ -138,6 +144,7 @@ def test_increase_choice_skill(new_character):
         "increase_skill": {"skill": "Play (Drum)"},
     }
     request = testing.DummyRequest(post=payload)
+    request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="experience")
     request.matchdict = {"uuid": new_character.uuid}
     view = ExperienceViews(request)
@@ -157,6 +164,7 @@ def test_multiple_grouped_skills(new_character):
     new_character.experience = 200
     new_character.status = {"complete": ""}
     request = testing.DummyRequest()
+    request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="experience")
     request.matchdict = {"uuid": new_character.uuid}
     view = ExperienceViews(request)
@@ -169,6 +177,7 @@ def test_multiple_grouped_skills(new_character):
         "increase_skill": {"skill": "Melee (Basic)"},
     }
     request = testing.DummyRequest(post=payload)
+    request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="experience")
     request.matchdict = {"uuid": new_character.uuid}
     view = ExperienceViews(request)
@@ -188,6 +197,7 @@ def test_increase_skill_too_much(new_character):
         "increase_skill": {"skill": "Athletics"},
     }
     request = testing.DummyRequest(post=payload)
+    request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="experience")
     request.matchdict = {"uuid": new_character.uuid}
     view = ExperienceViews(request)
@@ -212,6 +222,7 @@ def test_increase_talent(new_character):
         "add_talent": {"talent": "Marksman"},
     }
     request = testing.DummyRequest(post=payload)
+    request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="experience")
     request.matchdict = {"uuid": new_character.uuid}
     view = ExperienceViews(request)
@@ -233,6 +244,7 @@ def test_add_talent(new_character):
         "add_talent": {"talent": "Warrior Born"},
     }
     request = testing.DummyRequest(post=payload)
+    request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="experience")
     request.matchdict = {"uuid": new_character.uuid}
     view = ExperienceViews(request)
@@ -253,6 +265,7 @@ def test_talent_too_much(new_character):
         "add_talent": {"talent": "Warrior Born"},
     }
     request = testing.DummyRequest(post=payload)
+    request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="experience")
     request.matchdict = {"uuid": new_character.uuid}
     view = ExperienceViews(request)

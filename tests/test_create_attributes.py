@@ -4,6 +4,7 @@ import pytest
 from pyramid import testing
 from pyramid.httpexceptions import HTTPFound
 
+from wfrp.character.application import dbsession
 from wfrp.character.forms.create.attributes import ATTRIBUTES
 from wfrp.character.forms.create.attributes import AttributesViews
 
@@ -18,6 +19,7 @@ def test_get_view(new_character):
     new_character.species = "Human"
     new_character.status = {"attributes": ""}
     request = testing.DummyRequest()
+    request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="attributes")
     request.matchdict = {"uuid": new_character.uuid}
     view = AttributesViews(request)
@@ -34,6 +36,7 @@ def test_get_view(new_character):
 def test_bonus_attributes_view(new_character):
     new_character.status = {"attributes": ""}
     request = testing.DummyRequest()
+    request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="attributes")
     request.matchdict = {"uuid": new_character.uuid}
     view = AttributesViews(request)
@@ -48,6 +51,7 @@ def test_bonus_attributes_view(new_character):
 def test_bonus_attributes_halfling(new_character):
     new_character.status = {"attributes": ""}
     request = testing.DummyRequest()
+    request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="attributes")
     request.matchdict = {"uuid": new_character.uuid}
     view = AttributesViews(request)
@@ -61,6 +65,7 @@ def test_bonus_attributes_halfling(new_character):
 def test_bonus_attributes_dwarf(new_character):
     new_character.status = {"attributes": ""}
     request = testing.DummyRequest()
+    request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="attributes")
     request.matchdict = {"uuid": new_character.uuid}
     view = AttributesViews(request)
@@ -74,6 +79,7 @@ def test_bonus_attributes_dwarf(new_character):
 def test_bonus_attributes_elf(new_character):
     new_character.status = {"attributes": ""}
     request = testing.DummyRequest()
+    request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="attributes")
     request.matchdict = {"uuid": new_character.uuid}
     view = AttributesViews(request)
@@ -87,6 +93,7 @@ def test_bonus_attributes_elf(new_character):
 def test_bonus_attributes_invalid(new_character):
     new_character.status = {"attributes": ""}
     request = testing.DummyRequest()
+    request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="attributes")
     request.matchdict = {"uuid": new_character.uuid}
     view = AttributesViews(request)
@@ -100,6 +107,7 @@ def test_submit_full_experience(new_character):
     new_character.status = {"attributes": ""}
     payload = {"Accept_Attributes": "Accept_Attributes"}
     request = testing.DummyRequest(post=payload)
+    request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="attributes")
     request.matchdict = {"uuid": new_character.uuid}
     view = AttributesViews(request)
@@ -129,6 +137,7 @@ def test_submit_rearrange(new_character):
     request = testing.DummyRequest(
         post={"Rearrange_Attributes": "Rearrange_Attributes"}
     )
+    request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="attributes")
     request.matchdict = {"uuid": new_character.uuid}
     view = AttributesViews(request)
@@ -151,6 +160,7 @@ def test_submit_rearrange(new_character):
         "Accept_Attributes": "Accept_Attributes",
     }
     request = testing.DummyRequest(post=payload)
+    request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="attributes")
     request.matchdict = {"uuid": new_character.uuid}
     view = AttributesViews(request)
@@ -160,6 +170,7 @@ def test_submit_rearrange(new_character):
     assert "You have used 21 too many times and not used 22" in response["form"]
     payload["attributes"]["Weapon Skill"] = "22"
     request = testing.DummyRequest(post=payload)
+    request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="attributes")
     request.matchdict = {"uuid": new_character.uuid}
     view = AttributesViews(request)
@@ -186,6 +197,7 @@ def test_reroll_submit(new_character):
         "Reroll_Attributes": "Reroll_Attributes",
     }
     request = testing.DummyRequest(post=payload)
+    request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="attributes")
     request.matchdict = {"uuid": new_character.uuid}
     view = AttributesViews(request)
@@ -200,6 +212,7 @@ def test_reroll_submit(new_character):
     for attribute in attributes:
         payload["attributes"][attribute] = str(attributes[attribute])
     request = testing.DummyRequest(post=payload)
+    request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="attributes")
     request.matchdict = {"uuid": new_character.uuid}
     view = AttributesViews(request)
@@ -213,6 +226,7 @@ def test_allocate_submit(new_character):
     new_character.species = "Human"
     new_character.status = {"attributes": ""}
     request = testing.DummyRequest()
+    request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="attributes")
     request.matchdict = {"uuid": new_character.uuid}
     view = AttributesViews(request)
@@ -220,6 +234,7 @@ def test_allocate_submit(new_character):
     assert "form" in response
     payload = {"Allocate_Attributes": "Allocate_Attributes"}
     request = testing.DummyRequest(post=payload)
+    request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="attributes")
     request.matchdict = {"uuid": new_character.uuid}
     view = AttributesViews(request)
@@ -238,6 +253,7 @@ def test_allocate_submit(new_character):
     payload["attributes"]["Fellowship"] = "12"
     payload["Accept_Attributes"] = "Accept_Attributes"
     request = testing.DummyRequest(post=payload)
+    request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="attributes")
     request.matchdict = {"uuid": new_character.uuid}
     view = AttributesViews(request)
@@ -247,6 +263,7 @@ def test_allocate_submit(new_character):
     payload["attributes"]["Weapon Skill"] = "5"
     payload["attributes"]["Ballistic Skill"] = "17"
     request = testing.DummyRequest(post=payload)
+    request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="attributes")
     request.matchdict = {"uuid": new_character.uuid}
     view = AttributesViews(request)
@@ -254,6 +271,7 @@ def test_allocate_submit(new_character):
     assert "Total must be 100, total is currently 102" in response["form"]
     payload["attributes"]["Ballistic Skill"] = "15"
     request = testing.DummyRequest(post=payload)
+    request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="attributes")
     request.matchdict = {"uuid": new_character.uuid}
     view = AttributesViews(request)

@@ -1,6 +1,5 @@
 from pyramid.httpexceptions import HTTPFound
 
-from wfrp.character.application import DBSession
 from wfrp.character.models.character import Character
 
 
@@ -9,7 +8,9 @@ class BaseView:
         self.request = request
         self.logged_in = request.authenticated_userid
         uuid = request.matchdict["uuid"]
-        self.character = DBSession.query(Character).filter(Character.uuid == uuid).one()
+        self.character = (
+            request.dbsession.query(Character).filter(Character.uuid == uuid).one()
+        )
         if "complete" in self.character.status and self.request.matched_route.name in [
             "character_edit",
             "character_full",

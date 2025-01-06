@@ -1,7 +1,6 @@
 from pyramid.view import view_config
 from pyramid.view import view_defaults
 
-from wfrp.character.application import DBSession
 from wfrp.character.models.character import Character
 
 
@@ -13,7 +12,7 @@ class HomePageViews:
 
     @view_config(request_method="GET", renderer="wfrp.character:templates/homepage.pt")
     def get_view(self):
-        characters = DBSession.query(Character).all()
+        characters = self.request.dbsession.query(Character).all()
         character_list = {}
         for character in characters:
             url = self.request.route_url("character_summary", uuid=character.uuid)

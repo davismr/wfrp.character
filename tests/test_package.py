@@ -4,6 +4,7 @@ import pytest
 from pyramid import testing
 from pyramid.httpexceptions import HTTPFound
 
+from wfrp.character.application import dbsession
 from wfrp.character.forms.create.career import CareerViews
 from wfrp.character.views.homepage import HomePageViews
 from wfrp.character.views.links import LinksViews
@@ -16,7 +17,9 @@ class DummyRoute:
 
 @pytest.mark.package
 def test_home_view():
-    view = HomePageViews(testing.DummyRequest())
+    request = testing.DummyRequest()
+    request.dbsession = dbsession(request)
+    view = HomePageViews(request)
     response = view.get_view()
     assert response
 
@@ -38,6 +41,7 @@ def test_links_view():
 def test_redirect_view(new_character):
     new_character.status = {"trappings": ""}
     request = testing.DummyRequest()
+    request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="career")
     request.matchdict = {"uuid": new_character.uuid}
     with pytest.raises(HTTPFound) as error:

@@ -4,7 +4,6 @@ from pyramid.httpexceptions import HTTPFound
 from pyramid.view import view_config
 from pyramid.view import view_defaults
 
-from wfrp.character.application import DBSession
 from wfrp.character.models.character import Character
 
 
@@ -18,7 +17,7 @@ class NewCharacterViews:
     def get_view(self):
         new_uuid = str(uuid.uuid4())
         new_character = Character(uuid=new_uuid)
-        DBSession.add(new_character)
+        self.request.dbsession.add(new_character)
         url = self.request.route_url("species", uuid=new_uuid)
         new_character.status = {"species": ""}
         return HTTPFound(location=url)

@@ -4,7 +4,6 @@ from pyramid.security import remember
 from pyramid.view import view_config
 from pyramid.view import view_defaults
 
-from wfrp.character.application import DBSession
 from wfrp.character.models.user import User
 from wfrp.character.security import check_password
 from wfrp.character.security import hash_password
@@ -30,7 +29,9 @@ class AuthViews:
         if "form.submitted" in request.POST:
             login = request.POST["login"]
             password = request.POST["password"]
-            hashed_pw = DBSession.query(User).filter(User.email == login).one().password
+            hashed_pw = (
+                request.dbsession.query(User).filter(User.email == login).one().password
+            )
             if hashed_pw and check_password(password, hashed_pw):
                 headers = remember(request, login)
                 return HTTPFound(location=came_from, headers=headers)
@@ -63,7 +64,7 @@ class AuthViews:
             email = request.POST["email"]
             password = request.POST["password"]
             new_user = User(email=email, name=name, password=hash_password(password))
-            DBSession.add(new_user)
+            request.dbsession.add(new_user)
             return HTTPFound(location=self.request.route_url("homepage"))
         return dict(
             message=message,

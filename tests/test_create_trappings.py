@@ -5,6 +5,7 @@ import pytest
 from pyramid import testing
 from pyramid.httpexceptions import HTTPFound
 
+from wfrp.character.application import dbsession
 from wfrp.character.data.class_trappings import get_class_trappings
 from wfrp.character.forms.create.trappings import TrappingsViews
 
@@ -20,6 +21,7 @@ def test_initalise_form(new_character):
     new_character.career = "Apothecary"
     new_character.status = {"trappings": ""}
     request = testing.DummyRequest()
+    request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="trappings")
     request.matchdict = {"uuid": new_character.uuid}
     view = TrappingsViews(request)
@@ -37,6 +39,7 @@ def test_initalise_form(new_character):
 def test_initalise_form_return(new_character):
     new_character.status = {"trappings": "foobar"}
     request = testing.DummyRequest()
+    request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="trappings")
     request.matchdict = {"uuid": new_character.uuid}
     view = TrappingsViews(request)
@@ -50,6 +53,7 @@ def test_get_view(new_character):
     new_character.career = "Apothecary"
     new_character.status = {"trappings": ""}
     request = testing.DummyRequest()
+    request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="trappings")
     request.matchdict = {"uuid": new_character.uuid}
     view = TrappingsViews(request)
@@ -62,6 +66,7 @@ def test_get_view(new_character):
 def test_money(new_character):
     new_character.status = {"trappings": ""}
     request = testing.DummyRequest()
+    request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="trappings")
     request.matchdict = {"uuid": new_character.uuid}
     view = TrappingsViews(request)
@@ -98,6 +103,7 @@ def test_submit_view(new_character):
         "Choose_trappings": "Choose_trappings",
     }
     request = testing.DummyRequest(post=payload)
+    request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="trappings")
     request.matchdict = {"uuid": new_character.uuid}
     view = TrappingsViews(request)
@@ -137,6 +143,7 @@ def test_submit_artist(new_character):
         "Choose_trappings": "Choose_trappings",
     }
     request = testing.DummyRequest(post=payload)
+    request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="trappings")
     request.matchdict = {"uuid": new_character.uuid}
     view = TrappingsViews(request)
@@ -173,6 +180,7 @@ def test_submit_bawd(mock_rolld10, new_character):
         "Choose_trappings": "Choose_trappings",
     }
     request = testing.DummyRequest(post=payload)
+    request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="trappings")
     request.matchdict = {"uuid": new_character.uuid}
     view = TrappingsViews(request)
@@ -207,6 +215,7 @@ def test_submit_item_with_space(new_character):
         "Choose_trappings": "Choose_trappings",
     }
     request = testing.DummyRequest(post=payload)
+    request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="trappings")
     request.matchdict = {"uuid": new_character.uuid}
     view = TrappingsViews(request)
@@ -238,6 +247,7 @@ def test_submit_view_duplicate_item(new_character):
         "Choose_trappings": "Choose_trappings",
     }
     request = testing.DummyRequest(post=payload)
+    request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="trappings")
     request.matchdict = {"uuid": new_character.uuid}
     view = TrappingsViews(request)
@@ -267,6 +277,7 @@ def test_submit_invalid(new_character):
         "Choose_trappings": "Choose_trappings",
     }
     request = testing.DummyRequest(post=payload)
+    request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="trappings")
     request.matchdict = {"uuid": new_character.uuid}
     view = TrappingsViews(request)
@@ -284,6 +295,7 @@ def test_randomise_trappings(mock_rolld10, new_character, second_character):
     new_character.career = "Apothecary"
     new_character.status = {"trappings": ""}
     request = testing.DummyRequest()
+    request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="trappings")
     request.matchdict = {"uuid": new_character.uuid}
     view = TrappingsViews(request)
@@ -295,6 +307,7 @@ def test_randomise_trappings(mock_rolld10, new_character, second_character):
     second_character.career = "Apothecary"
     second_character.status = {"trappings": ""}
     request = testing.DummyRequest()
+    request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="trappings")
     request.matchdict = {"uuid": second_character.uuid}
     view = TrappingsViews(request)

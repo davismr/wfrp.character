@@ -5,6 +5,7 @@ import pytest
 from pyramid import testing
 from pyramid.httpexceptions import HTTPFound
 
+from wfrp.character.application import dbsession
 from wfrp.character.forms.create.species import SpeciesViews
 
 
@@ -16,6 +17,7 @@ class DummyRoute:
 @pytest.mark.create
 def test_get_view(new_character):
     request = testing.DummyRequest(path="species")
+    request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="species")
     request.matchdict = {"uuid": new_character.uuid}
     view = SpeciesViews(request)
@@ -38,6 +40,7 @@ def test_get_view(new_character):
 )
 def test_roll_new_species(new_character, species, roll):
     request = testing.DummyRequest(path="species")
+    request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="species")
     request.matchdict = {"uuid": new_character.uuid}
     view = SpeciesViews(request)
@@ -65,6 +68,7 @@ def test_roll_new_species(new_character, species, roll):
 def test_roll_new_species_gnome(mock_is_gnome_active, new_character, species, roll):
     mock_is_gnome_active.return_value = True
     request = testing.DummyRequest(path="species")
+    request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="species")
     request.matchdict = {"uuid": new_character.uuid}
     view = SpeciesViews(request)
@@ -85,6 +89,7 @@ def test_roll_new_species_gnome(mock_is_gnome_active, new_character, species, ro
 def test_set_attributes(new_character, species, movement):
     new_character.status = {"species": ""}
     request = testing.DummyRequest()
+    request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="species")
     request.matchdict = {"uuid": new_character.uuid}
     view = SpeciesViews(request)
@@ -104,6 +109,7 @@ def test_submit_view(new_character, species, experience):
     request = testing.DummyRequest(
         post={"species": {"species": species}, "Choose_Species": "Choose_Species"}
     )
+    request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="species")
     request.matchdict = {"uuid": new_character.uuid}
     view = SpeciesViews(request)
@@ -119,6 +125,7 @@ def test_submit_species(new_character):
     request = testing.DummyRequest(
         post={"species": {"species": "Human"}, "Choose_Species": "Choose_Species"}
     )
+    request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="species")
     request.matchdict = {"uuid": new_character.uuid}
     view = SpeciesViews(request)
@@ -137,6 +144,7 @@ def test_submit_invalid_species(new_character):
     request = testing.DummyRequest(
         post={"species": {"species": "Cat"}, "Choose_Species": "Choose_Species"}
     )
+    request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="species")
     request.matchdict = {"uuid": new_character.uuid}
     view = SpeciesViews(request)

@@ -4,6 +4,7 @@ import pytest
 from pyramid import testing
 from pyramid.httpexceptions import HTTPFound
 
+from wfrp.character.application import dbsession
 from wfrp.character.forms.create.advances import AdvancesViews
 
 
@@ -18,6 +19,7 @@ def test_initialise_form(new_character):
     new_character.career = "Apothecary"
     new_character.status = {"advances": ""}
     request = testing.DummyRequest()
+    request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="advances")
     request.matchdict = {"uuid": new_character.uuid}
     view = AdvancesViews(request)
@@ -35,6 +37,7 @@ def test_form_view(new_character):
     new_character.career = "Apothecary"
     new_character.status = {"advances": ""}
     request = testing.DummyRequest()
+    request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="advances")
     request.matchdict = {"uuid": new_character.uuid}
     view = AdvancesViews(request)
@@ -61,6 +64,7 @@ def test_submit_view(new_character):
             "Accept_Advances": "Accept_Advances",
         }
     )
+    request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="advances")
     request.matchdict = {"uuid": new_character.uuid}
     view = AdvancesViews(request)
@@ -93,6 +97,7 @@ def test_invalid_submit_view(new_character, advance, message):
             "Accept_Advances": "Accept_Advances",
         }
     )
+    request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="advances")
     request.matchdict = {"uuid": new_character.uuid}
     view = AdvancesViews(request)
@@ -116,6 +121,7 @@ def test_invalid_fate_submit_view(new_character, advance):
             "Accept_Advances": "Accept_Advances",
         }
     )
+    request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="advances")
     request.matchdict = {"uuid": new_character.uuid}
     view = AdvancesViews(request)
@@ -138,6 +144,7 @@ def test_motivation(new_character):
             "Accept_Advances": "Accept_Advances",
         }
     )
+    request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="advances")
     request.matchdict = {"uuid": new_character.uuid}
     view = AdvancesViews(request)
@@ -158,6 +165,7 @@ def test_motivation_not_required(new_character):
             "Accept_Advances": "Accept_Advances",
         }
     )
+    request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="advances")
     request.matchdict = {"uuid": new_character.uuid}
     view = AdvancesViews(request)

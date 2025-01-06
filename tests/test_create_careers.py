@@ -4,6 +4,7 @@ import pytest
 from pyramid import testing
 from pyramid.httpexceptions import HTTPFound
 
+from wfrp.character.application import dbsession
 from wfrp.character.forms.create.career import CareerViews
 
 
@@ -17,6 +18,7 @@ def test_initialise_form(new_character):
     new_character.species = "Wood Elf"
     new_character.status = {"career": ""}
     request = testing.DummyRequest()
+    request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="career")
     request.matchdict = {"uuid": new_character.uuid}
     view = CareerViews(request)
@@ -33,6 +35,7 @@ def test_form_view(new_character):
     new_character.species = "Wood Elf"
     new_character.status = {"career": ""}
     request = testing.DummyRequest()
+    request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="career")
     request.matchdict = {"uuid": new_character.uuid}
     view = CareerViews(request)
@@ -50,6 +53,7 @@ def test_reroll_view(new_character):
             "Reroll": "Reroll",
         }
     )
+    request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="career")
     request.matchdict = {"uuid": new_character.uuid}
     view = CareerViews(request)
@@ -66,6 +70,7 @@ def test_invalid_number_careers(new_character):
     new_character.species = "Human"
     new_character.status = {"career": "Soldier,Beggar"}
     request = testing.DummyRequest()
+    request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="career")
     request.matchdict = {"uuid": new_character.uuid}
     view = CareerViews(request)
@@ -98,6 +103,7 @@ def test_submit_experience(new_character, career_choice, experience):
                 "Choose_Career": "Choose_Career",
             }
         )
+    request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="career")
     request.matchdict = {"uuid": new_character.uuid}
     view = CareerViews(request)
@@ -118,6 +124,7 @@ def test_invalid_submit(new_character):
             "Choose_Career": "Choose_Career",
         }
     )
+    request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="career")
     request.matchdict = {"uuid": new_character.uuid}
     view = CareerViews(request)
@@ -135,6 +142,7 @@ def test_invalid_none(new_character):
             "Choose_Career": "Choose_Career",
         }
     )
+    request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="career")
     request.matchdict = {"uuid": new_character.uuid}
     view = CareerViews(request)
