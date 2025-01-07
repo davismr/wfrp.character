@@ -28,6 +28,25 @@ def test_get_view(new_character):
 
 
 @pytest.mark.create
+@patch("wfrp.character.forms.create.species.is_gnome_active")
+def test_get_view_gnome(mock_is_gnome_active, new_character):
+    mock_is_gnome_active.return_value = False
+    request = testing.DummyRequest(path="species")
+    request.dbsession = dbsession(request)
+    request.matched_route = DummyRoute(name="species")
+    request.matchdict = {"uuid": new_character.uuid}
+    view = SpeciesViews(request)
+    response = view.form_view()
+    assert "form" in response
+    assert "Gnome" not in response["form"]
+    assert "Choose species" in response["form"]
+    mock_is_gnome_active.return_value = True
+    view = SpeciesViews(request)
+    response = view.form_view()
+    assert "Gnome" in response["form"]
+
+
+@pytest.mark.create
 @pytest.mark.parametrize(
     "species, roll",
     [

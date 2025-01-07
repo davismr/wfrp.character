@@ -12,6 +12,12 @@ from wfrp.character.views.base_view import BaseView
 
 @view_defaults(route_name="species")
 class SpeciesViews(BaseView):
+    def __init__(self, request):
+        super().__init__(request)
+        self.species_list = SPECIES_LIST.copy()
+        if is_gnome_active() is False:
+            self.species_list.remove("Gnome")
+
     def _roll_new_species(self):  # noqa C901
         result = roll_d100()
         if is_gnome_active():
@@ -63,9 +69,9 @@ class SpeciesViews(BaseView):
                 colander.String(),
                 name="species",
                 default=species,
-                validator=colander.OneOf(SPECIES_LIST),
+                validator=colander.OneOf(self.species_list),
                 widget=deform.widget.RadioChoiceWidget(
-                    values=[(x, x) for x in SPECIES_LIST]
+                    values=[(x, x) for x in self.species_list]
                 ),
                 description=f"Select {species} for 20XP or select another species",
             )
