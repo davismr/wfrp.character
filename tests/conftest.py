@@ -20,8 +20,9 @@ register(CharacterFactory)
 
 @pytest.fixture(scope="session")
 def testapp():
-    engine = engine_from_config({"sqlalchemy.url": "sqlite:///:memory:"}, "sqlalchemy.")
-    settings = {"wfrp.character.enable_auth": False}
+    settings = get_appsettings("development.ini", name="main")
+    settings["sqlalchemy.url"] = "sqlite:///:memory:"
+    engine = engine_from_config(settings, "sqlalchemy.")
     config = testing.setUp(settings=settings)
     config.add_request_method(dbsession, reify=True)
     config.set_security_policy(
