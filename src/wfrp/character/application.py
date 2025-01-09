@@ -15,15 +15,19 @@ def configure_app(global_config, **settings):
     engine = engine_from_config(settings, "sqlalchemy.")
     DBSession.configure(bind=engine)
     Base.metadata.bind = engine
+    if "wfrp.character.enable_auth" not in settings:
+        settings["wfrp.character.enable_auth"] = False
+    enable_auth = settings.get("wfrp.character.enable_auth")
     config = Configurator(settings=settings)
     # to prevent circular imports
-    from wfrp.character.security import SecurityPolicy
+    if enable_auth is True:
+        from wfrp.character.security import SecurityPolicy
 
-    config.set_security_policy(
-        SecurityPolicy(
-            secret=settings["wfrp.character.secret"],
-        ),
-    )
+        config.set_security_policy(
+            SecurityPolicy(
+                secret=settings["wfrp.character.secret"],
+            ),
+        )
     config.include("wfrp.character.routes")
     config.add_static_view("static", "wfrp.character:static")
     config.add_static_view("static_deform", "deform:static")

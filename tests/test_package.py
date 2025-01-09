@@ -27,6 +27,12 @@ def test_home_view():
 @pytest.mark.package
 def test_home_template(testapp):
     response = testapp.get("/", status=200)
+    assert "Warhammer Fantasy Roleplay Character generator" in response.ubody
+
+
+@pytest.mark.package
+def test_home_template_login(testapp_auth):
+    response = testapp_auth.get("/", status=200)
     assert 'href="http://localhost/login">Log In</a>' in response.ubody
 
 

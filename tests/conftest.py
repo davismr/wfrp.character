@@ -3,6 +3,7 @@ import uuid
 import pytest
 from factories import CharacterFactory
 from pyramid import testing
+from pyramid.paster import get_appsettings
 from pytest_factoryboy import register
 from sqlalchemy import engine_from_config
 from webtest import TestApp
@@ -10,6 +11,7 @@ from webtest import TestApp
 from wfrp.character.application import Base
 from wfrp.character.application import DBSession
 from wfrp.character.application import dbsession
+from wfrp.character.application import main
 from wfrp.character.models.character import Character
 from wfrp.character.security import SecurityPolicy
 
@@ -19,7 +21,8 @@ register(CharacterFactory)
 @pytest.fixture(scope="session")
 def testapp():
     engine = engine_from_config({"sqlalchemy.url": "sqlite:///:memory:"}, "sqlalchemy.")
-    config = testing.setUp()
+    settings = {"wfrp.character.enable_auth": False}
+    config = testing.setUp(settings=settings)
     config.add_request_method(dbsession, reify=True)
     config.set_security_policy(
         SecurityPolicy(
@@ -35,6 +38,13 @@ def testapp():
     Base.metadata.bind = engine
     Base.metadata.create_all(engine)
     return TestApp(config.make_wsgi_app())
+
+
+@pytest.fixture(scope="session")
+def testapp_auth():
+    settings = get_appsettings("development.ini", name="main")
+    testapp = TestApp(main(None, **settings))
+    return testapp
 
 
 @pytest.fixture
