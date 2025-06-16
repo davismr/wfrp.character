@@ -64,6 +64,7 @@ pyramid_tm==2.6
 pytest==8.3.5
 pytest-cov==6.2.1
 pytest-factoryboy==2.7.0
+python-dotenv==1.1.0
 PyYAML==6.0.2
 requests==2.32.4
 requests-oauthlib==2.0.0

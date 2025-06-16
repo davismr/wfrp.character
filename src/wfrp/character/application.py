@@ -1,3 +1,6 @@
+import os
+
+from dotenv import load_dotenv
 from pyramid.config import Configurator
 from sqlalchemy import engine_from_config
 from sqlalchemy.orm import declarative_base
@@ -8,6 +11,7 @@ from zope.sqlalchemy import register
 DBSession = scoped_session(sessionmaker())
 register(DBSession)
 Base = declarative_base()
+load_dotenv()
 
 
 def configure_app(global_config, **settings):
@@ -18,6 +22,11 @@ def configure_app(global_config, **settings):
     if "wfrp.character.enable_auth" not in settings:
         settings["wfrp.character.enable_auth"] = False
     enable_auth = settings.get("wfrp.character.enable_auth")
+    settings["google-site-verification"] = os.environ.get("google-site-verification")
+    settings["pyramid_googleauth.google_client_id"] = os.environ.get("google_client_id")
+    settings["pyramid_googleauth.google_client_secret"] = os.environ.get(
+        "google_client_secret"
+    )
     config = Configurator(settings=settings)
     # to prevent circular imports
     if enable_auth is True:

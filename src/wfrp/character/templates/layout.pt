@@ -6,6 +6,9 @@
     <head>
         <meta charset="utf-8">
         <title>WFRP Character Generator</title>
+        <meta name="google-site-verification"
+              tal:condition="request.registry.settings.get('google-site-verification')"
+              content="${request.registry.settings['google-site-verification']}" />
         <div metal:define-slot="header" tal:omit-tag="">
             <link rel="shortcut icon"
                   href="${request.static_url('wfrp.character:static/favicon.ico')}"/>
