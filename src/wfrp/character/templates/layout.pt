@@ -26,6 +26,7 @@
               href="${request.static_url('deform:static/css/bootstrap.min.css')}"/>
         <link rel="stylesheet" type="text/css"
               href="${request.static_url('wfrp.character:static/wfrp.css')}"/>
+        <div metal:define-slot="page_css" tal:omit-tag=""/>
     </head>
     <body>
         <div metal:define-slot="page_links" tal:omit-tag="">
