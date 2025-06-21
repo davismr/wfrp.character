@@ -9,7 +9,7 @@ from wfrp.character.forms.create.attributes import ATTRIBUTES
 from wfrp.character.views.base_view import BaseView
 
 
-@view_defaults(route_name="advances")
+@view_defaults(route_name="advances", permission="create_character")
 class AdvancesViews(BaseView):
     def initialise_form(self):
         attributes = {}

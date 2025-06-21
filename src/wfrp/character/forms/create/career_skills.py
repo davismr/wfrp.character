@@ -10,7 +10,7 @@ from wfrp.character.data.talents import TALENT_DATA
 from wfrp.character.views.base_view import BaseView
 
 
-@view_defaults(route_name="career_skills")
+@view_defaults(route_name="career_skills", permission="create_character")
 class CareerSkillsViews(BaseView):
     def initialise_form(self):
         career_data = CAREER_DATA[self.character.career]
@@ -157,17 +157,17 @@ class CareerSkillsViews(BaseView):
                         specialisation = captured["career_skills"].get(
                             f"{item} specialisation"
                         )
-                        self.character.skills[
-                            item.replace("Any", specialisation)
-                        ] = int(value)
+                        self.character.skills[item.replace("Any", specialisation)] = (
+                            int(value)
+                        )
                     elif " or " in item:
                         specialisation = captured["career_skills"].get(
                             f"{item} specialisation"
                         )
                         option = item.split("(")[1].replace(")", "")
-                        self.character.skills[
-                            item.replace(option, specialisation)
-                        ] = int(value)
+                        self.character.skills[item.replace(option, specialisation)] = (
+                            int(value)
+                        )
                     else:
                         self.character.skills[item] = int(value)
                 for item in captured["career_talents"]:

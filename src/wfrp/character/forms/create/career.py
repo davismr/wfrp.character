@@ -12,7 +12,7 @@ from wfrp.character.utils import roll_d100
 from wfrp.character.views.base_view import BaseView
 
 
-@view_defaults(route_name="career")
+@view_defaults(route_name="career", permission="create_character")
 class CareerViews(BaseView):
     def initialise_form(self):
         if self.character.status["career"]:

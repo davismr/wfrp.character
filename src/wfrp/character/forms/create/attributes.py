@@ -23,7 +23,7 @@ ATTRIBUTES = [
 ATTRIBUTES_LOWER = [x.lower().replace(" ", "_") for x in ATTRIBUTES]
 
 
-@view_defaults(route_name="attributes")
+@view_defaults(route_name="attributes", permission="create_character")
 class AttributesViews(BaseView):
     def _roll_base_attributes(self):
         attributes = {}

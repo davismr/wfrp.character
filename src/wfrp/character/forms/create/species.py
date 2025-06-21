@@ -10,7 +10,7 @@ from wfrp.character.utils import roll_d100
 from wfrp.character.views.base_view import BaseView
 
 
-@view_defaults(route_name="species")
+@view_defaults(route_name="species", permission="create_character")
 class SpeciesViews(BaseView):
     def __init__(self, request):
         super().__init__(request)

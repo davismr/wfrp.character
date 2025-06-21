@@ -7,7 +7,7 @@ from pyramid.view import view_defaults
 from wfrp.character.views.base_view import BaseView
 
 
-@view_defaults(route_name="name")
+@view_defaults(route_name="name", permission="create_character")
 class NameViews(BaseView):
     def schema(self):
         schema = colander.SchemaNode(colander.Mapping(), title="Character Name")

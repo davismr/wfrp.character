@@ -12,7 +12,7 @@ from wfrp.character.utils import roll_d100
 from wfrp.character.views.base_view import BaseView
 
 
-@view_defaults(route_name="species_skills")
+@view_defaults(route_name="species_skills", permission="create_character")
 class SpeciesSkillsViews(BaseView):
     def initialise_form(self):
         species = self.character.species
@@ -151,9 +151,9 @@ class SpeciesSkillsViews(BaseView):
                         specialisation = captured["species_skills"].get(
                             f"Specialisation for {item.split(' (')[0]}"
                         )
-                        self.character.skills[
-                            item.replace("Any", specialisation)
-                        ] = value
+                        self.character.skills[item.replace("Any", specialisation)] = (
+                            value
+                        )
                     elif "Specialisation for" not in item:
                         self.character.skills[item] = value
                 for item in captured["species_talents"]:

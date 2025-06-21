@@ -12,7 +12,7 @@ from wfrp.character.utils import roll_d10
 from wfrp.character.views.base_view import BaseView
 
 
-@view_defaults(route_name="trappings")
+@view_defaults(route_name="trappings", permission="create_character")
 class TrappingsViews(BaseView):
     def _get_money(self, tier, standing):
         if tier == "Brass":
