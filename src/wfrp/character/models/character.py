@@ -6,6 +6,7 @@ from sqlalchemy import Integer
 from sqlalchemy import Text
 from sqlalchemy.ext.mutable import MutableDict
 from sqlalchemy.ext.mutable import MutableList
+from sqlalchemy.schema import ForeignKey
 
 from wfrp.character.application import Base
 from wfrp.character.data.armour import ARMOUR_DATA
@@ -20,6 +21,7 @@ class Character(Base):
     uid = Column(Integer, primary_key=True)
     # TODO store uuid as bytes
     uuid = Column(Text, default=str(uuid.uuid4()))
+    user = Column(Integer, ForeignKey("user.uid"))
     name = Column(Text)
     species = Column(Text)
     age = Column(Integer)
