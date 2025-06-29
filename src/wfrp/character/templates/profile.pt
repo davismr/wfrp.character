@@ -1,0 +1,11 @@
+<div metal:use-macro="load: layout.pt">
+    <div metal:fill-slot="content">
+
+        <h2>Warhammer Fantasy Roleplay Character generator</h2>
+        <ul>
+            <li tal:repeat="character characters">
+                <a href="${character}">${characters[character]}</a>
+            </li>
+        </ul>
+    </div>
+</div>
