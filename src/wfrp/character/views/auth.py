@@ -3,6 +3,7 @@ from pyramid.security import forget
 from pyramid.security import remember
 from pyramid.view import view_config
 from pyramid.view import view_defaults
+from sqlalchemy.exc import NoResultFound
 
 from wfrp.character.models.user import User
 from wfrp.character.security import check_password
@@ -14,6 +15,17 @@ class AuthViews:
     def __init__(self, request):
         self.request = request
         self.logged_in = request.authenticated_userid
+
+    @view_config(route_name="google_login")
+    def google_login(self):
+        user_email = self.request.authenticated_userid
+        try:
+            self.request.dbsession.query(User).filter(User.email == user_email).one()
+        except NoResultFound:
+            url = self.request.route_url("register")
+            raise HTTPFound(location=url)
+        url = self.request.route_url("profile")
+        raise HTTPFound(location=url)
 
     @view_config(route_name="login", renderer="wfrp.character:templates/login.pt")
     def login(self):
