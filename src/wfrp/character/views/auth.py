@@ -52,13 +52,17 @@ class AuthViews:
         url = request.route_url("homepage")
         return HTTPFound(location=url, headers=headers)
 
-    @view_config(route_name="register", renderer="wfrp.character:templates/register.pt")
+    @view_config(route_name="register", renderer="wfrp.character:templates/account.pt")
     def register(self):
         request = self.request
         message = ""
-        name = ""
-        email = ""
         password = ""
+        if request.session.get("user"):
+            name = request.session.get("user")["name"]
+            email = request.session.get("user")["email"]
+        else:
+            name = ""
+            email = ""
         if "form.submitted" in request.POST:
             name = request.POST["name"]
             email = request.POST["email"]

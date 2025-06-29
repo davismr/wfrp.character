@@ -2,6 +2,7 @@ def includeme(config):
     config.add_route("homepage", "/")
     config.add_route("login", "/login")
     config.add_route("logout", "/logout")
+    config.add_route("account", "/account")
     config.add_route("register", "/register")
     config.add_route("links", "/links")
     config.add_route("new_character", "/character/new")
