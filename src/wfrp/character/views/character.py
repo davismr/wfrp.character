@@ -17,7 +17,7 @@ try:
 
     WEASYPRINT_INSTALLED = True
 except (ImportError, OSError):
-    logger.exception("weasyprint not correctly installed")
+    logger.info("weasyprint not correctly installed")
     WEASYPRINT_INSTALLED = False
 
 
