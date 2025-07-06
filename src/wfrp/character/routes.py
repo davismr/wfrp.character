@@ -7,6 +7,8 @@ def includeme(config):
     config.add_route("account", "/account")
     config.add_route("register", "/register")
     config.add_route("links", "/links")
+    config.add_route("campaign_new", "/campaign/new")
+    config.add_route("campaign_edit", "/campaign/{uuid}/edit")
     config.add_route("new_character", "/character/new")
     config.add_route("species", "/character/{uuid}/species")
     config.add_route("career", "/character/{uuid}/career")

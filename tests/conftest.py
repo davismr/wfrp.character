@@ -1,6 +1,7 @@
 import uuid
 
 import pytest
+from factories import CampaignFactory
 from factories import CharacterFactory
 from pyramid import testing
 from pyramid.paster import get_appsettings
@@ -15,6 +16,7 @@ from wfrp.character.application import dbsession
 from wfrp.character.models.character import Character
 from wfrp.character.security import SecurityPolicy
 
+register(CampaignFactory)
 register(CharacterFactory)
 
 
