@@ -143,3 +143,7 @@
 #form-data {
     grid-column: 4 / span 3;
 }
+
+#footer {
+    text-align: right;
+}

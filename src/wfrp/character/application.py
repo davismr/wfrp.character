@@ -2,6 +2,8 @@ import os
 
 from dotenv import load_dotenv
 from pyramid.config import Configurator
+from pyramid.events import NewRequest
+from pyramid.events import subscriber
 from pyramid.session import SignedCookieSessionFactory
 from pyramid.settings import asbool
 from sqlalchemy import engine_from_config
@@ -9,6 +11,8 @@ from sqlalchemy.orm import declarative_base
 from sqlalchemy.orm import scoped_session
 from sqlalchemy.orm import sessionmaker
 from zope.sqlalchemy import register
+
+from wfrp.character import __version__
 
 DBSession = scoped_session(sessionmaker())
 register(DBSession)
@@ -50,6 +54,11 @@ def configure_app(global_config, **settings):
 
 def dbsession(request):
     return DBSession
+
+
+@subscriber(NewRequest)
+def add_package_version(event):
+    event.request.package_version = __version__
 
 
 def main(global_config, **settings):

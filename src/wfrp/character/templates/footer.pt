@@ -1,3 +1,4 @@
-<div>
-    &copy; 2023
+<div id="footer">
+    version: <span tal:replace="request.package_version|None"/>
+    &copy; 2025
 </div>
