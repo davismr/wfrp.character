@@ -17,3 +17,6 @@ class Campaign(Base):
     user = Column(Integer, ForeignKey("user.uid"))
     name = Column(Text)
     expansions = Column(MutableList.as_mutable(JSON), default=[])
+
+    def get_display_title(self):
+        return self.name
