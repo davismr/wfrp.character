@@ -2,6 +2,7 @@
     <div metal:fill-slot="content">
 
         <h2>Warhammer Fantasy Roleplay Character generator</h2>
+        <div metal:use-macro="load: about_warning.pt" />
         <ul>
             <li tal:repeat="character characters">
                 <a href="${character}">${characters[character]}</a>

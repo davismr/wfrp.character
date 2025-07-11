@@ -1,0 +1,7 @@
+<div metal:use-macro="load: layout.pt">
+    <div metal:fill-slot="content">
+        <h2>About WFRP Character Generator</h2>
+        <div metal:use-macro="load: about_warning.pt" />
+        <div metal:use-macro="load: about_text.pt" />
+    </div>
+</div>

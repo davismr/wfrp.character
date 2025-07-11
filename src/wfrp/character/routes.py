@@ -1,5 +1,6 @@
 def includeme(config):
     config.add_route("homepage", "/")
+    config.add_route("about", "/about")
     config.add_route("profile", "/profile")
     config.add_route("login", "/login")
     config.add_route("google_login", "/google")
