@@ -1,8 +1,8 @@
 import uuid
 
-from pyramid.httpexceptions import HTTPForbidden
 from pyramid.httpexceptions import HTTPFound
 from pyramid.httpexceptions import HTTPUnauthorized
+from pyramid.security import forget
 from pyramid.view import view_config
 from pyramid.view import view_defaults
 from sqlalchemy.exc import NoResultFound
@@ -34,7 +34,8 @@ class NewCharacterViews:
                     .uid
                 )
             except NoResultFound:
-                raise HTTPForbidden
+                forget(self.request)
+                raise HTTPUnauthorized
         self.request.dbsession.add(new_character)
         url = self.request.route_url("species", uuid=new_uuid)
         new_character.status = {"species": ""}
