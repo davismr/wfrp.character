@@ -9,5 +9,6 @@ class User(Base):
     __tablename__ = "user"
     uid = Column(Integer, primary_key=True)
     name = Column(Text)
+    given_name = Column(Text)
+    family_name = Column(Text)
     email = Column(Text)
-    password = Column(Text)

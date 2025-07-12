@@ -35,23 +35,24 @@ class AuthViews:
     def register(self):
         request = self.request
         message = ""
-        password = ""
         if request.session.get("user"):
-            name = request.session.get("user")["name"]
             email = request.session.get("user")["email"]
+            name = request.session.get("user")["name"]
+            given_name = request.session.get("user")["given_name"]
+            family_name = request.session.get("user")["family_name"]
         else:
-            name = ""
             email = ""
+            name = ""
+            given_name = ""
+            family_name = ""
         if "form.submitted" in request.POST:
-            name = request.POST["name"]
-            email = request.POST["email"]
-            password = request.POST["password"]
-            new_user = User(email=email, name=name)
+            new_user = User(
+                email=email, name=name, given_name=given_name, family_name=family_name
+            )
             request.dbsession.add(new_user)
             return HTTPFound(location=self.request.route_url("homepage"))
         return dict(
             message=message,
             name=name,
             email=email,
-            password=password,
         )

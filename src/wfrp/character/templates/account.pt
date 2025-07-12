@@ -3,20 +3,36 @@
 
         <h1>Register</h1>
         <span tal:replace="message"/>
-
+        <p>
+            By registering with this site you agree that your name and email address can be stored
+            for the purpose of authenticating to the site from google.
+        </p>
+        <p>
+            There is no mechanism to update these details, so if they are changed on your google account,
+            you will not be able to update them here. You will need to delete and re-register. If you change
+            your email with google, you will lose access to this account.
+        </p>
         <form action="${request.route_url('register')}" method="post">
-            <label for="name">Full Name</label>
-            <input type="text" id="name"
-                   name="name"
-                   value="${name}"/><br/>
             <label for="email">Email address</label>
             <input type="text" id="email"
                    name="email"
-                   value="${email}"/><br/>
-            <label for="password">Password</label>
-            <input type="password" id="password"
-                   name="password"
-                   value="${password}"/><br/>
+                   value="${email}"
+                   readonly/><br/>
+            <label for="name">Full Name</label>
+            <input type="text" id="name"
+                   name="name"
+                   value="${name}"
+                   readonly/><br/>
+            <label for="name">Given Name</label>
+            <input type="text" id="name"
+                   name="name"
+                   value="${name}"
+                   readonly/><br/>
+            <label for="name">Family Name</label>
+            <input type="text" id="name"
+                   name="name"
+                   value="${name}"
+                   readonly/><br/>
             <input type="submit" name="form.submitted"
                    value="Register"/>
         </form>
