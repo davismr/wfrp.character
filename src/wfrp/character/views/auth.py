@@ -21,7 +21,7 @@ class AuthViews:
         except NoResultFound:
             url = self.request.route_url("register")
             raise HTTPFound(location=url)
-        url = self.request.route_url("profile")
+        url = self.request.route_url("homepage")
         raise HTTPFound(location=url)
 
     @view_config(route_name="logout")
