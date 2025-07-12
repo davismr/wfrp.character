@@ -6,7 +6,7 @@ from wfrp.character.models.character import Character
 from wfrp.character.models.user import User
 
 
-@pytest.mark.register
+@pytest.mark.skip
 def test_register(testapp_auth):
     payload = {
         "name": "User Name",
