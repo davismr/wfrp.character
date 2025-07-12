@@ -39,11 +39,6 @@
             <div><a href="/about">About</a></div>
             <div><a href="/links">Links</a></div>
             <div tal:condition="request.registry.settings['wfrp.character.enable_auth']">
-                <a tal:condition="view.logged_in is None"
-                    href="${request.application_url}/login">Log In</a>
-                <br tal:condition="view.logged_in is None" />
-                <a tal:condition="view.logged_in is None"
-                    href="${request.route_url('register')}">Register here</a>
                 <a tal:condition="view.logged_in is not None"
                     href="${request.application_url}/logout">Logout</a>
             </div>

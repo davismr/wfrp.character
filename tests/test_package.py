@@ -33,7 +33,8 @@ def test_home_template(testapp):
 @pytest.mark.package
 def test_home_template_login(testapp_auth):
     response = testapp_auth.get("/", status=200)
-    assert 'href="http://localhost/login">Log In</a>' in response.ubody
+    assert 'href="http://localhost/static/wfrp.css"/>' in response.ubody
+    assert 'href="/about">About</a>' in response.ubody
 
 
 @pytest.mark.package
