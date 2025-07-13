@@ -31,7 +31,7 @@ class AuthViews:
         url = request.route_url("homepage")
         return HTTPFound(location=url, headers=headers)
 
-    @view_config(route_name="register", renderer="wfrp.character:templates/account.pt")
+    @view_config(route_name="register", renderer="wfrp.character:templates/register.pt")
     def register(self):
         request = self.request
         message = ""
