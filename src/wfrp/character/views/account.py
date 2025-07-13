@@ -1,8 +1,6 @@
 from pyramid.view import view_config
 from pyramid.view import view_defaults
 
-from wfrp.character.models.character import Character
-
 
 @view_defaults(route_name="account")
 class AccountPageViews:
@@ -12,9 +10,10 @@ class AccountPageViews:
 
     @view_config(request_method="GET", renderer="wfrp.character:templates/account.pt")
     def get_view(self):
-        characters = self.request.dbsession.query(Character).all()
-        character_list = {}
-        for character in characters:
-            url = self.request.route_url("character_summary", id=character.id)
-            character_list[url] = character.get_display_title()
-        return {"characters": character_list}
+        request = self.request
+        message = ""
+        if "form.submitted" in request.POST:
+            pass
+        return dict(
+            message=message,
+        )

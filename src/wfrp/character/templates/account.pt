@@ -1,0 +1,17 @@
+<div metal:use-macro="load: layout.pt">
+    <div metal:fill-slot="content">
+
+        <h1>Account Settings</h1>
+        <p>
+            Select which expansions you want to be applied to characters who are not
+            attached to a campaign. These will also be used as the default for campaigns
+            that you create.
+        </p>
+        <span tal:replace="message"/>
+        <form action="${request.route_url('register')}" method="post">
+            <input type="submit" name="form.submitted"
+                   value="Update"/>
+        </form>
+
+    </div>
+</div>
