@@ -50,6 +50,7 @@ class CampaignEditViews:
                 widget=deform.widget.CheckboxChoiceWidget(values=choices),
                 validator=colander.Length(min=0),
                 missing=[],
+                default=self.campaign.expansions,
             )
         )
         return schema
