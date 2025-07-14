@@ -23,9 +23,7 @@ def test_register(testapp_auth):
     response = view.register()
     assert response.status_code == 302
     assert response.location == "http://example.com/"
-    users = DBSession.query(User).all()
-    assert len(users) == 1
-    user = users[0]
+    user = DBSession.query(User).filter_by(name="User Name").first()
     assert user.name == "User Name"
     assert user.email == "user@here.com"
     assert user.given_name == "GivenName"

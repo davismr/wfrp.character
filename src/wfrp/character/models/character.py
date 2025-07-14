@@ -1,9 +1,13 @@
 import uuid
+from datetime import datetime
+from datetime import timezone
 
 from sqlalchemy import JSON
 from sqlalchemy import Column
+from sqlalchemy import DateTime
 from sqlalchemy import Integer
 from sqlalchemy import Text
+from sqlalchemy import event
 from sqlalchemy.ext.mutable import MutableDict
 from sqlalchemy.ext.mutable import MutableList
 from sqlalchemy.schema import ForeignKey
@@ -21,6 +25,8 @@ class Character(Base):
     uid = Column(Integer, primary_key=True)
     # TODO store uuid as bytes
     uuid = Column(Text, default=str(uuid.uuid4()))
+    created = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+    modified = Column(DateTime, default=lambda: datetime.now(timezone.utc))
     user = Column(Integer, ForeignKey("user.uid"))
     name = Column(Text)
     species = Column(Text)
@@ -272,3 +278,8 @@ class Character(Base):
     def cost_talent(self, advance):
         """Return the experience cost of an increase in a talent."""
         return 100 * advance
+
+
+@event.listens_for(Character, "before_update")
+def character_before_update(mapper, connection, target):
+    target.modified = datetime.now(timezone.utc)

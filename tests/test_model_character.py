@@ -1,4 +1,8 @@
+from datetime import datetime
+from datetime import timezone
+
 import pytest
+from freezegun import freeze_time
 
 from wfrp.character.application import DBSession
 from wfrp.character.forms.create.attributes import ATTRIBUTES_LOWER
@@ -17,6 +21,25 @@ def test_save_character(testapp):
     character = DBSession.query(Character).order_by(Character.uid).first()
     assert character.uid == 1
     assert character.name == "Jacob Grimm"
+
+
+@pytest.mark.models
+def test_modified(testapp):
+    # make sure db is empty
+    DBSession.query(Character).delete()
+    new_character = Character()
+    new_character.name = "Wilhelm Grimm"
+    with freeze_time("2024-01-02 03:04:05"):
+        DBSession.add(new_character)
+        new_charcter = (
+            DBSession.query(Character).filter_by(name="Wilhelm Grimm").first()
+        )
+    assert new_charcter.created == datetime(2024, 1, 2, 3, 4, 5, tzinfo=timezone.utc)
+    assert new_charcter.modified == datetime(2024, 1, 2, 3, 4, 5, tzinfo=timezone.utc)
+    with freeze_time("2025-06-07 08:09:10"):
+        new_character.name = "Jacob Grimm"
+        new_charcter = DBSession.query(Character).filter_by(name="Jacob Grimm").first()
+    assert new_charcter.modified == datetime(2025, 6, 7, 8, 9, 10, tzinfo=timezone.utc)
 
 
 @pytest.mark.models
