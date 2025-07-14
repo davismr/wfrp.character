@@ -31,5 +31,6 @@
         <div tal:condition="not: characters or campaigns">
             <div metal:use-macro="load: about_text.pt" />
         </div>
+        <div metal:use-macro="load: buy_coffee.pt" />
     </div>
 </div>
