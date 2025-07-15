@@ -54,5 +54,7 @@ class AuthViews:
         return dict(
             message=message,
             name=name,
+            given_name=given_name,
+            family_name=family_name,
             email=email,
         )

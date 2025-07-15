@@ -26,12 +26,12 @@
             <label for="name">Given Name</label>
             <input type="text" id="name"
                    name="name"
-                   value="${name}"
+                   value="${given_name}"
                    readonly/><br/>
             <label for="name">Family Name</label>
             <input type="text" id="name"
                    name="name"
-                   value="${name}"
+                   value="${family_name}"
                    readonly/><br/>
             <input type="submit" name="form.submitted"
                    value="Register"/>
