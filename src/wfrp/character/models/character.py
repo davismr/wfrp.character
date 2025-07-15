@@ -7,6 +7,7 @@ from sqlalchemy import Column
 from sqlalchemy import DateTime
 from sqlalchemy import Integer
 from sqlalchemy import Text
+from sqlalchemy import Uuid
 from sqlalchemy import event
 from sqlalchemy.ext.mutable import MutableDict
 from sqlalchemy.ext.mutable import MutableList
@@ -23,8 +24,7 @@ from wfrp.character.data.weapons import WEAPONS_DATA
 class Character(Base):
     __tablename__ = "character"
     uid = Column(Integer, primary_key=True)
-    # TODO store uuid as bytes
-    uuid = Column(Text, default=str(uuid.uuid4()))
+    uuid = Column(Uuid, default=uuid.uuid4())
     created = Column(DateTime, default=lambda: datetime.now(timezone.utc))
     modified = Column(DateTime, default=lambda: datetime.now(timezone.utc))
     user = Column(Integer, ForeignKey("user.uid"))

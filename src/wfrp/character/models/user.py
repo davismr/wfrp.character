@@ -1,3 +1,4 @@
+import uuid
 from datetime import datetime
 from datetime import timezone
 
@@ -5,6 +6,7 @@ from sqlalchemy import Column
 from sqlalchemy import DateTime
 from sqlalchemy import Integer
 from sqlalchemy import Text
+from sqlalchemy import Uuid
 from sqlalchemy import event
 
 from wfrp.character.application import Base
@@ -13,6 +15,7 @@ from wfrp.character.application import Base
 class User(Base):
     __tablename__ = "user"
     uid = Column(Integer, primary_key=True)
+    uuid = Column(Uuid, default=uuid.uuid4())
     created = Column(DateTime, default=lambda: datetime.now(timezone.utc))
     modified = Column(DateTime, default=lambda: datetime.now(timezone.utc))
     name = Column(Text)

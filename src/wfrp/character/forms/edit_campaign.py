@@ -1,5 +1,3 @@
-import uuid
-
 import colander
 import deform
 from pyramid.httpexceptions import HTTPFound
@@ -67,7 +65,6 @@ class CampaignEditViews:
             except deform.ValidationFailure as error:
                 html = error.render()
             else:
-                self.campaign.uuid = str(uuid.uuid4())
                 self.campaign.name = captured.get("campaign_name")
                 self.campaign.expansions = list(captured.get("expansions"))
                 self.request.dbsession.add(self.campaign)

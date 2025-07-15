@@ -13,7 +13,7 @@ faker = FakerFactory.create()
 
 
 class CampaignFactory(factory.Factory):
-    uuid = factory.LazyAttribute(lambda x: str(uuid.uuid4()))
+    uuid = factory.LazyAttribute(lambda x: uuid.uuid4())
     name = factory.LazyAttribute(lambda x: faker.name())
 
     class Meta:
@@ -21,7 +21,7 @@ class CampaignFactory(factory.Factory):
 
 
 class CharacterFactory(factory.Factory):
-    uuid = factory.LazyAttribute(lambda x: str(uuid.uuid4()))
+    uuid = factory.LazyAttribute(lambda x: uuid.uuid4())
     name = factory.LazyAttribute(lambda x: faker.name())
     species = factory.LazyAttribute(lambda x: x.species_param)
     career = factory.LazyAttribute(

@@ -7,6 +7,7 @@ from sqlalchemy import Column
 from sqlalchemy import DateTime
 from sqlalchemy import Integer
 from sqlalchemy import Text
+from sqlalchemy import Uuid
 from sqlalchemy import event
 from sqlalchemy.ext.mutable import MutableList
 from sqlalchemy.schema import ForeignKey
@@ -17,7 +18,7 @@ from wfrp.character.application import Base
 class Campaign(Base):
     __tablename__ = "campaign"
     uid = Column(Integer, primary_key=True)
-    uuid = Column(Text, default=str(uuid.uuid4()))
+    uuid = Column(Uuid, default=uuid.uuid4())
     created = Column(DateTime, default=lambda: datetime.now(timezone.utc))
     modified = Column(DateTime, default=lambda: datetime.now(timezone.utc))
     user = Column(Integer, ForeignKey("user.uid"))

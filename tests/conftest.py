@@ -62,7 +62,7 @@ def testapp_auth():
 
 @pytest.fixture
 def new_character(testapp):
-    new_uuid = str(uuid.uuid4())
+    new_uuid = uuid.uuid4()
     new_character = Character(uuid=new_uuid, status={"species": ""})
     DBSession.add(new_character)
     character = DBSession.query(Character).filter(Character.uuid == new_uuid).one()
@@ -71,7 +71,7 @@ def new_character(testapp):
 
 @pytest.fixture
 def second_character(testapp):
-    new_uuid = str(uuid.uuid4())
+    new_uuid = uuid.uuid4()
     new_character = Character(uuid=new_uuid, status={"species": ""})
     DBSession.add(new_character)
     character = DBSession.query(Character).filter(Character.uuid == new_uuid).one()
