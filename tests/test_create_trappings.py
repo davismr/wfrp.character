@@ -23,7 +23,7 @@ def test_initalise_form(new_character):
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="trappings")
-    request.matchdict = {"uuid": new_character.uuid}
+    request.matchdict = {"id": str(new_character.id)}
     view = TrappingsViews(request)
     response = view.initialise_form()
     assert isinstance(response, dict)
@@ -41,7 +41,7 @@ def test_initalise_form_return(new_character):
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="trappings")
-    request.matchdict = {"uuid": new_character.uuid}
+    request.matchdict = {"id": str(new_character.id)}
     view = TrappingsViews(request)
     response = view.initialise_form()
     assert response == "foobar"
@@ -55,7 +55,7 @@ def test_get_view(new_character):
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="trappings")
-    request.matchdict = {"uuid": new_character.uuid}
+    request.matchdict = {"id": str(new_character.id)}
     view = TrappingsViews(request)
     response = view.form_view()
     assert isinstance(response, dict)
@@ -68,7 +68,7 @@ def test_money(new_character):
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="trappings")
-    request.matchdict = {"uuid": new_character.uuid}
+    request.matchdict = {"id": str(new_character.id)}
     view = TrappingsViews(request)
     response = view._get_money("Brass", 2)
     assert "brass pennies" in response
@@ -105,7 +105,7 @@ def test_submit_view(new_character):
     request = testing.DummyRequest(post=payload)
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="trappings")
-    request.matchdict = {"uuid": new_character.uuid}
+    request.matchdict = {"id": str(new_character.id)}
     view = TrappingsViews(request)
     response = view.form_view()
     assert isinstance(response, HTTPFound)
@@ -145,7 +145,7 @@ def test_submit_artist(new_character):
     request = testing.DummyRequest(post=payload)
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="trappings")
-    request.matchdict = {"uuid": new_character.uuid}
+    request.matchdict = {"id": str(new_character.id)}
     view = TrappingsViews(request)
     response = view.form_view()
     assert isinstance(response, HTTPFound)
@@ -182,7 +182,7 @@ def test_submit_bawd(mock_rolld10, new_character):
     request = testing.DummyRequest(post=payload)
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="trappings")
-    request.matchdict = {"uuid": new_character.uuid}
+    request.matchdict = {"id": str(new_character.id)}
     view = TrappingsViews(request)
     response = view.form_view()
     assert isinstance(response, HTTPFound)
@@ -217,7 +217,7 @@ def test_submit_item_with_space(new_character):
     request = testing.DummyRequest(post=payload)
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="trappings")
-    request.matchdict = {"uuid": new_character.uuid}
+    request.matchdict = {"id": str(new_character.id)}
     view = TrappingsViews(request)
     response = view.form_view()
     assert isinstance(response, HTTPFound)
@@ -249,7 +249,7 @@ def test_submit_view_duplicate_item(new_character):
     request = testing.DummyRequest(post=payload)
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="trappings")
-    request.matchdict = {"uuid": new_character.uuid}
+    request.matchdict = {"id": str(new_character.id)}
     view = TrappingsViews(request)
     response = view.form_view()
     assert isinstance(response, HTTPFound)
@@ -279,7 +279,7 @@ def test_submit_invalid(new_character):
     request = testing.DummyRequest(post=payload)
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="trappings")
-    request.matchdict = {"uuid": new_character.uuid}
+    request.matchdict = {"id": str(new_character.id)}
     view = TrappingsViews(request)
     response = view.form_view()
     assert isinstance(response, dict)
@@ -297,7 +297,7 @@ def test_randomise_trappings(mock_rolld10, new_character, second_character):
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="trappings")
-    request.matchdict = {"uuid": new_character.uuid}
+    request.matchdict = {"id": str(new_character.id)}
     view = TrappingsViews(request)
     response = view.initialise_form()
     class_trappings = response["class_trappings"]
@@ -309,7 +309,7 @@ def test_randomise_trappings(mock_rolld10, new_character, second_character):
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="trappings")
-    request.matchdict = {"uuid": second_character.uuid}
+    request.matchdict = {"id": str(second_character.id)}
     view = TrappingsViews(request)
     response = view.initialise_form()
     second_class_trappings = response["class_trappings"]

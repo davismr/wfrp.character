@@ -23,20 +23,20 @@ class NewCharacterViews:
 
     @view_config(request_method="GET")
     def get_view(self):
-        new_uuid = uuid.uuid4()
-        character = Character(uuid=new_uuid)
+        new_id = uuid.uuid4()
+        character = Character(id=new_id)
         if self.request.registry.settings.get("enable_auth"):
             try:
-                character.user = (
+                character.user_id = (
                     self.request.dbsession.query(User)
                     .filter(User.email == self.logged_in)
                     .one()
-                    .uid
+                    .id
                 )
             except NoResultFound:
                 forget(self.request)
                 raise HTTPUnauthorized
         self.request.dbsession.add(character)
-        url = self.request.route_url("species", uuid=new_uuid)
+        url = self.request.route_url("species", id=new_id)
         character.status = {"species": ""}
         return HTTPFound(location=url)

@@ -322,7 +322,7 @@ class AttributesViews(BaseView):
                     self.character.experience += 50
                 elif self.character.status["stage"] == "rearrange":
                     self.character.experience += 25
-                url = self.request.route_url("advances", uuid=self.character.uuid)
+                url = self.request.route_url("advances", id=self.character.id)
                 self.character.status = {"advances": ""}
                 return HTTPFound(location=url)
         else:

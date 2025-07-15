@@ -50,7 +50,7 @@ def test_redirect_view(new_character):
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="career")
-    request.matchdict = {"uuid": new_character.uuid}
+    request.matchdict = {"id": str(new_character.id)}
     with pytest.raises(HTTPFound) as error:
         CareerViews(request)
     assert error.value.code == 302

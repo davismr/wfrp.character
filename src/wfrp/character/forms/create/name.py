@@ -34,9 +34,7 @@ class NameViews(BaseView):
             else:
                 character_name = captured.get("character_name")
                 self.character.name = character_name
-                url = self.request.route_url(
-                    "character_summary", uuid=self.character.uuid
-                )
+                url = self.request.route_url("character_summary", id=self.character.id)
                 self.character.status = {"complete": ""}
                 return HTTPFound(location=url)
         else:

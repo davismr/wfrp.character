@@ -22,7 +22,7 @@ def test_initialise_form_elf(new_character):
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="details")
-    request.matchdict = {"uuid": new_character.uuid}
+    request.matchdict = {"id": str(new_character.id)}
     view = DetailsViews(request)
     response = view.initialise_form()
     assert isinstance(response, dict)
@@ -40,7 +40,7 @@ def test_form_view(new_character):
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="details")
-    request.matchdict = {"uuid": new_character.uuid}
+    request.matchdict = {"id": str(new_character.id)}
     view = DetailsViews(request)
     response = view.form_view()
     assert isinstance(response, dict)
@@ -54,7 +54,7 @@ def test_hair_colour(new_character, species):
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="details")
-    request.matchdict = {"uuid": new_character.uuid}
+    request.matchdict = {"id": str(new_character.id)}
     view = DetailsViews(request)
     hair_colour = view._get_hair_colour(species)
     assert hair_colour in SPECIES_DATA[species]["hair_colour"].values()
@@ -74,7 +74,7 @@ def test_eye_colour(new_character, species):
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="details")
-    request.matchdict = {"uuid": new_character.uuid}
+    request.matchdict = {"id": str(new_character.id)}
     view = DetailsViews(request)
     eye_colour = view._get_eye_colour(species)
     assert eye_colour in SPECIES_DATA[species]["eye_colour"].values()
@@ -94,7 +94,7 @@ def test_initialise_invalid_species(new_character):
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="details")
-    request.matchdict = {"uuid": new_character.uuid}
+    request.matchdict = {"id": str(new_character.id)}
     view = DetailsViews(request)
     with pytest.raises(NotImplementedError):
         view.initialise_form()
@@ -108,7 +108,7 @@ def test_initialise_form_species(new_character, species):
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="details")
-    request.matchdict = {"uuid": new_character.uuid}
+    request.matchdict = {"id": str(new_character.id)}
     view = DetailsViews(request)
     initial_values = view.initialise_form()
     for key in ["age", "eye_colour", "hair_colour", "height"]:
@@ -125,7 +125,7 @@ def test_details_submit(new_character):
     request = testing.DummyRequest(post=payload)
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="details")
-    request.matchdict = {"uuid": new_character.uuid}
+    request.matchdict = {"id": str(new_character.id)}
     view = DetailsViews(request)
     initial_values = view.initialise_form()
     stored_values = new_character.status["details"]
@@ -149,7 +149,7 @@ def test_invalid_submit(new_character):
     request = testing.DummyRequest(post=payload)
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="details")
-    request.matchdict = {"uuid": new_character.uuid}
+    request.matchdict = {"id": str(new_character.id)}
     view = DetailsViews(request)
     response = view.form_view()
     assert isinstance(response, dict)

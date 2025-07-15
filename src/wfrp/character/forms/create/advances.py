@@ -181,7 +181,7 @@ class AdvancesViews(BaseView):
                 self.character.resolve = self.character.resilience
                 self.character.extra_points = 0
                 self.character.motivation = captured["motivation"]["motivation"]
-                url = self.request.route_url("species_skills", uuid=self.character.uuid)
+                url = self.request.route_url("species_skills", id=self.character.id)
                 self.character.status = {"species_skills": ""}
                 return HTTPFound(location=url)
         else:

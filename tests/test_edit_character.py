@@ -18,7 +18,7 @@ def test_form_view(new_character):
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="character_edit")
-    request.matchdict = {"uuid": new_character.uuid}
+    request.matchdict = {"id": str(new_character.id)}
     view = NameViews(request)
     response = view.form_view()
     assert isinstance(response, dict)

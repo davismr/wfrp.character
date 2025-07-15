@@ -19,7 +19,7 @@ def test_get_view(new_character):
     request = testing.DummyRequest(path="species")
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="species")
-    request.matchdict = {"uuid": new_character.uuid}
+    request.matchdict = {"id": str(new_character.id)}
     view = SpeciesViews(request)
     response = view.form_view()
     assert "form" in response
@@ -34,7 +34,7 @@ def test_get_view_gnome(mock_is_gnome_active, new_character):
     request = testing.DummyRequest(path="species")
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="species")
-    request.matchdict = {"uuid": new_character.uuid}
+    request.matchdict = {"id": str(new_character.id)}
     view = SpeciesViews(request)
     response = view.form_view()
     assert "form" in response
@@ -61,7 +61,7 @@ def test_roll_new_species(new_character, species, roll):
     request = testing.DummyRequest(path="species")
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="species")
-    request.matchdict = {"uuid": new_character.uuid}
+    request.matchdict = {"id": str(new_character.id)}
     view = SpeciesViews(request)
     with patch("wfrp.character.forms.create.species.roll_d100") as mock_roll:
         mock_roll.return_value = roll
@@ -89,7 +89,7 @@ def test_roll_new_species_gnome(mock_is_gnome_active, new_character, species, ro
     request = testing.DummyRequest(path="species")
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="species")
-    request.matchdict = {"uuid": new_character.uuid}
+    request.matchdict = {"id": str(new_character.id)}
     view = SpeciesViews(request)
     with patch("wfrp.character.forms.create.species.roll_d100") as mock_roll:
         mock_roll.return_value = roll
@@ -110,7 +110,7 @@ def test_set_attributes(new_character, species, movement):
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="species")
-    request.matchdict = {"uuid": new_character.uuid}
+    request.matchdict = {"id": str(new_character.id)}
     view = SpeciesViews(request)
     with pytest.raises(NotImplementedError):
         view._set_species_attributes("Not a species")
@@ -130,7 +130,7 @@ def test_submit_view(new_character, species, experience):
     )
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="species")
-    request.matchdict = {"uuid": new_character.uuid}
+    request.matchdict = {"id": str(new_character.id)}
     view = SpeciesViews(request)
     response = view.form_view()
     assert isinstance(response, HTTPFound)
@@ -146,7 +146,7 @@ def test_submit_species(new_character):
     )
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="species")
-    request.matchdict = {"uuid": new_character.uuid}
+    request.matchdict = {"id": str(new_character.id)}
     view = SpeciesViews(request)
     response = view.form_view()
     assert isinstance(response, HTTPFound)
@@ -165,7 +165,7 @@ def test_submit_invalid_species(new_character):
     )
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="species")
-    request.matchdict = {"uuid": new_character.uuid}
+    request.matchdict = {"id": str(new_character.id)}
     view = SpeciesViews(request)
     response = view.form_view()
     assert isinstance(response, dict)

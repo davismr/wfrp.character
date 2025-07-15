@@ -23,11 +23,10 @@ from wfrp.character.data.weapons import WEAPONS_DATA
 
 class Character(Base):
     __tablename__ = "character"
-    uid = Column(Integer, primary_key=True)
-    uuid = Column(Uuid, default=uuid.uuid4())
+    id = Column(Uuid, primary_key=True)
     created = Column(DateTime, default=lambda: datetime.now(timezone.utc))
     modified = Column(DateTime, default=lambda: datetime.now(timezone.utc))
-    user = Column(Integer, ForeignKey("user.uid"))
+    user = Column(Uuid, ForeignKey("user.id"))
     name = Column(Text)
     species = Column(Text)
     age = Column(Integer)
@@ -78,6 +77,10 @@ class Character(Base):
     trappings = Column(MutableList.as_mutable(JSON), default=[])
     wealth = Column(MutableDict.as_mutable(JSON), default={})
     status = Column(JSON, default={})  # this is intentionally not mutable
+
+    def __init__(self, **kwargs):
+        kwargs["id"] = kwargs.get("id", uuid.uuid4())
+        super().__init__(**kwargs)
 
     @property
     def weapon_skill(self):

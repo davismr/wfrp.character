@@ -142,9 +142,7 @@ class CharacterEditViews(BaseView):
             except deform.ValidationFailure as error:
                 html = error.render()
             else:
-                url = self.request.route_url(
-                    "character_summary", uuid=self.character.uuid
-                )
+                url = self.request.route_url("character_summary", id=self.character.id)
                 return HTTPFound(location=url)
         else:
             html = form.render()

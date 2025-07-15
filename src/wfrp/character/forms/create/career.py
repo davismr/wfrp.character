@@ -152,7 +152,7 @@ class CareerViews(BaseView):
                 self.character.career_standing = CAREER_DATA[career][career_level][
                     "status"
                 ]["standing"]
-                url = self.request.route_url("attributes", uuid=self.character.uuid)
+                url = self.request.route_url("attributes", id=self.character.id)
                 self.character.status = {"attributes": ""}
                 return HTTPFound(location=url)
         else:

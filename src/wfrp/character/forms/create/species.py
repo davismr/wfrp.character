@@ -96,7 +96,7 @@ class SpeciesViews(BaseView):
                     self.character.experience += 20
                 self.character.species = selected
                 self._set_species_attributes(selected)
-                url = self.request.route_url("career", uuid=self.character.uuid)
+                url = self.request.route_url("career", id=self.character.id)
                 self.character.status = {"career": ""}
                 return HTTPFound(location=url)
         else:

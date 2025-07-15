@@ -1,3 +1,5 @@
+import uuid
+
 from pyramid.httpexceptions import HTTPFound
 
 from wfrp.character.models.character import Character
@@ -7,9 +9,11 @@ class BaseView:
     def __init__(self, request):
         self.request = request
         self.logged_in = request.authenticated_userid
-        uuid = request.matchdict["uuid"]
+        id = request.matchdict["id"]
         self.character = (
-            request.dbsession.query(Character).filter(Character.uuid == uuid).one()
+            request.dbsession.query(Character)
+            .filter(Character.id == uuid.UUID(id))
+            .one()
         )
         if "complete" in self.character.status and self.request.matched_route.name in [
             "character_edit",
@@ -23,7 +27,7 @@ class BaseView:
             self.redirect_request(list(self.character.status)[0])
 
     def redirect_request(self, route):
-        url = self.request.route_url(route, uuid=self.character.uuid)
+        url = self.request.route_url(route, id=self.character.id)
         raise HTTPFound(location=url)
 
     def get_widget_resources(self, form):

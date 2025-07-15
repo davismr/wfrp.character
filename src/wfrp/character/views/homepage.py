@@ -16,11 +16,11 @@ class HomePageViews:
         campaigns = self.request.dbsession.query(Campaign).all()
         campaign_list = {}
         for campaign in campaigns:
-            url = self.request.route_url("campaign_edit", uuid=campaign.uuid)
+            url = self.request.route_url("campaign_edit", id=campaign.id)
             campaign_list[url] = campaign.get_display_title()
         characters = self.request.dbsession.query(Character).all()
         character_list = {}
         for character in characters:
-            url = self.request.route_url("character_summary", uuid=character.uuid)
+            url = self.request.route_url("character_summary", id=character.id)
             character_list[url] = character.get_display_title()
         return {"campaigns": campaign_list, "characters": character_list}

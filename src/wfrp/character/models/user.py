@@ -4,7 +4,6 @@ from datetime import timezone
 
 from sqlalchemy import Column
 from sqlalchemy import DateTime
-from sqlalchemy import Integer
 from sqlalchemy import Text
 from sqlalchemy import Uuid
 from sqlalchemy import event
@@ -14,14 +13,17 @@ from wfrp.character.application import Base
 
 class User(Base):
     __tablename__ = "user"
-    uid = Column(Integer, primary_key=True)
-    uuid = Column(Uuid, default=uuid.uuid4())
+    id = Column(Uuid, primary_key=True)
     created = Column(DateTime, default=lambda: datetime.now(timezone.utc))
     modified = Column(DateTime, default=lambda: datetime.now(timezone.utc))
     name = Column(Text)
     given_name = Column(Text)
     family_name = Column(Text)
     email = Column(Text)
+
+    def __init__(self, **kwargs):
+        kwargs["id"] = kwargs.get("id", uuid.uuid4())
+        super().__init__(**kwargs)
 
 
 @event.listens_for(User, "before_update")

@@ -19,7 +19,7 @@ def test_full_view(new_character):
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="character_full")
-    request.matchdict = {"uuid": new_character.uuid}
+    request.matchdict = {"id": str(new_character.id)}
     view = CharacterViews(request)
     response = view.full_view()
     assert response
@@ -31,7 +31,7 @@ def test_summary_view(new_character):
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="character_summary")
-    request.matchdict = {"uuid": new_character.uuid}
+    request.matchdict = {"id": str(new_character.id)}
     view = CharacterViews(request)
     response = view.summary_view()
     assert "character" in response
@@ -45,7 +45,7 @@ def test_pdf_view(complete_character):
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="pdf_print")
-    request.matchdict = {"uuid": complete_character.uuid}
+    request.matchdict = {"id": str(complete_character.id)}
     view = CharacterViews(request)
     response = view.pdf_print()
     assert f"{complete_character.get_filename()}.pdf" in response.headers.get(

@@ -19,7 +19,6 @@ def test_add_user(testapp):
     DBSession.add(new_user)
     assert DBSession.query(User).count() == 1
     user = DBSession.query(User).first()
-    assert user.uid == 1
     assert user.name == "A User"
     assert user.email == "user@here.com"
     assert user.password == "secret_password"

@@ -12,7 +12,7 @@ def test_form_view(campaign_factory):
     DBSession.add(new_campaign)
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
-    request.matchdict = {"uuid": new_campaign.uuid}
+    request.matchdict = {"id": str(new_campaign.id)}
     view = CampaignEditViews(request)
     response = view.form_view()
     assert isinstance(response, dict)

@@ -20,7 +20,7 @@ def test_initialise_form(new_character):
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="career")
-    request.matchdict = {"uuid": new_character.uuid}
+    request.matchdict = {"id": str(new_character.id)}
     view = CareerViews(request)
     response = view.initialise_form()
     assert isinstance(response, dict)
@@ -37,7 +37,7 @@ def test_form_view(new_character):
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="career")
-    request.matchdict = {"uuid": new_character.uuid}
+    request.matchdict = {"id": str(new_character.id)}
     view = CareerViews(request)
     response = view.form_view()
     assert "form" in response
@@ -55,7 +55,7 @@ def test_reroll_view(new_character):
     )
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="career")
-    request.matchdict = {"uuid": new_character.uuid}
+    request.matchdict = {"id": str(new_character.id)}
     view = CareerViews(request)
     response = view.form_view()
     assert isinstance(response, dict)
@@ -72,7 +72,7 @@ def test_invalid_number_careers(new_character):
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="career")
-    request.matchdict = {"uuid": new_character.uuid}
+    request.matchdict = {"id": str(new_character.id)}
     view = CareerViews(request)
     with pytest.raises(NotImplementedError) as error:
         view.form_view()
@@ -105,7 +105,7 @@ def test_submit_experience(new_character, career_choice, experience):
         )
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="career")
-    request.matchdict = {"uuid": new_character.uuid}
+    request.matchdict = {"id": str(new_character.id)}
     view = CareerViews(request)
     assert new_character.experience == 0
     response = view.form_view()
@@ -126,7 +126,7 @@ def test_invalid_submit(new_character):
     )
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="career")
-    request.matchdict = {"uuid": new_character.uuid}
+    request.matchdict = {"id": str(new_character.id)}
     view = CareerViews(request)
     response = view.form_view()
     assert isinstance(response, dict)
@@ -144,7 +144,7 @@ def test_invalid_none(new_character):
     )
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="career")
-    request.matchdict = {"uuid": new_character.uuid}
+    request.matchdict = {"id": str(new_character.id)}
     view = CareerViews(request)
     response = view.form_view()
     assert isinstance(response, dict)

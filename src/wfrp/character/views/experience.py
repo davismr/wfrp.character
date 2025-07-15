@@ -238,7 +238,7 @@ class ExperienceViews(BaseView):
                     cost = self.character.cost_talent(self.character.talents[talent])
                 self.character.experience -= cost
                 self.character.experience_spent += cost
-                url = self.request.route_url("experience", uuid=self.character.uuid)
+                url = self.request.route_url("experience", id=self.character.id)
                 self.character.status = {"complete": ""}
                 return HTTPFound(location=url)
         else:

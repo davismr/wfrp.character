@@ -23,7 +23,7 @@ def test_species_skills_view(new_character):
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="species_skills")
-    request.matchdict = {"uuid": new_character.uuid}
+    request.matchdict = {"id": str(new_character.id)}
     view = SpeciesSkillsViews(request)
     response = view.form_view()
     assert "Species Skills" in response["form"]
@@ -39,7 +39,7 @@ def test_initialise_form_return(new_character):
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="species_skills")
-    request.matchdict = {"uuid": new_character.uuid}
+    request.matchdict = {"id": str(new_character.id)}
     view = SpeciesSkillsViews(request)
     response = view.initialise_form()
     assert response["species_talents"] == [
@@ -58,7 +58,7 @@ def test_initialise_form_extra(new_character):
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="species_skills")
-    request.matchdict = {"uuid": new_character.uuid}
+    request.matchdict = {"id": str(new_character.id)}
     view = SpeciesSkillsViews(request)
     with patch(
         "wfrp.character.forms.create.species_skills.get_random_talent"
@@ -83,7 +83,7 @@ def test_random_talents(new_character, species, expected_talents):
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="species_skills")
-    request.matchdict = {"uuid": new_character.uuid}
+    request.matchdict = {"id": str(new_character.id)}
     view = SpeciesSkillsViews(request)
     response = view.form_view()
     if species == "Human":
@@ -125,7 +125,7 @@ def test_species_skills_submit(new_character):
     request = testing.DummyRequest(post=payload)
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="species_skills")
-    request.matchdict = {"uuid": new_character.uuid}
+    request.matchdict = {"id": str(new_character.id)}
     view = SpeciesSkillsViews(request)
     response = view.form_view()
     assert "You have to select a specialisation for Play (Any)" in response["form"]
@@ -133,7 +133,7 @@ def test_species_skills_submit(new_character):
     request = testing.DummyRequest(post=payload)
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="species_skills")
-    request.matchdict = {"uuid": new_character.uuid}
+    request.matchdict = {"id": str(new_character.id)}
     view = SpeciesSkillsViews(request)
     response = view.form_view()
     assert isinstance(response, HTTPFound)
@@ -178,7 +178,7 @@ def test_species_skills_invalid(new_character):
     request = testing.DummyRequest(post=payload)
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="species_skills")
-    request.matchdict = {"uuid": new_character.uuid}
+    request.matchdict = {"id": str(new_character.id)}
     view = SpeciesSkillsViews(request)
     response = view.form_view()
     assert isinstance(response, dict)
@@ -219,7 +219,7 @@ def test_species_skills_invalid_none(new_character):
     request = testing.DummyRequest(post=payload)
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="species_skills")
-    request.matchdict = {"uuid": new_character.uuid}
+    request.matchdict = {"id": str(new_character.id)}
     view = SpeciesSkillsViews(request)
     response = view.form_view()
     assert isinstance(response, dict)
@@ -235,7 +235,7 @@ def test_career_skills_view(new_character):
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="career_skills")
-    request.matchdict = {"uuid": new_character.uuid}
+    request.matchdict = {"id": str(new_character.id)}
     view = CareerSkillsViews(request)
     response = view.initialise_form()
     assert "career_skills" in response
@@ -251,7 +251,7 @@ def test_form_view(new_character):
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="career_skills")
-    request.matchdict = {"uuid": new_character.uuid}
+    request.matchdict = {"id": str(new_character.id)}
     view = CareerSkillsViews(request)
     response = view.form_view()
     assert "form" in response
@@ -279,7 +279,7 @@ def test_career_skills_submit(new_character):
     request = testing.DummyRequest(post=payload)
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="career_skills")
-    request.matchdict = {"uuid": new_character.uuid}
+    request.matchdict = {"id": str(new_character.id)}
     view = CareerSkillsViews(request)
     response = view.form_view()
     assert isinstance(response, HTTPFound)
@@ -311,7 +311,7 @@ def test_validation_error(new_character, skill_level, message):
     request = testing.DummyRequest(post=payload)
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="career_skills")
-    request.matchdict = {"uuid": new_character.uuid}
+    request.matchdict = {"id": str(new_character.id)}
     view = CareerSkillsViews(request)
     response = view.form_view()
     assert "form" in response
@@ -351,7 +351,7 @@ def test_skills_add_submit(new_character):
     request = testing.DummyRequest(post=payload)
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="species_skills")
-    request.matchdict = {"uuid": new_character.uuid}
+    request.matchdict = {"id": str(new_character.id)}
     view = SpeciesSkillsViews(request)
     response = view.form_view()
     assert isinstance(response, HTTPFound)
@@ -373,7 +373,7 @@ def test_skills_add_submit(new_character):
     request = testing.DummyRequest(post=payload)
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="career_skills")
-    request.matchdict = {"uuid": new_character.uuid}
+    request.matchdict = {"id": str(new_character.id)}
     view = CareerSkillsViews(request)
     response = view.form_view()
     assert list(new_character.talents.keys()) == [
@@ -412,7 +412,7 @@ def test_career_skills_any(new_character):
     request = testing.DummyRequest(post=payload)
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="career_skills")
-    request.matchdict = {"uuid": new_character.uuid}
+    request.matchdict = {"id": str(new_character.id)}
     view = CareerSkillsViews(request)
     response = view.form_view()
     assert isinstance(response, dict)
@@ -422,7 +422,7 @@ def test_career_skills_any(new_character):
     request = testing.DummyRequest(post=payload)
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="career_skills")
-    request.matchdict = {"uuid": new_character.uuid}
+    request.matchdict = {"id": str(new_character.id)}
     view = CareerSkillsViews(request)
     response = view.form_view()
     assert isinstance(response, dict)
@@ -431,7 +431,7 @@ def test_career_skills_any(new_character):
     request = testing.DummyRequest(post=payload)
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="career_skills")
-    request.matchdict = {"uuid": new_character.uuid}
+    request.matchdict = {"id": str(new_character.id)}
     view = CareerSkillsViews(request)
     response = view.form_view()
     assert isinstance(response, HTTPFound)
@@ -463,7 +463,7 @@ def test_career_skills_or_fail(new_character):
     request = testing.DummyRequest(post=payload)
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="career_skills")
-    request.matchdict = {"uuid": new_character.uuid}
+    request.matchdict = {"id": str(new_character.id)}
     view = CareerSkillsViews(request)
     response = view.form_view()
     assert isinstance(response, dict)
@@ -475,7 +475,7 @@ def test_career_skills_or_fail(new_character):
     request = testing.DummyRequest(post=payload)
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="career_skills")
-    request.matchdict = {"uuid": new_character.uuid}
+    request.matchdict = {"id": str(new_character.id)}
     view = CareerSkillsViews(request)
     response = view.form_view()
     assert isinstance(response, HTTPFound)

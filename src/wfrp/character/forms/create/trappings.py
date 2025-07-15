@@ -146,7 +146,7 @@ class TrappingsViews(BaseView):
                 self.character.armour.sort()
                 self.character.trappings.sort()
                 self.character.wealth = self.character.status["trappings"]["money"]
-                url = self.request.route_url("details", uuid=self.character.uuid)
+                url = self.request.route_url("details", id=self.character.id)
                 self.character.status = {"details": ""}
                 return HTTPFound(location=url)
         else:

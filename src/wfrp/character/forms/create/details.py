@@ -114,7 +114,7 @@ class DetailsViews(BaseView):
                 self.character.hair = self.character.status["details"]["hair_colour"]
                 self.character.height = self.character.status["details"]["height"]
                 self.character.age = self.character.status["details"]["age"]
-                url = self.request.route_url("name", uuid=self.character.uuid)
+                url = self.request.route_url("name", id=self.character.id)
                 self.character.status = {"name": ""}
                 return HTTPFound(location=url)
         else:

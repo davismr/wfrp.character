@@ -20,7 +20,7 @@ def test_form_view(new_character):
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="experience")
-    request.matchdict = {"uuid": new_character.uuid}
+    request.matchdict = {"id": str(new_character.id)}
     view = ExperienceViews(request)
     response = view.form_view()
     assert isinstance(response["form"], str)
@@ -42,7 +42,7 @@ def test_increase_characteristic(new_character):
     request = testing.DummyRequest(post=payload)
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="experience")
-    request.matchdict = {"uuid": new_character.uuid}
+    request.matchdict = {"id": str(new_character.id)}
     view = ExperienceViews(request)
     view.form_view()
     assert new_character.weapon_skill == 50
@@ -72,7 +72,7 @@ def test_increase_characteristic_too_much(new_character):
     request = testing.DummyRequest(post=payload)
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="experience")
-    request.matchdict = {"uuid": new_character.uuid}
+    request.matchdict = {"id": str(new_character.id)}
     view = ExperienceViews(request)
     response = view.form_view()
     assert (
@@ -98,7 +98,7 @@ def test_increase_unowned_skill(new_character):
     request = testing.DummyRequest(post=payload)
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="experience")
-    request.matchdict = {"uuid": new_character.uuid}
+    request.matchdict = {"id": str(new_character.id)}
     view = ExperienceViews(request)
     view.form_view()
     assert new_character.skills["Athletics"] == 1
@@ -120,7 +120,7 @@ def test_increase_existing_skill(new_character):
     request = testing.DummyRequest(post=payload)
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="experience")
-    request.matchdict = {"uuid": new_character.uuid}
+    request.matchdict = {"id": str(new_character.id)}
     view = ExperienceViews(request)
     view.form_view()
     assert new_character.skills["Language (Battle)"] == 10
@@ -146,7 +146,7 @@ def test_increase_choice_skill(new_character):
     request = testing.DummyRequest(post=payload)
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="experience")
-    request.matchdict = {"uuid": new_character.uuid}
+    request.matchdict = {"id": str(new_character.id)}
     view = ExperienceViews(request)
     view.form_view()
     assert new_character.skills["Play (Drum)"] == 15
@@ -166,7 +166,7 @@ def test_multiple_grouped_skills(new_character):
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="experience")
-    request.matchdict = {"uuid": new_character.uuid}
+    request.matchdict = {"id": str(new_character.id)}
     view = ExperienceViews(request)
     response = view.form_view()
     assert response["form"].count("Melee (Basic) (4)") == 1
@@ -179,7 +179,7 @@ def test_multiple_grouped_skills(new_character):
     request = testing.DummyRequest(post=payload)
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="experience")
-    request.matchdict = {"uuid": new_character.uuid}
+    request.matchdict = {"id": str(new_character.id)}
     view = ExperienceViews(request)
     view.form_view()
     assert new_character.skills["Melee (Basic)"] == 5
@@ -199,7 +199,7 @@ def test_increase_skill_too_much(new_character):
     request = testing.DummyRequest(post=payload)
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="experience")
-    request.matchdict = {"uuid": new_character.uuid}
+    request.matchdict = {"id": str(new_character.id)}
     view = ExperienceViews(request)
     response = view.form_view()
     assert (
@@ -224,7 +224,7 @@ def test_increase_talent(new_character):
     request = testing.DummyRequest(post=payload)
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="experience")
-    request.matchdict = {"uuid": new_character.uuid}
+    request.matchdict = {"id": str(new_character.id)}
     view = ExperienceViews(request)
     view.form_view()
     assert new_character.talents["Marksman"] == 2
@@ -246,7 +246,7 @@ def test_add_talent(new_character):
     request = testing.DummyRequest(post=payload)
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="experience")
-    request.matchdict = {"uuid": new_character.uuid}
+    request.matchdict = {"id": str(new_character.id)}
     view = ExperienceViews(request)
     view.form_view()
     assert new_character.talents["Warrior Born"] == 1
@@ -267,7 +267,7 @@ def test_talent_too_much(new_character):
     request = testing.DummyRequest(post=payload)
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="experience")
-    request.matchdict = {"uuid": new_character.uuid}
+    request.matchdict = {"id": str(new_character.id)}
     view = ExperienceViews(request)
     response = view.form_view()
     assert (

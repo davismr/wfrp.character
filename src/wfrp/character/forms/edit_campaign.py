@@ -1,3 +1,5 @@
+import uuid
+
 import colander
 import deform
 from pyramid.httpexceptions import HTTPFound
@@ -13,17 +15,17 @@ class CampaignEditViews:
     def __init__(self, request):
         self.request = request
         self.logged_in = request.authenticated_userid
-        if "uuid" in request.matchdict:
+        if "id" in request.matchdict:
             self.campaign = (
                 request.dbsession.query(Campaign)
-                .filter(Campaign.uuid == request.matchdict["uuid"])
+                .filter(Campaign.id == uuid.UUID(request.matchdict["id"]))
                 .one()
             )
         else:
             self.campaign = Campaign()
 
     def schema(self):
-        if self.campaign.uuid:
+        if self.campaign.id:
             schema = colander.SchemaNode(
                 colander.Mapping(), title=f"Edit {self.campaign.get_display_title()}"
             )

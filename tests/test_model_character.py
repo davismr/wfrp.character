@@ -18,8 +18,7 @@ def test_save_character(testapp):
     assert new_character.name == "Jacob Grimm"
     DBSession.add(new_character)
     assert DBSession.query(Character).count() == 1
-    character = DBSession.query(Character).order_by(Character.uid).first()
-    assert character.uid == 1
+    character = DBSession.query(Character).first()
     assert character.name == "Jacob Grimm"
 
 

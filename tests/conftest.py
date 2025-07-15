@@ -62,19 +62,19 @@ def testapp_auth():
 
 @pytest.fixture
 def new_character(testapp):
-    new_uuid = uuid.uuid4()
-    new_character = Character(uuid=new_uuid, status={"species": ""})
+    new_id = uuid.uuid4()
+    new_character = Character(id=new_id, status={"species": ""})
     DBSession.add(new_character)
-    character = DBSession.query(Character).filter(Character.uuid == new_uuid).one()
+    character = DBSession.query(Character).filter(Character.id == new_id).one()
     return character
 
 
 @pytest.fixture
 def second_character(testapp):
-    new_uuid = uuid.uuid4()
-    new_character = Character(uuid=new_uuid, status={"species": ""})
+    new_id = uuid.uuid4()
+    new_character = Character(id=new_id, status={"species": ""})
     DBSession.add(new_character)
-    character = DBSession.query(Character).filter(Character.uuid == new_uuid).one()
+    character = DBSession.query(Character).filter(Character.id == new_id).one()
     return character
 
 
@@ -83,6 +83,6 @@ def complete_character(testapp, character_factory):
     new_character = character_factory()
     DBSession.add(new_character)
     character = (
-        DBSession.query(Character).filter(Character.uuid == new_character.uuid).one()
+        DBSession.query(Character).filter(Character.id == new_character.id).one()
     )
     return character

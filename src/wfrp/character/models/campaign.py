@@ -5,7 +5,6 @@ from datetime import timezone
 from sqlalchemy import JSON
 from sqlalchemy import Column
 from sqlalchemy import DateTime
-from sqlalchemy import Integer
 from sqlalchemy import Text
 from sqlalchemy import Uuid
 from sqlalchemy import event
@@ -17,13 +16,16 @@ from wfrp.character.application import Base
 
 class Campaign(Base):
     __tablename__ = "campaign"
-    uid = Column(Integer, primary_key=True)
-    uuid = Column(Uuid, default=uuid.uuid4())
+    id = Column(Uuid, primary_key=True)
     created = Column(DateTime, default=lambda: datetime.now(timezone.utc))
     modified = Column(DateTime, default=lambda: datetime.now(timezone.utc))
-    user = Column(Integer, ForeignKey("user.uid"))
+    user = Column(Uuid, ForeignKey("user.id"))
     name = Column(Text)
     expansions = Column(MutableList.as_mutable(JSON), default=[])
+
+    def __init__(self, **kwargs):
+        kwargs["id"] = kwargs.get("id", uuid.uuid4())
+        super().__init__(**kwargs)
 
     def get_display_title(self):
         return self.name
