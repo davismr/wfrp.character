@@ -6,6 +6,7 @@ from freezegun import freeze_time
 
 from wfrp.character.application import DBSession
 from wfrp.character.models.campaign import Campaign
+from wfrp.character.models.user import User
 
 
 @pytest.mark.models
@@ -52,3 +53,37 @@ def test_character_relationship(new_character):
     assert new_character.campaign == campaign
     assert len(campaign.characters) == 1
     assert campaign.characters[0] == new_character
+
+
+@pytest.mark.models
+def test_gamemaster_relationship():
+    campaign = Campaign()
+    campaign.name = "Gamemaster Campaign"
+    DBSession.add(campaign)
+    campaign = DBSession.query(Campaign).filter_by(name="Gamemaster Campaign").first()
+    user_one = User(name="First Gamemaster")
+    DBSession.add(user_one)
+    user_two = User(name="Second Gamemaster")
+    DBSession.add(user_two)
+    campaign.gamemasters.append(user_one)
+    campaign.gamemasters.append(user_two)
+    assert len(campaign.gamemasters) == 2
+    assert campaign.gamemasters[0] == user_one
+    assert campaign.gamemasters[1] == user_two
+
+
+@pytest.mark.models
+def test_player_relationship():
+    campaign = Campaign()
+    campaign.name = "Player Campaign"
+    DBSession.add(campaign)
+    campaign = DBSession.query(Campaign).filter_by(name="Player Campaign").first()
+    user_one = User(name="First Player")
+    DBSession.add(user_one)
+    user_two = User(name="Second Player")
+    DBSession.add(user_two)
+    campaign.players.append(user_one)
+    campaign.players.append(user_two)
+    assert len(campaign.players) == 2
+    assert campaign.players[0] == user_one
+    assert campaign.players[1] == user_two

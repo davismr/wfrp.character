@@ -5,6 +5,8 @@ from datetime import timezone
 from sqlalchemy import JSON
 from sqlalchemy import Column
 from sqlalchemy import DateTime
+from sqlalchemy import ForeignKey
+from sqlalchemy import Table
 from sqlalchemy import Text
 from sqlalchemy import Uuid
 from sqlalchemy import event
@@ -20,6 +22,12 @@ class Campaign(Base):
     created = Column(DateTime, default=lambda: datetime.now(timezone.utc))
     modified = Column(DateTime, default=lambda: datetime.now(timezone.utc))
     characters = relationship("Character", back_populates="campaign")
+    gamemasters = relationship(
+        "User", secondary="campaign_gamemaster", back_populates="gamemaster_campaigns"
+    )
+    players = relationship(
+        "User", secondary="campaign_player", back_populates="player_campaigns"
+    )
     name = Column(Text)
     expansions = Column(MutableList.as_mutable(JSON), default=[])
 
@@ -34,3 +42,19 @@ class Campaign(Base):
 @event.listens_for(Campaign, "before_update")
 def campaign_before_update(mapper, connection, target):
     target.modified = datetime.now(timezone.utc)
+
+
+campaign_gamemaster = Table(
+    "campaign_gamemaster",
+    Base.metadata,
+    Column("campaign_id", ForeignKey("campaign.id"), primary_key=True),
+    Column("user_id", ForeignKey("user.id"), primary_key=True),
+)
+
+
+campaign_player = Table(
+    "campaign_player",
+    Base.metadata,
+    Column("campaign_id", ForeignKey("campaign.id"), primary_key=True),
+    Column("user_id", ForeignKey("user.id"), primary_key=True),
+)

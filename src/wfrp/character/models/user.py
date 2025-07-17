@@ -18,6 +18,12 @@ class User(Base):
     created = Column(DateTime, default=lambda: datetime.now(timezone.utc))
     modified = Column(DateTime, default=lambda: datetime.now(timezone.utc))
     characters = relationship("Character", back_populates="user")
+    gamemaster_campaigns = relationship(
+        "Campaign", secondary="campaign_gamemaster", back_populates="gamemasters"
+    )
+    player_campaigns = relationship(
+        "Campaign", secondary="campaign_player", back_populates="players"
+    )
     name = Column(Text)
     given_name = Column(Text)
     family_name = Column(Text)
