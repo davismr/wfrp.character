@@ -38,3 +38,15 @@ def test_modified(testapp):
         new_user.name = "A newer User"
         new_user = DBSession.query(User).filter_by(name="A newer User").first()
     assert new_user.modified == datetime(2025, 6, 7, 8, 9, 10, tzinfo=timezone.utc)
+
+
+@pytest.mark.models
+def test_character_relationship(new_character):
+    new_user = User()
+    new_user.name = "User with Character"
+    DBSession.add(new_user)
+    new_user = DBSession.query(User).filter_by(name="User with Character").first()
+    new_character.user_id = new_user.id
+    assert new_character.user == new_user
+    assert len(new_user.characters) == 1
+    assert new_user.characters[0] == new_character

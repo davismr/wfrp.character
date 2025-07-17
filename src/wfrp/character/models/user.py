@@ -7,6 +7,7 @@ from sqlalchemy import DateTime
 from sqlalchemy import Text
 from sqlalchemy import Uuid
 from sqlalchemy import event
+from sqlalchemy.orm import relationship
 
 from wfrp.character.application import Base
 
@@ -16,6 +17,7 @@ class User(Base):
     id = Column(Uuid, primary_key=True)
     created = Column(DateTime, default=lambda: datetime.now(timezone.utc))
     modified = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+    characters = relationship("Character", back_populates="user")
     name = Column(Text)
     given_name = Column(Text)
     family_name = Column(Text)

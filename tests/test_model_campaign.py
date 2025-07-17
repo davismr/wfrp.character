@@ -40,3 +40,15 @@ def test_modified(testapp):
             DBSession.query(Campaign).filter_by(name="My modified Campaign").first()
         )
     assert new_campaign.modified == datetime(2025, 6, 7, 8, 9, 10, tzinfo=timezone.utc)
+
+
+@pytest.mark.models
+def test_character_relationship(new_character):
+    campaign = Campaign()
+    campaign.name = "Character Campaign"
+    DBSession.add(campaign)
+    campaign = DBSession.query(Campaign).filter_by(name="Character Campaign").first()
+    new_character.campaign_id = campaign.id
+    assert new_character.campaign == campaign
+    assert len(campaign.characters) == 1
+    assert campaign.characters[0] == new_character

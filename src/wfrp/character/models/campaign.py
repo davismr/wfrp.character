@@ -9,7 +9,7 @@ from sqlalchemy import Text
 from sqlalchemy import Uuid
 from sqlalchemy import event
 from sqlalchemy.ext.mutable import MutableList
-from sqlalchemy.schema import ForeignKey
+from sqlalchemy.orm import relationship
 
 from wfrp.character.application import Base
 
@@ -19,7 +19,7 @@ class Campaign(Base):
     id = Column(Uuid, primary_key=True)
     created = Column(DateTime, default=lambda: datetime.now(timezone.utc))
     modified = Column(DateTime, default=lambda: datetime.now(timezone.utc))
-    user = Column(Uuid, ForeignKey("user.id"))
+    characters = relationship("Character", back_populates="campaign")
     name = Column(Text)
     expansions = Column(MutableList.as_mutable(JSON), default=[])
 

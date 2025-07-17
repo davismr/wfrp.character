@@ -11,6 +11,7 @@ from sqlalchemy import Uuid
 from sqlalchemy import event
 from sqlalchemy.ext.mutable import MutableDict
 from sqlalchemy.ext.mutable import MutableList
+from sqlalchemy.orm import relationship
 from sqlalchemy.schema import ForeignKey
 
 from wfrp.character.application import Base
@@ -26,7 +27,10 @@ class Character(Base):
     id = Column(Uuid, primary_key=True)
     created = Column(DateTime, default=lambda: datetime.now(timezone.utc))
     modified = Column(DateTime, default=lambda: datetime.now(timezone.utc))
-    user = Column(Uuid, ForeignKey("user.id"))
+    user_id = Column(Uuid, ForeignKey("user.id"))
+    user = relationship("User", back_populates="characters")
+    campaign_id = Column(Uuid, ForeignKey("campaign.id"))
+    campaign = relationship("Campaign", back_populates="characters")
     name = Column(Text)
     species = Column(Text)
     age = Column(Integer)
