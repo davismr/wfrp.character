@@ -5,6 +5,7 @@ import deform
 from pyramid.httpexceptions import HTTPFound
 from pyramid.view import view_config
 from pyramid.view import view_defaults
+from sqlalchemy import exists
 
 from wfrp.character.data.expansions import EXPANSIONS
 from wfrp.character.models.campaign import Campaign
@@ -58,29 +59,9 @@ class CampaignEditViews:
     @view_config(
         route_name="campaign_new", renderer="wfrp.character:templates/campaign_form.pt"
     )
-    def form_view_new(self):
-        schema = self.schema()
-        form = deform.Form(schema, buttons=("Save",))
-        if "Save" in self.request.POST:
-            try:
-                captured = form.validate(self.request.POST.items())
-            except deform.ValidationFailure as error:
-                html = error.render()
-            else:
-                self.campaign.name = captured.get("campaign_name")
-                self.campaign.expansions = list(captured.get("expansions"))
-                self.request.dbsession.add(self.campaign)
-                return HTTPFound(location="/")
-        else:
-            html = form.render()
-        static_assets = form.get_widget_resources()
-        return {
-            "form": html,
-            "css_links": static_assets["css"],
-            "js_links": static_assets["js"],
-        }
-
-    @view_config(renderer="wfrp.character:templates/campaign_form.pt")
+    @view_config(
+        route_name="campaign_edit", renderer="wfrp.character:templates/campaign_form.pt"
+    )
     def form_view(self):
         schema = self.schema()
         form = deform.Form(schema, buttons=("Save",))
@@ -91,6 +72,14 @@ class CampaignEditViews:
                 html = error.render()
             else:
                 self.campaign.name = captured.get("campaign_name")
+                self.campaign.expansions = list(captured.get("expansions"))
+                if (
+                    self.request.dbsession.query(
+                        exists().where(Campaign.id == self.campaign.id)
+                    ).scalar()
+                    is False
+                ):
+                    self.request.dbsession.add(self.campaign)
                 return HTTPFound(location="/")
         else:
             html = form.render()
