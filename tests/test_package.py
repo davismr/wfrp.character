@@ -16,7 +16,7 @@ class DummyRoute:
 
 
 @pytest.mark.package
-def test_home_view():
+def test_home_view(testapp):
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     view = HomePageViews(request)

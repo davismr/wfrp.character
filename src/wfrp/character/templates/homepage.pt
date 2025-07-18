@@ -20,6 +20,11 @@
                 </li>
             </ul>
         </div>
+        <div tal:condition="request.registry.settings['wfrp.character.enable_auth']">
+            <div tal:condition="view.logged_in is not None">
+                <a href="/campaign/new">Add new campaign</a>
+            </div>
+        </div>
         <div tal:condition="characters">
             <h3>My Characters</h3>
             <ul>
@@ -28,9 +33,15 @@
                 </li>
             </ul>
         </div>
+        <div tal:condition="request.registry.settings['wfrp.character.enable_auth']">
+            <div tal:condition="view.logged_in is not None">
+                <a href="/character/new">Add new character</a>
+            </div>
+        </div>
         <div tal:condition="not: characters or campaigns">
             <div metal:use-macro="load: about_text.pt" />
         </div>
+        <hr/>
         <div metal:use-macro="load: buy_coffee.pt" />
     </div>
 </div>
