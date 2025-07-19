@@ -9,6 +9,8 @@ from sqlalchemy import exists
 
 from wfrp.character.data.expansions import EXPANSIONS
 from wfrp.character.models.campaign import Campaign
+from wfrp.character.models.user import User
+from wfrp.character.validators import is_user_found
 
 
 @view_defaults(route_name="campaign_edit")
@@ -54,6 +56,24 @@ class CampaignEditViews:
                 default=self.campaign.expansions,
             )
         )
+
+        class Gamemaster(colander.SequenceSchema):
+            gamemaster = colander.SchemaNode(
+                colander.String(),
+                widget=deform.widget.TextInputWidget(),
+                validator=is_user_found,
+            )
+
+        schema.add(Gamemaster(name="gamemasters"))
+
+        class Player(colander.SequenceSchema):
+            player = colander.SchemaNode(
+                colander.String(),
+                widget=deform.widget.TextInputWidget(),
+                validator=is_user_found,
+            )
+
+        schema.add(Player(name="players"))
         return schema
 
     @view_config(
@@ -71,6 +91,7 @@ class CampaignEditViews:
             except deform.ValidationFailure as error:
                 html = error.render()
             else:
+                self.update_users(captured)
                 self.campaign.name = captured.get("campaign_name")
                 self.campaign.expansions = list(captured.get("expansions"))
                 if (
@@ -82,6 +103,14 @@ class CampaignEditViews:
                     self.request.dbsession.add(self.campaign)
                 return HTTPFound(location="/")
         else:
+            form.set_appstruct(
+                {
+                    "players": [str(player.id) for player in self.campaign.players],
+                    "gamemasters": [
+                        str(gamemaster.id) for gamemaster in self.campaign.gamemasters
+                    ],
+                }
+            )
             html = form.render()
         static_assets = form.get_widget_resources()
         return {
@@ -89,6 +118,38 @@ class CampaignEditViews:
             "css_links": static_assets["css"],
             "js_links": static_assets["js"],
         }
+
+    def update_users(self, captured):
+        self.campaign.gamemasters.clear()
+        for gamemaster in captured["gamemasters"]:
+            try:
+                user = (
+                    self.request.dbsession.query(User)
+                    .filter(User.id == uuid.UUID(gamemaster))
+                    .one()
+                )
+            except ValueError:
+                user = (
+                    self.request.dbsession.query(User)
+                    .filter(User.email == gamemaster)
+                    .one()
+                )
+            self.campaign.gamemasters.append(user)
+        self.campaign.players.clear()
+        for player in captured["players"]:
+            try:
+                user = (
+                    self.request.dbsession.query(User)
+                    .filter(User.id == uuid.UUID(player))
+                    .one()
+                )
+            except ValueError:
+                user = (
+                    self.request.dbsession.query(User)
+                    .filter(User.email == player)
+                    .one()
+                )
+            self.campaign.players.append(user)
 
     def get_widget_resources(self, form):
         static_assets = form.get_widget_resources()
