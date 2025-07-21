@@ -150,7 +150,7 @@ class AdvancesViews(BaseView):
                 "fate and resilience",
             )
 
-    @view_config(renderer="wfrp.character:templates/form.pt")
+    @view_config(renderer="wfrp.character:templates/forms/base_form.pt")
     def form_view(self):
         data = self.initialise_form()
         schema = self.schema(data)

@@ -79,7 +79,7 @@ class SpeciesViews(BaseView):
         schema.add(species_schema)
         return schema
 
-    @view_config(renderer="wfrp.character:templates/form.pt")
+    @view_config(renderer="wfrp.character:templates/forms/base_form.pt")
     def form_view(self):
         self.initialise_form()
         schema = self.schema()

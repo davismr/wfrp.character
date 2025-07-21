@@ -190,7 +190,7 @@ class ExperienceViews(BaseView):
                 f"you need {cost} XP",
             )
 
-    @view_config(renderer="wfrp.character:templates/experience.pt")
+    @view_config(renderer="wfrp.character:templates/forms/experience.pt")
     def form_view(self):  # noqa: C901
         html = []
         all_forms = ["characteristic", "skill", "talent"]

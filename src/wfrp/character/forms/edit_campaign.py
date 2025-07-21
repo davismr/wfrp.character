@@ -77,10 +77,11 @@ class CampaignEditViews:
         return schema
 
     @view_config(
-        route_name="campaign_new", renderer="wfrp.character:templates/campaign_form.pt"
+        route_name="campaign_new", renderer="wfrp.character:templates/forms/campaign.pt"
     )
     @view_config(
-        route_name="campaign_edit", renderer="wfrp.character:templates/campaign_form.pt"
+        route_name="campaign_edit",
+        renderer="wfrp.character:templates/forms/campaign.pt",
     )
     def form_view(self):
         schema = self.schema()

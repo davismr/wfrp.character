@@ -103,7 +103,7 @@ class TrappingsViews(BaseView):
         schema.add(money_schema)
         return schema
 
-    @view_config(renderer="wfrp.character:templates/form.pt")
+    @view_config(renderer="wfrp.character:templates/forms/base_form.pt")
     def form_view(self):  # noqa C901
         data = self.initialise_form()
         schema = self.schema(data)
