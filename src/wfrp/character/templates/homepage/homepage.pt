@@ -1,0 +1,18 @@
+<div metal:use-macro="load: ../layout.pt">
+    <div metal:fill-slot="page_css">
+        <link rel="stylesheet" type="text/css"
+              href="${request.static_url('wfrp.character:static/google.css')}"/>
+    </div>
+    <div metal:fill-slot="content">
+        <h2>Warhammer Fantasy Roleplay Character generator</h2>
+        <div metal:use-macro="load: ../includes/about_warning.pt" />
+        <div tal:condition="request.registry.settings['enable_auth']">
+            <div metal:use-macro="load: home_auth.pt" />
+        </div>
+        <div tal:condition="not: request.registry.settings['enable_auth']">
+            <div metal:use-macro="load: home_local.pt" />
+        </div>
+        <hr/>
+        <div metal:use-macro="load: ../includes/buy_coffee.pt" />
+    </div>
+</div>

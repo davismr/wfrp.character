@@ -1,13 +1,11 @@
 from pyramid.httpexceptions import HTTPFound
 from pyramid.security import forget
 from pyramid.view import view_config
-from pyramid.view import view_defaults
 from sqlalchemy.exc import NoResultFound
 
 from wfrp.character.models.user import User
 
 
-@view_defaults(renderer="wfrp.character:templates/homepage.pt")
 class AuthViews:
     def __init__(self, request):
         self.request = request

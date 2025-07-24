@@ -14,7 +14,9 @@ class HomePageViews:
         self.request = request
         self.logged_in = request.authenticated_userid
 
-    @view_config(request_method="GET", renderer="wfrp.character:templates/homepage.pt")
+    @view_config(
+        request_method="GET", renderer="wfrp.character:templates/homepage/homepage.pt"
+    )
     def get_view(self):
         campaigns = self.request.dbsession.query(Campaign).all()
         campaign_list = {}

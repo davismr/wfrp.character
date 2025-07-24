@@ -1,0 +1,28 @@
+<div tal:condition="view.logged_in is None">
+    <div metal:use-macro="load: ../includes/google_login.pt" />
+</div>
+<div tal:condition="campaigns">
+    <h3>My Campaigns</h3>
+    <ul>
+        <li tal:repeat="campaign campaigns">
+            <a href="${campaign}">${campaigns[campaign]}</a>
+        </li>
+    </ul>
+</div>
+<div tal:condition="view.logged_in is not None">
+    <a href="/campaign/new">Add new campaign</a>
+</div>
+<div tal:condition="characters">
+    <h3>My Characters</h3>
+    <ul>
+        <li tal:repeat="character characters">
+            <a href="${character}">${characters[character]}</a>
+        </li>
+    </ul>
+</div>
+<div tal:condition="view.logged_in is not None">
+    <a href="/character/new">Add new character</a>
+</div>
+<div tal:condition="not: characters or campaigns">
+    <div metal:use-macro="load: ../includes/about_text.pt" />
+</div>

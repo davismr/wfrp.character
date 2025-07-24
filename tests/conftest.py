@@ -24,6 +24,7 @@ register(CharacterFactory)
 def testapp():
     settings = get_appsettings("development.ini", name="main")
     settings["sqlalchemy.url"] = "sqlite:///:memory:"
+    settings["enable_auth"] = False
     engine = engine_from_config(settings, "sqlalchemy.")
     config = testing.setUp(settings=settings)
     config.add_request_method(dbsession, reify=True)
