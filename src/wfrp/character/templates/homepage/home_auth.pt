@@ -1,6 +1,14 @@
 <div tal:condition="view.logged_in is None">
     <div metal:use-macro="load: ../includes/google_login.pt" />
 </div>
+<div tal:condition="gamemaster_campaigns">
+    <h3>My Gamemaster Campaigns</h3>
+    <ul>
+        <li tal:repeat="campaign gamemaster_campaigns">
+            <a href="${campaign}">${gamemaster_campaigns[campaign]}</a>
+        </li>
+    </ul>
+</div>
 <div tal:condition="campaigns">
     <h3>My Campaigns</h3>
     <ul>

@@ -18,14 +18,12 @@ class HomePageViews:
         request_method="GET", renderer="wfrp.character:templates/homepage/homepage.pt"
     )
     def get_view(self):
-        campaigns = self.request.dbsession.query(Campaign).all()
         campaign_list = {}
-        for campaign in campaigns:
-            url = self.request.route_url("campaign_edit", id=campaign.id)
-            campaign_list[url] = campaign.get_display_title()
+        gamemaster_campaigns_list = {}
+        character_list = {}
         if self.request.registry.settings.get("enable_auth"):
             if self.logged_in is None:
-                return {"campaigns": {}, "characters": {}}
+                return {"gamemaster_campaigns": {}, "campaigns": {}, "characters": {}}
             try:
                 user = (
                     self.request.dbsession.query(User)
@@ -34,16 +32,29 @@ class HomePageViews:
                 )
             except NoResultFound:
                 forget(self.request)
-                return {"campaigns": {}, "characters": {}}
+                return {"gamemaster_campaigns": {}, "campaigns": {}, "characters": {}}
+            campaigns = user.player_campaigns
+            gamemaster_campaigns = user.gamemaster_campaigns
             characters = (
                 self.request.dbsession.query(Character)
                 .filter(Character.user_id == user.id)
                 .all()
             )
         else:
+            campaigns = self.request.dbsession.query(Campaign).all()
+            gamemaster_campaigns = {}
             characters = self.request.dbsession.query(Character).all()
-        character_list = {}
+        for campaign in campaigns:
+            url = self.request.route_url("campaign_edit", id=campaign.id)
+            campaign_list[url] = campaign.get_display_title()
+        for campaign in gamemaster_campaigns:
+            url = self.request.route_url("campaign_edit", id=campaign.id)
+            gamemaster_campaigns_list[url] = campaign.get_display_title()
         for character in characters:
             url = self.request.route_url("character_summary", id=character.id)
             character_list[url] = character.get_display_title()
-        return {"campaigns": campaign_list, "characters": character_list}
+        return {
+            "gamemaster_campaigns": gamemaster_campaigns_list,
+            "campaigns": campaign_list,
+            "characters": character_list,
+        }
