@@ -9,11 +9,11 @@ from wfrp.character.data.careers import CAREER_DATA
 from wfrp.character.data.class_trappings import get_class_trappings
 from wfrp.character.data.weapons import WEAPONS_DATA
 from wfrp.character.utils import roll_d10
-from wfrp.character.views.create_character.base_view import BaseView
+from wfrp.character.views.create_character.base_create import BaseCreateView
 
 
 @view_defaults(route_name="trappings", permission="create_character")
-class TrappingsViews(BaseView):
+class TrappingsViews(BaseCreateView):
     def _get_money(self, tier, standing):
         if tier == "Brass":
             money = {"brass pennies": 0}

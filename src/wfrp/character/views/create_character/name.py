@@ -4,11 +4,11 @@ from pyramid.httpexceptions import HTTPFound
 from pyramid.view import view_config
 from pyramid.view import view_defaults
 
-from wfrp.character.views.create_character.base_view import BaseView
+from wfrp.character.views.create_character.base_create import BaseCreateView
 
 
 @view_defaults(route_name="name", permission="create_character")
-class NameViews(BaseView):
+class NameViews(BaseCreateView):
     def schema(self):
         schema = colander.SchemaNode(colander.Mapping(), title="Character Name")
         schema.add(

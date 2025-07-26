@@ -9,11 +9,11 @@ from wfrp.character.data.species import get_hair_colour
 from wfrp.character.utils import roll_2d10
 from wfrp.character.utils import roll_5d10
 from wfrp.character.utils import roll_d10
-from wfrp.character.views.create_character.base_view import BaseView
+from wfrp.character.views.create_character.base_create import BaseCreateView
 
 
 @view_defaults(route_name="details", permission="create_character")
-class DetailsViews(BaseView):
+class DetailsViews(BaseCreateView):
     def _get_hair_colour(self, species):
         return get_hair_colour(species, roll_2d10())
 

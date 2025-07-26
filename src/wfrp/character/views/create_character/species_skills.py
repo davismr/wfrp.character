@@ -9,11 +9,11 @@ from wfrp.character.data.species import SPECIES_DATA
 from wfrp.character.data.talents import TALENT_DATA
 from wfrp.character.data.talents import get_random_talent
 from wfrp.character.utils import roll_d100
-from wfrp.character.views.create_character.base_view import BaseView
+from wfrp.character.views.create_character.base_create import BaseCreateView
 
 
 @view_defaults(route_name="species_skills", permission="create_character")
-class SpeciesSkillsViews(BaseView):
+class SpeciesSkillsViews(BaseCreateView):
     def initialise_form(self):
         species = self.character.species
         species_skills = SPECIES_DATA[species]["skills"].copy()

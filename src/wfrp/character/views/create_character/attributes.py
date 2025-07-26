@@ -5,7 +5,7 @@ from pyramid.view import view_config
 from pyramid.view import view_defaults
 
 from wfrp.character.utils import roll_2d10
-from wfrp.character.views.create_character.base_view import BaseView
+from wfrp.character.views.create_character.base_create import BaseCreateView
 
 ATTRIBUTES = [
     "Weapon Skill",
@@ -24,7 +24,7 @@ ATTRIBUTES_LOWER = [x.lower().replace(" ", "_") for x in ATTRIBUTES]
 
 
 @view_defaults(route_name="attributes", permission="create_character")
-class AttributesViews(BaseView):
+class AttributesViews(BaseCreateView):
     def _roll_base_attributes(self):
         attributes = {}
         for attribute in ATTRIBUTES:

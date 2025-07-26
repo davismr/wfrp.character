@@ -6,11 +6,11 @@ from pyramid.view import view_defaults
 
 from wfrp.character.data.careers import CAREER_DATA
 from wfrp.character.views.create_character.attributes import ATTRIBUTES
-from wfrp.character.views.create_character.base_view import BaseView
+from wfrp.character.views.create_character.base_create import BaseCreateView
 
 
 @view_defaults(route_name="advances", permission="create_character")
-class AdvancesViews(BaseView):
+class AdvancesViews(BaseCreateView):
     def initialise_form(self):
         attributes = {}
         for attribute in ATTRIBUTES:

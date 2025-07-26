@@ -5,7 +5,7 @@ from pyramid.httpexceptions import HTTPFound
 from wfrp.character.models.character import Character
 
 
-class BaseView:
+class BaseCreateView:
     def __init__(self, request):
         self.request = request
         self.logged_in = request.authenticated_userid

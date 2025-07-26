@@ -7,11 +7,11 @@ from pyramid.view import view_defaults
 from wfrp.character.data.careers import CAREER_DATA
 from wfrp.character.data.skills import SKILL_DATA
 from wfrp.character.data.talents import TALENT_DATA
-from wfrp.character.views.create_character.base_view import BaseView
+from wfrp.character.views.create_character.base_create import BaseCreateView
 
 
 @view_defaults(route_name="career_skills", permission="create_character")
-class CareerSkillsViews(BaseView):
+class CareerSkillsViews(BaseCreateView):
     def initialise_form(self):
         career_data = CAREER_DATA[self.character.career]
         career_details = career_data[list(career_data)[1]]

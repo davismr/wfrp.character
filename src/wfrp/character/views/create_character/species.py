@@ -7,11 +7,11 @@ from pyramid.view import view_defaults
 from wfrp.character.data.species import SPECIES_LIST
 from wfrp.character.switches import is_gnome_active
 from wfrp.character.utils import roll_d100
-from wfrp.character.views.create_character.base_view import BaseView
+from wfrp.character.views.create_character.base_create import BaseCreateView
 
 
 @view_defaults(route_name="species", permission="create_character")
-class SpeciesViews(BaseView):
+class SpeciesViews(BaseCreateView):
     def __init__(self, request):
         super().__init__(request)
         self.species_list = SPECIES_LIST.copy()
