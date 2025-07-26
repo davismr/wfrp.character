@@ -25,5 +25,4 @@ def includeme(config):
     config.add_route("character_summary", "/character/{id}/summary")
     config.add_route("pdf_print", "/character/{id}/pdf_print")
     config.scan("wfrp.character.views")
-    config.scan("wfrp.character.forms")
-    config.scan("wfrp.character.forms.create")
+    config.scan("wfrp.character.views.create_character")

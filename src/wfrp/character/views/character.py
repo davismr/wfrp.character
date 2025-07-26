@@ -8,7 +8,7 @@ from wfrp.character.data.armour import ARMOUR_DATA
 from wfrp.character.data.skills import SKILL_DATA
 from wfrp.character.data.talents import TALENT_DATA
 from wfrp.character.data.weapons import WEAPONS_DATA
-from wfrp.character.views.base_view import BaseView
+from wfrp.character.views.create_character.base_view import BaseView
 
 logger = logging.getLogger(__name__)
 

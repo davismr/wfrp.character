@@ -5,8 +5,8 @@ import pytest
 from freezegun import freeze_time
 
 from wfrp.character.application import DBSession
-from wfrp.character.forms.create.attributes import ATTRIBUTES_LOWER
 from wfrp.character.models.character import Character
+from wfrp.character.views.create_character.attributes import ATTRIBUTES_LOWER
 
 
 @pytest.mark.models

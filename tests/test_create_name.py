@@ -5,7 +5,7 @@ from pyramid import testing
 from pyramid.httpexceptions import HTTPFound
 
 from wfrp.character.application import dbsession
-from wfrp.character.forms.create.name import NameViews
+from wfrp.character.views.create_character.name import NameViews
 
 
 @dataclass

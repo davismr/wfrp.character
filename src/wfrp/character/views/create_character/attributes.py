@@ -5,7 +5,7 @@ from pyramid.view import view_config
 from pyramid.view import view_defaults
 
 from wfrp.character.utils import roll_2d10
-from wfrp.character.views.base_view import BaseView
+from wfrp.character.views.create_character.base_view import BaseView
 
 ATTRIBUTES = [
     "Weapon Skill",

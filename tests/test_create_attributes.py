@@ -5,8 +5,8 @@ from pyramid import testing
 from pyramid.httpexceptions import HTTPFound
 
 from wfrp.character.application import dbsession
-from wfrp.character.forms.create.attributes import ATTRIBUTES
-from wfrp.character.forms.create.attributes import AttributesViews
+from wfrp.character.views.create_character.attributes import ATTRIBUTES
+from wfrp.character.views.create_character.attributes import AttributesViews
 
 
 @dataclass

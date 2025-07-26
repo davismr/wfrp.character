@@ -2,7 +2,7 @@ import pytest
 from pyramid import testing
 
 from wfrp.character.application import dbsession
-from wfrp.character.forms.create.new_character import NewCharacterViews
+from wfrp.character.views.create_character.new_character import NewCharacterViews
 
 
 @pytest.mark.create

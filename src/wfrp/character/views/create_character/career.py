@@ -9,7 +9,7 @@ from wfrp.character.data.careers import CAREER_DATA
 from wfrp.character.data.careers import get_career
 from wfrp.character.data.careers import list_careers
 from wfrp.character.utils import roll_d100
-from wfrp.character.views.base_view import BaseView
+from wfrp.character.views.create_character.base_view import BaseView
 
 
 @view_defaults(route_name="career", permission="create_character")

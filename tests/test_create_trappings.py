@@ -7,7 +7,7 @@ from pyramid.httpexceptions import HTTPFound
 
 from wfrp.character.application import dbsession
 from wfrp.character.data.class_trappings import get_class_trappings
-from wfrp.character.forms.create.trappings import TrappingsViews
+from wfrp.character.views.create_character.trappings import TrappingsViews
 
 
 @dataclass

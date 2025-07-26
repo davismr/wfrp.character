@@ -6,8 +6,8 @@ from pyramid import testing
 from pyramid.httpexceptions import HTTPFound
 
 from wfrp.character.application import dbsession
-from wfrp.character.forms.create.career_skills import CareerSkillsViews
-from wfrp.character.forms.create.species_skills import SpeciesSkillsViews
+from wfrp.character.views.create_character.career_skills import CareerSkillsViews
+from wfrp.character.views.create_character.species_skills import SpeciesSkillsViews
 
 
 @dataclass
@@ -61,7 +61,7 @@ def test_initialise_form_extra(new_character):
     request.matchdict = {"id": str(new_character.id)}
     view = SpeciesSkillsViews(request)
     with patch(
-        "wfrp.character.forms.create.species_skills.get_random_talent"
+        "wfrp.character.views.create_character.species_skills.get_random_talent"
     ) as mock_roll:
         mock_roll.side_effect = ["Savvy", "Mimic", "Mimic", "Hardy", "talent1"]
         response = view.initialise_form()

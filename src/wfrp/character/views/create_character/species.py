@@ -7,7 +7,7 @@ from pyramid.view import view_defaults
 from wfrp.character.data.species import SPECIES_LIST
 from wfrp.character.switches import is_gnome_active
 from wfrp.character.utils import roll_d100
-from wfrp.character.views.base_view import BaseView
+from wfrp.character.views.create_character.base_view import BaseView
 
 
 @view_defaults(route_name="species", permission="create_character")

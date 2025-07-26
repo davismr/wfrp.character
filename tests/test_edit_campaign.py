@@ -3,8 +3,8 @@ from pyramid import testing
 
 from wfrp.character.application import DBSession
 from wfrp.character.application import dbsession
-from wfrp.character.forms.edit_campaign import CampaignEditViews
 from wfrp.character.models.campaign import Campaign
+from wfrp.character.views.edit_campaign import CampaignEditViews
 
 
 @pytest.mark.edit

@@ -6,7 +6,7 @@ from pyramid import testing
 from pyramid.httpexceptions import HTTPFound
 
 from wfrp.character.application import dbsession
-from wfrp.character.forms.create.species import SpeciesViews
+from wfrp.character.views.create_character.species import SpeciesViews
 
 
 @dataclass
@@ -28,7 +28,7 @@ def test_get_view(new_character):
 
 
 @pytest.mark.create
-@patch("wfrp.character.forms.create.species.is_gnome_active")
+@patch("wfrp.character.views.create_character.species.is_gnome_active")
 def test_get_view_gnome(mock_is_gnome_active, new_character):
     mock_is_gnome_active.return_value = False
     request = testing.DummyRequest(path="species")
@@ -63,7 +63,7 @@ def test_roll_new_species(new_character, species, roll):
     request.matched_route = DummyRoute(name="species")
     request.matchdict = {"id": str(new_character.id)}
     view = SpeciesViews(request)
-    with patch("wfrp.character.forms.create.species.roll_d100") as mock_roll:
+    with patch("wfrp.character.views.create_character.species.roll_d100") as mock_roll:
         mock_roll.return_value = roll
         response = view._roll_new_species()
         assert response == species
@@ -83,7 +83,7 @@ def test_roll_new_species(new_character, species, roll):
         ("High Elf", 99),
     ],
 )
-@patch("wfrp.character.forms.create.species.is_gnome_active")
+@patch("wfrp.character.views.create_character.species.is_gnome_active")
 def test_roll_new_species_gnome(mock_is_gnome_active, new_character, species, roll):
     mock_is_gnome_active.return_value = True
     request = testing.DummyRequest(path="species")
@@ -91,7 +91,7 @@ def test_roll_new_species_gnome(mock_is_gnome_active, new_character, species, ro
     request.matched_route = DummyRoute(name="species")
     request.matchdict = {"id": str(new_character.id)}
     view = SpeciesViews(request)
-    with patch("wfrp.character.forms.create.species.roll_d100") as mock_roll:
+    with patch("wfrp.character.views.create_character.species.roll_d100") as mock_roll:
         mock_roll.return_value = roll
         response = view._roll_new_species()
         assert response == species
