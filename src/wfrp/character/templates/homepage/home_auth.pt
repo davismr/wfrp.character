@@ -17,6 +17,9 @@
         </li>
     </ul>
 </div>
+<div tal:condition="not: campaigns">
+    <h3>No campaigns added yet.</h3>
+</div>
 <div tal:condition="view.logged_in is not None">
     <a href="/campaign/new">Add new campaign</a>
 </div>
@@ -27,6 +30,9 @@
             <a href="${character}">${characters[character]}</a>
         </li>
     </ul>
+</div>
+<div tal:condition="not: characters">
+    <h3>No characters added yet.</h3>
 </div>
 <div tal:condition="view.logged_in is not None">
     <a href="/character/new">Add new character</a>
