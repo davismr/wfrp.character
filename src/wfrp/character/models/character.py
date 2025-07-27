@@ -31,6 +31,7 @@ class Character(Base):
     user = relationship("User", back_populates="characters")
     campaign_id = Column(Uuid, ForeignKey("campaign.id"))
     campaign = relationship("Campaign", back_populates="characters")
+    expansions = Column(MutableList.as_mutable(JSON), default=[])
     name = Column(Text)
     species = Column(Text)
     age = Column(Integer)

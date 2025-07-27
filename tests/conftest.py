@@ -13,6 +13,7 @@ from webtest import TestApp
 from wfrp.character.application import Base
 from wfrp.character.application import DBSession
 from wfrp.character.application import dbsession
+from wfrp.character.models.campaign import Campaign
 from wfrp.character.models.character import Character
 from wfrp.character.security import SecurityPolicy
 
@@ -64,7 +65,7 @@ def testapp_auth():
 @pytest.fixture
 def new_character(testapp):
     new_id = uuid.uuid4()
-    new_character = Character(id=new_id, status={"species": ""})
+    new_character = Character(id=new_id, status={"campaign": ""})
     DBSession.add(new_character)
     character = DBSession.query(Character).filter(Character.id == new_id).one()
     return character
@@ -73,7 +74,7 @@ def new_character(testapp):
 @pytest.fixture
 def second_character(testapp):
     new_id = uuid.uuid4()
-    new_character = Character(id=new_id, status={"species": ""})
+    new_character = Character(id=new_id, status={"campaign": ""})
     DBSession.add(new_character)
     character = DBSession.query(Character).filter(Character.id == new_id).one()
     return character
@@ -87,3 +88,11 @@ def complete_character(testapp, character_factory):
         DBSession.query(Character).filter(Character.id == new_character.id).one()
     )
     return character
+
+
+@pytest.fixture
+def new_campaign(testapp, campaign_factory):
+    new_campaign = campaign_factory()
+    DBSession.add(new_campaign)
+    campaign = DBSession.query(Campaign).filter(Campaign.id == new_campaign.id).one()
+    return campaign

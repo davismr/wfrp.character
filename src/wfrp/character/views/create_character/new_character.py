@@ -37,6 +37,6 @@ class NewCharacterViews:
                 forget(self.request)
                 raise HTTPUnauthorized
         self.request.dbsession.add(character)
-        url = self.request.route_url("species", id=new_id)
-        character.status = {"species": ""}
+        url = self.request.route_url("campaign", id=new_id)
+        character.status = {"campaign": ""}
         return HTTPFound(location=url)

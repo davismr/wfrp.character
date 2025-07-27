@@ -16,6 +16,7 @@ class DummyRoute:
 
 @pytest.mark.create
 def test_get_view(new_character):
+    new_character.status = {"species": ""}
     request = testing.DummyRequest(path="species")
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="species")
@@ -30,6 +31,7 @@ def test_get_view(new_character):
 @pytest.mark.create
 @patch("wfrp.character.views.create_character.species.is_gnome_active")
 def test_get_view_gnome(mock_is_gnome_active, new_character):
+    new_character.status = {"species": ""}
     mock_is_gnome_active.return_value = False
     request = testing.DummyRequest(path="species")
     request.dbsession = dbsession(request)
@@ -58,6 +60,7 @@ def test_get_view_gnome(mock_is_gnome_active, new_character):
     ],
 )
 def test_roll_new_species(new_character, species, roll):
+    new_character.status = {"species": ""}
     request = testing.DummyRequest(path="species")
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="species")
@@ -85,6 +88,7 @@ def test_roll_new_species(new_character, species, roll):
 )
 @patch("wfrp.character.views.create_character.species.is_gnome_active")
 def test_roll_new_species_gnome(mock_is_gnome_active, new_character, species, roll):
+    new_character.status = {"species": ""}
     mock_is_gnome_active.return_value = True
     request = testing.DummyRequest(path="species")
     request.dbsession = dbsession(request)

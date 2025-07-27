@@ -10,6 +10,8 @@ def includeme(config):
     config.add_route("campaign_new", "/campaign/new")
     config.add_route("campaign_edit", "/campaign/{id}/edit")
     config.add_route("new_character", "/character/new")
+    config.add_route("campaign", "/character/{id}/campaign")
+    config.add_route("expansions", "/character/{id}/expansions")
     config.add_route("species", "/character/{id}/species")
     config.add_route("career", "/character/{id}/career")
     config.add_route("attributes", "/character/{id}/attributes")
