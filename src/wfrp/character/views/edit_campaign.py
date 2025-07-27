@@ -3,6 +3,7 @@ import uuid
 import colander
 import deform
 from pyramid.httpexceptions import HTTPFound
+from pyramid.httpexceptions import HTTPUnauthorized
 from pyramid.view import view_config
 from pyramid.view import view_defaults
 from sqlalchemy import exists
@@ -18,6 +19,8 @@ class CampaignEditViews:
     def __init__(self, request):
         self.request = request
         self.logged_in = request.authenticated_userid
+        if self.request.registry.settings.get("enable_auth") and self.logged_in is None:
+            raise HTTPUnauthorized
         if "id" in request.matchdict:
             self.campaign = (
                 request.dbsession.query(Campaign)
