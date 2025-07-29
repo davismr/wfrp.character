@@ -17,7 +17,7 @@
         </li>
     </ul>
 </div>
-<div tal:condition="not: campaigns">
+<div tal:condition="view.logged_in and not campaigns">
     <h3>No campaigns added yet.</h3>
 </div>
 <div tal:condition="view.logged_in is not None">
@@ -31,7 +31,7 @@
         </li>
     </ul>
 </div>
-<div tal:condition="not: characters">
+<div tal:condition="view.logged_in and not characters">
     <h3>No characters added yet.</h3>
 </div>
 <div tal:condition="view.logged_in is not None">
