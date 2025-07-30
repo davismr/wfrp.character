@@ -1,0 +1,11 @@
+<div metal:use-macro="load: layout.pt">
+    <div metal:fill-slot="content">
+        <h2>Account Deletion</h2>
+        <div>
+            This will permanently delete your account and all associated data.
+        </div>
+        <div id="input-form">
+            <span tal:replace="structure form"/>
+        </div>
+    </div>
+</div>

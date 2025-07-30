@@ -9,6 +9,7 @@ filterwarnings = [
     "ignore::DeprecationWarning:webob",
 ]
 markers = [
+    "account",
     "create",
     "data",
     "edit",
