@@ -23,6 +23,7 @@ class AccountPageViews:
                 .one()
             )
         except NoResultFound:
+            breakpoint()
             raise HTTPUnauthorized
 
     def schema(self):
