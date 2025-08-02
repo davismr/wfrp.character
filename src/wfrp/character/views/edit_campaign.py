@@ -15,6 +15,22 @@ from wfrp.character.validators import confirm_delete_validator
 from wfrp.character.validators import is_user_found
 
 
+class Gamemaster(colander.SequenceSchema):
+    gamemaster = colander.SchemaNode(
+        colander.String(),
+        widget=deform.widget.TextInputWidget(),
+        validator=is_user_found,
+    )
+
+
+class Player(colander.SequenceSchema):
+    player = colander.SchemaNode(
+        colander.String(),
+        widget=deform.widget.TextInputWidget(),
+        validator=is_user_found,
+    )
+
+
 @view_defaults(route_name="campaign_edit")
 class CampaignEditViews:
     def __init__(self, request):
@@ -60,23 +76,7 @@ class CampaignEditViews:
                 default=self.campaign.expansions,
             )
         )
-
-        class Gamemaster(colander.SequenceSchema):
-            gamemaster = colander.SchemaNode(
-                colander.String(),
-                widget=deform.widget.TextInputWidget(),
-                validator=is_user_found,
-            )
-
         schema.add(Gamemaster(name="gamemasters"))
-
-        class Player(colander.SequenceSchema):
-            player = colander.SchemaNode(
-                colander.String(),
-                widget=deform.widget.TextInputWidget(),
-                validator=is_user_found,
-            )
-
         schema.add(Player(name="players"))
         return schema
 
