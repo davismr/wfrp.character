@@ -8,6 +8,14 @@ from wfrp.character.application import DBSession
 from wfrp.character.models.user import User
 
 
+def confirm_delete_validator(node, value):
+    if not value:
+        object_type = node.title.split(" ")[-1]
+        raise Invalid(
+            node, f"You have to confirm that you want to delete your {object_type}"
+        )
+
+
 def is_user_found(node, value):
     """Checks whether value is a uuid or email and maps to a user."""
     try:

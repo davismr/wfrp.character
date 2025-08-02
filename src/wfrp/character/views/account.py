@@ -8,13 +8,7 @@ from pyramid.view import view_defaults
 from sqlalchemy.exc import NoResultFound
 
 from wfrp.character.models.user import User
-
-
-def confirm_delete_validator(node, value):
-    if not value:
-        raise colander.Invalid(
-            node, "You have to confirm that you want to delete your account"
-        )
+from wfrp.character.validators import confirm_delete_validator
 
 
 @view_defaults(route_name="account")
