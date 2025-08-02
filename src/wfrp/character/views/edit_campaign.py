@@ -11,6 +11,7 @@ from sqlalchemy import exists
 from wfrp.character.data.expansions import EXPANSIONS
 from wfrp.character.models.campaign import Campaign
 from wfrp.character.models.user import User
+from wfrp.character.validators import confirm_delete_validator
 from wfrp.character.validators import is_user_found
 
 
@@ -79,6 +80,22 @@ class CampaignEditViews:
         schema.add(Player(name="players"))
         return schema
 
+    def confirm_schema(self):
+        schema = colander.SchemaNode(
+            colander.Mapping(), title="Confirm campaign deletion"
+        )
+        schema.add(
+            colander.SchemaNode(
+                colander.Boolean(),
+                widget=deform.widget.CheckboxWidget(),
+                name="confirm_delete",
+                title="Delete this campaign",
+                label="Confirm I want to delete this campaign",
+                validator=confirm_delete_validator,
+            )
+        )
+        return schema
+
     @view_config(
         route_name="campaign_new", renderer="wfrp.character:templates/forms/campaign.pt"
     )
@@ -87,8 +104,15 @@ class CampaignEditViews:
         renderer="wfrp.character:templates/forms/campaign.pt",
     )
     def form_view(self):
-        schema = self.schema()
-        form = deform.Form(schema, buttons=("Save",))
+        if "Delete" in self.request.POST or "Confirm_delete" in self.request.POST:
+            schema = self.confirm_schema()
+            buttons = ["Confirm delete"]
+        else:
+            schema = self.schema()
+            buttons = ["Save"]
+            if self.campaign.name is not None:
+                buttons.append("Delete")
+        form = deform.Form(schema, buttons=buttons)
         if "Save" in self.request.POST:
             try:
                 captured = form.validate(self.request.POST.items())
@@ -105,6 +129,14 @@ class CampaignEditViews:
                     is False
                 ):
                     self.request.dbsession.add(self.campaign)
+                return HTTPFound(location="/")
+        elif "Confirm_delete" in self.request.POST:
+            try:
+                captured = form.validate(self.request.POST.items())
+            except deform.ValidationFailure as error:
+                html = error.render()
+            else:
+                self.request.dbsession.delete(self.campaign)
                 return HTTPFound(location="/")
         else:
             form.set_appstruct(

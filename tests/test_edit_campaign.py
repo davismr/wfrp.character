@@ -52,3 +52,18 @@ def test_submit(testapp):
     assert len(campaigns) == 1
     assert campaigns[0].name == "My Awesome Campaign"
     assert campaigns[0].expansions.sort() == ["rough_nights", "sea_of_claws"].sort()
+
+
+@pytest.mark.current
+def test_campaign_delete(new_campaign):
+    num_campaigns = DBSession.query(Campaign).count()
+    request = testing.DummyRequest(
+        post={"confirm_delete": "true", "Confirm_delete": "Confirm_delete"}
+    )
+    request.dbsession = dbsession(request)
+    request.matchdict = {"id": str(new_campaign.id)}
+    view = CampaignEditViews(request)
+    response = view.form_view()
+    assert response.status_code == 302
+    assert response.location == "/"
+    assert DBSession.query(Campaign).count() == num_campaigns - 1
