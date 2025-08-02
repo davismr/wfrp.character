@@ -138,7 +138,7 @@ class CareerSkillsViews(BaseCreateView):
             )
 
     @view_config(renderer="wfrp.character:templates/forms/skills.pt")
-    def form_view(self):  # noqa: C901
+    def form_view(self):
         data = self.initialise_form()
         schema = self.schema(data)
         form = deform.Form(schema, buttons=("Choose Skills",))
@@ -149,30 +149,7 @@ class CareerSkillsViews(BaseCreateView):
             except deform.ValidationFailure as error:
                 html = error.render()
             else:
-                for item in captured["career_skills"]:
-                    value = captured["career_skills"].get(item)
-                    if not value or "specialisation" in item:
-                        continue
-                    if "(Any)" in item:
-                        specialisation = captured["career_skills"].get(
-                            f"{item} specialisation"
-                        )
-                        self.character.skills[item.replace("Any", specialisation)] = (
-                            int(value)
-                        )
-                    elif " or " in item:
-                        specialisation = captured["career_skills"].get(
-                            f"{item} specialisation"
-                        )
-                        option = item.split("(")[1].replace(")", "")
-                        self.character.skills[item.replace(option, specialisation)] = (
-                            int(value)
-                        )
-                    else:
-                        self.character.skills[item] = int(value)
-                for item in captured["career_talents"]:
-                    value = captured["career_talents"].get(item)
-                    self.character.talents[value] = 1
+                self.update_values(captured)
                 url = self.request.route_url("trappings", id=self.character.id)
                 self.character.status = {"trappings": ""}
                 return HTTPFound(location=url)
@@ -197,3 +174,21 @@ class CareerSkillsViews(BaseCreateView):
             "css_links": static_assets["css"],
             "js_links": static_assets["js"],
         }
+
+    def update_values(self, captured):
+        for item in captured["career_skills"]:
+            value = captured["career_skills"].get(item)
+            if not value or "specialisation" in item:
+                continue
+            if "(Any)" in item:
+                specialisation = captured["career_skills"].get(f"{item} specialisation")
+                self.character.skills[item.replace("Any", specialisation)] = int(value)
+            elif " or " in item:
+                specialisation = captured["career_skills"].get(f"{item} specialisation")
+                option = item.split("(")[1].replace(")", "")
+                self.character.skills[item.replace(option, specialisation)] = int(value)
+            else:
+                self.character.skills[item] = int(value)
+        for item in captured["career_talents"]:
+            value = captured["career_talents"].get(item)
+            self.character.talents[value] = 1

@@ -133,7 +133,7 @@ class SpeciesSkillsViews(BaseCreateView):
             raise colander.Invalid(form, ". ".join(errors))
 
     @view_config(renderer="wfrp.character:templates/forms/skills.pt")
-    def form_view(self):  # noqa: C901
+    def form_view(self):
         data = self.initialise_form()
         schema = self.schema(data)
         form = deform.Form(schema, buttons=("Choose Skills",))
@@ -143,28 +143,12 @@ class SpeciesSkillsViews(BaseCreateView):
             except deform.ValidationFailure as error:
                 html = error.render()
             else:
-                for item in captured["species_skills"]:
-                    value = captured["species_skills"].get(item)
-                    if value == 0:
-                        continue
-                    if "(Any)" in item:
-                        specialisation = captured["species_skills"].get(
-                            f"Specialisation for {item.split(' (')[0]}"
-                        )
-                        self.character.skills[item.replace("Any", specialisation)] = (
-                            value
-                        )
-                    elif "Specialisation for" not in item:
-                        self.character.skills[item] = value
-                for item in captured["species_talents"]:
-                    value = captured["species_talents"].get(item)
-                    self.character.talents[value] = 1
+                self.update_values(captured)
                 url = self.request.route_url("career_skills", id=self.character.id)
                 self.character.status = {"career_skills": ""}
                 return HTTPFound(location=url)
         else:
             html = form.render()
-
         static_assets = self.get_widget_resources(form)
         form_data = {"skills": {}, "talents": {}}
         for skill in data["species_skills"]:
@@ -187,3 +171,19 @@ class SpeciesSkillsViews(BaseCreateView):
             "css_links": static_assets["css"],
             "js_links": static_assets["js"],
         }
+
+    def update_values(self, captured):
+        for item in captured["species_skills"]:
+            value = captured["species_skills"].get(item)
+            if value == 0:
+                continue
+            if "(Any)" in item:
+                specialisation = captured["species_skills"].get(
+                    f"Specialisation for {item.split(' (')[0]}"
+                )
+                self.character.skills[item.replace("Any", specialisation)] = value
+            elif "Specialisation for" not in item:
+                self.character.skills[item] = value
+        for item in captured["species_talents"]:
+            value = captured["species_talents"].get(item)
+            self.character.talents[value] = 1

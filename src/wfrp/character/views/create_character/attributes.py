@@ -288,8 +288,7 @@ class AttributesViews(BaseCreateView):
         return data, form
 
     @view_config(renderer="wfrp.character:templates/forms/base_form.pt")
-    def form_view(self):  # noqa C901
-        bonus_attributes = self._get_bonus_attributes(self.character.species)
+    def form_view(self):
         if "Rearrange_Attributes" in self.request.POST:
             self.character.status = {
                 "attributes": self.character.status["attributes"],
@@ -307,21 +306,7 @@ class AttributesViews(BaseCreateView):
             except deform.ValidationFailure as error:
                 html = error.render()
             else:
-                if "stage" not in self.character.status:
-                    # get base attributes from status initial form has calculated values
-                    base_attributes = self.character.status["attributes"]
-                else:
-                    base_attributes = captured["attributes"]
-                for attribute in ATTRIBUTES:
-                    field_name = f'{attribute.lower().replace(" ", "_")}_initial'
-                    value = (
-                        int(base_attributes[attribute]) + bonus_attributes[attribute]
-                    )
-                    setattr(self.character, field_name, value)
-                if "stage" not in self.character.status:
-                    self.character.experience += 50
-                elif self.character.status["stage"] == "rearrange":
-                    self.character.experience += 25
+                self.update_values(captured)
                 url = self.request.route_url("advances", id=self.character.id)
                 self.character.status = {"advances": ""}
                 return HTTPFound(location=url)
@@ -334,3 +319,19 @@ class AttributesViews(BaseCreateView):
             "css_links": static_assets["css"],
             "js_links": static_assets["js"],
         }
+
+    def update_values(self, captured):
+        bonus_attributes = self._get_bonus_attributes(self.character.species)
+        if "stage" not in self.character.status:
+            # get base attributes from status initial form has calculated values
+            base_attributes = self.character.status["attributes"]
+        else:
+            base_attributes = captured["attributes"]
+        for attribute in ATTRIBUTES:
+            field_name = f'{attribute.lower().replace(" ", "_")}_initial'
+            value = int(base_attributes[attribute]) + bonus_attributes[attribute]
+            setattr(self.character, field_name, value)
+        if "stage" not in self.character.status:
+            self.character.experience += 50
+        elif self.character.status["stage"] == "rearrange":
+            self.character.experience += 25

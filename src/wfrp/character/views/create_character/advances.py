@@ -97,7 +97,6 @@ class AdvancesViews(BaseCreateView):
         motivation_schema = colander.SchemaNode(
             colander.Mapping(),
             name="motivation",
-            # validator=self.validate_fate,
             description="Enter a motivation, this can be done later if you prefer.",
         )
         motivation_schema.add(

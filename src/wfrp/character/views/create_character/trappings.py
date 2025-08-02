@@ -104,7 +104,7 @@ class TrappingsViews(BaseCreateView):
         return schema
 
     @view_config(renderer="wfrp.character:templates/forms/base_form.pt")
-    def form_view(self):  # noqa C901
+    def form_view(self):
         data = self.initialise_form()
         schema = self.schema(data)
         values = {
@@ -121,31 +121,7 @@ class TrappingsViews(BaseCreateView):
             except deform.ValidationFailure as error:
                 html = error.render()
             else:
-                all_items = []
-                items = (
-                    self.character.status["trappings"]["class_trappings"]
-                    + self.character.status["trappings"]["career_trappings"]
-                )
-                for item in items:
-                    if " or " in item:
-                        if item in captured["class_trappings"]:
-                            all_items.append(captured["class_trappings"][item])
-                        else:
-                            all_items.append(captured["career_trappings"][item])
-                    else:
-                        all_items.append(item)
-                for item in set(all_items):
-                    if item in WEAPONS_DATA:
-                        self.character.weapons.append(item)
-                    elif item.split()[0] in WEAPONS_DATA:
-                        self.character.weapons.append(item.split()[0])
-                    elif item in ARMOUR_DATA:
-                        self.character.armour.append(item)
-                    self.character.trappings.append(item)
-                self.character.weapons.sort()
-                self.character.armour.sort()
-                self.character.trappings.sort()
-                self.character.wealth = self.character.status["trappings"]["money"]
+                self.update_values(captured)
                 url = self.request.route_url("details", id=self.character.id)
                 self.character.status = {"details": ""}
                 return HTTPFound(location=url)
@@ -158,3 +134,30 @@ class TrappingsViews(BaseCreateView):
             "css_links": static_assets["css"],
             "js_links": static_assets["js"],
         }
+
+    def update_values(self, captured):
+        all_items = []
+        items = (
+            self.character.status["trappings"]["class_trappings"]
+            + self.character.status["trappings"]["career_trappings"]
+        )
+        for item in items:
+            if " or " in item:
+                if item in captured["class_trappings"]:
+                    all_items.append(captured["class_trappings"][item])
+                else:
+                    all_items.append(captured["career_trappings"][item])
+            else:
+                all_items.append(item)
+        for item in set(all_items):
+            if item in WEAPONS_DATA:
+                self.character.weapons.append(item)
+            elif item.split()[0] in WEAPONS_DATA:
+                self.character.weapons.append(item.split()[0])
+            elif item in ARMOUR_DATA:
+                self.character.armour.append(item)
+            self.character.trappings.append(item)
+        self.character.weapons.sort()
+        self.character.armour.sort()
+        self.character.trappings.sort()
+        self.character.wealth = self.character.status["trappings"]["money"]
