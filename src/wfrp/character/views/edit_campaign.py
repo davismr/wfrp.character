@@ -46,6 +46,21 @@ class CampaignEditViews:
             )
         else:
             self.campaign = Campaign()
+            if self.request.registry.settings.get("enable_auth"):
+                self.user = (
+                    self.request.dbsession.query(User)
+                    .filter(User.email == self.logged_in)
+                    .one()
+                )
+                self.campaign.gamemasters.append(self.user)
+
+    def validate_gamemaster(self, node, values):
+        if self.request.registry.settings.get("enable_auth"):
+            user_id = str(self.user.id)
+            if user_id not in values:
+                raise colander.Invalid(
+                    node, f"You can not remove yourself from gamemaster - {user_id}"
+                )
 
     def schema(self):
         if self.campaign.id:
@@ -76,7 +91,7 @@ class CampaignEditViews:
                 default=self.campaign.expansions,
             )
         )
-        schema.add(Gamemaster(name="gamemasters"))
+        schema.add(Gamemaster(name="gamemasters", validator=self.validate_gamemaster))
         schema.add(Player(name="players"))
         return schema
 
@@ -132,7 +147,7 @@ class CampaignEditViews:
                 return HTTPFound(location="/")
         elif "Confirm_delete" in self.request.POST:
             try:
-                captured = form.validate(self.request.POST.items())
+                form.validate(self.request.POST.items())
             except deform.ValidationFailure as error:
                 html = error.render()
             else:
