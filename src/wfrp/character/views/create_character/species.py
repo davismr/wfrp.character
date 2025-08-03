@@ -5,7 +5,6 @@ from pyramid.view import view_config
 from pyramid.view import view_defaults
 
 from wfrp.character.data.species import SPECIES_LIST
-from wfrp.character.switches import is_gnome_active
 from wfrp.character.utils import roll_d100
 from wfrp.character.views.create_character.base_create import BaseCreateView
 
@@ -14,47 +13,51 @@ from wfrp.character.views.create_character.base_create import BaseCreateView
 class SpeciesViews(BaseCreateView):
     def __init__(self, request):
         super().__init__(request)
+        self.gnome_active = "rough_nights" in self.character.expansions
         self.species_list = SPECIES_LIST.copy()
-        if is_gnome_active() is False:
+        if self.gnome_active is False:
             self.species_list.remove("Gnome")
 
-    def _roll_new_species(self):  # noqa C901
+    def _roll_new_species(self):
         result = roll_d100()
-        if is_gnome_active():
-            if result <= 89:
-                species = "Human"
-            elif result <= 93:
-                species = "Halfling"
-            elif result <= 97:
-                species = "Dwarf"
-            elif result == 98:
-                species = "Gnome"
-            elif result == 99:
-                species = "High Elf"
-            elif result == 100:
-                species = "Wood Elf"
-            else:
-                raise NotImplementedError(f"result {result} does not return a species")
+        if result <= 90:
+            species = "Human"
+        elif result <= 94:
+            species = "Halfling"
+        elif result <= 98:
+            species = "Dwarf"
+        elif result == 99:
+            species = "High Elf"
+        elif result == 100:
+            species = "Wood Elf"
         else:
-            if result <= 90:
-                species = "Human"
-            elif result <= 94:
-                species = "Halfling"
-            elif result <= 98:
-                species = "Dwarf"
-            elif result == 99:
-                species = "High Elf"
-            elif result == 100:
-                species = "Wood Elf"
-            else:
-                raise NotImplementedError(f"result {result} does not return a species")
+            raise NotImplementedError(f"result {result} does not return a species")
+        return species
+
+    def _roll_new_species_with_gnome(self):
+        result = roll_d100()
+        if result <= 89:
+            species = "Human"
+        elif result <= 93:
+            species = "Halfling"
+        elif result <= 97:
+            species = "Dwarf"
+        elif result == 98:
+            species = "Gnome"
+        elif result == 99:
+            species = "High Elf"
+        elif result == 100:
+            species = "Wood Elf"
+        else:
+            raise NotImplementedError(f"result {result} does not return a species")
         return species
 
     def initialise_form(self):
-        if self.character.status["species"]:
-            species = self.character.status["species"]
-        else:
-            species = self._roll_new_species()
+        if not self.character.status["species"]:
+            if self.gnome_active is True:
+                species = self._roll_new_species_with_gnome()
+            else:
+                species = self._roll_new_species()
             self.character.status = {"species": species}
 
     def schema(self):
@@ -84,7 +87,6 @@ class SpeciesViews(BaseCreateView):
         self.initialise_form()
         schema = self.schema()
         form = deform.Form(schema, buttons=("Choose Species",))
-
         if "Choose_Species" in self.request.POST:
             try:
                 captured = form.validate(self.request.POST.items())
@@ -101,7 +103,6 @@ class SpeciesViews(BaseCreateView):
                 return HTTPFound(location=url)
         else:
             html = form.render()
-
         static_assets = form.get_widget_resources()
         return {
             "form": html,

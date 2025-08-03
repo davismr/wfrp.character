@@ -29,10 +29,8 @@ def test_get_view(new_character):
 
 
 @pytest.mark.create
-@patch("wfrp.character.views.create_character.species.is_gnome_active")
-def test_get_view_gnome(mock_is_gnome_active, new_character):
+def test_get_view_gnome(new_character):
     new_character.status = {"species": ""}
-    mock_is_gnome_active.return_value = False
     request = testing.DummyRequest(path="species")
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="species")
@@ -42,7 +40,7 @@ def test_get_view_gnome(mock_is_gnome_active, new_character):
     assert "form" in response
     assert "Gnome" not in response["form"]
     assert "Choose species" in response["form"]
-    mock_is_gnome_active.return_value = True
+    new_character.expansions = ["rough_nights"]
     view = SpeciesViews(request)
     response = view.form_view()
     assert "Gnome" in response["form"]
@@ -86,10 +84,9 @@ def test_roll_new_species(new_character, species, roll):
         ("High Elf", 99),
     ],
 )
-@patch("wfrp.character.views.create_character.species.is_gnome_active")
-def test_roll_new_species_gnome(mock_is_gnome_active, new_character, species, roll):
+def test_roll_new_species_gnome(new_character, species, roll):
     new_character.status = {"species": ""}
-    mock_is_gnome_active.return_value = True
+    new_character.expansions = ["rough_nights"]
     request = testing.DummyRequest(path="species")
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="species")
@@ -97,8 +94,8 @@ def test_roll_new_species_gnome(mock_is_gnome_active, new_character, species, ro
     view = SpeciesViews(request)
     with patch("wfrp.character.views.create_character.species.roll_d100") as mock_roll:
         mock_roll.return_value = roll
-        response = view._roll_new_species()
-        assert response == species
+        view.initialise_form()
+        assert new_character.status["species"] == species
         mock_roll.return_value = 101
         with pytest.raises(NotImplementedError):
             view._roll_new_species()

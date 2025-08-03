@@ -253,6 +253,7 @@ class Character(Base):
 
     def cost_skill(self, advance):  # noqa: C901
         """Return the experience cost of an increase in a skill."""
+        # 10 15 20 30 40 60 80 110 140 180 220 270 320 380 440
         if advance <= 5:
             return 10
         if advance <= 10:

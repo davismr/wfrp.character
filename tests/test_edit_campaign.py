@@ -54,7 +54,7 @@ def test_submit(testapp):
     assert campaigns[0].expansions.sort() == ["rough_nights", "sea_of_claws"].sort()
 
 
-@pytest.mark.current
+@pytest.mark.campaign
 def test_campaign_delete(new_campaign):
     num_campaigns = DBSession.query(Campaign).count()
     request = testing.DummyRequest(
