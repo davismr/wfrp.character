@@ -32,7 +32,7 @@ def test_submit_view(new_character):
     new_character.status = {"expansions": ""}
     request = testing.DummyRequest(
         post={
-            "expansions": {"expansions": ["rough_nights", "up_in_arms"]},
+            "expansions": {"rough_nights": "true", "up_in_arms": "true"},
             "Choose_Expansions": "Choose_Expansions",
         }
     )
@@ -68,7 +68,7 @@ def test_submit_invalid_expansion(new_character):
     new_character.status = {"expansions": ""}
     request = testing.DummyRequest(
         post={
-            "expansions": {"expansions": ["not_an_expansion", "up_in_arms"]},
+            "expansions": {"expansions": {"not_an_expansion": "true"}},
             "Choose_Expansions": "Choose_Expansions",
         }
     )
@@ -77,6 +77,5 @@ def test_submit_invalid_expansion(new_character):
     request.matchdict = {"id": str(new_character.id)}
     view = ExpansionsViews(request)
     response = view.form_view()
-    assert isinstance(response, dict)
-    assert "form" in response
-    assert "One or more of the choices you made was not acceptable" in response["form"]
+    # invalid expansions are just ignored
+    assert isinstance(response, HTTPFound)

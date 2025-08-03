@@ -16,19 +16,17 @@ class ExpansionsViews(BaseCreateView):
             colander.Mapping(),
             name="expansions",
         )
-        choices = [
-            (expansion[0], expansion[1]["title"]) for expansion in EXPANSIONS.items()
-        ]
-        expansions_schema.add(
-            colander.SchemaNode(
-                colander.Set(),
-                name="expansions",
-                widget=deform.widget.CheckboxChoiceWidget(values=choices),
-                allow_empty=True,
-                validator=colander.ContainsOnly(EXPANSIONS.keys()),
-                missing=[],
+        for expansion in EXPANSIONS:
+            expansions_schema.add(
+                colander.SchemaNode(
+                    colander.Boolean(),
+                    name=expansion,
+                    title=EXPANSIONS[expansion]["title"],
+                    description=EXPANSIONS[expansion]["description"],
+                    widget=deform.widget.CheckboxWidget(),
+                    label="Enabled",
+                )
             )
-        )
         schema.add(expansions_schema)
         return schema
 
@@ -45,7 +43,11 @@ class ExpansionsViews(BaseCreateView):
             except deform.ValidationFailure as error:
                 html = error.render()
             else:
-                self.character.expansions = list(captured["expansions"]["expansions"])
+                enabled_expansions = []
+                for expansion in captured["expansions"]:
+                    if captured["expansions"][expansion]:
+                        enabled_expansions.append(expansion)
+                self.character.expansions = enabled_expansions
                 url = self.request.route_url("species", id=self.character.id)
                 self.character.status = {"species": ""}
                 return HTTPFound(location=url)
