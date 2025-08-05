@@ -5,12 +5,20 @@ from pyramid import testing
 from pyramid.httpexceptions import HTTPFound
 
 from wfrp.character.application import dbsession
+from wfrp.character.data.expansions import EXPANSIONS
 from wfrp.character.views.create_character.expansions import ExpansionsViews
 
 
 @dataclass
 class DummyRoute:
     name: str
+
+
+def all_expansions():
+    expansions = {}
+    for expansion in EXPANSIONS:
+        expansions[expansion] = "false"
+    return expansions
 
 
 @pytest.mark.create
@@ -30,9 +38,12 @@ def test_get_view(new_character):
 @pytest.mark.create
 def test_submit_view(new_character):
     new_character.status = {"expansions": ""}
+    expansions = all_expansions()
+    expansions["rough_nights"] = "true"
+    expansions["sea_of_claws"] = "true"
     request = testing.DummyRequest(
         post={
-            "expansions": {"rough_nights": "true", "up_in_arms": "true"},
+            "expansions": expansions,
             "Choose_Expansions": "Choose_Expansions",
         }
     )
@@ -42,15 +53,16 @@ def test_submit_view(new_character):
     view = ExpansionsViews(request)
     response = view.form_view()
     assert isinstance(response, HTTPFound)
-    assert sorted(new_character.expansions) == ["rough_nights", "up_in_arms"]
+    assert sorted(new_character.expansions) == ["rough_nights", "sea_of_claws"]
 
 
 @pytest.mark.create
 def test_submit_empty(new_character):
     new_character.status = {"expansions": ""}
+    expansions = all_expansions()
     request = testing.DummyRequest(
         post={
-            "expansions": {"expansions": []},
+            "expansions": expansions,
             "Choose_Expansions": "Choose_Expansions",
         }
     )
@@ -66,9 +78,11 @@ def test_submit_empty(new_character):
 @pytest.mark.create
 def test_submit_invalid_expansion(new_character):
     new_character.status = {"expansions": ""}
+    expansions = all_expansions()
+    expansions["not_an_expansion"] = "true"
     request = testing.DummyRequest(
         post={
-            "expansions": {"expansions": {"not_an_expansion": "true"}},
+            "expansions": expansions,
             "Choose_Expansions": "Choose_Expansions",
         }
     )

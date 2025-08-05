@@ -10,21 +10,38 @@ from wfrp.character.views.create_character.base_create import BaseCreateView
 
 @view_defaults(route_name="expansions", permission="create_character")
 class ExpansionsViews(BaseCreateView):
+    def initialise_form(self):
+        if self.character.campaign:
+            self.available_expansions = self.character.campaign.expansions
+            self.restricted_expansions = True
+        # TODO: also check user and application settings
+        else:
+            self.available_expansions = list(EXPANSIONS.keys())
+            self.restricted_expansions = False
+
     def schema(self):
         schema = colander.SchemaNode(colander.Mapping(), title="Enabled Expansions")
         expansions_schema = colander.SchemaNode(
             colander.Mapping(),
             name="expansions",
         )
-        for expansion in EXPANSIONS:
+        choices = (("false", "Not Enabled"), ("true", "Enabled"))
+        for expansion in self.available_expansions:
+            read_only = False
+            if self.restricted_expansions and expansion in ["rough_nights"]:
+                read_only = True
             expansions_schema.add(
                 colander.SchemaNode(
                     colander.Boolean(),
                     name=expansion,
                     title=EXPANSIONS[expansion]["title"],
                     description=EXPANSIONS[expansion]["description"],
-                    widget=deform.widget.CheckboxWidget(),
+                    widget=deform.widget.RadioChoiceWidget(
+                        values=choices, readonly=read_only
+                    ),
                     label="Enabled",
+                    default=self.restricted_expansions,
+                    missing=self.restricted_expansions,
                 )
             )
         schema.add(expansions_schema)
@@ -32,6 +49,7 @@ class ExpansionsViews(BaseCreateView):
 
     @view_config(renderer="wfrp.character:templates/forms/base_form.pt")
     def form_view(self):
+        self.initialise_form()
         schema = self.schema()
         form = deform.Form(
             schema,
