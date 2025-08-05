@@ -11,13 +11,6 @@ from wfrp.character.views.create_character.base_create import BaseCreateView
 
 @view_defaults(route_name="species", permission="create_character")
 class SpeciesViews(BaseCreateView):
-    def __init__(self, request):
-        super().__init__(request)
-        self.gnome_active = "rough_nights" in self.character.expansions
-        self.species_list = SPECIES_LIST.copy()
-        if self.gnome_active is False:
-            self.species_list.remove("Gnome")
-
     def _roll_new_species(self):
         result = roll_d100()
         if result <= 90:
@@ -53,8 +46,12 @@ class SpeciesViews(BaseCreateView):
         return species
 
     def initialise_form(self):
+        gnome_active = "rough_nights" in self.character.expansions
+        self.species_list = SPECIES_LIST.copy()
+        if gnome_active is False:
+            self.species_list.remove("Gnome")
         if not self.character.status["species"]:
-            if self.gnome_active is True:
+            if gnome_active is True:
                 species = self._roll_new_species_with_gnome()
             else:
                 species = self._roll_new_species()
