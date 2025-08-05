@@ -36,8 +36,15 @@ class CampaignEditViews:
     def __init__(self, request):
         self.request = request
         self.logged_in = request.authenticated_userid
-        if self.request.registry.settings.get("enable_auth") and self.logged_in is None:
-            raise HTTPUnauthorized
+        if self.request.registry.settings.get("enable_auth"):
+            if self.logged_in is None:
+                raise HTTPUnauthorized
+            else:
+                self.user = (
+                    self.request.dbsession.query(User)
+                    .filter(User.email == self.logged_in)
+                    .one()
+                )
         if "id" in request.matchdict:
             self.campaign = (
                 request.dbsession.query(Campaign)
@@ -47,11 +54,6 @@ class CampaignEditViews:
         else:
             self.campaign = Campaign()
             if self.request.registry.settings.get("enable_auth"):
-                self.user = (
-                    self.request.dbsession.query(User)
-                    .filter(User.email == self.logged_in)
-                    .one()
-                )
                 self.campaign.gamemasters.append(self.user)
 
     def validate_gamemaster(self, node, values):
