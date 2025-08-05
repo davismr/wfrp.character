@@ -6,7 +6,7 @@ from pyramid.httpexceptions import HTTPFound
 from pyramid.view import view_config
 from pyramid.view import view_defaults
 
-from wfrp.character.data.careers import CAREER_DATA
+from wfrp.character.data.careers.careers import CAREER_DATA
 from wfrp.character.data.skills import SKILL_DATA
 from wfrp.character.views.base_view import BaseView
 

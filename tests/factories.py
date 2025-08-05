@@ -3,7 +3,7 @@ import uuid
 import factory
 from faker import Factory as FakerFactory
 
-from wfrp.character.data.careers import list_careers
+from wfrp.character.data.careers.tables import list_careers
 from wfrp.character.data.species import SPECIES_DATA
 from wfrp.character.data.species import SPECIES_LIST
 from wfrp.character.models.campaign import Campaign

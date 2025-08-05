@@ -5,7 +5,7 @@ from pyramid.view import view_config
 from pyramid.view import view_defaults
 
 from wfrp.character.data.armour import ARMOUR_DATA
-from wfrp.character.data.careers import CAREER_DATA
+from wfrp.character.data.careers.careers import CAREER_DATA
 from wfrp.character.data.class_trappings import get_class_trappings
 from wfrp.character.data.weapons import WEAPONS_DATA
 from wfrp.character.utils import roll_d10
