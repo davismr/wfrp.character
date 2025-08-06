@@ -1427,4 +1427,55 @@ ROUGH_NIGHTS_TALENTS = {
 }
 
 
-TALENT_DATA = {**BASIC_TALENTS, **ROUGH_NIGHTS_TALENTS}
+SEA_OF_CLAWS_TALENTS = {
+    "Chanty": {
+        "max": "Intelligence Bonus",
+        "tests": "Entertain (Singing)",
+        "description": (
+            "This Talent allows a Character to learn a chanty (see page 67). Whenever "
+            "a Character buys a new level in the Talent they learn a new song. A "
+            "Chanty affects an entire crew. To use the talent the Chantyman should "
+            "find a location within earshot of as many of the crew as possible and "
+            "pass an Entertain (Singing) Test. It takes 30 seconds for a Chantyman to "
+            "establish the chanty, after which the effect lasts for three minutes plus "
+            "a number of minutes equal to the SL on the Entertain (Singing) Test. The "
+            "only combat action the Chantyman can make while the Chanty is being "
+            "performed is a Dodge. Other actions can be made at the GM’s discretion, "
+            "such as Perception Tests or Cool Tests. If the Chantyman takes damage or "
+            "fails any Opposed Test their Chanty ends. A Chanty may be sung at each "
+            "watch. There’s only so much inspiration a crew can take."
+        ),
+    },
+    "Crew Commander": {
+        "max": "Initiative Bonus",
+        "tests": "Entertain (Singing)",
+        "description": (
+            "This Talent allows a Character to learn a chanty (see page 67). Whenever "
+            "a Character buys a new level in the Talent they learn a new song. A "
+            "Chanty affects an entire crew. To use the talent the Chantyman should "
+            "find a location within earshot of as many of the crew as possible and "
+            "pass an Entertain (Singing) Test. It takes 30 seconds for a Chantyman to "
+            "establish the chanty, after which the effect lasts for three minutes plus "
+            "a number of minutes equal to the SL on the Entertain (Singing) Test. The "
+            "only combat action the Chantyman can make while the Chanty is being "
+            "performed is a Dodge. Other actions can be made at the GM’s discretion, "
+            "such as Perception Tests or Cool Tests. If the Chantyman takes damage or "
+            "fails any Opposed Test their Chanty ends. A Chanty may be sung at each "
+            "watch. There’s only so much inspiration a crew can take."
+        ),
+    },
+    "Master and Commander": {
+        "max": "Fellowship Bonus",
+        "tests": "Ranged Skill Tests when firing a weapon with the Crewed Flaw",
+        "description": (
+            "A Character with this Talent is practised at managing crews of siege "
+            "weapons and artillery pieces. The Character may make a Challenging (+0) "
+            "Leadership Test to help a crew operating a weapon with the Crewed Flaw "
+            "within earshot. If the Character passes the Test, the crew members may "
+            "then use the Character’s Ranged Skill when shooting the weapon."
+        ),
+    },
+}
+
+
+TALENT_DATA = {**BASIC_TALENTS, **ROUGH_NIGHTS_TALENTS, **SEA_OF_CLAWS_TALENTS}
