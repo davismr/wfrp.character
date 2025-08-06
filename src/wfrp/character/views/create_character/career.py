@@ -77,7 +77,6 @@ class CareerViews(BaseCreateView):
             name="career",
         )
         career_choices = [("", "Select a random career above")]
-        career_class = CAREER_DATA[data["career_list"][0]]["class"]
         career_list = {}
         for career in data["career_list"]:
             career_list.setdefault(CAREER_DATA[career]["class"], []).append(
