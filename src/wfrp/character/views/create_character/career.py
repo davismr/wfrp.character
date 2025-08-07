@@ -5,6 +5,7 @@ from pyramid.httpexceptions import HTTPFound
 from pyramid.view import view_config
 from pyramid.view import view_defaults
 
+from wfrp.character.data.careers.careers import CAREER_BY_CLASS
 from wfrp.character.data.careers.careers import CAREER_DATA
 from wfrp.character.data.careers.tables import get_career
 from wfrp.character.data.careers.tables import list_careers
@@ -79,9 +80,7 @@ class CareerViews(BaseCreateView):
         career_choices = [("", "Select a random career above")]
         career_list = {}
         for career in data["career_list"]:
-            career_list.setdefault(CAREER_DATA[career]["class"], []).append(
-                (career, career)
-            )
+            career_list.setdefault(CAREER_BY_CLASS[career], []).append((career, career))
         for career_class in career_list:
             career_choices.append(OptGroup(career_class, *career_list[career_class]))
         career_schema.add(

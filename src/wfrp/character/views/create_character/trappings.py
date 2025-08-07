@@ -5,6 +5,7 @@ from pyramid.view import view_config
 from pyramid.view import view_defaults
 
 from wfrp.character.data.armour import ARMOUR_DATA
+from wfrp.character.data.careers.careers import CAREER_BY_CLASS
 from wfrp.character.data.careers.careers import CAREER_DATA
 from wfrp.character.data.class_trappings import get_class_trappings
 from wfrp.character.data.weapons import WEAPONS_DATA
@@ -33,9 +34,8 @@ class TrappingsViews(BaseCreateView):
         if self.character.status["trappings"]:
             return self.character.status["trappings"]
         career_data = CAREER_DATA[self.character.career]
-        class_trappings = get_class_trappings(career_data["class"])
-        # TODO find a better way to do this
-        career_details = career_data[list(career_data)[1]]
+        class_trappings = get_class_trappings(CAREER_BY_CLASS[self.character.career])
+        career_details = career_data[self.character.career_title]
         career_trappings = career_details["trappings"]
         money = self._get_money(
             career_details["status"]["tier"], career_details["status"]["standing"]

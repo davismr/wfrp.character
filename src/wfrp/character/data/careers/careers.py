@@ -17,3 +17,14 @@ CAREER_DATA = (
     | ROGUES_CLASS_DATA
     | WARRIORS_CLASS_DATA
 )
+
+CAREER_BY_CLASS = (
+    {career: "Academics" for career in ACADEMIC_CLASS_DATA}
+    | {career: "Burghers" for career in BURGHERS_CLASS_DATA}
+    | {career: "Courtiers" for career in COURTIERS_CLASS_DATA}
+    | {career: "Peasants" for career in PEASANTS_CLASS_DATA}
+    | {career: "Rangers" for career in RANGERS_CLASS_DATA}
+    | {career: "Riverfolk" for career in RIVERFOLK_CLASS_DATA}
+    | {career: "Rogues" for career in ROGUES_CLASS_DATA}
+    | {career: "Warriors" for career in WARRIORS_CLASS_DATA}
+)
