@@ -16,6 +16,7 @@ class DummyRoute:
 def test_form_view(new_character):
     new_character.species = "Wood Elf"
     new_character.career = "Soldier"
+    new_character.career_title = "Recruit"
     new_character.status = {"complete": ""}
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
@@ -30,6 +31,7 @@ def test_form_view(new_character):
 def test_increase_characteristic(new_character):
     new_character.species = "Wood Elf"
     new_character.career = "Soldier"
+    new_character.career_title = "Recruit"
     new_character.weapon_skill_initial = 40
     new_character.weapon_skill_advances = 9
     new_character.experience = 200
@@ -61,6 +63,7 @@ def test_increase_characteristic(new_character):
 def test_increase_characteristic_too_much(new_character):
     new_character.species = "Wood Elf"
     new_character.career = "Soldier"
+    new_character.career_title = "Recruit"
     new_character.weapon_skill_initial = 40
     new_character.weapon_skill_advances = 9
     new_character.experience = 20
@@ -88,6 +91,7 @@ def test_increase_characteristic_too_much(new_character):
 def test_increase_unowned_skill(new_character):
     new_character.species = "Wood Elf"
     new_character.career = "Soldier"
+    new_character.career_title = "Recruit"
     new_character.skills = {"Language (Battle)": 9, "Play (Drum)": 14}
     new_character.experience = 200
     new_character.status = {"complete": ""}
@@ -110,6 +114,7 @@ def test_increase_unowned_skill(new_character):
 def test_increase_existing_skill(new_character):
     new_character.species = "Wood Elf"
     new_character.career = "Soldier"
+    new_character.career_title = "Recruit"
     new_character.skills = {"Athletics": 5, "Language (Battle)": 9, "Play (Drum)": 14}
     new_character.experience = 200
     new_character.status = {"complete": ""}
@@ -136,6 +141,7 @@ def test_increase_existing_skill(new_character):
 def test_increase_choice_skill(new_character):
     new_character.species = "Wood Elf"
     new_character.career = "Soldier"
+    new_character.career_title = "Recruit"
     new_character.skills = {"Language (Battle)": 9, "Play (Drum)": 14}
     new_character.experience = 200
     new_character.status = {"complete": ""}
@@ -156,6 +162,7 @@ def test_increase_choice_skill(new_character):
 def test_multiple_grouped_skills(new_character):
     new_character.species = "Human"
     new_character.career = "Pit Fighter"
+    new_character.career_title = "Pugilist"
     new_character.skills = {
         "Melee (Basic)": 4,
         "Melee (Fencing)": 9,
@@ -189,6 +196,7 @@ def test_multiple_grouped_skills(new_character):
 def test_increase_skill_too_much(new_character):
     new_character.species = "Wood Elf"
     new_character.career = "Soldier"
+    new_character.career_title = "Recruit"
     new_character.skills = {"Athletics": 9, "Play (Drum)": 14}
     new_character.experience = 10
     new_character.status = {"complete": ""}
@@ -214,6 +222,7 @@ def test_increase_skill_too_much(new_character):
 def test_increase_talent(new_character):
     new_character.species = "Wood Elf"
     new_character.career = "Soldier"
+    new_character.career_title = "Recruit"
     new_character.talents = {"Marksman": 1}
     new_character.experience = 200
     new_character.status = {"complete": ""}
@@ -236,6 +245,7 @@ def test_increase_talent(new_character):
 def test_add_talent(new_character):
     new_character.species = "Wood Elf"
     new_character.career = "Soldier"
+    new_character.career_title = "Recruit"
     new_character.talents = {"Marksman": 1}
     new_character.experience = 200
     new_character.status = {"complete": ""}
@@ -258,6 +268,7 @@ def test_add_talent(new_character):
 def test_talent_too_much(new_character):
     new_character.species = "Wood Elf"
     new_character.career = "Soldier"
+    new_character.career_title = "Recruit"
     new_character.experience = 50
     new_character.status = {"complete": ""}
     payload = {

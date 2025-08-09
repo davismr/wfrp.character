@@ -3,7 +3,6 @@ from wfrp.character.utils import roll_d10
 
 COURTIERS_CLASS_DATA = {
     "Advisor": {
-        "class": "Courtiers",
         "Aide": {
             "status": {"tier": "Silver", "standing": 2},
             "attributes": ["Toughness", "Initiative", "Agility"],
@@ -29,7 +28,6 @@ COURTIERS_CLASS_DATA = {
         },
     },
     "Artist": {
-        "class": "Courtiers",
         "Apprentice Artist": {
             "status": {"tier": "Silver", "standing": 1},
             "attributes": ["Strength", "Initiative", "Dexterity"],
@@ -55,7 +53,6 @@ COURTIERS_CLASS_DATA = {
         },
     },
     "Duellist": {
-        "class": "Courtiers",
         "Fencer": {
             "status": {"tier": "Silver", "standing": 3},
             "attributes": ["Weapon Skill", "Initiative", "Dexterity"],
@@ -83,7 +80,6 @@ COURTIERS_CLASS_DATA = {
         },
     },
     "Envoy": {
-        "class": "Courtiers",
         "Herald": {
             "status": {"tier": "Silver", "standing": 2},
             "attributes": ["Toughness", "Agility", "Fellowship"],
@@ -111,7 +107,6 @@ COURTIERS_CLASS_DATA = {
         },
     },
     "Noble": {
-        "class": "Courtiers",
         "Scion": {
             "status": {"tier": "Gold", "standing": 1},
             "attributes": ["Weapon Skill", "Initiative", "Dexterity"],
@@ -140,7 +135,6 @@ COURTIERS_CLASS_DATA = {
         },
     },
     "Servant": {
-        "class": "Courtiers",
         "Menial": {
             "status": {"tier": "Silver", "standing": 1},
             "attributes": ["Strength", "Toughness", "Agility"],
@@ -166,7 +160,6 @@ COURTIERS_CLASS_DATA = {
         },
     },
     "Spy": {
-        "class": "Courtiers",
         "Informer": {
             "status": {"tier": "Brass", "standing": 3},
             "attributes": ["Agility", "Willpower", "Fellowship"],
@@ -193,7 +186,6 @@ COURTIERS_CLASS_DATA = {
         },
     },
     "Warden": {
-        "class": "Courtiers",
         "Custodian": {
             "status": {"tier": "Silver", "standing": 1},
             "attributes": ["Strength", "Toughness", "Willpower"],

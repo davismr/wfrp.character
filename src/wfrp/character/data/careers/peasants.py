@@ -2,7 +2,6 @@ from wfrp.character.utils import roll_d10
 
 PEASANTS_CLASS_DATA = {
     "Bailiff": {
-        "class": "Peasants",
         "Tax Collector": {
             "status": {"tier": "Silver", "standing": 1},
             "attributes": ["Weapon Skill", "Initiative", "Willpower"],
@@ -29,7 +28,6 @@ PEASANTS_CLASS_DATA = {
         },
     },
     "Hedge Witch": {
-        "class": "Peasants",
         "Hedge Apprentice": {
             "status": {"tier": "Brass", "standing": 1},
             "attributes": ["Toughness", "Initiative", "Dexterity"],
@@ -57,7 +55,6 @@ PEASANTS_CLASS_DATA = {
         },
     },
     "Herbalist": {
-        "class": "Peasants",
         "Herb Gatherer": {
             "status": {"tier": "Brass", "standing": 2},
             "attributes": ["Toughness", "Initiative", "Agility"],
@@ -85,7 +82,6 @@ PEASANTS_CLASS_DATA = {
         },
     },
     "Hunter": {
-        "class": "Peasants",
         "Trapper": {
             "status": {"tier": "Brass", "standing": 2},
             "attributes": ["Strength", "Toughness", "Dexterity"],
@@ -114,7 +110,6 @@ PEASANTS_CLASS_DATA = {
         },
     },
     "Miner": {
-        "class": "Peasants",
         "Prospector": {
             "status": {"tier": "Brass", "standing": 2},
             "attributes": ["Strength", "Toughness", "Dexterity"],
@@ -143,7 +138,6 @@ PEASANTS_CLASS_DATA = {
         },
     },
     "Mystic": {
-        "class": "Peasants",
         "Fortune Teller": {
             "status": {"tier": "Brass", "standing": 1},
             "attributes": ["Initiative", "Dexterity", "Fellowship"],
@@ -170,7 +164,6 @@ PEASANTS_CLASS_DATA = {
         },
     },
     "Scout": {
-        "class": "Peasants",
         "Guide": {
             "status": {"tier": "Brass", "standing": 3},
             "attributes": ["Toughness", "Initiative", "Agility"],
@@ -199,7 +192,6 @@ PEASANTS_CLASS_DATA = {
         },
     },
     "Villager": {
-        "class": "Peasants",
         "Peasant": {
             "status": {"tier": "Brass", "standing": 2},
             "attributes": ["Strength", "Toughness", "Agility"],

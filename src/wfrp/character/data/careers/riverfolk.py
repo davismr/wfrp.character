@@ -1,6 +1,5 @@
 RIVERFOLK_CLASS_DATA = {
     "Boatman": {
-        "class": "Riverfolk",
         "Boat-hand": {
             "status": {"tier": "Silver", "standing": 1},
             "attributes": ["Strength", "Toughness", "Agility"],
@@ -28,7 +27,6 @@ RIVERFOLK_CLASS_DATA = {
         },
     },
     "Huffer": {
-        "class": "Riverfolk",
         "Riverguide": {
             "status": {"tier": "Brass", "standing": 4},
             "attributes": ["Weapon Skill", "Toughness", "Initiative"],
@@ -55,7 +53,6 @@ RIVERFOLK_CLASS_DATA = {
         },
     },
     "Riverwarden": {
-        "class": "Riverfolk",
         "River Recruit": {
             "status": {"tier": "Silver", "standing": 1},
             "attributes": ["Ballistic Skill", "Strength", "Fellowship"],
@@ -83,7 +80,6 @@ RIVERFOLK_CLASS_DATA = {
         },
     },
     "Riverwoman": {
-        "class": "Riverfolk",
         "Greenfish": {
             "status": {"tier": "Brass", "standing": 2},
             "attributes": ["Toughness", "Agility", "Dexterity"],
@@ -111,7 +107,6 @@ RIVERFOLK_CLASS_DATA = {
         },
     },
     "Seaman": {
-        "class": "Riverfolk",
         "Landsman": {
             "status": {"tier": "Silver", "standing": 1},
             "attributes": ["Agility", "Dexterity", "Fellowship"],
@@ -139,7 +134,6 @@ RIVERFOLK_CLASS_DATA = {
         },
     },
     "Smuggler": {
-        "class": "Riverfolk",
         "River Runner": {
             "status": {"tier": "Brass", "standing": 2},
             "attributes": ["Agility", "Dexterity", "Willpower"],
@@ -168,7 +162,6 @@ RIVERFOLK_CLASS_DATA = {
         },
     },
     "Stevedore": {
-        "class": "Riverfolk",
         "Dockhand": {
             "status": {"tier": "Brass", "standing": 3},
             "attributes": ["Weapon Skill", "Toughness", "Initiative"],
@@ -195,7 +188,6 @@ RIVERFOLK_CLASS_DATA = {
         },
     },
     "Wrecker": {
-        "class": "Riverfolk",
         "Cargo Scavenger": {
             "status": {"tier": "Brass", "standing": 2},
             "attributes": ["Weapon Skill", "Strength", "Initiative"],

@@ -14,7 +14,7 @@ from wfrp.character.views.create_character.base_create import BaseCreateView
 class CareerSkillsViews(BaseCreateView):
     def initialise_form(self):
         career_data = CAREER_DATA[self.character.career]
-        career_details = career_data[list(career_data)[1]]
+        career_details = career_data[self.character.career_title]
         career_skills = career_details["skills"]
         career_talents = career_details["talents"]
         return {"career_skills": career_skills, "career_talents": career_talents}

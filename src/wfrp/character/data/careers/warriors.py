@@ -1,6 +1,5 @@
 WARRIORS_CLASS_DATA = {
     "Cavalryman": {
-        "class": "Warriors",
         "Horseman": {
             "status": {"tier": "Silver", "standing": 2},
             "attributes": ["Weapon Skill", "Strength", "Agility"],
@@ -27,7 +26,6 @@ WARRIORS_CLASS_DATA = {
         },
     },
     "Guard": {
-        "class": "Warriors",
         "Sentry": {
             "status": {"tier": "Silver", "standing": 1},
             "attributes": ["Weapon Skill", "Toughness", "Agility"],
@@ -55,7 +53,6 @@ WARRIORS_CLASS_DATA = {
         },
     },
     "Knight": {
-        "class": "Warriors",
         "Squire": {
             "status": {"tier": "Silver", "standing": 3},
             "attributes": ["Strength", "Initiative", "Agility"],
@@ -85,7 +82,6 @@ WARRIORS_CLASS_DATA = {
         },
     },
     "Pit Fighter": {
-        "class": "Warriors",
         "Pugilist": {
             "status": {"tier": "Brass", "standing": 4},
             "attributes": ["Weapon Skill", "Strength", "Toughness"],
@@ -113,7 +109,6 @@ WARRIORS_CLASS_DATA = {
         },
     },
     "Protagonist": {
-        "class": "Warriors",
         "Braggart": {
             "status": {"tier": "Brass", "standing": 2},
             "attributes": ["Weapon Skill", "Toughness", "Agility"],
@@ -141,7 +136,6 @@ WARRIORS_CLASS_DATA = {
         },
     },
     "Slayer": {
-        "class": "Warriors",
         "Troll Slayer": {
             "status": {"tier": "Brass", "standing": 2},
             "attributes": ["Weapon Skill", "Strength", "Willpower"],
@@ -170,7 +164,6 @@ WARRIORS_CLASS_DATA = {
         },
     },
     "Soldier": {
-        "class": "Warriors",
         "Recruit": {
             "status": {"tier": "Silver", "standing": 1},
             "attributes": ["Weapon Skill", "Toughness", "Willpower"],
@@ -198,7 +191,6 @@ WARRIORS_CLASS_DATA = {
         },
     },
     "Warrior Priest": {
-        "class": "Warriors",
         "Novitiate": {
             "status": {"tier": "Brass", "standing": 2},
             "attributes": ["Weapon Skill", "Toughness", "Willpower"],

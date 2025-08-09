@@ -231,6 +231,7 @@ def test_species_skills_invalid_none(new_character):
 @pytest.mark.create
 def test_career_skills_view(new_character):
     new_character.career = "Apothecary"
+    new_character.career_title = "Apothecary’s Apprentice"
     new_character.status = {"career_skills": ""}
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
@@ -247,6 +248,7 @@ def test_career_skills_view(new_character):
 @pytest.mark.create
 def test_form_view(new_character):
     new_character.career = "Apothecary"
+    new_character.career_title = "Apothecary’s Apprentice"
     new_character.status = {"career_skills": ""}
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
@@ -275,6 +277,7 @@ def test_career_skills_submit(new_character):
     }
     new_character.species = "High Elf"
     new_character.career = "Apothecary"
+    new_character.career_title = "Apothecary’s Apprentice"
     new_character.status = {"career_skills": ""}
     request = testing.DummyRequest(post=payload)
     request.dbsession = dbsession(request)
@@ -307,6 +310,7 @@ def test_validation_error(new_character, skill_level, message):
     }
     new_character.species = "High Elf"
     new_character.career = "Apothecary"
+    new_character.career_title = "Apothecary’s Apprentice"
     new_character.status = {"career_skills": ""}
     request = testing.DummyRequest(post=payload)
     request.dbsession = dbsession(request)
@@ -347,6 +351,7 @@ def test_skills_add_submit(new_character):
     }
     new_character.species = "High Elf"
     new_character.career = "Apothecary"
+    new_character.career_title = "Apothecary’s Apprentice"
     new_character.status = {"species_skills": ""}
     request = testing.DummyRequest(post=payload)
     request.dbsession = dbsession(request)
@@ -376,6 +381,7 @@ def test_skills_add_submit(new_character):
     request.matchdict = {"id": str(new_character.id)}
     view = CareerSkillsViews(request)
     response = view.form_view()
+    assert response.status_code == 302
     assert list(new_character.talents.keys()) == [
         "Acute Sense (Sight)",
         "Coolheaded",
@@ -394,6 +400,7 @@ def test_skills_add_submit(new_character):
 def test_career_skills_any(new_character):
     new_character.species = "Wood Elf"
     new_character.career = "Artisan"
+    new_character.career_title = "Apprentice Artisan"
     new_character.status = {"career_skills": ""}
     payload = {
         "career_skills": {
@@ -445,6 +452,7 @@ def test_career_skills_any(new_character):
 def test_career_skills_or_fail(new_character):
     new_character.species = "Human"
     new_character.career = "Pedlar"
+    new_character.career_title = "Vagabond"
     new_character.status = {"career_skills": ""}
     payload = {
         "career_skills": {

@@ -2,7 +2,6 @@ from wfrp.character.utils import roll_2d10
 
 RANGERS_CLASS_DATA = {
     "Bounty Hunter": {
-        "class": "Rangers",
         "Thief-taker": {
             "status": {"tier": "Silver", "standing": 1},
             "attributes": ["Weapon Skill", "Toughness", "Agility"],
@@ -30,7 +29,6 @@ RANGERS_CLASS_DATA = {
         },
     },
     "Coachman": {
-        "class": "Rangers",
         "Postilion": {
             "status": {"tier": "Silver", "standing": 1},
             "attributes": ["Ballistic Skill", "Toughness", "Willpower"],
@@ -57,7 +55,6 @@ RANGERS_CLASS_DATA = {
         },
     },
     "Entertainer": {
-        "class": "Rangers",
         "Busker": {
             "status": {"tier": "Brass", "standing": 3},
             "attributes": ["Agility", "Dexterity", "Fellowship"],
@@ -84,7 +81,6 @@ RANGERS_CLASS_DATA = {
         },
     },
     "Flagellant": {
-        "class": "Rangers",
         "Zealot": {
             "status": {"tier": "Brass", "standing": 0},
             "attributes": ["Weapon Skill", "Strength", "Toughness"],
@@ -111,7 +107,6 @@ RANGERS_CLASS_DATA = {
         },
     },
     "Messenger": {
-        "class": "Rangers",
         "Runner": {
             "status": {"tier": "Brass", "standing": 3},
             "attributes": ["Toughness", "Initiative", "Agility"],
@@ -137,7 +132,6 @@ RANGERS_CLASS_DATA = {
         },
     },
     "Pedlar": {
-        "class": "Rangers",
         "Vagabond": {
             "status": {"tier": "Brass", "standing": 1},
             "attributes": ["Toughness", "Dexterity", "Willpower"],
@@ -166,7 +160,6 @@ RANGERS_CLASS_DATA = {
         },
     },
     "Road Warden": {
-        "class": "Rangers",
         "Toll Keeper": {
             "status": {"tier": "Brass", "standing": 5},
             "attributes": ["Ballistic Skill", "Toughness", "Initiative"],
@@ -193,7 +186,6 @@ RANGERS_CLASS_DATA = {
         },
     },
     "Witch Hunter": {
-        "class": "Rangers",
         "Interrogator": {
             "status": {"tier": "Silver", "standing": 1},
             "attributes": ["Weapon Skill", "Toughness", "Willpower"],

@@ -17,6 +17,7 @@ class DummyRoute:
 def test_initialise_form(new_character):
     new_character.species = "Human"
     new_character.career = "Apothecary"
+    new_character.career_title = "Apothecary’s Apprentice"
     new_character.status = {"advances": ""}
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
@@ -35,6 +36,7 @@ def test_initialise_form(new_character):
 def test_form_view(new_character):
     new_character.species = "Human"
     new_character.career = "Apothecary"
+    new_character.career_title = "Apothecary’s Apprentice"
     new_character.status = {"advances": ""}
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
@@ -50,6 +52,7 @@ def test_form_view(new_character):
 def test_submit_view(new_character):
     new_character.species = "Human"
     new_character.career = "Apothecary"
+    new_character.career_title = "Apothecary’s Apprentice"
     new_character.status = {"advances": ""}
     old_toughness = new_character.toughness_initial = 40
     new_character.extra_points = 3
@@ -90,6 +93,7 @@ def test_submit_view(new_character):
 def test_invalid_submit_view(new_character, advance, message):
     new_character.species = "Human"
     new_character.career = "Apothecary"
+    new_character.career_title = "Apothecary’s Apprentice"
     new_character.status = {"advances": ""}
     request = testing.DummyRequest(
         post={
@@ -112,6 +116,7 @@ def test_invalid_submit_view(new_character, advance, message):
 def test_invalid_fate_submit_view(new_character, advance):
     new_character.species = "Human"
     new_character.career = "Apothecary"
+    new_character.career_title = "Apothecary’s Apprentice"
     new_character.extra_points = 3
     new_character.status = {"advances": ""}
     request = testing.DummyRequest(
@@ -135,6 +140,7 @@ def test_invalid_fate_submit_view(new_character, advance):
 def test_motivation(new_character):
     new_character.species = "Human"
     new_character.career = "Apothecary"
+    new_character.career_title = "Apothecary’s Apprentice"
     new_character.status = {"advances": ""}
     request = testing.DummyRequest(
         post={
@@ -157,6 +163,7 @@ def test_motivation(new_character):
 def test_motivation_not_required(new_character):
     new_character.species = "Human"
     new_character.career = "Apothecary"
+    new_character.career_title = "Apothecary’s Apprentice"
     new_character.status = {"advances": ""}
     request = testing.DummyRequest(
         post={

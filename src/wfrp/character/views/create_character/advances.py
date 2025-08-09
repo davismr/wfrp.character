@@ -17,7 +17,7 @@ class AdvancesViews(BaseCreateView):
             attribute_lower = f'{attribute.lower().replace(" ", "_")}_initial'
             attributes[attribute] = getattr(self.character, attribute_lower)
         career_data = CAREER_DATA[self.character.career]
-        career_details = career_data[list(career_data)[1]]
+        career_details = career_data[self.character.career_title]
         career_advances = career_details["attributes"]
         return {"attributes": attributes, "advances": career_advances}
 

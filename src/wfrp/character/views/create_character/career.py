@@ -44,7 +44,7 @@ class CareerViews(BaseCreateView):
         )
         career_choices = []
         for item in data["career_choice"]:
-            career_choices.append((item, f"{item} ({CAREER_DATA[item]['class']})"))
+            career_choices.append((item, f"{item} ({CAREER_BY_CLASS[item]})"))
         if len(career_choices) == 1:
             description = (
                 f"Accept {career_choices[0][0]} for 50XP, or reroll for 3 choices and "
@@ -140,14 +140,14 @@ class CareerViews(BaseCreateView):
                     else:
                         self.character.experience += 25
                 self.character.career = career
-                self.character.career_class = CAREER_DATA[career]["class"]
-                career_level = list(CAREER_DATA[career].keys())[1]
-                self.character.career_path.append(career_level)
-                self.character.career_title = career_level
-                self.character.career_tier = CAREER_DATA[career][career_level][
+                self.character.career_class = CAREER_BY_CLASS[career]
+                career_title = list(CAREER_DATA[career].keys())[0]
+                self.character.career_path.append(career_title)
+                self.character.career_title = career_title
+                self.character.career_tier = CAREER_DATA[career][career_title][
                     "status"
                 ]["tier"]
-                self.character.career_standing = CAREER_DATA[career][career_level][
+                self.character.career_standing = CAREER_DATA[career][career_title][
                     "status"
                 ]["standing"]
                 url = self.request.route_url("attributes", id=self.character.id)

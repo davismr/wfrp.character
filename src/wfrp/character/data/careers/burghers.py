@@ -3,7 +3,6 @@ from wfrp.character.utils import roll_d10
 
 BURGHERS_CLASS_DATA = {
     "Agitator": {
-        "class": "Burghers",
         "Pamphleteer": {
             "status": {"tier": "Brass", "standing": 1},
             "attributes": ["Ballistic Skill", "Intelligence", "Fellowship"],
@@ -31,7 +30,6 @@ BURGHERS_CLASS_DATA = {
         },
     },
     "Artisan": {
-        "class": "Burghers",
         "Apprentice Artisan": {
             "status": {"tier": "Brass", "standing": 2},
             "attributes": ["Strength", "Toughness", "Dexterity"],
@@ -59,7 +57,6 @@ BURGHERS_CLASS_DATA = {
         },
     },
     "Beggar": {
-        "class": "Burghers",
         "Pauper": {
             "status": {"tier": "Brass", "standing": 0},
             "attributes": ["Toughness", "Agility", "Fellowship"],
@@ -86,7 +83,6 @@ BURGHERS_CLASS_DATA = {
         },
     },
     "Investigator": {
-        "class": "Burghers",
         "Sleuth": {
             "status": {"tier": "Silver", "standing": 1},
             "attributes": ["Initiative", "Agility", "Intelligence"],
@@ -115,7 +111,6 @@ BURGHERS_CLASS_DATA = {
         },
     },
     "Merchant": {
-        "class": "Burghers",
         "Trader": {
             "status": {"tier": "Silver", "standing": 2},
             "attributes": ["Agility", "Willpower", "Fellowship"],
@@ -144,7 +139,6 @@ BURGHERS_CLASS_DATA = {
         },
     },
     "Rat Catcher": {
-        "class": "Burghers",
         "Rat Hunter": {
             "status": {"tier": "Brass", "standing": 3},
             "attributes": ["Weapon Skill", "Ballistic Skill", "Willpower"],
@@ -172,7 +166,6 @@ BURGHERS_CLASS_DATA = {
         },
     },
     "Townsman": {
-        "class": "Burghers",
         "Clerk": {
             "status": {"tier": "Silver", "standing": 1},
             "attributes": ["Agility", "Intelligence", "Fellowship"],
@@ -199,7 +192,6 @@ BURGHERS_CLASS_DATA = {
         },
     },
     "Watchman": {
-        "class": "Burghers",
         "Watch Recruit": {
             "status": {"tier": "Brass", "standing": 3},
             "attributes": ["Weapon Skill", "Strength", "Fellowship"],

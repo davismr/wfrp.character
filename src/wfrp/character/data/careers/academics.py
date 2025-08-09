@@ -1,6 +1,5 @@
 ACADEMIC_CLASS_DATA = {
     "Apothecary": {
-        "class": "Academics",
         "Apothecary’s Apprentice": {
             "status": {"tier": "Brass", "standing": 3},
             "attributes": ["Toughness", "Dexterity", "Intelligence"],
@@ -90,7 +89,6 @@ ACADEMIC_CLASS_DATA = {
         },
     },
     "Engineer": {
-        "class": "Academics",
         "Student Engineer": {
             "status": {"tier": "Brass", "standing": 4},
             "attributes": ["Ballistic Skill", "Dexterity", "Intelligence"],
@@ -117,7 +115,6 @@ ACADEMIC_CLASS_DATA = {
         },
     },
     "Lawyer": {
-        "class": "Academics",
         "Student Lawyer": {
             "status": {"tier": "Brass", "standing": 4},
             "attributes": ["Initiative", "Dexterity", "Intelligence"],
@@ -144,7 +141,6 @@ ACADEMIC_CLASS_DATA = {
         },
     },
     "Nun": {
-        "class": "Academics",
         "Novitiate": {
             "status": {"tier": "Brass", "standing": 1},
             "attributes": ["Dexterity", "Intelligence", "Fellowship"],
@@ -171,7 +167,6 @@ ACADEMIC_CLASS_DATA = {
         },
     },
     "Physician": {
-        "class": "Academics",
         "Physician’s Apprentice": {
             "status": {"tier": "Brass", "standing": 4},
             "attributes": ["Dexterity", "Intelligence", "Willpower"],
@@ -198,7 +193,6 @@ ACADEMIC_CLASS_DATA = {
         },
     },
     "Priest": {
-        "class": "Academics",
         "Initiate": {
             "status": {"tier": "Brass", "standing": 2},
             "attributes": ["Toughness", "Agility", "Willpower"],
@@ -225,7 +219,6 @@ ACADEMIC_CLASS_DATA = {
         },
     },
     "Scholar": {
-        "class": "Academics",
         "Student": {
             "status": {"tier": "Brass", "standing": 3},
             "attributes": ["Toughness", "Intelligence", "Willpower"],
@@ -254,7 +247,6 @@ ACADEMIC_CLASS_DATA = {
         },
     },
     "Wizard": {
-        "class": "Academics",
         "Wizard’s Apprentice": {
             "status": {"tier": "Brass", "standing": 3},
             "attributes": ["Weapon Skill", "Intelligence", "Willpower"],

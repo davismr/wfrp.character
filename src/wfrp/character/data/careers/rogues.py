@@ -2,7 +2,6 @@ from wfrp.character.utils import roll_3d10
 
 ROGUES_CLASS_DATA = {
     "Bawd": {
-        "class": "Rogues",
         "Hustler": {
             "status": {"tier": "Brass", "standing": 1},
             "attributes": ["Agility", "Dexterity", "Fellowship"],
@@ -28,7 +27,6 @@ ROGUES_CLASS_DATA = {
         },
     },
     "Charlatan": {
-        "class": "Rogues",
         "Swindler": {
             "status": {"tier": "Brass", "standing": 3},
             "attributes": ["Initiative", "Dexterity", "Fellowship"],
@@ -57,7 +55,6 @@ ROGUES_CLASS_DATA = {
         },
     },
     "Fence": {
-        "class": "Rogues",
         "Broker": {
             "status": {"tier": "Silver", "standing": 1},
             "attributes": ["Initiative", "Agility", "Fellowship"],
@@ -84,7 +81,6 @@ ROGUES_CLASS_DATA = {
         },
     },
     "Grave Robber": {
-        "class": "Rogues",
         "Body Snatcher": {
             "status": {"tier": "Brass", "standing": 2},
             "attributes": ["Strength", "Initiative", "Willpower"],
@@ -113,7 +109,6 @@ ROGUES_CLASS_DATA = {
         },
     },
     "Outlaw": {
-        "class": "Rogues",
         "Brigand": {
             "status": {"tier": "Brass", "standing": 1},
             "attributes": ["Weapon Skill", "Strength", "Toughness"],
@@ -142,7 +137,6 @@ ROGUES_CLASS_DATA = {
         },
     },
     "Racketeer": {
-        "class": "Rogues",
         "Thug": {
             "status": {"tier": "Brass", "standing": 3},
             "attributes": ["Weapon Skill", "Strength", "Toughness"],
@@ -169,7 +163,6 @@ ROGUES_CLASS_DATA = {
         },
     },
     "Thief": {
-        "class": "Rogues",
         "Prowler": {
             "status": {"tier": "Brass", "standing": 1},
             "attributes": ["Initiative", "Agility", "Willpower"],
@@ -197,7 +190,6 @@ ROGUES_CLASS_DATA = {
         },
     },
     "Witch": {
-        "class": "Rogues",
         "Hexer": {
             "status": {"tier": "Brass", "standing": 1},
             "attributes": ["Weapon Skill", "Toughness", "Willpower"],

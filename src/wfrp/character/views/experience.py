@@ -15,7 +15,7 @@ from wfrp.character.views.base_view import BaseView
 class ExperienceViews(BaseView):
     def characteristic_schema(self):
         career_data = CAREER_DATA[self.character.career]
-        career_details = career_data[list(career_data)[1]]
+        career_details = career_data[self.character.career_title]
         career_advances = career_details["attributes"]
         schema = colander.SchemaNode(colander.Mapping(), title="Characteristics")
         characteristic_schema = colander.SchemaNode(
@@ -64,7 +64,7 @@ class ExperienceViews(BaseView):
 
     def skill_schema(self):  # noqa: C901
         career_data = CAREER_DATA[self.character.career]
-        career_details = career_data[list(career_data)[1]]
+        career_details = career_data[self.character.career_title]
         career_skills = []
         for skill in career_details["skills"]:
             if " or " in skill:
@@ -143,7 +143,7 @@ class ExperienceViews(BaseView):
 
     def talent_schema(self):
         career_data = CAREER_DATA[self.character.career]
-        career_details = career_data[list(career_data)[1]]
+        career_details = career_data[self.character.career_title]
         career_talents = career_details["talents"]
         schema = colander.SchemaNode(colander.Mapping(), title="talents")
         talent_schema = colander.SchemaNode(
