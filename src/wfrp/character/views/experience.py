@@ -7,6 +7,7 @@ from pyramid.view import view_config
 from pyramid.view import view_defaults
 
 from wfrp.character.data.careers.careers import CAREER_DATA
+from wfrp.character.data.careers.careers import CAREER_DATA_WITH_SEAFARER
 from wfrp.character.data.skills import SKILL_DATA
 from wfrp.character.views.base_view import BaseView
 
@@ -14,7 +15,10 @@ from wfrp.character.views.base_view import BaseView
 @view_defaults(route_name="experience")
 class ExperienceViews(BaseView):
     def characteristic_schema(self):
-        career_data = CAREER_DATA[self.character.career]
+        if "sea_of_claws" in self.character.expansions:
+            career_data = CAREER_DATA_WITH_SEAFARER[self.character.career]
+        else:
+            career_data = CAREER_DATA[self.character.career]
         career_details = career_data[self.character.career_title]
         career_advances = career_details["attributes"]
         schema = colander.SchemaNode(colander.Mapping(), title="Characteristics")
@@ -58,12 +62,15 @@ class ExperienceViews(BaseView):
             characteristic_display = characteristic.replace("_", " ").title()
             raise colander.Invalid(
                 form,
-                f"You do not have enought experience to increase "
+                f"You do not have enough experience to increase "
                 f"{characteristic_display}, you need {cost} XP",
             )
 
     def skill_schema(self):  # noqa: C901
-        career_data = CAREER_DATA[self.character.career]
+        if "sea_of_claws" in self.character.expansions:
+            career_data = CAREER_DATA_WITH_SEAFARER[self.character.career]
+        else:
+            career_data = CAREER_DATA[self.character.career]
         career_details = career_data[self.character.career_title]
         career_skills = []
         for skill in career_details["skills"]:
@@ -137,12 +144,15 @@ class ExperienceViews(BaseView):
         if cost > self.character.experience:
             raise colander.Invalid(
                 form,
-                f"You do not have enought experience to increase {skill}, "
+                f"You do not have enough experience to increase {skill}, "
                 f"you need {cost} XP",
             )
 
     def talent_schema(self):
-        career_data = CAREER_DATA[self.character.career]
+        if "sea_of_claws" in self.character.expansions:
+            career_data = CAREER_DATA_WITH_SEAFARER[self.character.career]
+        else:
+            career_data = CAREER_DATA[self.character.career]
         career_details = career_data[self.character.career_title]
         career_talents = career_details["talents"]
         schema = colander.SchemaNode(colander.Mapping(), title="talents")
@@ -186,7 +196,7 @@ class ExperienceViews(BaseView):
         if cost > self.character.experience:
             raise colander.Invalid(
                 form,
-                f"You do not have enought experience to increase {talent}, "
+                f"You do not have enough experience to increase {talent}, "
                 f"you need {cost} XP",
             )
 

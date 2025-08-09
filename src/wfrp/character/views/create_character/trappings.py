@@ -6,7 +6,9 @@ from pyramid.view import view_defaults
 
 from wfrp.character.data.armour import ARMOUR_DATA
 from wfrp.character.data.careers.careers import CAREER_BY_CLASS
+from wfrp.character.data.careers.careers import CAREER_BY_CLASS_WITH_SEAFARER
 from wfrp.character.data.careers.careers import CAREER_DATA
+from wfrp.character.data.careers.careers import CAREER_DATA_WITH_SEAFARER
 from wfrp.character.data.class_trappings import get_class_trappings
 from wfrp.character.data.weapons import WEAPONS_DATA
 from wfrp.character.utils import roll_d10
@@ -33,8 +35,16 @@ class TrappingsViews(BaseCreateView):
     def initialise_form(self):
         if self.character.status["trappings"]:
             return self.character.status["trappings"]
-        career_data = CAREER_DATA[self.character.career]
-        class_trappings = get_class_trappings(CAREER_BY_CLASS[self.character.career])
+        if "sea_of_claws" in self.character.expansions:
+            career_data = CAREER_DATA_WITH_SEAFARER[self.character.career]
+            class_trappings = get_class_trappings(
+                CAREER_BY_CLASS_WITH_SEAFARER[self.character.career]
+            )
+        else:
+            career_data = CAREER_DATA[self.character.career]
+            class_trappings = get_class_trappings(
+                CAREER_BY_CLASS[self.character.career]
+            )
         career_details = career_data[self.character.career_title]
         career_trappings = career_details["trappings"]
         money = self._get_money(

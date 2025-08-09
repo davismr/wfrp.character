@@ -79,7 +79,7 @@ def test_increase_characteristic_too_much(new_character):
     view = ExperienceViews(request)
     response = view.form_view()
     assert (
-        "You do not have enought experience to increase Weapon Skill, you need 30 XP"
+        "You do not have enough experience to increase Weapon Skill, you need 30 XP"
     ) in response["form"]
     assert new_character.weapon_skill == 49
     assert new_character.weapon_skill_advances == 9
@@ -211,7 +211,7 @@ def test_increase_skill_too_much(new_character):
     view = ExperienceViews(request)
     response = view.form_view()
     assert (
-        "You do not have enought experience to increase Athletics, you need 15 XP"
+        "You do not have enough experience to increase Athletics, you need 15 XP"
     ) in response["form"]
     assert new_character.skills["Athletics"] == 9
     assert new_character.experience == 10
@@ -282,7 +282,7 @@ def test_talent_too_much(new_character):
     view = ExperienceViews(request)
     response = view.form_view()
     assert (
-        "You do not have enought experience to increase Warrior Born, you need 100 XP"
+        "You do not have enough experience to increase Warrior Born, you need 100 XP"
     ) in response["form"]
     assert new_character.talents == {}
     assert new_character.experience == 50

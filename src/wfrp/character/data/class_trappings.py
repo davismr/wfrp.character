@@ -52,6 +52,16 @@ def get_class_trappings(career_class):
             "Sling Bag",
             "Flask of Spirits",
         ]
+    elif career_class == "Seafarer":
+        trappings = [
+            "Cloak",
+            "Clothing",
+            "Dagger",
+            "Pouch",
+            "Sling Bag",
+            "10 yard length of rope",
+            "Flask of Spirits",
+        ]
     elif career_class == "Rogues":
         trappings = [
             "Clothing",
