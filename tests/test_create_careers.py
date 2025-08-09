@@ -27,7 +27,28 @@ def test_initialise_form(new_character):
     assert "career_choice" in response
     assert len(response["career_choice"]) == 1
     assert "career_list" in response
+    assert response["career_choice"][0] not in response["career_list"]
+
+
+@pytest.mark.create
+def test_initialise_form_seafarer(new_character):
+    new_character.species = "High Elf"
+    new_character.expansions = ["sea_of_claws"]
+    new_character.status = {"career": ""}
+    request = testing.DummyRequest()
+    request.dbsession = dbsession(request)
+    request.matched_route = DummyRoute(name="career")
+    request.matchdict = {"id": str(new_character.id)}
+    view = CareerViews(request)
+    response = view.initialise_form()
+    assert isinstance(response, dict)
+    assert "career_choice" in response
+    assert len(response["career_choice"]) == 1
+    assert "career_list" in response
     assert response["career_choice"] not in response["career_list"]
+    assert "Smuggler" not in response["career_list"]
+    if response["career_choice"][0] != "Ship’s Gunner":
+        assert "Ship’s Gunner" in response["career_list"]
 
 
 @pytest.mark.create

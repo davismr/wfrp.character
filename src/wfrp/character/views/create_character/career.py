@@ -6,7 +6,9 @@ from pyramid.view import view_config
 from pyramid.view import view_defaults
 
 from wfrp.character.data.careers.careers import CAREER_BY_CLASS
+from wfrp.character.data.careers.careers import CAREER_BY_CLASS_WITH_SEAFARER
 from wfrp.character.data.careers.careers import CAREER_DATA
+from wfrp.character.data.careers.careers import CAREER_DATA_WITH_SEAFARER
 from wfrp.character.data.careers.tables import get_career
 from wfrp.character.data.careers.tables import list_careers
 from wfrp.character.utils import roll_d100
@@ -16,12 +18,21 @@ from wfrp.character.views.create_character.base_create import BaseCreateView
 @view_defaults(route_name="career", permission="create_character")
 class CareerViews(BaseCreateView):
     def initialise_form(self):
+        self.sea_of_claws = False
+        if "sea_of_claws" in self.character.expansions:
+            self.sea_of_claws = True
         if self.character.status["career"]:
             career = self.character.status["career"]
         else:
-            career = get_career(self.character.species, roll_d100())
+            if self.sea_of_claws:
+                career = get_career(self.character.species, roll_d100(), True)
+            else:
+                career = get_career(self.character.species, roll_d100())
             self.character.status = {"career": career}
-        career_list = list_careers(self.character.species)
+        if self.sea_of_claws:
+            career_list = list_careers(self.character.species, True)
+        else:
+            career_list = list_careers(self.character.species)
         career_choice = []
         for item in career.split(","):
             career_list.remove(item)
@@ -44,7 +55,12 @@ class CareerViews(BaseCreateView):
         )
         career_choices = []
         for item in data["career_choice"]:
-            career_choices.append((item, f"{item} ({CAREER_BY_CLASS[item]})"))
+            if self.sea_of_claws:
+                career_choices.append(
+                    (item, f"{item} ({CAREER_BY_CLASS_WITH_SEAFARER[item]})")
+                )
+            else:
+                career_choices.append((item, f"{item} ({CAREER_BY_CLASS[item]})"))
         if len(career_choices) == 1:
             description = (
                 f"Accept {career_choices[0][0]} for 50XP, or reroll for 3 choices and "
@@ -80,7 +96,14 @@ class CareerViews(BaseCreateView):
         career_choices = [("", "Select a random career above")]
         career_list = {}
         for career in data["career_list"]:
-            career_list.setdefault(CAREER_BY_CLASS[career], []).append((career, career))
+            if self.sea_of_claws:
+                career_list.setdefault(
+                    CAREER_BY_CLASS_WITH_SEAFARER[career], []
+                ).append((career, career))
+            else:
+                career_list.setdefault(CAREER_BY_CLASS[career], []).append(
+                    (career, career)
+                )
         for career_class in career_list:
             career_choices.append(OptGroup(career_class, *career_list[career_class]))
         career_schema.add(
@@ -140,16 +163,19 @@ class CareerViews(BaseCreateView):
                     else:
                         self.character.experience += 25
                 self.character.career = career
-                self.character.career_class = CAREER_BY_CLASS[career]
-                career_title = list(CAREER_DATA[career].keys())[0]
+                if self.sea_of_claws:
+                    self.character.career_class = CAREER_BY_CLASS_WITH_SEAFARER[career]
+                    career_data = CAREER_DATA_WITH_SEAFARER[career]
+                else:
+                    self.character.career_class = CAREER_BY_CLASS[career]
+                    career_data = CAREER_DATA[career]
+                career_title = list(career_data.keys())[0]
                 self.character.career_path.append(career_title)
                 self.character.career_title = career_title
-                self.character.career_tier = CAREER_DATA[career][career_title][
-                    "status"
-                ]["tier"]
-                self.character.career_standing = CAREER_DATA[career][career_title][
-                    "status"
-                ]["standing"]
+                self.character.career_tier = career_data[career_title]["status"]["tier"]
+                self.character.career_standing = career_data[career_title]["status"][
+                    "standing"
+                ]
                 url = self.request.route_url("attributes", id=self.character.id)
                 self.character.status = {"attributes": ""}
                 return HTTPFound(location=url)

@@ -297,7 +297,6 @@ def test_submit_invalid(new_character):
 @pytest.mark.create
 @patch("wfrp.character.data.class_trappings.roll_d10")
 def test_randomise_trappings(mock_rolld10, new_character, second_character):
-    # mock_rolld10.side_effect = [5, 6]
     mock_rolld10.return_value = 5
     new_character.species = "Wood Elf"
     new_character.career = "Apothecary"

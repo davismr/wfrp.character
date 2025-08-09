@@ -39,3 +39,6 @@
   - Motivation, party etc
 - Mark which skill is used for earning money
 - user widget to display username rather than id for edit campaign form
+
+### Expansions
+- Norse characters - sea of claws

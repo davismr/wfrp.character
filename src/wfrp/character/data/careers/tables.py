@@ -1,35 +1,51 @@
 from wfrp.character.data.careers.careers import CAREER_DATA
 
 
-def list_careers(species=None):
+def list_careers(species=None, with_seafarer=False):  # noqa: C901
     if species is None:
         return list(CAREER_DATA.keys())
-    if species == "Human":
+    if species == "Human" and with_seafarer is False:
         return list(HUMAN_CAREERS.values())
-    elif species == "Halfling":
+    if species == "Human":
+        return list(HUMAN_CAREERS_WITH_SEAFARER.values())
+    if species == "Halfling" and with_seafarer is False:
         return list(HALFLING_CAREERS.values())
-    elif species == "Dwarf":
+    if species == "Halfling":
+        return list(HALFLING_CAREERS_WITH_SEAFARER.values())
+    if species == "Dwarf" and with_seafarer is False:
         return list(DWARF_CAREERS.values())
-    elif species == "Gnome":
+    if species == "Dwarf":
+        return list(DWARF_CAREERS_WITH_SEAFARER.values())
+    if species == "Gnome":
         return list(GNOME_CAREERS.values())
-    elif species == "High Elf":
+    if species == "High Elf" and with_seafarer is False:
         return list(HIGH_ELF_CAREERS.values())
-    elif species == "Wood Elf":
+    if species == "High Elf":
+        return list(HIGH_ELF_CAREERS_WITH_SEAFARER.values())
+    if species == "Wood Elf":
         return list(WOOD_ELF_CAREERS.values())
     raise NotImplementedError("Invalid species sent to list careers")
 
 
-def get_career(species, die_roll):
-    if species == "Human":
+def get_career(species, die_roll, with_seafarer=False):  # noqa: C901
+    if species == "Human" and with_seafarer is False:
         career_list = HUMAN_CAREERS
-    elif species == "Halfling":
+    elif species == "Human":
+        career_list = HUMAN_CAREERS_WITH_SEAFARER
+    elif species == "Halfling" and with_seafarer is False:
         career_list = HALFLING_CAREERS
-    elif species == "Dwarf":
+    elif species == "Halfling":
+        career_list = HALFLING_CAREERS_WITH_SEAFARER
+    elif species == "Dwarf" and with_seafarer is False:
         career_list = DWARF_CAREERS
+    elif species == "Dwarf":
+        career_list = DWARF_CAREERS_WITH_SEAFARER
     elif species == "Gnome":
         career_list = GNOME_CAREERS
-    elif species == "High Elf":
+    elif species == "High Elf" and with_seafarer is False:
         career_list = HIGH_ELF_CAREERS
+    elif species == "High Elf":
+        career_list = HIGH_ELF_CAREERS_WITH_SEAFARER
     elif species == "Wood Elf":
         career_list = WOOD_ELF_CAREERS
     else:
@@ -107,6 +123,19 @@ HUMAN_CAREERS = {
     100: "Warrior Priest",
 }
 
+HUMAN_CAREERS_WITH_SEAFARER = HUMAN_CAREERS.copy()
+HUMAN_CAREERS_WITH_SEAFARER[62] = "Beachcomber"
+HUMAN_CAREERS_WITH_SEAFARER[63] = "Chantyman"
+HUMAN_CAREERS_WITH_SEAFARER[64] = "Huffer"
+HUMAN_CAREERS_WITH_SEAFARER[66] = "Officer"
+HUMAN_CAREERS_WITH_SEAFARER[67] = "Sailor-Priest of Manann"
+HUMAN_CAREERS_WITH_SEAFARER[71] = "Sailor"
+HUMAN_CAREERS_WITH_SEAFARER[73] = "Ship’s Gunner"
+HUMAN_CAREERS_WITH_SEAFARER[74] = "Wrecker"
+del HUMAN_CAREERS_WITH_SEAFARER[65]
+del HUMAN_CAREERS_WITH_SEAFARER[68]
+del HUMAN_CAREERS_WITH_SEAFARER[70]
+
 DWARF_CAREERS = {
     1: "Apothecary",
     4: "Engineer",
@@ -156,6 +185,16 @@ DWARF_CAREERS = {
     96: "Soldier",
     100: "Slayer",
 }
+
+DWARF_CAREERS_WITH_SEAFARER = DWARF_CAREERS.copy()
+DWARF_CAREERS_WITH_SEAFARER[69] = "Huffer"
+DWARF_CAREERS_WITH_SEAFARER[71] = "Officer"
+DWARF_CAREERS_WITH_SEAFARER[74] = "Sailor"
+DWARF_CAREERS_WITH_SEAFARER[77] = "Ship’s Gunner"
+del DWARF_CAREERS_WITH_SEAFARER[70]
+del DWARF_CAREERS_WITH_SEAFARER[72]
+del DWARF_CAREERS_WITH_SEAFARER[73]
+del DWARF_CAREERS_WITH_SEAFARER[75]
 
 HALFLING_CAREERS = {
     1: "Apothecary",
@@ -207,6 +246,17 @@ HALFLING_CAREERS = {
     97: "Pit Fighter",
     100: "Soldier",
 }
+
+HALFLING_CAREERS_WITH_SEAFARER = HALFLING_CAREERS.copy()
+HALFLING_CAREERS_WITH_SEAFARER[72] = "Beachcomber"
+HALFLING_CAREERS_WITH_SEAFARER[74] = "Huffer"
+HALFLING_CAREERS_WITH_SEAFARER[80] = "Sailor"
+HALFLING_CAREERS_WITH_SEAFARER[82] = "Ship’s Gunner"
+del HALFLING_CAREERS_WITH_SEAFARER[69]
+del HALFLING_CAREERS_WITH_SEAFARER[70]
+del HALFLING_CAREERS_WITH_SEAFARER[71]
+del HALFLING_CAREERS_WITH_SEAFARER[75]
+del HALFLING_CAREERS_WITH_SEAFARER[79]
 
 GNOME_CAREERS = {
     1: "Apothecary",
@@ -291,6 +341,13 @@ HIGH_ELF_CAREERS = {
     98: "Protagonist",
     100: "Soldier",
 }
+
+HIGH_ELF_CAREERS_WITH_SEAFARER = HIGH_ELF_CAREERS.copy()
+HIGH_ELF_CAREERS_WITH_SEAFARER[64] = "Chantyman"
+HIGH_ELF_CAREERS_WITH_SEAFARER[65] = "Huffer"
+HIGH_ELF_CAREERS_WITH_SEAFARER[69] = "Officer"
+HIGH_ELF_CAREERS_WITH_SEAFARER[79] = "Sailor"
+HIGH_ELF_CAREERS_WITH_SEAFARER[80] = "Ship’s Gunner"
 
 WOOD_ELF_CAREERS = {
     1: "Scholar",

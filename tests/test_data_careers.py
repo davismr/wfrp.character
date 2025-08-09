@@ -25,6 +25,22 @@ def test_get_career(species, career):
 
 
 @pytest.mark.data
+@pytest.mark.parametrize(
+    "species, career",
+    [
+        ("Human", "Sailor"),
+        ("Dwarf", "Officer"),
+        ("Halfling", "Beachcomber"),
+        ("High Elf", "Sailor"),
+        ("Wood Elf", "Entertainer"),
+    ],
+)
+def test_get_career_seafarer(species, career):
+    random_career = get_career(species, 71, True)
+    assert random_career == career
+
+
+@pytest.mark.data
 def test_get_career_invalid():
     with pytest.raises(NotImplementedError):
         get_career("Not a species", 42)
