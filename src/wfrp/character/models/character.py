@@ -41,7 +41,7 @@ class Character(Base):
     career = Column(Text)
     career_class = Column(Text)
     career_title = Column(Text)
-    career_level = Column(Text)
+    career_level = Column(Text)  # delete field, not used
     career_tier = Column(Text)
     career_standing = Column(Integer, default=0)
     career_path = Column(MutableList.as_mutable(JSON), default=[])
