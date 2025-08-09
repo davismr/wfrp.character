@@ -14,13 +14,15 @@ from wfrp.character.views.base_view import BaseView
 
 @view_defaults(route_name="experience")
 class ExperienceViews(BaseView):
-    def characteristic_schema(self):
+    def initialise_form(self):
         if "sea_of_claws" in self.character.expansions:
-            career_data = CAREER_DATA_WITH_SEAFARER[self.character.career]
+            self.career_data = CAREER_DATA_WITH_SEAFARER[self.character.career]
         else:
-            career_data = CAREER_DATA[self.character.career]
-        career_details = career_data[self.character.career_title]
-        career_advances = career_details["attributes"]
+            self.career_data = CAREER_DATA[self.character.career]
+        self.career_details = self.career_data[self.character.career_title]
+
+    def characteristic_schema(self):
+        career_advances = self.career_details["attributes"]
         schema = colander.SchemaNode(colander.Mapping(), title="Characteristics")
         characteristic_schema = colander.SchemaNode(
             colander.Mapping(),
@@ -67,13 +69,8 @@ class ExperienceViews(BaseView):
             )
 
     def skill_schema(self):  # noqa: C901
-        if "sea_of_claws" in self.character.expansions:
-            career_data = CAREER_DATA_WITH_SEAFARER[self.character.career]
-        else:
-            career_data = CAREER_DATA[self.character.career]
-        career_details = career_data[self.character.career_title]
         career_skills = []
-        for skill in career_details["skills"]:
+        for skill in self.career_details["skills"]:
             if " or " in skill:
                 # TODO this needs to be refactored
                 root_skill = skill.split(" (")[0]
@@ -149,12 +146,7 @@ class ExperienceViews(BaseView):
             )
 
     def talent_schema(self):
-        if "sea_of_claws" in self.character.expansions:
-            career_data = CAREER_DATA_WITH_SEAFARER[self.character.career]
-        else:
-            career_data = CAREER_DATA[self.character.career]
-        career_details = career_data[self.character.career_title]
-        career_talents = career_details["talents"]
+        career_talents = self.career_details["talents"]
         schema = colander.SchemaNode(colander.Mapping(), title="talents")
         talent_schema = colander.SchemaNode(
             colander.Mapping(),
@@ -201,7 +193,8 @@ class ExperienceViews(BaseView):
             )
 
     @view_config(renderer="wfrp.character:templates/forms/experience.pt")
-    def form_view(self):  # noqa: C901
+    def form_view(self):
+        self.initialise_form()
         html = []
         all_forms = ["characteristic", "skill", "talent"]
         forms = {}
@@ -221,40 +214,13 @@ class ExperienceViews(BaseView):
             except deform.ValidationFailure as error:
                 html = error.render()
             else:
-                if form.formid == "characteristic_form":
-                    attribute = captured["increase_characteristic"]["characteristic"]
-                    setattr(
-                        self.character,
-                        f"{attribute}_advances",
-                        getattr(self.character, f"{attribute}_advances") + 1,
-                    )
-                    # attribute has increased, so this is the cost for getting there
-                    cost = self.character.cost_characteristic(
-                        getattr(self.character, f"{attribute}_advances")
-                    )
-                elif form.formid == "skill_form":
-                    skill = captured["increase_skill"]["skill"]
-                    if skill in self.character.skills:
-                        self.character.skills[skill] += 1
-                    else:
-                        self.character.skills[skill] = 1
-                    cost = self.character.cost_skill(self.character.skills[skill])
-                elif form.formid == "talent_form":
-                    talent = captured["add_talent"]["talent"]
-                    if talent in self.character.talents:
-                        self.character.talents[talent] += 1
-                    else:
-                        self.character.talents[talent] = 1
-                    cost = self.character.cost_talent(self.character.talents[talent])
-                self.character.experience -= cost
-                self.character.experience_spent += cost
+                self.update_character(form.formid, captured)
                 url = self.request.route_url("experience", id=self.character.id)
                 self.character.status = {"complete": ""}
                 return HTTPFound(location=url)
         else:
             for form in forms:
                 html.append(forms[form].render())
-
         # just get the assets for the first form
         static_assets = list(forms.values())[0].get_widget_resources()
         return {
@@ -263,3 +229,32 @@ class ExperienceViews(BaseView):
             "js_links": static_assets["js"],
             "character": self.character,
         }
+
+    def update_character(self, form_id, captured):
+        if form_id == "characteristic_form":
+            attribute = captured["increase_characteristic"]["characteristic"]
+            setattr(
+                self.character,
+                f"{attribute}_advances",
+                getattr(self.character, f"{attribute}_advances") + 1,
+            )
+            # attribute has increased, so this is the cost for getting there
+            cost = self.character.cost_characteristic(
+                getattr(self.character, f"{attribute}_advances")
+            )
+        elif form_id == "skill_form":
+            skill = captured["increase_skill"]["skill"]
+            if skill in self.character.skills:
+                self.character.skills[skill] += 1
+            else:
+                self.character.skills[skill] = 1
+            cost = self.character.cost_skill(self.character.skills[skill])
+        elif form_id == "talent_form":
+            talent = captured["add_talent"]["talent"]
+            if talent in self.character.talents:
+                self.character.talents[talent] += 1
+            else:
+                self.character.talents[talent] = 1
+            cost = self.character.cost_talent(self.character.talents[talent])
+        self.character.experience -= cost
+        self.character.experience_spent += cost
