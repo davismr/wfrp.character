@@ -32,7 +32,9 @@
         <div metal:define-slot="page_css" tal:omit-tag=""/>
     </head>
     <body>
-        <div metal:use-macro="load: includes/github_corner.pt"/>
+        <div metal:define-slot="github" tal:omit-tag="">
+            <div metal:use-macro="load: includes/github_corner.pt"/>
+        </div>
         <div metal:define-slot="page_links" tal:omit-tag="">
             <div><a href="/">Homepage</a></div>
             <div><a href="/about">About</a></div>

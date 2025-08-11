@@ -4,6 +4,7 @@
               href="${request.static_url('wfrp.character:static/print.css')}"/>
     </div>
     <div metal:fill-slot="page_links"/>
+    <div metal:fill-slot="github"/>
     <div metal:fill-slot="content">
         <div metal:use-macro="load: character_sheet.pt"/>
     </div>
