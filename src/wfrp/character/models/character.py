@@ -16,6 +16,8 @@ from sqlalchemy.schema import ForeignKey
 
 from wfrp.character.application import Base
 from wfrp.character.data.armour import ARMOUR_DATA
+from wfrp.character.data.careers.careers import CAREER_DATA
+from wfrp.character.data.careers.careers import CAREER_DATA_WITH_SEAFARER
 from wfrp.character.data.skills import SKILL_DATA
 from wfrp.character.data.talents import TALENT_DATA
 from wfrp.character.data.trappings import TRAPPINGS_DATA
@@ -218,6 +220,27 @@ class Character(Base):
             if armour in ARMOUR_DATA:
                 total += ARMOUR_DATA[armour]["Enc"]
         return total
+
+    def completed_career(self):
+        if self.career_class == "Seafarer":
+            career_data = CAREER_DATA_WITH_SEAFARER[self.career]
+        else:
+            career_data = CAREER_DATA[self.career]
+        career_level = career_data[self.career_title]
+        for attribute in career_level["attributes"]:
+            if getattr(self, f"{attribute.lower().replace(' ', '_')}_advances") < 5:
+                return False
+        for skill in career_level["skills"]:
+            if skill not in self.skills:
+                return False
+            if self.skills[skill] < 5:
+                return False
+        for talent in career_level["talents"]:
+            if talent in self.talents:
+                break
+        else:
+            return False
+        return True
 
     def cost_characteristic(self, advance):  # noqa: C901
         """Return the experience cost of an increase in a charateristic."""

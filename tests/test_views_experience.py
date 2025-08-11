@@ -287,3 +287,53 @@ def test_talent_too_much(new_character):
     assert new_character.talents == {}
     assert new_character.experience == 50
     assert new_character.experience_spent == 0
+
+
+@pytest.mark.views
+def test_advance_career(new_character):
+    new_character.species = "Wood Elf"
+    new_character.expansions = ["sea_of_claws"]
+    new_character.career_class = "Seafarer"
+    new_character.career = "Beachcomber"
+    new_character.career_title = "Scavenger"
+    new_character.career_path = ["Scavenger"]
+    new_character.experience = 200
+    new_character.status = {"complete": ""}
+    payload = {
+        "__formid__": "career_form",
+        "change_career": {"advance_career": "Beachcomber"},
+    }
+    request = testing.DummyRequest(post=payload)
+    request.dbsession = dbsession(request)
+    request.matched_route = DummyRoute(name="experience")
+    request.matchdict = {"id": str(new_character.id)}
+    view = ExperienceViews(request)
+    response = view.form_view()
+    assert response.status_code == 302
+    assert new_character.career_title == "Beachcomber"
+    assert new_character.career_path == ["Scavenger", "Beachcomber"]
+    assert new_character.experience == 0
+    assert new_character.experience_spent == 200
+
+
+@pytest.mark.views
+def test_advance_career_no_experience(new_character):
+    new_character.species = "Wood Elf"
+    new_character.expansions = ["sea_of_claws"]
+    new_character.career_class = "Seafarer"
+    new_character.career = "Beachcomber"
+    new_character.career_title = "Scavenger"
+    new_character.experience = 100
+    new_character.status = {"complete": ""}
+    payload = {
+        "__formid__": "career_form",
+        "change_career": {"advance_career": "Beachcomber"},
+    }
+    request = testing.DummyRequest(post=payload)
+    request.dbsession = dbsession(request)
+    request.matched_route = DummyRoute(name="experience")
+    request.matchdict = {"id": str(new_character.id)}
+    view = ExperienceViews(request)
+    response = view.form_view()
+    assert isinstance(response, dict)
+    assert "You do not have enough experience to change career" in response["form"]

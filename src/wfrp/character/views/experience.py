@@ -20,6 +20,7 @@ class ExperienceViews(BaseView):
         else:
             self.career_data = CAREER_DATA[self.character.career]
         self.career_details = self.career_data[self.character.career_title]
+        self.completed_career = self.character.completed_career()
 
     def characteristic_schema(self):
         career_advances = self.career_details["attributes"]
@@ -30,7 +31,7 @@ class ExperienceViews(BaseView):
             description=f"You have {self.character.experience} experience to spend",
             validator=self.validate_characteristic,
         )
-        choices = []
+        choices = [("", "None")]
         for characteristic in career_advances:
             characteristic_lower = characteristic.lower().replace(" ", "_")
             current = getattr(self.character, characteristic_lower)
@@ -38,7 +39,7 @@ class ExperienceViews(BaseView):
             choices.append(
                 (
                     characteristic_lower,
-                    f"{characteristic}({current}) - {advances} advances, "
+                    f"{characteristic} ({current}) - {advances} advances, "
                     f"{self.character.cost_characteristic(advances + 1)} "
                     "experience to increase",
                 )
@@ -107,7 +108,7 @@ class ExperienceViews(BaseView):
             description=f"You have {self.character.experience} experience to spend",
             validator=self.validate_skill,
         )
-        choices = []
+        choices = [("", "None")]
         for skill in career_skills:
             try:
                 advances = self.character.skills[skill]
@@ -147,14 +148,14 @@ class ExperienceViews(BaseView):
 
     def talent_schema(self):
         career_talents = self.career_details["talents"]
-        schema = colander.SchemaNode(colander.Mapping(), title="talents")
+        schema = colander.SchemaNode(colander.Mapping(), title="Talents")
         talent_schema = colander.SchemaNode(
             colander.Mapping(),
             name="add_talent",
             description=f"You have {self.character.experience} experience to spend",
             validator=self.validate_talent,
         )
-        choices = []
+        choices = [("", "None")]
         for talent in career_talents:
             try:
                 advances = self.character.talents[talent]
@@ -192,18 +193,73 @@ class ExperienceViews(BaseView):
                 f"you need {cost} XP",
             )
 
+    def career_schema(self):
+        schema = colander.SchemaNode(colander.Mapping(), title="Career")
+        if self.completed_career is True:
+            cost = 100
+            description = (
+                "You have completed your current career level and have "
+                f"{self.character.experience} experience to spend"
+            )
+        else:
+            cost = 200
+            description = (
+                "You have not completed your current career level and have "
+                f"{self.character.experience} experience to spend"
+            )
+        career_schema = colander.SchemaNode(
+            colander.Mapping(),
+            name="change_career",
+            description=description,
+            validator=self.validate_career,
+        )
+        career_level = list(self.career_data.keys()).index(self.character.career_title)
+        choices = [("", "None")]
+        for index, career in enumerate(self.career_data.keys()):
+            if career == self.character.career_title:
+                continue
+            choices.append((f"{career}", f"{career} (level {index + 1}), {cost} XP"))
+            if index > career_level:
+                break
+        career_schema.add(
+            colander.SchemaNode(
+                colander.String(),
+                name="advance_career",
+                widget=deform.widget.RadioChoiceWidget(values=choices),
+                validator=colander.OneOf([x[0] for x in choices]),
+                description="Choose a Career level",
+            )
+        )
+        schema.add(career_schema)
+        return schema
+
+    def validate_career(self, form, values):
+        cost = 200
+        if self.completed_career is True:
+            cost = 100
+        if cost > self.character.experience:
+            raise colander.Invalid(
+                form,
+                "You do not have enough experience to change career, "
+                f"you need {cost} XP",
+            )
+
     @view_config(renderer="wfrp.character:templates/forms/experience.pt")
     def form_view(self):
         self.initialise_form()
         html = []
-        all_forms = ["characteristic", "skill", "talent"]
+        all_forms = ["characteristic", "skill", "talent", "career"]
         forms = {}
         counter = itertools.count()
         for form in all_forms:
+            if form != "career":
+                button = f"Increase {form}"
+            else:
+                button = "Change Career"
             attribute_schema = getattr(self, f"{form}_schema")()
             forms[f"{form}_form"] = deform.Form(
                 attribute_schema,
-                buttons=(f"Increase {form}",),
+                buttons=(button,),
                 formid=f"{form}_form",
                 counter=counter,
             )
@@ -212,7 +268,11 @@ class ExperienceViews(BaseView):
             try:
                 captured = form.validate(self.request.POST.items())
             except deform.ValidationFailure as error:
-                html = error.render()
+                for form in forms:
+                    if form == self.request.POST["__formid__"]:
+                        html.append(error.render())
+                    else:
+                        html.append(forms[form].render())
             else:
                 self.update_character(form.formid, captured)
                 url = self.request.route_url("experience", id=self.character.id)
@@ -256,5 +316,13 @@ class ExperienceViews(BaseView):
             else:
                 self.character.talents[talent] = 1
             cost = self.character.cost_talent(self.character.talents[talent])
+        elif form_id == "career_form":
+            self.character.career_title = captured["change_career"]["advance_career"]
+            self.character.career_path.append(
+                captured["change_career"]["advance_career"]
+            )
+            cost = 200
+            if self.completed_career:
+                cost = 100
         self.character.experience -= cost
         self.character.experience_spent += cost

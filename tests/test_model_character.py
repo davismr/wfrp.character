@@ -5,6 +5,7 @@ import pytest
 from freezegun import freeze_time
 
 from wfrp.character.application import DBSession
+from wfrp.character.data.careers.careers import CAREER_DATA
 from wfrp.character.models.character import Character
 from wfrp.character.views.create_character.attributes import ATTRIBUTES_LOWER
 
@@ -214,3 +215,77 @@ def test_total_encumberance_weapons(complete_character):
 @pytest.mark.models
 def test_total_encumberance_armour(complete_character):
     assert complete_character.total_encumberance_armour() >= 0
+
+
+@pytest.mark.models
+def test_not_completed_career(complete_character):
+    career_data = CAREER_DATA[complete_character.career]
+    complete_character.career_title = list(career_data.keys())[0]
+    assert complete_character.completed_career() is False
+
+
+@pytest.mark.models
+def test_completed_career(complete_character):
+    career_data = CAREER_DATA[complete_character.career]
+    complete_character.career_title = list(career_data.keys())[0]
+    career_level = career_data[complete_character.career_title]
+    for attribute in career_level["attributes"]:
+        setattr(
+            complete_character, f"{attribute.lower().replace(' ', '_')}_advances", 5
+        )
+    skills = {}
+    for skill in career_level["skills"]:
+        skills[skill] = 5
+        complete_character.skills = skills
+    complete_character.talents = {career_level["talents"][0]: 1}
+    assert complete_character.completed_career() is True
+
+
+@pytest.mark.models
+def test_missing_talent(complete_character):
+    career_data = CAREER_DATA[complete_character.career]
+    complete_character.career_title = list(career_data.keys())[0]
+    career_level = career_data[complete_character.career_title]
+    for attribute in career_level["attributes"]:
+        setattr(
+            complete_character, f"{attribute.lower().replace(' ', '_')}_advances", 5
+        )
+    skills = {}
+    for skill in career_level["skills"]:
+        skills[skill] = 5
+        complete_character.skills = skills
+    assert complete_character.completed_career() is False
+
+
+@pytest.mark.models
+def test_missing_skill(complete_character):
+    career_data = CAREER_DATA[complete_character.career]
+    complete_character.career_title = list(career_data.keys())[0]
+    career_level = career_data[complete_character.career_title]
+    for attribute in career_level["attributes"]:
+        setattr(
+            complete_character, f"{attribute.lower().replace(' ', '_')}_advances", 5
+        )
+    skills = {}
+    for skill in career_level["skills"][:-1]:
+        skills[skill] = 5
+        complete_character.skills = skills
+    complete_character.talents = {career_level["talents"][0]: 1}
+    assert complete_character.completed_career() is False
+
+
+@pytest.mark.models
+def test_missing_attribute(complete_character):
+    career_data = CAREER_DATA[complete_character.career]
+    complete_character.career_title = list(career_data.keys())[0]
+    career_level = career_data[complete_character.career_title]
+    for attribute in career_level["attributes"][:-1]:
+        setattr(
+            complete_character, f"{attribute.lower().replace(' ', '_')}_advances", 5
+        )
+    skills = {}
+    for skill in career_level["skills"]:
+        skills[skill] = 5
+        complete_character.skills = skills
+    complete_character.talents = {career_level["talents"][0]: 1}
+    assert complete_character.completed_career() is False
