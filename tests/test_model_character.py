@@ -233,11 +233,36 @@ def test_completed_career(complete_character):
         setattr(
             complete_character, f"{attribute.lower().replace(' ', '_')}_advances", 5
         )
-    skills = {}
     for skill in career_level["skills"]:
-        skills[skill] = 5
-        complete_character.skills = skills
+        complete_character.skills[skill] = 5
     complete_character.talents = {career_level["talents"][0]: 1}
+    assert complete_character.completed_career() is True
+
+
+@pytest.mark.models
+def test_completed_career_max_level(complete_character):
+    complete_character.expansions = ["sea_of_claws"]
+    complete_character.career = "Officer"
+    complete_character.career_class = "Seafarer"
+    complete_character.career_title = "Admiral"
+    career_data = complete_character.career_data()
+    for _, career_level in career_data.items():
+        for attribute in career_level["attributes"]:
+            setattr(
+                complete_character,
+                f"{attribute.lower().replace(' ', '_')}_advances",
+                20,
+            )
+        for skill in career_level["skills"]:
+            complete_character.skills[skill] = 20
+        complete_character.talents[career_level["talents"][0]] = 1
+    assert complete_character.completed_career() is True
+    # only need current career level talent
+    complete_character.talents = {career_level["talents"][0]: 1}
+    assert complete_character.completed_career() is True
+    # only need 8 skills
+    while len(complete_character.skills) > 8:
+        complete_character.skills.popitem()
     assert complete_character.completed_career() is True
 
 
@@ -272,6 +297,8 @@ def test_missing_skill(complete_character):
         complete_character.skills = skills
     complete_character.talents = {career_level["talents"][0]: 1}
     assert complete_character.completed_career() is False
+    complete_character.skills[career_level["skills"][-1]] = 5
+    assert complete_character.completed_career() is True
 
 
 @pytest.mark.models

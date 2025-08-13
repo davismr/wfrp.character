@@ -6,8 +6,6 @@ from pyramid.httpexceptions import HTTPFound
 from pyramid.view import view_config
 from pyramid.view import view_defaults
 
-from wfrp.character.data.careers.careers import CAREER_DATA
-from wfrp.character.data.careers.careers import CAREER_DATA_WITH_SEAFARER
 from wfrp.character.data.skills import SKILL_DATA
 from wfrp.character.views.base_view import BaseView
 
@@ -15,15 +13,18 @@ from wfrp.character.views.base_view import BaseView
 @view_defaults(route_name="experience")
 class ExperienceViews(BaseView):
     def initialise_form(self):
-        if "sea_of_claws" in self.character.expansions:
-            self.career_data = CAREER_DATA_WITH_SEAFARER[self.character.career]
-        else:
-            self.career_data = CAREER_DATA[self.character.career]
+        self.career_level = self.character.career_level()
+        self.career_data = self.character.career_data()
         self.career_details = self.career_data[self.character.career_title]
         self.completed_career = self.character.completed_career()
 
     def characteristic_schema(self):
-        career_advances = self.career_details["attributes"]
+        characteristics = []
+        for index, career_level in enumerate(self.career_data.values()):
+            for characteristic in career_level["attributes"]:
+                characteristics.append(characteristic)
+            if index == self.career_level - 1:
+                break
         schema = colander.SchemaNode(colander.Mapping(), title="Characteristics")
         characteristic_schema = colander.SchemaNode(
             colander.Mapping(),
@@ -32,7 +33,7 @@ class ExperienceViews(BaseView):
             validator=self.validate_characteristic,
         )
         choices = [("", "None")]
-        for characteristic in career_advances:
+        for characteristic in characteristics:
             characteristic_lower = characteristic.lower().replace(" ", "_")
             current = getattr(self.character, characteristic_lower)
             advances = getattr(self.character, f"{characteristic_lower}_advances")
@@ -71,34 +72,37 @@ class ExperienceViews(BaseView):
 
     def skill_schema(self):  # noqa: C901
         career_skills = []
-        for skill in self.career_details["skills"]:
-            if " or " in skill:
-                # TODO this needs to be refactored
-                root_skill = skill.split(" (")[0]
-                specialisations = skill.split(" (")[1][:-1].split(" or ")
-                for specialisation in specialisations:
-                    if f"{root_skill} ({specialisation})" in self.character.skills:
-                        career_skills.append(f"{root_skill} ({specialisation})")
-                        break
-                else:
+        for index, career_level in enumerate(self.career_data.values()):
+            if index == self.career_level:
+                break
+            for skill in career_level["skills"]:
+                if " or " in skill:
+                    # TODO this needs to be refactored
+                    root_skill = skill.split(" (")[0]
+                    specialisations = skill.split(" (")[1][:-1].split(" or ")
                     for specialisation in specialisations:
-                        career_skills.append(f"{root_skill} ({specialisation})")
-            elif "(Any)" in skill:
-                current_skills_length = len(career_skills)
-                # TODO this should not allow increases in species skills
-                # eg Human Pit Fighter can take Melee(Basic) as species skill
-                # and has Melee(Any) but second stage career explicitly includes
-                # Melee (Basic)
-                root_skill = skill.split(" (")[0]
-                for existing_skill in self.character.skills:
-                    if existing_skill.startswith(root_skill):
-                        career_skills.append(existing_skill)
-                if len(career_skills) == current_skills_length:
-                    # none chosen yet, so add all to allow a choice
-                    for specialisation in SKILL_DATA[root_skill]["specialisations"]:
-                        career_skills.append(f"{root_skill} ({specialisation})")
-            else:
-                career_skills.append(skill)
+                        if f"{root_skill} ({specialisation})" in self.character.skills:
+                            career_skills.append(f"{root_skill} ({specialisation})")
+                            break
+                    else:
+                        for specialisation in specialisations:
+                            career_skills.append(f"{root_skill} ({specialisation})")
+                elif "(Any)" in skill:
+                    current_skills_length = len(career_skills)
+                    # TODO this should not allow increases in species skills
+                    # eg Human Pit Fighter can take Melee(Basic) as species skill
+                    # and has Melee(Any) but second stage career explicitly includes
+                    # Melee (Basic)
+                    root_skill = skill.split(" (")[0]
+                    for existing_skill in self.character.skills:
+                        if existing_skill.startswith(root_skill):
+                            career_skills.append(existing_skill)
+                    if len(career_skills) == current_skills_length:
+                        # none chosen yet, so add all to allow a choice
+                        for specialisation in SKILL_DATA[root_skill]["specialisations"]:
+                            career_skills.append(f"{root_skill} ({specialisation})")
+                else:
+                    career_skills.append(skill)
         # deduplicate the list, then sort it again
         career_skills = sorted(list(set(career_skills)))
         schema = colander.SchemaNode(colander.Mapping(), title="Skills")
@@ -213,13 +217,12 @@ class ExperienceViews(BaseView):
             description=description,
             validator=self.validate_career,
         )
-        career_level = list(self.career_data.keys()).index(self.character.career_title)
         choices = [("", "None")]
         for index, career in enumerate(self.career_data.keys()):
             if career == self.character.career_title:
                 continue
             choices.append((f"{career}", f"{career} (level {index + 1}), {cost} XP"))
-            if index > career_level:
+            if index == self.career_level:
                 break
         career_schema.add(
             colander.SchemaNode(
@@ -270,11 +273,15 @@ class ExperienceViews(BaseView):
             except deform.ValidationFailure as error:
                 for form in forms:
                     if form == self.request.POST["__formid__"]:
+                        form_title = form.title().replace("_", " ")
+                        message = f"{form_title} has an error"
+                        self.request.session.flash(message, "error")
                         html.append(error.render())
                     else:
                         html.append(forms[form].render())
             else:
-                self.update_character(form.formid, captured)
+                message = self.update_character(form.formid, captured)
+                self.request.session.flash(message, "success")
                 url = self.request.route_url("experience", id=self.character.id)
                 self.character.status = {"complete": ""}
                 return HTTPFound(location=url)
@@ -302,6 +309,7 @@ class ExperienceViews(BaseView):
             cost = self.character.cost_characteristic(
                 getattr(self.character, f"{attribute}_advances")
             )
+            message = f"You have spent {cost}XP to increase {attribute} by 1"
         elif form_id == "skill_form":
             skill = captured["increase_skill"]["skill"]
             if skill in self.character.skills:
@@ -309,6 +317,7 @@ class ExperienceViews(BaseView):
             else:
                 self.character.skills[skill] = 1
             cost = self.character.cost_skill(self.character.skills[skill])
+            message = f"You have spent {cost}XP to increase {skill} by 1"
         elif form_id == "talent_form":
             talent = captured["add_talent"]["talent"]
             if talent in self.character.talents:
@@ -316,13 +325,15 @@ class ExperienceViews(BaseView):
             else:
                 self.character.talents[talent] = 1
             cost = self.character.cost_talent(self.character.talents[talent])
+            message = f"You have spent {cost}XP to increase {talent} by 1"
         elif form_id == "career_form":
-            self.character.career_title = captured["change_career"]["advance_career"]
-            self.character.career_path.append(
-                captured["change_career"]["advance_career"]
-            )
+            new_career = captured["change_career"]["advance_career"]
+            self.character.career_title = new_career
+            self.character.career_path.append(new_career)
             cost = 200
             if self.completed_career:
                 cost = 100
+            message = f"You have spent {cost}XP to advance career to {new_career}"
         self.character.experience -= cost
         self.character.experience_spent += cost
+        return message

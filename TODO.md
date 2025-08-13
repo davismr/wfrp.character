@@ -28,11 +28,6 @@
 - Import/export
 - Ready made characters
 - Name generator
-- Complete/incomplete career logic
-  - To complete a Career, you must have the number of Advances listed below in all
-    your Career level’s Characteristics and in eight of your Career level’s
-    available Skills.You must also have at least 1 Talent from your current Career level
-    Advances 5*level
 - Advanced careers
 - Optional modules
 - Extra steps
@@ -42,3 +37,5 @@
 
 ### Expansions
 - Norse characters - sea of claws
+- Norse Dwarves - sea of claws
+- Priest of Stromfels - sea of claws

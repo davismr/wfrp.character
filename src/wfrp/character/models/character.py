@@ -43,7 +43,6 @@ class Character(Base):
     career = Column(Text)
     career_class = Column(Text)
     career_title = Column(Text)
-    career_level = Column(Text)  # delete field, not used
     career_tier = Column(Text)
     career_standing = Column(Integer, default=0)
     career_path = Column(MutableList.as_mutable(JSON), default=[])
@@ -88,6 +87,14 @@ class Character(Base):
     def __init__(self, **kwargs):
         kwargs["id"] = kwargs.get("id", uuid.uuid4())
         super().__init__(**kwargs)
+
+    def career_data(self):
+        if "sea_of_claws" in self.expansions:
+            return CAREER_DATA_WITH_SEAFARER[self.career]
+        return CAREER_DATA[self.career]
+
+    def career_level(self):
+        return list(self.career_data().keys()).index(self.career_title) + 1
 
     @property
     def weapon_skill(self):
@@ -221,24 +228,33 @@ class Character(Base):
                 total += ARMOUR_DATA[armour]["Enc"]
         return total
 
-    def completed_career(self):
-        if self.career_class == "Seafarer":
-            career_data = CAREER_DATA_WITH_SEAFARER[self.career]
-        else:
-            career_data = CAREER_DATA[self.career]
-        career_level = career_data[self.career_title]
-        for attribute in career_level["attributes"]:
-            if getattr(self, f"{attribute.lower().replace(' ', '_')}_advances") < 5:
-                return False
-        for skill in career_level["skills"]:
-            if skill not in self.skills:
-                return False
-            if self.skills[skill] < 5:
-                return False
-        for talent in career_level["talents"]:
+    def completed_career(self):  # noqa: C901
+        career_data = self.career_data()
+        current_level = self.career_level()
+        attributes_required = []
+        skills_required = []
+        for talent in career_data[self.career_title]["talents"]:
             if talent in self.talents:
                 break
         else:
+            return False
+        for i, career_level in enumerate(career_data.values()):
+            if i == current_level:
+                break
+            for attribute in career_level["attributes"]:
+                attributes_required.append(
+                    f"{attribute.lower().replace(' ', '_')}_advances"
+                )
+            skills_required.extend(career_level["skills"])
+        advances_required = current_level * 5
+        for attribute in attributes_required:
+            if getattr(self, attribute) < advances_required:
+                return False
+        skill_count = 0
+        for skill in skills_required:
+            if skill in self.skills and self.skills[skill] >= advances_required:
+                skill_count += 1
+        if skill_count < 8:
             return False
         return True
 
