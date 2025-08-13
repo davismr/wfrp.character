@@ -37,11 +37,11 @@ def configure_app(global_config, **settings):
     settings["pyramid_googleauth.secret"] = "secret"
     settings["pyramid_googleauth.login_success_redirect_url"] = "/google"
     config = Configurator(settings=settings)
+    config.set_session_factory(SignedCookieSessionFactory("secret"))
     if enable_auth is True:
         # to prevent circular imports
         from wfrp.character.security import SecurityPolicy
 
-        config.set_session_factory(SignedCookieSessionFactory("secret"))
         config.set_security_policy(SecurityPolicy())
     config.include("pyramid_googleauth")
     config.include("wfrp.character.routes")

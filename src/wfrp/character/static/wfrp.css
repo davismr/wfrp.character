@@ -147,3 +147,7 @@
 #footer {
     text-align: right;
 }
+
+.flash-message {
+    list-style-type: none;
+}

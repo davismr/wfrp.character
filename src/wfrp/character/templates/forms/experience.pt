@@ -1,10 +1,9 @@
 <div metal:use-macro="load: ../layout.pt">
     <div metal:fill-slot="content">
-
         <h2>${character.get_display_title()}</h2>
+        <div metal:use-macro="load: ../includes/flash_message.pt" />
         <span tal:replace="structure form"/>
         <div><a href="/character/${character.id}/summary">Character summary</a></div>
         <div><a href="/character/${character.id}/view">Character sheet</a></div>
-
     </div>
 </div>

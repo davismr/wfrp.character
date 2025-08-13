@@ -1,0 +1,14 @@
+<div tal:define="messages request.session.pop_flash('success')"
+     tal:condition="messages"
+     tal:omit-tag="">
+    <ul class="alert alert-success flash-message">
+        <li tal:repeat="message messages" tal:content="message"/>
+    </ul>
+</div>
+<div tal:define="messages request.session.pop_flash('error')"
+     tal:condition="messages"
+     tal:omit-tag="">
+    <ul class="alert alert-danger flash-message">
+        <li tal:repeat="message messages" tal:content="message"/>
+    </ul>
+</div>
