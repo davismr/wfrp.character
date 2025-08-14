@@ -113,6 +113,67 @@ ACADEMIC_CLASS_DATA = {
                 "Hammer and Spikes",
             ],
         },
+        "Engineer": {
+            "status": {"tier": "Silver", "standing": 2},
+            "attributes": ["Initiative"],
+            "skills": [
+                "Drive",
+                "Dodge",
+                "Navigation",
+                "Ranged (Engineering)",
+                "Research",
+                "Language (Guilder)",
+            ],
+            "talents": [
+                "Craftsman (Engineer)",
+                "Etiquette (Guilder)",
+                "Marksman",
+                "Orientation",
+            ],
+            "trappings": [
+                "Guild Licence",
+                "Trade Tools",
+            ],
+        },
+        "Master Engineer": {
+            "status": {"tier": "Silver", "standing": 4},
+            "attributes": ["Toughness"],
+            "skills": [
+                "Language (Khazalid)",
+                "Leadership",
+                "Ride (Horse)",
+                "Secret Signs (Guilder)",
+            ],
+            "talents": [
+                "Etiquette (Scholar)",
+                "Master Tradesman (Engineering)",
+                "Sniper",
+                "Super Numerate",
+            ],
+            "trappings": [
+                "Workshop",
+            ],
+        },
+        "Chartered Engineer": {
+            "status": {"tier": "Gold", "standing": 2},
+            "attributes": ["Willpower"],
+            "skills": [
+                "Language (Any)",
+                "Lore (Any)",
+            ],
+            "talents": [
+                "Magnum Opus",
+                "Rapid Reload",
+                "Savant (Engineering)",
+                "Unshakeable",
+            ],
+            "trappings": [
+                "Guild License",
+                "Library (Engineer)",
+                "Quality Trade Tools (Engineer)",
+                "Large Workshop (Engineer)",
+            ],
+        },
     },
     "Lawyer": {
         "Student Lawyer": {
@@ -137,6 +198,67 @@ ACADEMIC_CLASS_DATA = {
             "trappings": [
                 "Book (Law)",
                 "Magnifying Glass",
+            ],
+        },
+        "Lawyer": {
+            "status": {"tier": "Silver", "standing": 3},
+            "attributes": ["Fellowship"],
+            "skills": [
+                "Bribery",
+                "Charm",
+                "Gossip",
+                "Intuition",
+                "Language (Guilder)",
+                "Secret Signs (Guilder)",
+            ],
+            "talents": [
+                "Argumentative",
+                "Criminal",
+                "Etiquette (Guilder)",
+                "Suave",
+            ],
+            "trappings": [
+                "Court Robes",
+                "Guild Licence",
+                "Writing Kit",
+            ],
+        },
+        "Barrister": {
+            "status": {"tier": "Gold", "standing": 1},
+            "attributes": ["Willpower"],
+            "skills": [
+                "Art (Writing)",
+                "Entertain (Speeches)",
+                "Intimidate",
+                "Lore (Any)",
+            ],
+            "talents": [
+                "Bookish",
+                "Cat-tongued",
+                "Impassioned Zeal",
+                "Savvy",
+            ],
+            "trappings": [
+                "Office",
+                "Assistant (Student or Servant)",
+            ],
+        },
+        "Judge": {
+            "status": {"tier": "Gold", "standing": 2},
+            "attributes": ["Toughness"],
+            "skills": [
+                "Cool",
+                "Lore (Any)",
+            ],
+            "talents": [
+                "Commanding Presence",
+                "Kingpin",
+                "Savant (Law)",
+                "Wealthy",
+            ],
+            "trappings": [
+                "Gavel",
+                "Ostentatious Wig",
             ],
         },
     },
@@ -165,6 +287,66 @@ ACADEMIC_CLASS_DATA = {
                 "Robes",
             ],
         },
+        "Nun": {
+            "status": {"tier": "Brass", "standing": 4},
+            "attributes": ["Willpower"],
+            "skills": [
+                "Charm",
+                "Melee (Any)",
+                "Research",
+                "Trade (Brewer)",
+                "Trade (Herbalist)",
+                "Trade (Vintner)",
+            ],
+            "talents": [
+                "Etiquette (Cultists)",
+                "Field Dressing",
+                "Holy Visions",
+                "Invoke (Any)",
+            ],
+            "trappings": [
+                "Book (Religion)",
+                "Religious Relic",
+                "Trade Tools (Any)",
+            ],
+        },
+        "Abbess": {
+            "status": {"tier": "Silver", "standing": 2},
+            "attributes": ["Initiative"],
+            "skills": [
+                "Leadership",
+                "Lore (Local)",
+                "Lore (Politics)",
+                "Perception",
+            ],
+            "talents": [
+                "Resistance (Any)",
+                "Robust",
+                "Savant (Theology)",
+                "Stout-hearted",
+            ],
+            "trappings": [
+                "Abbey",
+                "Library (Theology)",
+            ],
+        },
+        "Prioress General": {
+            "status": {"tier": "Silver", "standing": 5},
+            "attributes": ["Toughness"],
+            "skills": [
+                "Language (Any)",
+                "Lore (Any)",
+            ],
+            "talents": [
+                "Commanding Presence",
+                "Iron Will",
+                "Pure Soul",
+                "Strong-minded",
+            ],
+            "trappings": [
+                "Religious Order",
+            ],
+        },
     },
     "Physician": {
         "Physician’s Apprentice": {
@@ -191,6 +373,67 @@ ACADEMIC_CLASS_DATA = {
                 "Healing Draught",
             ],
         },
+        "Physician": {
+            "status": {"tier": "Silver", "standing": 3},
+            "attributes": ["Fellowship"],
+            "skills": [
+                "Charm",
+                "Haggle",
+                "Language (Guilder)",
+                "Lore (Anatomy)",
+                "Lore (Medicine)",
+                "Trade (Barber)",
+            ],
+            "talents": [
+                "Coolheaded",
+                "Criminal",
+                "Etiquette (Guilder)",
+                "Surgery",
+            ],
+            "trappings": [
+                "Book (Medicine)",
+                "Guild Licence",
+                "Trade Tools (Medicine)",
+            ],
+        },
+        "Doktor": {
+            "status": {"tier": "Silver", "standing": 5},
+            "attributes": ["Initiative"],
+            "skills": [
+                "Consume Alcohol",
+                "Intimidate",
+                "Leadership",
+                "Research",
+            ],
+            "talents": [
+                "Etiquette (Scholars)",
+                "Resistance (Disease)",
+                "Savvy",
+                "Strike to Injure",
+            ],
+            "trappings": [
+                "Apprentice",
+                "Workshop (Medicine)",
+            ],
+        },
+        "Court Physician": {
+            "status": {"tier": "Gold", "standing": 1},
+            "attributes": ["Agility"],
+            "skills": [
+                "Lore (Noble)",
+                "Perform (Dancing)",
+            ],
+            "talents": [
+                "Etiquette (Nobles)",
+                "Nimble Fingered",
+                "Savant (Medicine)",
+                "Strong-minded",
+            ],
+            "trappings": [
+                "Courtly Attire",
+                "Letter of Appointment",
+            ],
+        },
     },
     "Priest": {
         "Initiate": {
@@ -215,6 +458,68 @@ ACADEMIC_CLASS_DATA = {
             "trappings": [
                 "Religious Symbol",
                 "Robes",
+            ],
+        },
+        "Priest": {
+            "status": {"tier": "Silver", "standing": 1},
+            "attributes": ["Fellowship"],
+            "skills": [
+                "Charm",
+                "Entertain (Storytelling)",
+                "Gossip",
+                "Heal",
+                "Intimidate",
+                "Melee (Basic)",
+            ],
+            "talents": [
+                "Blather",
+                "Bookish",
+                "Etiquette (Cultists)",
+                "Invoke (Any)",
+            ],
+            "trappings": [
+                "Book (Religion)",
+                "Ceremonial Robes",
+            ],
+        },
+        "High Priest": {
+            "status": {"tier": "Gold", "standing": 1},
+            "attributes": ["Intelligence"],
+            "skills": [
+                "Art (Writing)",
+                "Entertain (Speeches)",
+                "Leadership",
+                "Lore (Heraldry)",
+            ],
+            "talents": [
+                "Acute Sense (Any)",
+                "Hatred (Any)",
+                "Impassioned Zeal",
+                "Strong-minded",
+            ],
+            "trappings": [
+                "Quality Robes",
+                "Religious Relic",
+                "Subordinate Priests",
+                "Temple",
+            ],
+        },
+        "Lector": {
+            "status": {"tier": "Gold", "standing": 2},
+            "attributes": ["Initiative"],
+            "skills": [
+                "Language (Any)",
+                "Lore (Politics)",
+            ],
+            "talents": [
+                "Master Orator",
+                "Pure Soul",
+                "Resistance (Any)",
+                "Savant (Theology)",
+            ],
+            "trappings": [
+                "Library (Theology)",
+                "Subordinate High Priests",
             ],
         },
     },
@@ -245,6 +550,65 @@ ACADEMIC_CLASS_DATA = {
                 "Writing Kit",
             ],
         },
+        "Scholar": {
+            "status": {"tier": "Silver", "standing": 2},
+            "attributes": ["Initiative"],
+            "skills": [
+                "Art (Writing)",
+                "Intuition",
+                "Language (Any)",
+                "Lore (Any)",
+                "Perception",
+                "Trade (Any)",
+            ],
+            "talents": [
+                "Bookish",
+                "Etiquette (Scholars)",
+                "Speedreader",
+                "Suave",
+            ],
+            "trappings": [
+                "Access to a Library",
+                "Degree",
+            ],
+        },
+        "Fellow": {
+            "status": {"tier": "Silver", "standing": 5},
+            "attributes": ["Fellowship"],
+            "skills": [
+                "Entertain (Lecture)",
+                "Intimidate",
+                "Language (Any)",
+                "Lore (Any)",
+            ],
+            "talents": [
+                "Linguistics",
+                "Public Speaker",
+                "Savant (Any)",
+                "Tower of Memories",
+            ],
+            "trappings": [
+                "Mortarboard",
+                "Robes",
+            ],
+        },
+        "Professor": {
+            "status": {"tier": "Gold", "standing": 1},
+            "attributes": ["Dexterity"],
+            "skills": [
+                "Entertain (Rhetoric)",
+                "Lore (Any)",
+            ],
+            "talents": [
+                "Magnum Opus",
+                "Master Orator",
+                "Savant (Any)",
+                "Sharp",
+            ],
+            "trappings": [
+                "Study",
+            ],
+        },
     },
     "Wizard": {
         "Wizard’s Apprentice": {
@@ -269,6 +633,67 @@ ACADEMIC_CLASS_DATA = {
             "trappings": [
                 "Grimoire",
                 "Quarterstaff",
+            ],
+        },
+        "Wizard": {
+            "status": {"tier": "Silver", "standing": 3},
+            "attributes": ["Agility"],
+            "skills": [
+                "Charm",
+                "Cool",
+                "Gossip",
+                "Intimidate",
+                "Language (Battle)",
+                "Language (Any)",
+            ],
+            "talents": [
+                "Arcane Magic (Any Arcane Lore)",
+                "Detect Artefact",
+                "Fast Hands",
+                "Sixth Sense",
+            ],
+            "trappings": [
+                "Magical License",
+            ],
+        },
+        "Master Wizard": {
+            "status": {"tier": "Gold", "standing": 1},
+            "attributes": ["Initiative"],
+            "skills": [
+                "Animal Care",
+                "Evaluate",
+                "Lore (Warfare)",
+                "Ride (Horse)",
+            ],
+            "talents": [
+                "Dual Wielder",
+                "Instinctive Diction",
+                "Magical Sense",
+                "Menacing",
+            ],
+            "trappings": [
+                "Apprentice",
+                "Light Warhorse",
+                "Magical Item",
+            ],
+        },
+        "Wizard Lord": {
+            "status": {"tier": "Gold", "standing": 2},
+            "attributes": ["Fellowship"],
+            "skills": [
+                "Language (Any)",
+                "Lore (Any)",
+            ],
+            "talents": [
+                "Combat Aware",
+                "Frightening",
+                "Iron Will",
+                "War Wizard",
+            ],
+            "trappings": [
+                "Apprentice",
+                "Library (Magic)",
+                "Workshop (Magic)",
             ],
         },
     },
