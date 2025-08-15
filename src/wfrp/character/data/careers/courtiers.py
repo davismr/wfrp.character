@@ -437,7 +437,7 @@ COURTIERS_CLASS_DATA = {
             "talents": [
                 "Commanding Presence",
                 "Iron Will",
-                "Warleader",
+                "War Leader",
                 "Wealthy",
             ],
             "trappings": [

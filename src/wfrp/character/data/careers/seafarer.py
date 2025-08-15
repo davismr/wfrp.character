@@ -323,7 +323,7 @@ SEAFARER_CLASS_DATA = {
             "talents": [
                 "Inspiring",
                 "Seasoned Traveller",
-                "Warleader",
+                "War Leader",
                 "Suave",
             ],
             "trappings": [
@@ -342,7 +342,7 @@ SEAFARER_CLASS_DATA = {
             "talents": [
                 "Commanding Presence",
                 "Iron Will",
-                "Public Speaking",
+                "Public Speaker",
                 "Stout-hearted",
             ],
             "trappings": [
@@ -429,7 +429,7 @@ SEAFARER_CLASS_DATA = {
             "talents": [
                 "Orientation",
                 "Pilot",
-                "Public Speaking",
+                "Public Speaker",
                 "Savvy",
             ],
             "trappings": [
@@ -481,7 +481,7 @@ SEAFARER_CLASS_DATA = {
             ],
             "talents": [
                 "Invoke (Manann)",
-                "Public Speaking",
+                "Public Speaker",
                 "Read/Write",
                 "Strong Back",
             ],

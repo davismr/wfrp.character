@@ -151,11 +151,7 @@ def test_career_data(career_data):  # noqa: C901
                 elif key == "talents":
                     assert len(item) == 4
                     for talent in item:
-                        if talent not in [
-                            "Warleader",
-                            "Public Speaking",
-                        ]:
-                            assert talent.split(" (")[0] in TALENT_DATA, talent
+                        assert talent.split(" (")[0] in TALENT_DATA, talent
                 elif key == "trappings":
                     # TODO test trappings
                     assert True
