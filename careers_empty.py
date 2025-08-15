@@ -26,7 +26,7 @@ SEAFARER_DATA = {
                 "",
             ],
         },
-        "Beachcomber": {
+        "": {
             "status": {"tier": "Brass", "standing": 3},
             "attributes": [""],
             "skills": [
@@ -47,7 +47,7 @@ SEAFARER_DATA = {
                 "",
             ],
         },
-        "Drifter": {
+        "": {
             "status": {"tier": "Brass", "standing": 5},
             "attributes": [""],
             "skills": [
@@ -66,7 +66,7 @@ SEAFARER_DATA = {
                 "",
             ],
         },
-        "Master of the Beach": {
+        "": {
             "status": {"tier": "Silver", "standing": 1},
             "attributes": [""],
             "skills": [
