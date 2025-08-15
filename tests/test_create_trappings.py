@@ -1,9 +1,9 @@
 from dataclasses import dataclass
 from unittest.mock import patch
 
-import pytest
 from pyramid import testing
 from pyramid.httpexceptions import HTTPFound
+import pytest
 
 from wfrp.character.application import dbsession
 from wfrp.character.data.class_trappings import get_class_trappings

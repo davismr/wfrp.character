@@ -1,6 +1,6 @@
-import uuid
 from datetime import datetime
 from datetime import timezone
+import uuid
 
 from sqlalchemy import Column
 from sqlalchemy import DateTime

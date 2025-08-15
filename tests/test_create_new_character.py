@@ -1,5 +1,5 @@
-import pytest
 from pyramid import testing
+import pytest
 
 from wfrp.character.application import dbsession
 from wfrp.character.views.create_character.new_character import NewCharacterViews

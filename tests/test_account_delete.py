@@ -1,5 +1,5 @@
-import pytest
 from pyramid import testing
+import pytest
 
 from wfrp.character.application import DBSession
 from wfrp.character.application import dbsession

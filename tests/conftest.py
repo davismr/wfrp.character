@@ -1,11 +1,11 @@
 import uuid
 
-import pytest
 from factories import CampaignFactory
 from factories import CharacterFactory
 from pyramid import testing
 from pyramid.paster import get_appsettings
 from pyramid.session import SignedCookieSessionFactory
+import pytest
 from pytest_factoryboy import register
 from sqlalchemy import engine_from_config
 from webtest import TestApp

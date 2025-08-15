@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 
-import pytest
 from pyramid import testing
+import pytest
 
 from wfrp.character.application import dbsession
 from wfrp.character.views.experience import ExperienceViews

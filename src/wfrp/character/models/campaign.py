@@ -1,11 +1,11 @@
-import uuid
 from datetime import datetime
 from datetime import timezone
+import uuid
 
-from sqlalchemy import JSON
 from sqlalchemy import Column
 from sqlalchemy import DateTime
 from sqlalchemy import ForeignKey
+from sqlalchemy import JSON
 from sqlalchemy import Table
 from sqlalchemy import Text
 from sqlalchemy import Uuid

@@ -1,9 +1,9 @@
-import uuid
 from dataclasses import dataclass
+import uuid
 
-import pytest
 from pyramid import testing
 from pyramid.httpexceptions import HTTPFound
+import pytest
 
 from wfrp.character.application import dbsession
 from wfrp.character.models.campaign import Campaign

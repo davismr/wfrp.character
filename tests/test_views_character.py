@@ -1,11 +1,11 @@
 from dataclasses import dataclass
 
-import pytest
 from pyramid import testing
+import pytest
 
 from wfrp.character.application import dbsession
-from wfrp.character.views.character import WEASYPRINT_INSTALLED
 from wfrp.character.views.character import CharacterViews
+from wfrp.character.views.character import WEASYPRINT_INSTALLED
 
 
 @dataclass

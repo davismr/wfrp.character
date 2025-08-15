@@ -1,8 +1,8 @@
 import uuid
 
 import colander
-import pytest
 from colander import Invalid
+import pytest
 
 from wfrp.character.application import DBSession
 from wfrp.character.models.user import User

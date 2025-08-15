@@ -1,8 +1,8 @@
 from datetime import datetime
 from datetime import timezone
 
-import pytest
 from freezegun import freeze_time
+import pytest
 
 from wfrp.character.application import DBSession
 from wfrp.character.models.campaign import Campaign
