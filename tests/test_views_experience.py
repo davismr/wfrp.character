@@ -57,6 +57,12 @@ def test_increase_characteristic(new_character):
     assert new_character.weapon_skill_advances == 11
     assert new_character.experience == 130
     assert new_character.experience_spent == 70
+    # experience cost should be added for both
+    assert len(new_character.experience_cost) == 2
+    assert new_character.experience_cost[0].cost == 30
+    assert new_character.experience_cost[0].type == "characteristic"
+    assert new_character.experience_cost[0].name == "weapon_skill"
+    assert new_character.experience_cost[1].cost == 40
 
 
 @pytest.mark.views
@@ -108,6 +114,11 @@ def test_increase_unowned_skill(new_character):
     assert new_character.skills["Athletics"] == 1
     assert new_character.experience == 190
     assert new_character.experience_spent == 10
+    # experience cost should be added
+    assert len(new_character.experience_cost) == 1
+    assert new_character.experience_cost[0].cost == 10
+    assert new_character.experience_cost[0].type == "skill"
+    assert new_character.experience_cost[0].name == "Athletics"
 
 
 @pytest.mark.views
@@ -239,6 +250,11 @@ def test_increase_talent(new_character):
     assert new_character.talents["Marksman"] == 2
     assert new_character.experience == 0
     assert new_character.experience_spent == 200
+    # experience cost should be added
+    assert len(new_character.experience_cost) == 1
+    assert new_character.experience_cost[0].cost == 200
+    assert new_character.experience_cost[0].type == "talent"
+    assert new_character.experience_cost[0].name == "Marksman"
 
 
 @pytest.mark.views
@@ -314,6 +330,11 @@ def test_advance_career(new_character):
     assert new_character.career_path == ["Scavenger", "Beachcomber"]
     assert new_character.experience == 0
     assert new_character.experience_spent == 200
+    # experience cost should be added
+    assert len(new_character.experience_cost) == 1
+    assert new_character.experience_cost[0].cost == 200
+    assert new_character.experience_cost[0].type == "career"
+    assert new_character.experience_cost[0].name == "Beachcomber"
 
 
 @pytest.mark.views

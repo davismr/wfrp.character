@@ -7,6 +7,7 @@ from pyramid.view import view_config
 from pyramid.view import view_defaults
 
 from wfrp.character.data.skills import SKILL_DATA
+from wfrp.character.models.experience import ExperienceCost
 from wfrp.character.views.base_view import BaseView
 
 
@@ -309,6 +310,13 @@ class ExperienceViews(BaseView):
             cost = self.character.cost_characteristic(
                 getattr(self.character, f"{attribute}_advances")
             )
+            experience_cost = ExperienceCost(
+                character_id=self.character.id,
+                type="characteristic",
+                cost=cost,
+                name=attribute,
+            )
+            self.request.dbsession.add(experience_cost)
             message = f"You have spent {cost}XP to increase {attribute} by 1"
         elif form_id == "skill_form":
             skill = captured["increase_skill"]["skill"]
@@ -317,6 +325,10 @@ class ExperienceViews(BaseView):
             else:
                 self.character.skills[skill] = 1
             cost = self.character.cost_skill(self.character.skills[skill])
+            experience_cost = ExperienceCost(
+                character_id=self.character.id, type="skill", cost=cost, name=skill
+            )
+            self.request.dbsession.add(experience_cost)
             message = f"You have spent {cost}XP to increase {skill} by 1"
         elif form_id == "talent_form":
             talent = captured["add_talent"]["talent"]
@@ -325,6 +337,10 @@ class ExperienceViews(BaseView):
             else:
                 self.character.talents[talent] = 1
             cost = self.character.cost_talent(self.character.talents[talent])
+            experience_cost = ExperienceCost(
+                character_id=self.character.id, type="talent", cost=cost, name=talent
+            )
+            self.request.dbsession.add(experience_cost)
             message = f"You have spent {cost}XP to increase {talent} by 1"
         elif form_id == "career_form":
             new_career = captured["change_career"]["advance_career"]
@@ -333,6 +349,13 @@ class ExperienceViews(BaseView):
             cost = 200
             if self.completed_career:
                 cost = 100
+            experience_cost = ExperienceCost(
+                character_id=self.character.id,
+                type="career",
+                cost=cost,
+                name=new_career,
+            )
+            self.request.dbsession.add(experience_cost)
             message = f"You have spent {cost}XP to advance career to {new_career}"
         self.character.experience -= cost
         self.character.experience_spent += cost
