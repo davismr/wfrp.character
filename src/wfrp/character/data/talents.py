@@ -759,6 +759,17 @@ BASIC_TALENTS = {
             "communicate with others, so does not work with Language (Magick)."
         ),
     },
+    "Lip Reading": {
+        "max": "Initiative",
+        "tests": "Perception Tests concerning this Talent",
+        "short_description": "",
+        "description": (
+            "You can tell what people are saying by simply watching their lips; you do "
+            "not need to hear what they are saying. If you have an unobstructed view "
+            "of the speaker’s lower face, you can attempt a Perception Test to "
+            "understand what they are saying."
+        ),
+    },
     "Luck": {
         "description": (
             "They say when you were born, Ranald smiled. Your maximum Fortune Points "
@@ -800,10 +811,21 @@ BASIC_TALENTS = {
     },
     "Marksman": {
         "max": 1,
-        "short_description": ("+5 BS, already included"),
+        "short_description": "+5 BS, already included",
         "description": (
             "You gain a permanent +5 bonus to your starting Ballistic Skill "
             "(this does not count towards your Advances)."
+        ),
+    },
+    "Master of Disguise": {
+        "max": "Fellowship",
+        "tests": "Entertain (Acting) when being someone else",
+        "short_description": "",
+        "description": (
+            "You are an expert at taking on the appearance and mannerisms of others. "
+            "With nothing but posture changes, face twisting, and careful use of "
+            "appropriate clothing, you no longer look like yourself without having to "
+            "use a Disguise Kit."
         ),
     },
     "Master Orator": {
