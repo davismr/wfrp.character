@@ -27,6 +27,70 @@ RANGERS_CLASS_DATA = {
                 "Rope",
             ],
         },
+        "Bounty Hunter": {
+            "status": {"tier": "Silver", "standing": 3},
+            "attributes": ["Ballistic Skill"],
+            "skills": [
+                "Athletics",
+                "Endurance",
+                "Intimidate",
+                "Ranged (Crossbow)",
+                "Ranged (Entangling)",
+                "Track",
+            ],
+            "talents": [
+                "Marksman",
+                "Relentless",
+                "Seasoned Traveller",
+                "Strong Back",
+            ],
+            "trappings": [
+                "Crossbow and 10 bolts",
+                "Leather Skullcap",
+                "Manacles",
+                "Net",
+                "Warrant Papers",
+            ],
+        },
+        "Master Bounty Hunter": {
+            "status": {"tier": "Silver", "standing": 5},
+            "attributes": ["Strength"],
+            "skills": [
+                "Animal Care",
+                "Climb",
+                "Ride (Horse)",
+                "Swim",
+            ],
+            "talents": [
+                "Accurate Shot",
+                "Careful Strike",
+                "Dual Wielder",
+                "Sprinter",
+            ],
+            "trappings": [
+                "Mail Shirt",
+                "Riding Horse and Saddle",
+            ],
+        },
+        "Bounty Hunter General": {
+            "status": {"tier": "Gold", "standing": 1},
+            "attributes": ["Intelligence"],
+            "skills": [
+                "Drive",
+                "Lore (Law)",
+            ],
+            "talents": [
+                "Deadeye Shot",
+                "Fearless (Bounties)",
+                "Hardy",
+                "Sure Shot",
+            ],
+            "trappings": [
+                "Draught Horse and Cart",
+                "Mail Shirt",
+                "4 Pairs of Manacles",
+            ],
+        },
     },
     "Coachman": {
         "Postilion": {
@@ -51,6 +115,67 @@ RANGERS_CLASS_DATA = {
             "trappings": [
                 "Warm Coat and Gloves",
                 "Whip",
+            ],
+        },
+        "Coachman": {
+            "status": {"tier": "Silver", "standing": 2},
+            "attributes": ["Agility"],
+            "skills": [
+                "Consume Alcohol",
+                "Gossip",
+                "Intuition",
+                "Lore (Local)",
+                "Navigation",
+                "Ranged (Blackpowder)",
+            ],
+            "talents": [
+                "Coolheaded",
+                "Crack the Whip",
+                "Gunner",
+                "Strong-minded",
+            ],
+            "trappings": [
+                "Blunderbuss with 10 Shots",
+                "Coach Horn",
+                "Leather Jack",
+                "Hat",
+            ],
+        },
+        "Coach Master": {
+            "status": {"tier": "Silver", "standing": 3},
+            "attributes": ["Weapon Skill"],
+            "skills": [
+                "Animal Training (Horse)",
+                "Intimidate",
+                "Language (any)",
+                "Lore (Routes)",
+            ],
+            "talents": [
+                "Accurate Shot",
+                "Dealmaker",
+                "Fearless (Outlaws)",
+                "Nose for Trouble",
+            ],
+            "trappings": [
+                "",
+            ],
+        },
+        "Route Master": {
+            "status": {"tier": "Silver", "standing": 5},
+            "attributes": ["Initiative"],
+            "skills": [
+                "Charm",
+                "Leadership",
+            ],
+            "talents": [
+                "Fearless (Beastmen)",
+                "Marksman",
+                "Orientation",
+                "Rapid Reload",
+            ],
+            "trappings": [
+                "Fleet of Coaches and Horses",
+                "Maps",
             ],
         },
     },
@@ -79,6 +204,69 @@ RANGERS_CLASS_DATA = {
                 "Instrument",
             ],
         },
+        "Entertainer": {
+            "status": {"tier": "Brass", "standing": 5},
+            "attributes": ["Weapon Skill"],
+            "skills": [
+                "Entertain (Any)",
+                "Ride (Any)",
+                "Melee (Basic)",
+                "Perform (Any)",
+                "Play (Any)",
+                "Ranged (Throwing)",
+            ],
+            "talents": [
+                "Contortionist",
+                "Jump Up",
+                "Sharpshooter",
+                "Trick Riding",
+            ],
+            "trappings": [
+                "Costume",
+                "Instrument",
+                "Selection of Scripts (that you can’t yet read)",
+                "Throwing Weapons",
+            ],
+        },
+        "Troubadour": {
+            "status": {"tier": "Silver", "standing": 3},
+            "attributes": ["Ballistic Skill"],
+            "skills": [
+                "Animal Care",
+                "Animal Training (Any)",
+                "Art (Writing)",
+                "Language (Any)",
+            ],
+            "talents": [
+                "Blather",
+                "Master of Disguise",
+                "Perfect Pitch",
+                "Read/Write",
+            ],
+            "trappings": [
+                "Trained Animal",
+                "Writing Kit",
+            ],
+        },
+        "Troupe Leader": {
+            "status": {"tier": "Gold", "standing": 1},
+            "attributes": ["Toughness"],
+            "skills": [
+                "Drive",
+                "Leadership",
+            ],
+            "talents": [
+                "Dealmaker",
+                "Etiquette (Any)",
+                "Seasoned Traveller",
+                "Sharp",
+            ],
+            "trappings": [
+                "Draught Horses and Wagon (Stage)",
+                "Wardrobe of Costumes and Props",
+                "Troupe of Entertainers",
+            ],
+        },
     },
     "Flagellant": {
         "Zealot": {
@@ -105,6 +293,66 @@ RANGERS_CLASS_DATA = {
                 "Tattered Robes",
             ],
         },
+        "Flagellant": {
+            "status": {"tier": "Brass", "standing": 3},
+            "attributes": ["Willpower"],
+            "skills": [
+                "Art (Icons)",
+                "Athletics",
+                "Cool",
+                "Language (Classical)",
+                "Lore (The Empire)",
+                "Ranged (Sling)",
+            ],
+            "talents": [
+                "Hardy",
+                "Hatred (Heretics)",
+                "Flagellant",
+                "Implacable",
+            ],
+            "trappings": [
+                "Placard",
+                "Religious Symbol",
+                "Sling",
+            ],
+        },
+        "Penitent": {
+            "status": {"tier": "Brass", "standing": 5},
+            "attributes": ["Initiative"],
+            "skills": [
+                "Charm",
+                "Language (any)",
+                "Lore (Theology)",
+                "Perception",
+            ],
+            "talents": [
+                "Field Dressing",
+                "Furious Assault",
+                "Menacing",
+                "Seasoned Traveller",
+            ],
+            "trappings": [
+                "Religious Relic",
+            ],
+        },
+        "Prophet of Doom": {
+            "status": {"tier": "Silver", "standing": 1},
+            "attributes": ["Fellowship"],
+            "skills": [
+                "Entertain (Speeches)",
+                "Leadership",
+            ],
+            "talents": [
+                "Battle Rage",
+                "Fearless (Heretics)",
+                "Frightening",
+                "Impassioned Zeal",
+            ],
+            "trappings": [
+                "Book (Religion)",
+                "Followers (including Penitents, Flagellants, and Zealots)",
+            ],
+        },
     },
     "Messenger": {
         "Runner": {
@@ -128,6 +376,69 @@ RANGERS_CLASS_DATA = {
             ],
             "trappings": [
                 "Scroll Case",
+            ],
+        },
+        "Messenger": {
+            "status": {"tier": "Silver", "standing": 1},
+            "attributes": ["Weapon Skill"],
+            "skills": [
+                "Animal Care",
+                "Charm",
+                "Cool",
+                "Lore (Local)",
+                "Melee (Basic)",
+                "Ride (Horse)",
+            ],
+            "talents": [
+                "Crack the Whip",
+                "Criminal",
+                "Orientation",
+                "Seasoned Traveller",
+            ],
+            "trappings": [
+                "Hand Weapon",
+                "Leather Jack",
+                "Riding Horse with Saddle and Tack",
+            ],
+        },
+        "Courier": {
+            "status": {"tier": "Silver", "standing": 3},
+            "attributes": ["Willpower"],
+            "skills": [
+                "Charm Animal",
+                "Bribery",
+                "Consume Alcohol",
+                "Outdoor Survival",
+            ],
+            "talents": [
+                "Nose for Trouble",
+                "Relentless",
+                "Tenacious",
+                "Trick Riding",
+            ],
+            "trappings": [
+                "Backpack",
+                "Saddlebags",
+                "Shield",
+            ],
+        },
+        "Courier-Captain": {
+            "status": {"tier": "Silver", "standing": 5},
+            "attributes": ["Fellowship"],
+            "skills": [
+                "Intimidate",
+                "Leadership",
+            ],
+            "talents": [
+                "Dealmaker",
+                "Hatred (Outlaws)",
+                "Kingpin",
+                "Very Resilient",
+            ],
+            "trappings": [
+                "Couriers",
+                "Mail Shirt",
+                "Writing Kit",
             ],
         },
     },
@@ -158,6 +469,69 @@ RANGERS_CLASS_DATA = {
                 "Tent",
             ],
         },
+        "Pedlar": {
+            "status": {"tier": "Brass", "standing": 4},
+            "attributes": ["Fellowship"],
+            "skills": [
+                "Animal Care",
+                "Charm Animal",
+                "Consume Alcohol",
+                "Evaluate",
+                "Ride (Horse)",
+                "Trade (Tinker)",
+            ],
+            "talents": [
+                "Dealmaker",
+                "Orientation",
+                "Seasoned Traveller",
+                "Strong Back",
+            ],
+            "trappings": [
+                "Mule and Saddlebags",
+                "Goods worth 2d10 Silver",
+                "Selection of Pots and Pans",
+                "Trade Tools (Tinker)",
+            ],
+        },
+        "Master Pedlar": {
+            "status": {"tier": "Silver", "standing": 1},
+            "attributes": ["Initiative"],
+            "skills": [
+                "Drive",
+                "Intimidate",
+                "Language (any)",
+                "Perception",
+            ],
+            "talents": [
+                "Numismatics",
+                "Sturdy",
+                "Well-prepared",
+                "Very Resilient",
+            ],
+            "trappings": [
+                "Cart",
+                "Goods worth at least 2d10 Gold",
+            ],
+        },
+        "Wandering Trader": {
+            "status": {"tier": "Silver", "standing": 3},
+            "attributes": ["Intelligence"],
+            "skills": [
+                "Lore (Local)",
+                "Lore (Geography)",
+            ],
+            "talents": [
+                "Cat-tongued",
+                "Strong-minded",
+                "Suave",
+                "Tenacious",
+            ],
+            "trappings": [
+                "Draught Horse and Wagon",
+                "Goods worth at least 5d10 Gold",
+                "50 Silver in Coin",
+            ],
+        },
     },
     "Road Warden": {
         "Toll Keeper": {
@@ -184,6 +558,72 @@ RANGERS_CLASS_DATA = {
                 "Leather Jack",
             ],
         },
+        "Road Warden": {
+            "status": {"tier": "Silver", "standing": 2},
+            "attributes": ["Weapon Skill"],
+            "skills": [
+                "Animal Care",
+                "Endurance",
+                "Intimidate",
+                "Intuition",
+                "Outdoor Survival",
+                "Ride (Horse)",
+            ],
+            "talents": [
+                "Crack the Whip",
+                "Criminal",
+                "Roughrider",
+                "Seasoned Traveller",
+            ],
+            "trappings": [
+                "Hand Weapon",
+                "Mail Shirt",
+                "Riding Horse with Saddle and Harness",
+                "Rope",
+            ],
+        },
+        "Road Sergeant": {
+            "status": {"tier": "Silver", "standing": 4},
+            "attributes": ["Fellowship"],
+            "skills": [
+                "Athletics",
+                "Charm",
+                "Leadership",
+                "Ranged (Blackpowder)",
+            ],
+            "talents": [
+                "Etiquette (Soldiers)",
+                "Fearless (Outlaws)",
+                "Hatred (any)",
+                "Nose for Trouble",
+            ],
+            "trappings": [
+                "Squad of Road Wardens",
+                "Pistol with 10 Shots",
+                "Shield",
+                "Symbol of Rank",
+            ],
+        },
+        "Road Captain": {
+            "status": {"tier": "Gold", "standing": 1},
+            "attributes": ["Intelligence"],
+            "skills": [
+                "Lore (Empire)",
+                "Navigation",
+            ],
+            "talents": [
+                "Combat Aware",
+                "Commanding Presence",
+                "Kingpin",
+                "Public Speaker",
+            ],
+            "trappings": [
+                "Light Warhorse",
+                "Pistol with 10 Shots",
+                "Quality Hat and Cloak",
+                "Unit of Road Wardens",
+            ],
+        },
     },
     "Witch Hunter": {
         "Interrogator": {
@@ -208,6 +648,70 @@ RANGERS_CLASS_DATA = {
             "trappings": [
                 "Hand Weapon",
                 "Instruments of Torture",
+            ],
+        },
+        "Witch Hunter": {
+            "status": {"tier": "Silver", "standing": 3},
+            "attributes": ["Ballistic Skill"],
+            "skills": [
+                "Cool",
+                "Gossip",
+                "Melee (Basic)",
+                "Lore (Witches)",
+                "Ranged (Any)",
+                "Ride (Horse)",
+            ],
+            "talents": [
+                "Dual Wielder",
+                "Marksman",
+                "Seasoned Traveller",
+                "Shadow",
+            ],
+            "trappings": [
+                "Crossbow Pistol or Pistol",
+                "Hat (Henin)",
+                "Leather Jack",
+                "Riding Horse with Saddle and Tack",
+                "Rope",
+                "Silvered Sword",
+            ],
+        },
+        "Inquisitor": {
+            "status": {"tier": "Silver", "standing": 5},
+            "attributes": ["Fellowship"],
+            "skills": [
+                "Endurance",
+                "Leadership",
+                "Lore (Law)",
+                "Lore (Local)",
+            ],
+            "talents": [
+                "Fearless (Witches)",
+                "Nose for Trouble",
+                "Relentless",
+                "Strong-minded",
+            ],
+            "trappings": [
+                "Quality Clothing",
+                "Subordinate Interrogators",
+            ],
+        },
+        "Witchfinder General": {
+            "status": {"tier": "Gold", "standing": 1},
+            "attributes": ["Intelligence"],
+            "skills": [
+                "Lore (Chaos)",
+                "Lore (Politics)",
+            ],
+            "talents": [
+                "Frightening",
+                "Iron Will",
+                "Magical Sense",
+                "Pure Soul",
+            ],
+            "trappings": [
+                "Best Quality Courtly Garb",
+                "Subordinate Witch Hunters",
             ],
         },
     },
