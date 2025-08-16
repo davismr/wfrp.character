@@ -44,6 +44,13 @@ def campaign_before_update(mapper, connection, target):
     target.modified = datetime.now(timezone.utc)
 
 
+class Session(Base):
+    __tablename__ = "session"
+    id = Column(Uuid, primary_key=True)
+    created = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+    modified = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+
+
 campaign_gamemaster = Table(
     "campaign_gamemaster",
     Base.metadata,
