@@ -4,9 +4,13 @@ from wfrp.character.data.careers.academics import ACADEMIC_CLASS_DATA
 from wfrp.character.data.careers.burghers import BURGHERS_CLASS_DATA
 from wfrp.character.data.careers.courtiers import COURTIERS_CLASS_DATA
 from wfrp.character.data.careers.peasants import PEASANTS_CLASS_DATA
+from wfrp.character.data.careers.rangers import RANGERS_CLASS_DATA
+from wfrp.character.data.careers.riverfolk import RIVERFOLK_CLASS_DATA
+from wfrp.character.data.careers.rogues import ROGUES_CLASS_DATA
 from wfrp.character.data.careers.seafarer import SEAFARER_CLASS_DATA
 from wfrp.character.data.careers.tables import get_career
 from wfrp.character.data.careers.tables import list_careers
+from wfrp.character.data.careers.warriors import WARRIORS_CLASS_DATA
 from wfrp.character.data.skills import SKILL_DATA
 from wfrp.character.data.talents import TALENT_DATA
 from wfrp.character.views.create_character.attributes import ATTRIBUTES
@@ -116,7 +120,11 @@ def test_list_careers_invalid():
         BURGHERS_CLASS_DATA,
         COURTIERS_CLASS_DATA,
         PEASANTS_CLASS_DATA,
+        # RANGERS_CLASS_DATA,
+        # RIVERFOLK_CLASS_DATA,
+        # ROGUES_CLASS_DATA,
         SEAFARER_CLASS_DATA,
+        WARRIORS_CLASS_DATA,
     ],
 )
 def test_career_data(career_data):  # noqa: C901

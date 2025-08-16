@@ -686,6 +686,15 @@ BASIC_TALENTS = {
             "(see page 142) when talking about your cause."
         ),
     },
+    "Implacable": {
+        "max": "Toughness",
+        "short_description": "",
+        "description": (
+            "It takes a lot to finish you off. You can ignore the Wound loss from a "
+            "Bleeding Condition. Each level in this Talent lets you ignore the Wound "
+            "loss from an extra Bleeding Condition."
+        ),
+    },
     "In-fighter": {
         "description": (
             "You are skilled at drawing in close to an opponent. You suffer no "
@@ -1189,6 +1198,17 @@ BASIC_TALENTS = {
         "description": (
             "You can make aimed shots of exceptional accuracy. You ignore any negative "
             "Difficulty modifiers to Ranged Tests due to the size of your target."
+        ),
+    },
+    "Shieldsman": {
+        "max": "Strength",
+        "tests": "Any Test to defend with a shield",
+        "short_description": "",
+        "description": (
+            "You are skilled at using your shield to manoeuvre others in combat so you "
+            "can take advantage of a desperate situation. When using a Shield to "
+            "defend, you gain Advantage equal to the number of levels you have in "
+            "Shieldsman if you lose the Opposed Test."
         ),
     },
     "Sixth Sense": {
