@@ -3,6 +3,7 @@ import pytest
 from wfrp.character.data.careers.academics import ACADEMIC_CLASS_DATA
 from wfrp.character.data.careers.burghers import BURGHERS_CLASS_DATA
 from wfrp.character.data.careers.courtiers import COURTIERS_CLASS_DATA
+from wfrp.character.data.careers.peasants import PEASANTS_CLASS_DATA
 from wfrp.character.data.careers.seafarer import SEAFARER_CLASS_DATA
 from wfrp.character.data.careers.tables import get_career
 from wfrp.character.data.careers.tables import list_careers
@@ -114,6 +115,7 @@ def test_list_careers_invalid():
         ACADEMIC_CLASS_DATA,
         BURGHERS_CLASS_DATA,
         COURTIERS_CLASS_DATA,
+        PEASANTS_CLASS_DATA,
         SEAFARER_CLASS_DATA,
     ],
 )

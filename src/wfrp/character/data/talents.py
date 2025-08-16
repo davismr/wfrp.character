@@ -663,6 +663,19 @@ BASIC_TALENTS = {
             "significant events have occurred there in the past."
         ),
     },
+    "Hunter’s Eye": {
+        "max": "Initiative",
+        "tests": "Any Test to trail or capture game",
+        "short_description": "",
+        "description": (
+            "You are a skilled hunter and know all the best techniques to find game. "
+            "When travelling through well-stocked lands, you are automatically assumed "
+            "to be able to hunt down enough game to feed yourself and a number of "
+            "others equal to your level in Hunter’s Eye, so long as you have time and "
+            "the correct equipment. You may secure more food in addition to this using "
+            "the normal rules for foraging (see page 127)."
+        ),
+    },
     "Impassioned Zeal": {
         "max": "Fellowship",
         "tests": "Charm when speaking about your cause",
@@ -1168,6 +1181,14 @@ BASIC_TALENTS = {
         "description": (
             "You gain a permanent +5 bonus to your starting Initiative Characteristic "
             "(this does not count towards your Advances)."
+        ),
+    },
+    "Sharpshooter": {
+        "max": 1,
+        "short_description": "",
+        "description": (
+            "You can make aimed shots of exceptional accuracy. You ignore any negative "
+            "Difficulty modifiers to Ranged Tests due to the size of your target."
         ),
     },
     "Sixth Sense": {
