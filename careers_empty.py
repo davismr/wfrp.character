@@ -86,19 +86,21 @@ SEAFARER_DATA = {
     },
 }
 
-"": {
-    "max": 1,
-    "tests": "",
-    "short_description": "",
-    "description": (
-        ""
-    ),
-},
+{
+    "": {
+        "max": 1,
+        "tests": "",
+        "short_description": "",
+        "description": (""),
+    },
+}
 
-['Unshakeable',
- 'Savant(Medicine)',
- 'trong-minded',
- 'Master Orator',
- 'Master Orator',
- 'Arcane Magic',
- 'Magical Sense']
+[
+    "Unshakeable",
+    "Savant(Medicine)",
+    "trong-minded",
+    "Master Orator",
+    "Master Orator",
+    "Arcane Magic",
+    "Magical Sense",
+]
