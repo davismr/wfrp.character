@@ -24,6 +24,68 @@ WARRIORS_CLASS_DATA = {
                 "Riding Horse with Saddle and Tack",
             ],
         },
+        "Cavalryman": {
+            "status": {"tier": "Silver", "standing": 4},
+            "attributes": ["Ballistic Skill"],
+            "skills": [
+                "Charm",
+                "Consume Alcohol",
+                "Cool",
+                "Gossip",
+                "Melee (Cavalry)",
+                "Ranged (Blackpowder)",
+            ],
+            "talents": [
+                "Etiquette (Soldiers)",
+                "Gunner",
+                "Seasoned Traveller",
+                "Trick Riding",
+            ],
+            "trappings": [
+                "Breastplate",
+                "Helmet",
+                "Light Warhorse with Saddle and Tack",
+                "Pistol with 10 Shots",
+                "Shield",
+            ],
+        },
+        "Cavalry Sergeant": {
+            "status": {"tier": "Gold", "standing": 1},
+            "attributes": ["Initiative"],
+            "skills": [
+                "Intimidate",
+                "Intuition",
+                "Leadership",
+                "Lore (Warfare)",
+            ],
+            "talents": [
+                "Combat Reflexes",
+                "Fast Shot",
+                "Hatred (Any)",
+                "War Leader",
+            ],
+            "trappings": [
+                "Sash",
+            ],
+        },
+        "Cavalry Officer": {
+            "status": {"tier": "Gold", "standing": 2},
+            "attributes": ["Fellowship"],
+            "skills": [
+                "Gamble",
+                "Lore (Heraldry)",
+            ],
+            "talents": [
+                "Accurate Shot",
+                "Inspiring",
+                "Reaction Strike",
+                "Robust",
+            ],
+            "trappings": [
+                "Deck of Cards",
+                "Quality Clothing",
+            ],
+        },
     },
     "Guard": {
         "Sentry": {
@@ -49,6 +111,68 @@ WARRIORS_CLASS_DATA = {
                 "Buckler",
                 "Leather Jerkin",
                 "Storm Lantern with Oil",
+            ],
+        },
+        "Guard": {
+            "status": {"tier": "Silver", "standing": 2},
+            "attributes": ["Initiative"],
+            "skills": [
+                "Athletics",
+                "Cool",
+                "Dodge",
+                "Intimidate",
+                "Melee (Polearm)",
+                "Ranged (Bow)",
+            ],
+            "talents": [
+                "Relentless",
+                "Reversal",
+                "Shieldsman",
+                "Strike Mighty Blow",
+            ],
+            "trappings": [
+                "Bow with 10 Arrows",
+                "Sleeved Mail Shirt",
+                "Shield",
+                "Spear",
+            ],
+        },
+        "Honour Guard": {
+            "status": {"tier": "Silver", "standing": 3},
+            "attributes": ["Strength"],
+            "skills": [
+                "Heal",
+                "Language (Battle)",
+                "Lore (Etiquette)",
+                "Melee (Two-handed)",
+            ],
+            "talents": [
+                "Fearless (Intruders)",
+                "Jump Up",
+                "Stout-hearted",
+                "Unshakeable",
+            ],
+            "trappings": [
+                "Great Weapon or Halberd",
+                "Helmet",
+                "Uniform",
+            ],
+        },
+        "Guard Officer": {
+            "status": {"tier": "Silver", "standing": 5},
+            "attributes": ["Intelligence"],
+            "skills": [
+                "Leadership",
+                "Lore (Warfare)",
+            ],
+            "talents": [
+                "Combat Master",
+                "Furious Assault",
+                "Iron Will",
+                "Robust",
+            ],
+            "trappings": [
+                "Breastplate",
             ],
         },
     },
@@ -80,6 +204,69 @@ WARRIORS_CLASS_DATA = {
                 "Trade Tools (Farrier)",
             ],
         },
+        "Knight": {
+            "status": {"tier": "Silver", "standing": 5},
+            "attributes": ["Weapon Skill"],
+            "skills": [
+                "Cool",
+                "Dodge",
+                "Endurance",
+                "Intimidate",
+                "Language (Battle)",
+                "Melee (Any)",
+            ],
+            "talents": [
+                "Menacing",
+                "Seasoned Traveller",
+                "Shieldsman",
+                "Strike Mighty Blow",
+            ],
+            "trappings": [
+                "Destrier with Saddle and Tack",
+                "Melee Weapon (Any)",
+                "Lance",
+                "Plate Armour and Helm",
+            ],
+        },
+        "First Knight": {
+            "status": {"tier": "Gold", "standing": 2},
+            "attributes": ["Willpower"],
+            "skills": [
+                "Charm",
+                "Consume Alcohol",
+                "Leadership",
+                "Lore (Warfare)",
+            ],
+            "talents": [
+                "Fearless (Any)",
+                "Stout-hearted",
+                "Unshakeable",
+                "War Leader",
+            ],
+            "trappings": [
+                "Barding",
+                "Small Unit of Knights",
+            ],
+        },
+        "Knight of the Inner Circle": {
+            "status": {"tier": "Gold", "standing": 4},
+            "attributes": ["Fellowship"],
+            "skills": [
+                "Lore (Any)",
+                "Secret Signs (Knightly Order)",
+            ],
+            "talents": [
+                "Disarm",
+                "Inspiring",
+                "Iron Will",
+                "Strike to Injure",
+            ],
+            "trappings": [
+                "Plumed Great Helm",
+                "Squire",
+                "Large Unit of Knights or Several Small Units of Knights",
+            ],
+        },
     },
     "Pit Fighter": {
         "Pugilist": {
@@ -107,6 +294,67 @@ WARRIORS_CLASS_DATA = {
                 "Leather Jack",
             ],
         },
+        "Pit Fighter": {
+            "status": {"tier": "Silver", "standing": 2},
+            "attributes": ["Initiative"],
+            "skills": [
+                "Haggle",
+                "Intuition",
+                "Melee (Basic)",
+                "Melee (Flail or Two-handed)",
+                "Perception",
+                "Ranged (Entangling)",
+            ],
+            "talents": [
+                "Ambidextrous",
+                "Combat Reflexes",
+                "Dual Wielder",
+                "Shieldsman",
+            ],
+            "trappings": [
+                "Flail or Great Weapon",
+                "Hand Weapon",
+                "Net or Whip",
+                "Shield or Buckler",
+            ],
+        },
+        "Pit Champion": {
+            "status": {"tier": "Silver", "standing": 5},
+            "attributes": ["Agility"],
+            "skills": [
+                "Consume Alcohol",
+                "Gossip",
+                "Lore (Anatomy)",
+                "Perform (Fight)",
+            ],
+            "talents": [
+                "Combat Master",
+                "Disarm",
+                "Menacing",
+                "Robust",
+            ],
+            "trappings": [
+                "Breast Plate",
+                "Helmet",
+            ],
+        },
+        "Pit Legend": {
+            "status": {"tier": "Gold", "standing": 2},
+            "attributes": ["Fellowship"],
+            "skills": [
+                "Charm",
+                "Ranged (Any)",
+            ],
+            "talents": [
+                "Frightening",
+                "Furious Assault",
+                "Implacable",
+                "Reaction Strike",
+            ],
+            "trappings": [
+                "Quality Helmet",
+            ],
+        },
     },
     "Protagonist": {
         "Braggart": {
@@ -132,6 +380,70 @@ WARRIORS_CLASS_DATA = {
                 "Hood or Mask",
                 "Knuckledusters",
                 "Leather Jack",
+            ],
+        },
+        "Protagonist": {
+            "status": {"tier": "Silver", "standing": 1},
+            "attributes": ["Initiative"],
+            "skills": [
+                "Bribery",
+                "Charm",
+                "Intuition",
+                "Melee (Basic)",
+                "Perception",
+                "Ride (Horse)",
+            ],
+            "talents": [
+                "Combat Reflexes",
+                "Criminal",
+                "Reversal",
+                "Strike to Stun",
+            ],
+            "trappings": [
+                "Hand Weapon",
+                "Mail Shirt",
+                "Riding Horse with Saddle and Tack",
+                "Shield",
+            ],
+        },
+        "Hitman": {
+            "status": {"tier": "Silver", "standing": 4},
+            "attributes": ["Ballistic Skill"],
+            "skills": [
+                "Climb",
+                "Cool",
+                "Navigation",
+                "Ranged (Thrown)",
+            ],
+            "talents": [
+                "Careful Strike",
+                "Disarm",
+                "Marksman",
+                "Relentless",
+            ],
+            "trappings": [
+                "Cloak",
+                "Garotte",
+                "Poison",
+                "Throwing Knives",
+            ],
+        },
+        "Assassin": {
+            "status": {"tier": "Gold", "standing": 1},
+            "attributes": ["Fellowship"],
+            "skills": [
+                "Entertain (Acting)",
+                "Ranged (Crossbow)",
+            ],
+            "talents": [
+                "Accurate Shot",
+                "Ambidextrous",
+                "Furious Assault",
+                "Strike to Injure",
+            ],
+            "trappings": [
+                "Crossbow with 10 shots",
+                "Disguise Kit",
             ],
         },
     },
@@ -162,6 +474,66 @@ WARRIORS_CLASS_DATA = {
                 "Tattoos",
             ],
         },
+        "Giant Slayer": {
+            "status": {"tier": "Brass", "standing": 2},
+            "attributes": ["Toughness"],
+            "skills": [
+                "Evaluate",
+                "Intimidate",
+                "Language (Battle)",
+                "Lore (Giants)",
+                "Melee (Two-handed)",
+                "Outdoor Survival",
+            ],
+            "talents": [
+                "Hardy",
+                "Implacable",
+                "Menacing",
+                "Reversal",
+            ],
+            "trappings": [
+                "Great Axe",
+                "Jewellery",
+                "Troll’s Head",
+            ],
+        },
+        "Dragon Slayer": {
+            "status": {"tier": "Brass", "standing": 2},
+            "attributes": ["Agility"],
+            "skills": [
+                "Entertain (Storytelling)",
+                "Lore (Dragons)",
+                "Perception",
+                "Ranged (Thrown)",
+            ],
+            "talents": [
+                "Ambidextrous",
+                "Furious Assault",
+                "Relentless",
+                "Robust",
+            ],
+            "trappings": [
+                "Giant’s Head",
+                "Throwing Axes",
+            ],
+        },
+        "Daemon Slayer": {
+            "status": {"tier": "Silver", "standing": 1},
+            "attributes": ["Initiative"],
+            "skills": [
+                "Intuition",
+                "Lore (Chaos)",
+            ],
+            "talents": [
+                "Combat Master",
+                "Frightening",
+                "Strike Mighty Blow",
+                "Very Strong",
+            ],
+            "trappings": [
+                "Dragon’s Head",
+            ],
+        },
     },
     "Soldier": {
         "Recruit": {
@@ -187,6 +559,72 @@ WARRIORS_CLASS_DATA = {
                 "Dagger",
                 "Leather Breastplate",
                 "Uniform",
+            ],
+        },
+        "Soldier": {
+            "status": {"tier": "Silver", "standing": 3},
+            "attributes": ["Ballistic Skill"],
+            "skills": [
+                "Consume Alcohol",
+                "Gamble",
+                "Gossip",
+                "Melee (Any)",
+                "Ranged (Any)",
+                "Outdoor Survival",
+            ],
+            "talents": [
+                "Drilled",
+                "Etiquette (Soldiers)",
+                "Rapid Reload",
+                "Shieldsman",
+            ],
+            "trappings": [
+                "Breastplate",
+                "Helmet",
+                "Weapon (Any)",
+            ],
+        },
+        "Sergeant": {
+            "status": {"tier": "Silver", "standing": 5},
+            "attributes": ["Initiative"],
+            "skills": [
+                "Heal",
+                "Intuition",
+                "Leadership",
+                "Perception",
+            ],
+            "talents": [
+                "Combat Aware",
+                "Enclosed Fighter",
+                "Unshakeable",
+                "War Leader",
+            ],
+            "trappings": [
+                "Symbol of Rank",
+                "Unit of Troops",
+            ],
+        },
+        "Officer": {
+            "status": {"tier": "Gold", "standing": 1},
+            "attributes": ["Fellowship"],
+            "skills": [
+                "Lore (Warfare)",
+                "Navigation",
+            ],
+            "talents": [
+                "Inspiring",
+                "Public Speaker",
+                "Seasoned Traveller",
+                "Stout-hearted",
+            ],
+            "trappings": [
+                "Letter of Commission",
+                "Light Warhorse with Saddle and Tack",
+                "Map",
+                "Orders",
+                "Unit of Soldiers",
+                "Quality Uniform",
+                "Symbol of Rank",
             ],
         },
     },
@@ -216,6 +654,64 @@ WARRIORS_CLASS_DATA = {
                 "Religious Symbol",
                 "Robes",
                 "Weapon (Any Melee)",
+            ],
+        },
+        "Warrior Priest": {
+            "status": {"tier": "Silver", "standing": 2},
+            "attributes": ["Strength"],
+            "skills": [
+                "Charm",
+                "Entertain (Speeches)",
+                "Intimidate",
+                "Language (battle)",
+                "Melee (Any)",
+                "Ranged (Any)",
+            ],
+            "talents": [
+                "Dual Wielder",
+                "Inspiring",
+                "Invoke (Any)",
+                "Seasoned Traveller",
+            ],
+            "trappings": [
+                "Breastplate",
+                "Weapon (Any)",
+            ],
+        },
+        "Priest Sergeant": {
+            "status": {"tier": "Silver", "standing": 3},
+            "attributes": ["Initiative"],
+            "skills": [
+                "Animal Care",
+                "Intuition",
+                "Perception",
+                "Ride (Horse)",
+            ],
+            "talents": [
+                "Combat Aware",
+                "Holy Visions",
+                "Pure Soul",
+                "Stout-hearted",
+            ],
+            "trappings": [
+                "Light Warhorse with Saddle and Tack",
+            ],
+        },
+        "Priest Captain": {
+            "status": {"tier": "Silver", "standing": 4},
+            "attributes": ["Fellowship"],
+            "skills": [
+                "Consume Alcohol",
+                "Lore (Warfare)",
+            ],
+            "talents": [
+                "Fearless (Any)",
+                "Furious Assault",
+                "Holy Hatred",
+                "War Leader",
+            ],
+            "trappings": [
+                "Religious Relic",
             ],
         },
     },

@@ -15,8 +15,6 @@ def test_skill():
     missing = []
     for career_data in CAREER_DATA:
         for career in CAREER_DATA[career_data]:
-            if career == "class":
-                continue
             for skill in CAREER_DATA[career_data][career]["skills"]:
                 skill = skill.split(" (")[0]
                 if skill not in SKILL_DATA:

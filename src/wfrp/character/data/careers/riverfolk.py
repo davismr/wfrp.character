@@ -25,6 +25,66 @@ RIVERFOLK_CLASS_DATA = {
                 "Pole",
             ],
         },
+        "Boatman": {
+            "status": {"tier": "Silver", "standing": 2},
+            "attributes": ["Initiative"],
+            "skills": [
+                "Athletics",
+                "Entertain (Storytelling)",
+                "Haggle",
+                "Intuition",
+                "Lore (Riverways)",
+                "Perception",
+            ],
+            "talents": [
+                "Etiquette (Guilder)",
+                "Seasoned Traveller",
+                "Very Strong",
+                "Waterman",
+            ],
+            "trappings": [
+                "Rope",
+                "Rowboat",
+            ],
+        },
+        "Bargeswain": {
+            "status": {"tier": "Silver", "standing": 3},
+            "attributes": ["Dexterity"],
+            "skills": [
+                "Climb",
+                "Entertain (Singing)",
+                "Heal",
+                "Trade (Boatbuilding)",
+            ],
+            "talents": [
+                "Dealmaker",
+                "Embezzle",
+                "Nose for Trouble",
+                "Strike Mighty Blow",
+            ],
+            "trappings": [
+                "Backpack",
+                "Trade Tools (Carpenter)",
+            ],
+        },
+        "Barge Master ": {
+            "status": {"tier": "Silver", "standing": 5},
+            "attributes": ["Intelligence"],
+            "skills": [
+                "Leadership",
+                "Navigation",
+            ],
+            "talents": [
+                "Menacing",
+                "Orientation",
+                "Pilot",
+                "Public Speaker",
+            ],
+            "trappings": [
+                "Hat",
+                "Riverboat and Crew",
+            ],
+        },
     },
     "Huffer": {
         "Riverguide": {
@@ -49,6 +109,67 @@ RIVERFOLK_CLASS_DATA = {
             "trappings": [
                 "Hand Weapon (Boat Hook)",
                 "Storm Lantern and Oil",
+            ],
+        },
+        "Huffer": {
+            "status": {"tier": "Silver", "standing": 1},
+            "attributes": ["Willpower"],
+            "skills": [
+                "Charm",
+                "Cool",
+                "Entertain (Storytelling)",
+                "Language (Any)",
+                "Melee (Basic)",
+                "Navigation",
+            ],
+            "talents": [
+                "Dealmaker",
+                "Etiquette (Guilder)",
+                "Nose for Trouble",
+                "River Guide",
+            ],
+            "trappings": [
+                "Leather Jerkin",
+                "Rope",
+                "Row Boat",
+            ],
+        },
+        "Pilot": {
+            "status": {"tier": "Silver", "standing": 3},
+            "attributes": ["Intelligence"],
+            "skills": [
+                "Haggle",
+                "Intimidate",
+                "Lore (Local)",
+                "Lore (Wrecks)",
+            ],
+            "talents": [
+                "Acute Sense (Sight)",
+                "Pilot",
+                "Sea Legs",
+                "Very Strong",
+            ],
+            "trappings": [
+                "Pole",
+                "Storm Lantern and Oil",
+            ],
+        },
+        "Master Pilot": {
+            "status": {"tier": "Silver", "standing": 5},
+            "attributes": ["Fellowship"],
+            "skills": [
+                "Leadership",
+                "Sail",
+            ],
+            "talents": [
+                "Sixth Sense",
+                "Sharp",
+                "Strong Swimmer",
+                "Tenacious",
+            ],
+            "trappings": [
+                "Boathand",
+                "Small Riverboat",
             ],
         },
     },
@@ -78,6 +199,68 @@ RIVERFOLK_CLASS_DATA = {
                 "Uniform",
             ],
         },
+        "Riverwarden": {
+            "status": {"tier": "Silver", "standing": 2},
+            "attributes": ["Weapon Skill"],
+            "skills": [
+                "Bribery",
+                "Charm",
+                "Intimidate",
+                "Gossip",
+                "Lore (Riverways)",
+                "Ranged (Blackpowder)",
+            ],
+            "talents": [
+                "Criminal",
+                "Gunner",
+                "Fisherman",
+                "Seasoned Traveller",
+            ],
+            "trappings": [
+                "Lantern and Oil",
+                "Pistol with 10 shot",
+                "Shield",
+            ],
+        },
+        "Shipsword": {
+            "status": {"tier": "Silver", "standing": 4},
+            "attributes": ["Initiative"],
+            "skills": [
+                "Climb",
+                "Cool",
+                "Intuition",
+                "Leadership",
+            ],
+            "talents": [
+                "Fearless (Wreckers)",
+                "Hatred (Any)",
+                "Pilot",
+                "Sea Legs",
+            ],
+            "trappings": [
+                "Grappling Hook",
+                "Helmet",
+                "Mail Shirt",
+            ],
+        },
+        "Shipsword Master": {
+            "status": {"tier": "Gold", "standing": 1},
+            "attributes": ["Intelligence"],
+            "skills": [
+                "Lore (Law)",
+                "Navigation",
+            ],
+            "talents": [
+                "Commanding Presence",
+                "Kingpin",
+                "Menacing",
+                "Orientation",
+            ],
+            "trappings": [
+                "Patrol Boats and Crew",
+                "Symbol of Rank",
+            ],
+        },
     },
     "Riverwoman": {
         "Greenfish": {
@@ -105,6 +288,67 @@ RIVERFOLK_CLASS_DATA = {
                 "Leather Leggings",
             ],
         },
+        "Riverwoman": {
+            "status": {"tier": "Brass", "standing": 3},
+            "attributes": ["Weapon Skill"],
+            "skills": [
+                "Gamble",
+                "Lore (Local)",
+                "Lore (Riverways)",
+                "Ranged (Entangling)",
+                "Ranged (Throwing)",
+                "Set Trap",
+            ],
+            "talents": [
+                "Craftsman (Boatbuilder)",
+                "Rover",
+                "Strong Back",
+                "Waterman",
+            ],
+            "trappings": [
+                "Eel Trap",
+                "Leather Jerkin",
+                "Net",
+                "Spear",
+            ],
+        },
+        "Riverwise": {
+            "status": {"tier": "Brass", "standing": 5},
+            "attributes": ["Initiative"],
+            "skills": [
+                "Charm",
+                "Intuition",
+                "Melee (Polearm)",
+                "Perception",
+            ],
+            "talents": [
+                "Savant (Riverways)",
+                "Stout-hearted",
+                "Tenacious",
+                "Very Strong",
+            ],
+            "trappings": [
+                "Row Boat",
+                "Storm Lantern and Oil",
+            ],
+        },
+        "River Elder": {
+            "status": {"tier": "Silver", "standing": 2},
+            "attributes": ["Fellowship"],
+            "skills": [
+                "Entertain (Storytelling)",
+                "Lore (Folklore)",
+            ],
+            "talents": [
+                "Master Tradesman (Boatbuilder)",
+                "Public Speaker",
+                "Sharp",
+                "Strong-minded",
+            ],
+            "trappings": [
+                "Hut or Riverboat",
+            ],
+        },
     },
     "Seaman": {
         "Landsman": {
@@ -130,6 +374,67 @@ RIVERFOLK_CLASS_DATA = {
                 "Bucket",
                 "Brush",
                 "Mop",
+            ],
+        },
+        "Seaman": {
+            "status": {"tier": "Silver", "standing": 3},
+            "attributes": ["Weapon Skill"],
+            "skills": [
+                "Athletics",
+                "Dodge",
+                "Endurance",
+                "Entertain (Singing)",
+                "Language (any)",
+                "Melee (Basic)",
+            ],
+            "talents": [
+                "Catfall",
+                "Sea Legs",
+                "Seasoned Traveller",
+                "Strong Legs",
+            ],
+            "trappings": [
+                "Hand Weapon (Boat Hook)",
+                "Leather Jerkin",
+            ],
+        },
+        "Boatswain": {
+            "status": {"tier": "Silver", "standing": 5},
+            "attributes": ["Initiative"],
+            "skills": [
+                "Cool",
+                "Leadership",
+                "Perception",
+                "Trade (Carpenter)",
+            ],
+            "talents": [
+                "Old Salt",
+                "Strike Mighty Blow",
+                "Tenacious",
+                "Very Strong",
+            ],
+            "trappings": [
+                "Trade Tools (Carpenter)",
+            ],
+        },
+        "Ship’s Master": {
+            "status": {"tier": "Gold", "standing": 2},
+            "attributes": ["Intelligence"],
+            "skills": [
+                "Charm",
+                "Navigation",
+            ],
+            "talents": [
+                "Orientation",
+                "Pilot",
+                "Public Speaker",
+                "Savvy",
+            ],
+            "trappings": [
+                "Shipping Charts",
+                "Sailing Ship and Crew",
+                "Sextant",
+                "Spyglass",
             ],
         },
     },
@@ -160,6 +465,68 @@ RIVERFOLK_CLASS_DATA = {
                 "Storm Lantern and Oil",
             ],
         },
+        "Smuggler": {
+            "status": {"tier": "Brass", "standing": 3},
+            "attributes": ["Initiative"],
+            "skills": [
+                "Haggle",
+                "Gossip",
+                "Lore (Local)",
+                "Melee (Basic)",
+                "Perception",
+                "Secret Signs (Smuggler)",
+            ],
+            "talents": [
+                "Dealmaker",
+                "Etiquette (Criminals)",
+                "Waterman",
+                "Very Strong",
+            ],
+            "trappings": [
+                "2 Barrels",
+                "Hand Weapon",
+                "Leather Jack",
+                "Row Boat",
+            ],
+        },
+        "Master Smuggler": {
+            "status": {"tier": "Brass", "standing": 5},
+            "attributes": ["Intelligence"],
+            "skills": [
+                "Evaluate",
+                "Intimidate",
+                "Intuition",
+                "Lore (Riverways)",
+            ],
+            "talents": [
+                "Briber",
+                "Fearless (Riverwardens)",
+                "Pilot",
+                "Strong Swimmer",
+            ],
+            "trappings": [
+                "River Runner",
+                "Speedy Riverboat",
+            ],
+        },
+        "Smuggler King": {
+            "status": {"tier": "Silver", "standing": 2},
+            "attributes": ["Fellowship"],
+            "skills": [
+                "Language (Any)",
+                "Leadership",
+            ],
+            "talents": [
+                "Kingpin",
+                "Savvy",
+                "Strider (Coastal)",
+                "Sea Legs",
+            ],
+            "trappings": [
+                "Disguise Kit",
+                "Small Fleet of Riverboats",
+            ],
+        },
     },
     "Stevedore": {
         "Dockhand": {
@@ -184,6 +551,68 @@ RIVERFOLK_CLASS_DATA = {
             "trappings": [
                 "Hand Weapon (Boat Hook)",
                 "Leather Gloves",
+            ],
+        },
+        "Stevedore": {
+            "status": {"tier": "Silver", "standing": 1},
+            "attributes": ["Strength"],
+            "skills": [
+                "Bribery",
+                "Entertain (Storytelling)",
+                "Gamble",
+                "Intimidate",
+                "Perception",
+                "Stealth (Urban)",
+            ],
+            "talents": [
+                "Criminal",
+                "Etiquette (Guilders)",
+                "Strong Legs",
+                "Tenacious",
+            ],
+            "trappings": [
+                "Guild Licence",
+                "Leather Jerkin",
+                "Pipe and Tobacco",
+                "Porter Cap",
+            ],
+        },
+        "Foreman": {
+            "status": {"tier": "Silver", "standing": 3},
+            "attributes": ["Willpower"],
+            "skills": [
+                "Cool",
+                "Evaluate",
+                "Intuition",
+                "Leadership",
+            ],
+            "talents": [
+                "Dealmaker",
+                "Embezzle",
+                "Etiquette (Criminals)",
+                "Public Speaker",
+            ],
+            "trappings": [
+                "Gang of Stevedores",
+                "Whistle",
+            ],
+        },
+        "Dock Master": {
+            "status": {"tier": "Silver", "standing": 5},
+            "attributes": ["Intelligence"],
+            "skills": [
+                "Charm",
+                "Lore (Taxes)",
+            ],
+            "talents": [
+                "Kingpin",
+                "Menacing",
+                "Numismatics",
+                "Read/Write",
+            ],
+            "trappings": [
+                "Office and Staff",
+                "Writing Kit",
             ],
         },
     },
@@ -211,6 +640,69 @@ RIVERFOLK_CLASS_DATA = {
                 "Crowbar",
                 "Large Sack",
                 "Leather Gloves",
+            ],
+        },
+        "Wrecker": {
+            "status": {"tier": "Brass", "standing": 3},
+            "attributes": ["Willpower"],
+            "skills": [
+                "Bribery",
+                "Cool",
+                "Intuition",
+                "Navigation",
+                "Perception",
+                "Set Trap",
+            ],
+            "talents": [
+                "Flee!",
+                "Rover",
+                "Strong Swimmer",
+                "Trapper",
+            ],
+            "trappings": [
+                "Hand Weapon (Boat Hook)",
+                "Leather Jack",
+                "Storm Lantern and Oil",
+            ],
+        },
+        "River Pirate": {
+            "status": {"tier": "Brass", "standing": 5},
+            "attributes": ["Ballistic Skill"],
+            "skills": [
+                "Gossip",
+                "Intimidate",
+                "Ranged (Crossbow)",
+                "Stealth (Rural)",
+            ],
+            "talents": [
+                "Dirty Fighting",
+                "Etiquette (Criminals)",
+                "Menacing",
+                "Waterman",
+            ],
+            "trappings": [
+                "Crossbow with 10 Bolts",
+                "Grappling Hook and Rope",
+                "Riverboat",
+            ],
+        },
+        "Wrecker Captain ": {
+            "status": {"tier": "Silver", "standing": 2},
+            "attributes": ["Fellowship"],
+            "skills": [
+                "Leadership",
+                "Lore (Riverways)",
+            ],
+            "talents": [
+                "Furious Assault",
+                "In-fighter",
+                "Pilot",
+                "Warrior Born",
+            ],
+            "trappings": [
+                "Fleet of Riverboats and Wrecker Crew",
+                "Keg of Ale",
+                "Manacles",
             ],
         },
     },

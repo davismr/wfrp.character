@@ -28,6 +28,67 @@ BURGHERS_CLASS_DATA = {
                 "Pile of Leaflets",
             ],
         },
+        "Agitator": {
+            "status": {"tier": "Brass", "standing": 2},
+            "attributes": ["Agility"],
+            "skills": [
+                "Cool",
+                "Dodge",
+                "Entertain (Storytelling)",
+                "Gamble",
+                "Intuition",
+                "Leadership",
+            ],
+            "talents": [
+                "Alley Cat",
+                "Argumentative",
+                "Impassioned Zeal",
+                "Public Speaker",
+            ],
+            "trappings": [
+                "Leather Jack",
+            ],
+        },
+        "Rabble Rouser": {
+            "status": {"tier": "Brass", "standing": 3},
+            "attributes": ["Weapon Skill"],
+            "skills": [
+                "Athletics",
+                "Intimidate",
+                "Melee (Brawling)",
+                "Perception",
+            ],
+            "talents": [
+                "Cat-tongued",
+                "Dirty Fighting",
+                "Flee!",
+                "Step Aside",
+            ],
+            "trappings": [
+                "Hand Weapon",
+                "Pamphleteer",
+            ],
+        },
+        "Demagogue": {
+            "status": {"tier": "Brass", "standing": 5},
+            "attributes": ["Initiative"],
+            "skills": [
+                "Lore (Heraldry)",
+                "Ride (Horse)",
+            ],
+            "talents": [
+                "Etiquette (Any)",
+                "Master Orator",
+                "Schemer",
+                "Suave",
+            ],
+            "trappings": [
+                "3 Pamphleteers",
+                "Patron",
+                "Printing Press",
+                "Impressive Hat",
+            ],
+        },
     },
     "Artisan": {
         "Apprentice Artisan": {
@@ -55,6 +116,66 @@ BURGHERS_CLASS_DATA = {
                 f"{roll_d10()} rags",
             ],
         },
+        "Artisan": {
+            "status": {"tier": "Silver", "standing": 1},
+            "attributes": ["Fellowship"],
+            "skills": [
+                "Charm",
+                "Haggle",
+                "Lore (Local)",
+                "Gossip",
+                "Language (Guilder)",
+                "Perception",
+            ],
+            "talents": [
+                "Dealmaker",
+                "Etiquette (Guilder)",
+                "Nimble Fingered",
+                "Sturdy",
+            ],
+            "trappings": [
+                "Guild Licence",
+                "Trade Tools",
+            ],
+        },
+        "Master Artisan": {
+            "status": {"tier": "Silver", "standing": 3},
+            "attributes": ["Willpower"],
+            "skills": [
+                "Intuition",
+                "Leadership",
+                "Research",
+                "Secret Signs (Guilder)",
+            ],
+            "talents": [
+                "Acute Sense (Taste or Touch)",
+                "Master Tradesman (Any)",
+                "Read/Write",
+                "Tinker",
+            ],
+            "trappings": [
+                "Apprentice",
+                "Workshop",
+            ],
+        },
+        "Guildmaster": {
+            "status": {"tier": "Gold", "standing": 1},
+            "attributes": ["Intelligence"],
+            "skills": [
+                "Bribery",
+                "Intimidate",
+            ],
+            "talents": [
+                "Briber",
+                "Magnum Opus",
+                "Public Speaker",
+                "Schemer",
+            ],
+            "trappings": [
+                "Guild",
+                "Quality Clothing",
+            ],
+        },
     },
     "Beggar": {
         "Pauper": {
@@ -79,6 +200,67 @@ BURGHERS_CLASS_DATA = {
             "trappings": [
                 "Poor Quality Blanket",
                 "Cup",
+            ],
+        },
+        "Beggar": {
+            "status": {"tier": "Brass", "standing": 2},
+            "attributes": ["Willpower"],
+            "skills": [
+                "Entertain (Acting)",
+                "Entertain (Any)",
+                "Gossip",
+                "Haggle",
+                "Perception",
+                "Sleight of Hand",
+            ],
+            "talents": [
+                "Alley Cat",
+                "Beneath Notice",
+                "Criminal",
+                "Etiquette (Criminals)",
+            ],
+            "trappings": [
+                "Crutch",
+                "Bowl",
+            ],
+        },
+        "Master Beggar": {
+            "status": {"tier": "Brass", "standing": 4},
+            "attributes": ["Weapon Skill"],
+            "skills": [
+                "Charm Animal",
+                "Leadership",
+                "Lore (Local)",
+                "Secret Signs (Vagabond)",
+            ],
+            "talents": [
+                "Blather",
+                "Dirty Fighting",
+                "Hardy",
+                "Step Aside",
+            ],
+            "trappings": [
+                "Disguise Kit",
+                "Hiding Place",
+                "Pauper Follower",
+            ],
+        },
+        "Beggar King": {
+            "status": {"tier": "Silver", "standing": 2},
+            "attributes": ["Initiative"],
+            "skills": [
+                "Bribery",
+                "Intimidate",
+            ],
+            "talents": [
+                "Cat-tongued",
+                "Fearless (Watchmen)",
+                "Kingpin",
+                "Suave",
+            ],
+            "trappings": [
+                "Lair",
+                "Large Group of Beggar Followers",
             ],
         },
     },
@@ -109,6 +291,68 @@ BURGHERS_CLASS_DATA = {
                 "Quill and Ink",
             ],
         },
+        "Investigator": {
+            "status": {"tier": "Silver", "standing": 2},
+            "attributes": ["Fellowship"],
+            "skills": [
+                "Consume Alcohol",
+                "Dodge",
+                "Lore (Law)",
+                "Melee (Brawling)",
+                "Pick Lock",
+                "Sleight of Hand",
+            ],
+            "talents": [
+                "Etiquette (Any)",
+                "Savvy",
+                "Shadow",
+                "Tenacious",
+            ],
+            "trappings": [
+                "Leather Jack",
+                "Hand Weapon",
+                "Magnifying Glass",
+                "Lockpick",
+            ],
+        },
+        "Master Investigator": {
+            "status": {"tier": "Silver", "standing": 3},
+            "attributes": ["Dexterity"],
+            "skills": [
+                "Bribery",
+                "Evaluate",
+                "Leadership",
+                "Lore (Any)",
+            ],
+            "talents": [
+                "Bookish",
+                "Break and Enter",
+                "Sixth Sense",
+                "Suave",
+            ],
+            "trappings": [
+                "Assistant",
+                "Office",
+            ],
+        },
+        "Detective": {
+            "status": {"tier": "Silver", "standing": 5},
+            "attributes": ["Willpower"],
+            "skills": [
+                "Intimidate",
+                "Lore (any)",
+            ],
+            "talents": [
+                "Acute Sense (Any)",
+                "Savant (Any)",
+                "Speedreader",
+                "Tower of Memories",
+            ],
+            "trappings": [
+                "Network of Informants",
+                "Spyglass",
+            ],
+        },
     },
     "Merchant": {
         "Trader": {
@@ -135,6 +379,71 @@ BURGHERS_CLASS_DATA = {
                 "Mule and Cart",
                 "Canvas Tarpaulin",
                 f"{roll_3d10()} Silver Shillings",
+            ],
+        },
+        "Merchant": {
+            "status": {"tier": "Silver", "standing": 5},
+            "attributes": ["Intelligence"],
+            "skills": [
+                "Evaluate",
+                "Intuition",
+                "Language (Any)",
+                "Language (Guilder)",
+                "Lore (Local)",
+                "Perception",
+            ],
+            "talents": [
+                "Briber",
+                "Embezzle",
+                "Etiquette (Guilder)",
+                "Savvy",
+            ],
+            "trappings": [
+                "Riverboat or 2 Wagons",
+                "Guild License",
+                "20 GC",
+            ],
+        },
+        "Master Merchant": {
+            "status": {"tier": "Gold", "standing": 1},
+            "attributes": ["Initiative"],
+            "skills": [
+                "Cool",
+                "Language (Classical)",
+                "Navigation",
+                "Secret Signs (Guilder)",
+            ],
+            "talents": [
+                "Cat-tongued",
+                "Etiquette (Any)",
+                "Numismatics",
+                "Sharp",
+            ],
+            "trappings": [
+                "Town House with Servants",
+                "Warehouse",
+                "100 GC",
+            ],
+        },
+        "Merchant Prince": {
+            "status": {"tier": "Gold", "standing": 3},
+            "attributes": ["Weapon Skill"],
+            "skills": [
+                "Lore (Any)",
+                "Intimidate",
+            ],
+            "talents": [
+                "Iron Will",
+                "Luck",
+                "Schemer",
+                "Wealthy",
+            ],
+            "trappings": [
+                "2 Riverboats or 4 Wagons",
+                "Large Town Estate",
+                "2 Warehouses",
+                "1000 GC",
+                "Quality Clothing",
             ],
         },
     },
@@ -164,6 +473,68 @@ BURGHERS_CLASS_DATA = {
                 "Small but Vicious Dog",
             ],
         },
+        "Rat Catcher": {
+            "status": {"tier": "Silver", "standing": 1},
+            "attributes": ["Toughness"],
+            "skills": [
+                "Animal Care",
+                "Gossip",
+                "Haggle",
+                "Lore (Poison)",
+                "Perception",
+                "Set Trap",
+            ],
+            "talents": [
+                "Enclosed Fighter",
+                "Etiquette (Guilder)",
+                "Fearless (Rats)",
+                "Very Resilient",
+            ],
+            "trappings": [
+                "Animal Traps",
+                "Pole for Dead Rats",
+            ],
+        },
+        "Sewer Jack": {
+            "status": {"tier": "Silver", "standing": 2},
+            "attributes": ["Initiative"],
+            "skills": [
+                "Climb",
+                "Cool",
+                "Dodge",
+                "Ranged (Crossbow Pistol)",
+            ],
+            "talents": [
+                "Hardy",
+                "Stout-hearted",
+                "Strong Legs",
+                "Tunnel Rat",
+            ],
+            "trappings": [
+                "Davrich Lantern",
+                "Hand Weapon",
+                "Leather Jack",
+            ],
+        },
+        "Exterminator": {
+            "status": {"tier": "Silver", "standing": 3},
+            "attributes": ["Strength"],
+            "skills": [
+                "Leadership",
+                "Track",
+            ],
+            "talents": [
+                "Fearless (Skaven)",
+                "Menacing",
+                "Robust",
+                "Strong-minded",
+            ],
+            "trappings": [
+                "Assistant",
+                "Large and Vicious Dog",
+                "Sack of Poisoned Bait (10 doses of Heartkill)",
+            ],
+        },
     },
     "Townsman": {
         "Clerk": {
@@ -188,6 +559,69 @@ BURGHERS_CLASS_DATA = {
             "trappings": [
                 "Lodgings",
                 "Sturdy Boots",
+            ],
+        },
+        "Townsman": {
+            "status": {"tier": "Silver", "standing": 2},
+            "attributes": ["Initiative"],
+            "skills": [
+                "Bribery",
+                "Evaluate",
+                "Intuition",
+                "Lore (Local)",
+                "Melee (Brawling)",
+                "Play (Any)",
+            ],
+            "talents": [
+                "Dealmaker",
+                "Embezzle",
+                "Etiquette (Any)",
+                "Gregarious",
+            ],
+            "trappings": [
+                "Modest Townhouse",
+                "Servant",
+                "Quill and Ink",
+            ],
+        },
+        "Town Councillor": {
+            "status": {"tier": "Silver", "standing": 5},
+            "attributes": ["Dexterity"],
+            "skills": [
+                "Cool",
+                "Lore (Law)",
+                "Perception",
+                "Research",
+            ],
+            "talents": [
+                "Briber",
+                "Public Speaker",
+                "Read/Write",
+                "Supportive",
+            ],
+            "trappings": [
+                "Coach and Driver",
+                "Townhouse",
+            ],
+        },
+        "Burgomeister": {
+            "status": {"tier": "Gold", "standing": 1},
+            "attributes": ["Willpower"],
+            "skills": [
+                "Lore (Politics)",
+                "Intimidate",
+            ],
+            "talents": [
+                "Commanding Presence",
+                "Master Orator",
+                "Schemer",
+                "Suave",
+            ],
+            "trappings": [
+                "Chains of Office",
+                "Coach and Footman",
+                "Quality Clothing",
+                "Large Townhouse with Gardens and Servants",
             ],
         },
     },
@@ -215,6 +649,70 @@ BURGHERS_CLASS_DATA = {
                 "Hand Weapon",
                 "Leather Jack",
                 "Uniform",
+            ],
+        },
+        "Watchman": {
+            "status": {"tier": "Silver", "standing": 1},
+            "attributes": ["Willpower"],
+            "skills": [
+                "Charm",
+                "Cool",
+                "Gossip",
+                "Intimidate",
+                "Intuition",
+                "Lore (Local)",
+            ],
+            "talents": [
+                "Break and Enter",
+                "Criminal",
+                "Night Vision",
+                "Sprinter",
+            ],
+            "trappings": [
+                "Lantern and Pole",
+                "Lamp Oil",
+                "Copper Badge",
+            ],
+        },
+        "Watch Sergeant": {
+            "status": {"tier": "Silver", "standing": 3},
+            "attributes": ["Initiative"],
+            "skills": [
+                "Entertain (Storytelling)",
+                "Haggle",
+                "Leadership",
+                "Lore (Law)",
+            ],
+            "talents": [
+                "Disarm",
+                "Etiquette (Soldiers)",
+                "Fearless (Criminals)",
+                "Nose for Trouble",
+            ],
+            "trappings": [
+                "Breastplate",
+                "Helm",
+                "Symbol of Rank",
+            ],
+        },
+        "Watch Captain": {
+            "status": {"tier": "Gold", "standing": 1},
+            "attributes": ["Intelligence"],
+            "skills": [
+                "Lore (Politics)",
+                "Ride (Horse)",
+            ],
+            "talents": [
+                "Public Speaker",
+                "Robust",
+                "Kingpin",
+                "Schemer",
+            ],
+            "trappings": [
+                "Riding Horse with Saddle and Tack",
+                "Quality Hat",
+                "Quality Hand weapon",
+                "Quality Symbol of Rank",
             ],
         },
     },

@@ -1,8 +1,16 @@
 import pytest
 
+from wfrp.character.data.careers.academics import ACADEMIC_CLASS_DATA
+from wfrp.character.data.careers.burghers import BURGHERS_CLASS_DATA
+from wfrp.character.data.careers.courtiers import COURTIERS_CLASS_DATA
+from wfrp.character.data.careers.peasants import PEASANTS_CLASS_DATA
+from wfrp.character.data.careers.rangers import RANGERS_CLASS_DATA
+from wfrp.character.data.careers.riverfolk import RIVERFOLK_CLASS_DATA
+from wfrp.character.data.careers.rogues import ROGUES_CLASS_DATA
 from wfrp.character.data.careers.seafarer import SEAFARER_CLASS_DATA
 from wfrp.character.data.careers.tables import get_career
 from wfrp.character.data.careers.tables import list_careers
+from wfrp.character.data.careers.warriors import WARRIORS_CLASS_DATA
 from wfrp.character.data.skills import SKILL_DATA
 from wfrp.character.data.talents import TALENT_DATA
 from wfrp.character.views.create_character.attributes import ATTRIBUTES
@@ -105,10 +113,24 @@ def test_list_careers_invalid():
 
 
 @pytest.mark.data
-def test_career_data():  # noqa: C901
+@pytest.mark.parametrize(
+    "career_data",
+    [
+        ACADEMIC_CLASS_DATA,
+        BURGHERS_CLASS_DATA,
+        COURTIERS_CLASS_DATA,
+        PEASANTS_CLASS_DATA,
+        RANGERS_CLASS_DATA,
+        RIVERFOLK_CLASS_DATA,
+        ROGUES_CLASS_DATA,
+        SEAFARER_CLASS_DATA,
+        WARRIORS_CLASS_DATA,
+    ],
+)
+def test_career_data(career_data):  # noqa: C901
     # 8 careers per class
-    assert len(SEAFARER_CLASS_DATA) == 8
-    for career_class in SEAFARER_CLASS_DATA.values():
+    assert len(career_data) == 8
+    for career_class in career_data.values():
         # should be 4 career levels
         assert len(career_class) == 4
         level = 1
@@ -127,7 +149,7 @@ def test_career_data():  # noqa: C901
                         assert attribute in ATTRIBUTES
                 elif key == "skills":
                     if level == 1:
-                        assert len(item) == 10
+                        assert len(item) in [8, 10]
                     elif level == 2:
                         assert len(item) == 6
                     elif level == 3:
@@ -139,12 +161,7 @@ def test_career_data():  # noqa: C901
                 elif key == "talents":
                     assert len(item) == 4
                     for talent in item:
-                        if talent not in [
-                            "Magnum Opus",
-                            "Warleader",
-                            "Public Speaking",
-                        ]:
-                            assert talent.split(" (")[0] in TALENT_DATA
+                        assert talent.split(" (")[0] in TALENT_DATA, talent
                 elif key == "trappings":
                     # TODO test trappings
                     assert True

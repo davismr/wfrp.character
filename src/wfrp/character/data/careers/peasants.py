@@ -26,6 +26,68 @@ PEASANTS_CLASS_DATA = {
                 "small lock box",
             ],
         },
+        "Bailiff": {
+            "status": {"tier": "Silver", "standing": 5},
+            "attributes": ["Fellowship"],
+            "skills": [
+                "Bribery",
+                "Charm",
+                "Evaluate",
+                "Intuition",
+                "Leadership",
+                "Lore (Local)",
+            ],
+            "talents": [
+                "Break and Enter",
+                "Criminal",
+                "Public Speaker",
+                "Strike to Stun",
+            ],
+            "trappings": [
+                "Leather Jack",
+                "3 Tax Collectors",
+            ],
+        },
+        "Reeve": {
+            "status": {"tier": "Gold", "standing": 1},
+            "attributes": ["Agility"],
+            "skills": [
+                "Animal Care",
+                "Lore (Heraldry)",
+                "Navigation",
+                "Ride (Horse)",
+            ],
+            "talents": [
+                "Kingpin",
+                "Menacing",
+                "Nose for Trouble",
+                "Read/Write",
+            ],
+            "trappings": [
+                "Horse with Saddle and Tack",
+                "Breastplate",
+                "Bailiff",
+            ],
+        },
+        "Magistrate": {
+            "status": {"tier": "Gold", "standing": 3},
+            "attributes": ["Intelligence"],
+            "skills": [
+                "Language (Classical)",
+                "Lore (Law)",
+            ],
+            "talents": [
+                "Commanding Presence",
+                "Iron Will",
+                "Savvy",
+                "Schemer",
+            ],
+            "trappings": [
+                "Library (Law)",
+                "Quality Robes",
+                "Seal of Office",
+            ],
+        },
     },
     "Hedge Witch": {
         "Hedge Apprentice": {
@@ -53,6 +115,67 @@ PEASANTS_CLASS_DATA = {
                 "Backpack",
             ],
         },
+        "Hedge Witch": {
+            "status": {"tier": "Brass", "standing": 2},
+            "attributes": ["Intelligence"],
+            "skills": [
+                "Cool",
+                "Gossip",
+                "Heal",
+                "Lore (Local)",
+                "Trade (Charms)",
+                "Trade (Herbalist)",
+            ],
+            "talents": [
+                "Aethyric Attunement",
+                "Animal Affinity",
+                "Arcane Magic (Hedgecraft)",
+                "Sixth Sense",
+            ],
+            "trappings": [
+                "Antitoxin Kit",
+                "Healing Poultice",
+                "Trade Tools (Herbalist)",
+            ],
+        },
+        "Hedge Master": {
+            "status": {"tier": "Brass", "standing": 3},
+            "attributes": ["Fellowship"],
+            "skills": [
+                "Haggle",
+                "Lore (Genealogy)",
+                "Lore (Magic)",
+                "Lore (Spirits)",
+            ],
+            "talents": [
+                "Craftsman (Herbalist)",
+                "Magical Sense",
+                "Pure Soul",
+                "Resistance (Disease)",
+            ],
+            "trappings": [
+                "Isolated Hut",
+                "Apprentice",
+            ],
+        },
+        "Hedgewise": {
+            "status": {"tier": "Brass", "standing": 5},
+            "attributes": ["Willpower"],
+            "skills": [
+                "Intimidate",
+                "Pray",
+            ],
+            "talents": [
+                "Acute Sense (Any)",
+                "Master Tradesman (Herbalist)",
+                "Night Vision",
+                "Strong-minded",
+            ],
+            "trappings": [
+                "Assortment of Animal Skulls",
+                "Ceremonial Cloak and Garland",
+            ],
+        },
     },
     "Herbalist": {
         "Herb Gatherer": {
@@ -78,6 +201,68 @@ PEASANTS_CLASS_DATA = {
                 "Boots",
                 "Cloak",
                 "Sling Bag containing Assortment of Herbs",
+            ],
+        },
+        "Herbalist": {
+            "status": {"tier": "Brass", "standing": 4},
+            "attributes": ["Dexterity"],
+            "skills": [
+                "Consume Alcohol",
+                "Cool",
+                "Gossip",
+                "Haggle",
+                "Heal",
+                "Lore (Local)",
+            ],
+            "talents": [
+                "Dealmaker",
+                "Nimble Fingered",
+                "Sharp",
+                "Sturdy",
+            ],
+            "trappings": [
+                "Hand Weapon (Sickle)",
+                "Healing Poultice",
+                "Trade Tools (Herbalist)",
+            ],
+        },
+        "Herb Master": {
+            "status": {"tier": "Silver", "standing": 1},
+            "attributes": ["Fellowship"],
+            "skills": [
+                "Intuition",
+                "Leadership",
+                "Lore (Medicine)",
+                "Trade (Poisons)",
+            ],
+            "talents": [
+                "Craftsman (Herbalist)",
+                "Field Dressing",
+                "Hardy",
+                "Savvy",
+            ],
+            "trappings": [
+                "Herb Gatherer",
+                "3 Healing Poultices",
+                "Healing Draught",
+                "Workshop (Herbalist)",
+            ],
+        },
+        "Herbwise": {
+            "status": {"tier": "Silver", "standing": 3},
+            "attributes": ["Intelligence"],
+            "skills": [
+                "Drive",
+                "Navigation",
+            ],
+            "talents": [
+                "Concoct",
+                "Master Tradesman (Herbalist)",
+                "Resistance (Poison)",
+                "Savant (Herbs)",
+            ],
+            "trappings": [
+                "Pony and Cart",
             ],
         },
     },
@@ -108,6 +293,66 @@ PEASANTS_CLASS_DATA = {
                 "Sturdy Boots and Cloak",
             ],
         },
+        "Hunter": {
+            "status": {"tier": "Brass", "standing": 4},
+            "attributes": ["Ballistic Skill"],
+            "skills": [
+                "Cool",
+                "Intuition",
+                "Melee (Basic)",
+                "Ranged (Bow)",
+                "Secret Signs (Hunter)",
+                "Stealth (Rural)",
+            ],
+            "talents": [
+                "Accurate Shot",
+                "Fast Shot",
+                "Hunter’s Eye",
+                "Marksman",
+            ],
+            "trappings": [
+                "Bow with 10 arrows",
+            ],
+        },
+        "Tracker": {
+            "status": {"tier": "Silver", "standing": 1},
+            "attributes": ["Initiative"],
+            "skills": [
+                "Navigation",
+                "Ride (Horse)",
+                "Swim",
+                "Track",
+            ],
+            "talents": [
+                "Acute Sense (any)",
+                "Deadeye Shot",
+                "Fearless (Animals)",
+                "Sharpshooter",
+            ],
+            "trappings": [
+                "Backpack",
+                "Bedroll",
+                "Tent",
+            ],
+        },
+        "Huntsmaster": {
+            "status": {"tier": "Silver", "standing": 3},
+            "attributes": ["Intelligence"],
+            "skills": [
+                "Animal Care",
+                "Animal Training (Any)",
+            ],
+            "talents": [
+                "Fearless (Monsters)",
+                "Robust",
+                "Sniper",
+                "Sure Shot",
+            ],
+            "trappings": [
+                "Riding Horse with Saddle and Tack",
+                "Kennel of Hunting Dogs",
+            ],
+        },
     },
     "Miner": {
         "Prospector": {
@@ -136,6 +381,69 @@ PEASANTS_CLASS_DATA = {
                 "Spade",
             ],
         },
+        "Miner": {
+            "status": {"tier": "Brass", "standing": 3},
+            "attributes": ["Weapon Skill"],
+            "skills": [
+                "Climb",
+                "Consume Alcohol",
+                "Evaluate",
+                "Melee (Basic)",
+                "Secret Signs (Miner)",
+                "Trade (Explosives)",
+            ],
+            "talents": [
+                "Night Vision",
+                "Strike Mighty Blow",
+                "Strong Back",
+                "Very Strong",
+            ],
+            "trappings": [
+                "Davrich Lamp",
+                "Hand Weapon (Pick)",
+                "Lamp Oil",
+                "Leather Jack",
+            ],
+        },
+        "Master Miner": {
+            "status": {"tier": "Brass", "standing": 5},
+            "attributes": ["Initiative"],
+            "skills": [
+                "Gossip",
+                "Lore (Geology)",
+                "Stealth (Underground)",
+                "Trade (Engineer)",
+            ],
+            "talents": [
+                "Careful Strike",
+                "Craftsman (Explosives)",
+                "Tinker",
+                "Tunnel Rat",
+            ],
+            "trappings": [
+                "Great Weapon (Two-handed Pick)",
+                "Helmet",
+                "Trade Tools (Engineer)",
+            ],
+        },
+        "Mine Foreman": {
+            "status": {"tier": "Silver", "standing": 4},
+            "attributes": ["Fellowship"],
+            "skills": [
+                "Charm",
+                "Leadership",
+            ],
+            "talents": [
+                "Argumentative",
+                "Strong-minded",
+                "Embezzle",
+                "Read/Write",
+            ],
+            "trappings": [
+                "Crew of Miners",
+                "Writing Kit",
+            ],
+        },
     },
     "Mystic": {
         "Fortune Teller": {
@@ -160,6 +468,63 @@ PEASANTS_CLASS_DATA = {
             "trappings": [
                 "Deck of Cards or Dice",
                 "Cheap Jewellery",
+            ],
+        },
+        "Mystic": {
+            "status": {"tier": "Brass", "standing": 2},
+            "attributes": ["Willpower"],
+            "skills": [
+                "Bribery",
+                "Cool",
+                "Entertain (Prophecy)",
+                "Evaluate",
+                "Intimidate",
+                "Lore (Astrology)",
+            ],
+            "talents": [
+                "Detect Artefact",
+                "Holy Visions",
+                "Sixth Sense",
+                "Well-prepared",
+            ],
+            "trappings": [
+                "Selection of Amulets",
+            ],
+        },
+        "Sage": {
+            "status": {"tier": "Brass", "standing": 3},
+            "attributes": ["Agility"],
+            "skills": [
+                "Art (Writing)",
+                "Charm Animal",
+                "Entertain (Storytelling)",
+                "Language (Any)",
+            ],
+            "talents": [
+                "Nose for Trouble",
+                "Petty Magic",
+                "Read/Write",
+                "Witch!",
+            ],
+            "trappings": [
+                "Trade Tools (Writing)",
+            ],
+        },
+        "Seer": {
+            "status": {"tier": "Brass", "standing": 4},
+            "attributes": ["Intelligence"],
+            "skills": [
+                "Lore (Prophecy)",
+                "Channelling (Azyr)",
+            ],
+            "talents": [
+                "Arcane Magic (Celestial)",
+                "Magical Sense",
+                "Menacing",
+                "Strong-minded",
+            ],
+            "trappings": [
+                "Trade Tools (Astrology)",
             ],
         },
     },
@@ -190,6 +555,68 @@ PEASANTS_CLASS_DATA = {
                 "Rope",
             ],
         },
+        "Scout": {
+            "status": {"tier": "Brass", "standing": 5},
+            "attributes": ["Ballistic Skill"],
+            "skills": [
+                "Athletics",
+                "Navigation",
+                "Ranged (Bow)",
+                "Ride (Horse)",
+                "Stealth (Rural)",
+                "Track",
+            ],
+            "talents": [
+                "Combat Aware",
+                "Night Vision",
+                "Nose for Trouble",
+                "Seasoned Traveller",
+            ],
+            "trappings": [
+                "Bow and 10 Arrows",
+                "Mail Shirt",
+            ],
+        },
+        "Pathfinder": {
+            "status": {"tier": "Silver", "standing": 1},
+            "attributes": ["Intelligence"],
+            "skills": [
+                "Animal Care",
+                "Haggle",
+                "Secret Signs (Hunter)",
+                "Swim",
+            ],
+            "talents": [
+                "Acute Sense (Sight)",
+                "Sixth Sense",
+                "Strong Legs",
+                "Very Resilient",
+            ],
+            "trappings": [
+                "Map",
+                "Riding Horse with Saddle and Tack",
+                "Saddlebags with 2 weeks’ Rations",
+                "Tent",
+            ],
+        },
+        "Explorer": {
+            "status": {"tier": "Silver", "standing": 5},
+            "attributes": ["Dexterity"],
+            "skills": [
+                "Language (any)",
+                "Trade (Cartographer)",
+            ],
+            "talents": [
+                "Hardy",
+                "Linguistics",
+                "Savant (Local)",
+                "Tenacious",
+            ],
+            "trappings": [
+                "Selection of Maps",
+                "Trade Tools (Cartographer)",
+            ],
+        },
     },
     "Villager": {
         "Peasant": {
@@ -212,6 +639,66 @@ PEASANTS_CLASS_DATA = {
                 "Stone Soup",
             ],
             "trappings": [],
+        },
+        "Villager": {
+            "status": {"tier": "Brass", "standing": 3},
+            "attributes": ["Weapon Skill"],
+            "skills": [
+                "Dodge",
+                "Drive",
+                "Entertain (Storytelling)",
+                "Haggle",
+                "Melee (Basic)",
+                "Trade (Any)",
+            ],
+            "talents": [
+                "Animal Affinity",
+                "Hardy",
+                "Tenacious",
+                "Very Strong",
+            ],
+            "trappings": [
+                "Leather Jerkin",
+                "Hand Weapon (Axe)",
+                "Trade Tools (as Trade)",
+            ],
+        },
+        "Councillor": {
+            "status": {"tier": "Brass", "standing": 4},
+            "attributes": ["Fellowship"],
+            "skills": [
+                "Bribery",
+                "Charm",
+                "Intimidate",
+                "Leadership",
+            ],
+            "talents": [
+                "Craftsman (Any)",
+                "Dealmaker",
+                "Stout-hearted",
+                "Very Resilient",
+            ],
+            "trappings": [
+                "Mule and Cart",
+                "Village Home and Workshop",
+            ],
+        },
+        "Village Elder": {
+            "status": {"tier": "Silver", "standing": 2},
+            "attributes": ["Intelligence"],
+            "skills": [
+                "Intuition",
+                "Lore (History)",
+            ],
+            "talents": [
+                "Master Tradesman (Any)",
+                "Nimble Fingered",
+                "Public Speaker",
+                "Savant (Local)",
+            ],
+            "trappings": [
+                "The Respect of the Village",
+            ],
         },
     },
 }

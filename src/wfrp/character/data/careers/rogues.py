@@ -25,6 +25,65 @@ ROGUES_CLASS_DATA = {
                 "Flask of Spirits",
             ],
         },
+        "Bawd": {
+            "status": {"tier": "Brass", "standing": 3},
+            "attributes": ["Initiative"],
+            "skills": [
+                "Dodge",
+                "Endurance",
+                "Intuition",
+                "Lore (Local)",
+                "Melee (Basic)",
+                "Perception",
+            ],
+            "talents": [
+                "Ambidextrous",
+                "Carouser",
+                "Criminal",
+                "Resistance (Disease)",
+            ],
+            "trappings": [
+                "Dose of Weirdroot",
+                "Quality Clothing",
+            ],
+        },
+        "Procurer": {
+            "status": {"tier": "Silver", "standing": 1},
+            "attributes": ["Willpower"],
+            "skills": [
+                "Cool",
+                "Evaluate",
+                "Language (any)",
+                "Lore (Law)",
+            ],
+            "talents": [
+                "Dealmaker",
+                "Embezzle",
+                "Etiquette (Any)",
+                "Suave",
+            ],
+            "trappings": [
+                "A Ring of Hustlers",
+            ],
+        },
+        "Ringleader": {
+            "status": {"tier": "Silver", "standing": 3},
+            "attributes": ["Intelligence"],
+            "skills": [
+                "Leadership",
+                "Lore (Heraldry)",
+            ],
+            "talents": [
+                "Briber",
+                "Kingpin",
+                "Numismatics",
+                "Savvy",
+            ],
+            "trappings": [
+                "Townhouse with Discreet Back Entrance",
+                "a Ring of Bawds",
+            ],
+        },
     },
     "Charlatan": {
         "Swindler": {
@@ -53,6 +112,69 @@ ROGUES_CLASS_DATA = {
                 "Dice",
             ],
         },
+        "Charlatan": {
+            "status": {"tier": "Brass", "standing": 5},
+            "attributes": ["Willpower"],
+            "skills": [
+                "Cool",
+                "Dodge",
+                "Entertain (Acting)",
+                "Evaluate",
+                "Intuition",
+                "Perception",
+            ],
+            "talents": [
+                "Blather",
+                "Criminal",
+                "Fast Hands",
+                "Secret Identity",
+            ],
+            "trappings": [
+                "1 Forged Document",
+                "2 Sets of Quality Clothing",
+                "Selection of Coloured Powders and Water",
+                "Selection of Trinkets and Charms",
+            ],
+        },
+        "Con Artist": {
+            "status": {"tier": "Silver", "standing": 2},
+            "attributes": ["Agility"],
+            "skills": [
+                "Language (Thief)",
+                "Lore (Heraldry)",
+                "Pick Lock",
+                "Secret Signs (Thief)",
+            ],
+            "talents": [
+                "Attractive",
+                "Cat-tongued",
+                "Dealmaker",
+                "Read/Write",
+            ],
+            "trappings": [
+                "Disguise Kit",
+                "Lock Picks",
+                "Multiple Forged Documents",
+            ],
+        },
+        "Scoundrel": {
+            "status": {"tier": "Silver", "standing": 4},
+            "attributes": ["Intelligence"],
+            "skills": [
+                "Lore (Genealogy)",
+                "Research",
+            ],
+            "talents": [
+                "Gregarious",
+                "Master of Disguise",
+                "Nose for Trouble",
+                "Suave",
+            ],
+            "trappings": [
+                "Forged Seal",
+                "Writing Kit",
+            ],
+        },
     },
     "Fence": {
         "Broker": {
@@ -77,6 +199,67 @@ ROGUES_CLASS_DATA = {
             "trappings": [
                 "Hand Weapon",
                 f"Stolen Goods worth {roll_3d10()} Shillings",
+            ],
+        },
+        "Fence": {
+            "status": {"tier": "Silver", "standing": 2},
+            "attributes": ["Dexterity"],
+            "skills": [
+                "Cool",
+                "Intimidate",
+                "Intuition",
+                "Perception",
+                "Secret Signs (Thief)",
+                "Trade (Engraver)",
+            ],
+            "talents": [
+                "Criminal",
+                "Etiquette (Criminals)",
+                "Numismatics",
+                "Savvy",
+            ],
+            "trappings": [
+                "Eye-glass",
+                "Trade Tools (Engraver)",
+                "Writing Kit",
+            ],
+        },
+        "Master Fence": {
+            "status": {"tier": "Silver", "standing": 3},
+            "attributes": ["Intelligence"],
+            "skills": [
+                "Bribery",
+                "Entertain (Storytelling)",
+                "Lore (Art)",
+                "Lore (Local)",
+            ],
+            "talents": [
+                "Kingpin",
+                "Strike to Stun",
+                "Suave",
+                "Super Numerate",
+            ],
+            "trappings": [
+                "Pawnbroker’s Shop",
+            ],
+        },
+        "lack Marketeer": {
+            "status": {"tier": "Silver", "standing": 4},
+            "attributes": ["Willpower"],
+            "skills": [
+                "Lore (Heraldry)",
+                "Research",
+            ],
+            "talents": [
+                "Dirty Fighting",
+                "Iron Will",
+                "Menacing",
+                "Briber",
+            ],
+            "trappings": [
+                "Hired Muscle",
+                "Network of Informants",
+                "Warehouse",
             ],
         },
     },
@@ -107,6 +290,74 @@ ROGUES_CLASS_DATA = {
                 "Tarpaulin",
             ],
         },
+        "Grave Robber": {
+            "status": {"tier": "Brass", "standing": 3},
+            "attributes": ["Weapon Skill"],
+            "skills": [
+                "Bribery",
+                "Drive",
+                "Evaluate",
+                "Haggle",
+                "Lore (Medicine)",
+                "Melee (Basic)",
+            ],
+            "talents": [
+                "Break and Enter",
+                "Night Vision",
+                "Resistance (Disease)",
+                "Very Strong",
+            ],
+            "trappings": [
+                "Backpack",
+                "Hand Weapon",
+                "Spade",
+                "Storm Lantern and Oil",
+            ],
+        },
+        "Tomb Robber": {
+            "status": {"tier": "Silver", "standing": 1},
+            "attributes": ["Dexterity"],
+            "skills": [
+                "Lore (History)",
+                "Pick Lock",
+                "Research",
+                "Set Trap",
+            ],
+            "talents": [
+                "Read/Write",
+                "Strike Mighty Blow",
+                "Tenacious",
+                "Tunnel Rat",
+            ],
+            "trappings": [
+                "Hand Weapon (Pick)",
+                "Horse and Cart",
+                "Leather Jack",
+                "Rope",
+                "Trade Tools (Thief)",
+            ],
+        },
+        "Treasure Hunter": {
+            "status": {"tier": "Silver", "standing": 5},
+            "attributes": ["Intelligence"],
+            "skills": [
+                "Navigation",
+                "Trade (Engineer)",
+            ],
+            "talents": [
+                "Fearless (Undead)",
+                "Sixth Sense",
+                "Strong-minded",
+                "Trapper",
+            ],
+            "trappings": [
+                "Bedroll",
+                "Maps",
+                "Tent",
+                "Trade Tools (Engineer)",
+                "Writing Kit",
+            ],
+        },
     },
     "Outlaw": {
         "Brigand": {
@@ -135,6 +386,69 @@ ROGUES_CLASS_DATA = {
                 "Tinderbox",
             ],
         },
+        "Outlaw": {
+            "status": {"tier": "Brass", "standing": 2},
+            "attributes": ["Ballistic Skill"],
+            "skills": [
+                "Dodge",
+                "Heal",
+                "Lore (Local)",
+                "Perception",
+                "Ranged (Bow)",
+                "Stealth (Rural)",
+            ],
+            "talents": [
+                "Dirty Fighting",
+                "Marksman",
+                "Strike to Stun",
+                "Trapper",
+            ],
+            "trappings": [
+                "Bow with 10 Arrows",
+                "Shield",
+                "Tent",
+            ],
+        },
+        "Outlaw Chief": {
+            "status": {"tier": "Brass", "standing": 4},
+            "attributes": ["Initiative"],
+            "skills": [
+                "Gossip",
+                "Intuition",
+                "Leadership",
+                "Ride (Horse)",
+            ],
+            "talents": [
+                "Rapid Reload",
+                "Roughrider",
+                "Menacing",
+                "Very Resilient",
+            ],
+            "trappings": [
+                "Helmet",
+                "Riding Horse with Saddle and Tack",
+                "Sleeved Mail Shirt",
+                "Band of Outlaws",
+            ],
+        },
+        "Bandit King": {
+            "status": {"tier": "Silver", "standing": 2},
+            "attributes": ["Fellowship"],
+            "skills": [
+                "Charm",
+                "Lore (Empire)",
+            ],
+            "talents": [
+                "Deadeye Shot",
+                "Fearless (Road Wardens)",
+                "Iron Will",
+                "Robust",
+            ],
+            "trappings": [
+                "‘Fiefdom’ of Outlaw Chiefs",
+                "Lair",
+            ],
+        },
     },
     "Racketeer": {
         "Thug": {
@@ -159,6 +473,69 @@ ROGUES_CLASS_DATA = {
             "trappings": [
                 "Knuckledusters",
                 "Leather Jack",
+            ],
+        },
+        "Racketeer": {
+            "status": {"tier": "Brass", "standing": 5},
+            "attributes": ["Fellowship"],
+            "skills": [
+                "Bribery",
+                "Charm",
+                "Evaluate",
+                "Gossip",
+                "Language (Estalian or Tilean)",
+                "Melee (Basic)",
+            ],
+            "talents": [
+                "Dirty Fighting",
+                "Embezzle",
+                "Strike to Stun",
+                "Warrior Born",
+            ],
+            "trappings": [
+                "Hand Weapon",
+                "Hat",
+                "Mail Shirt",
+            ],
+        },
+        "Gang Boss": {
+            "status": {"tier": "Silver", "standing": 1},
+            "attributes": ["Willpower"],
+            "skills": [
+                "Intuition",
+                "Leadership",
+                "Perception",
+                "Ranged (Crossbow)",
+            ],
+            "talents": [
+                "Fearless (Watchmen)",
+                "Iron Will",
+                "Resistance (Poison)",
+                "Robust",
+            ],
+            "trappings": [
+                "Crossbow Pistol with 10 Bolts",
+                "Gang of Thugs and Racketeers",
+                "Lair",
+            ],
+        },
+        "Crime Lord": {
+            "status": {"tier": "Silver", "standing": 5},
+            "attributes": ["Intelligence"],
+            "skills": [
+                "Lore (Law)",
+                "Lore (Politics)",
+            ],
+            "talents": [
+                "Commanding Presence",
+                "Kingpin",
+                "Frightening",
+                "Wealthy",
+            ],
+            "trappings": [
+                "Network of Informers",
+                "Quality Clothing and Hat",
+                "Subordinate Gang Bosses",
             ],
         },
     },
@@ -188,6 +565,66 @@ ROGUES_CLASS_DATA = {
                 "Sack",
             ],
         },
+        "Thief": {
+            "status": {"tier": "Brass", "standing": 3},
+            "attributes": ["Dexterity"],
+            "skills": [
+                "Evaluate",
+                "Gossip",
+                "Lore (Local)",
+                "Pick Lock",
+                "Secret Signs (Thief)",
+                "Sleight of Hand",
+            ],
+            "talents": [
+                "Break and Enter",
+                "Etiquette (Criminals)",
+                "Fast Hands",
+                "Shadow",
+            ],
+            "trappings": [
+                "Trade Tools (Thief)",
+                "Rope",
+            ],
+        },
+        "Master Thief": {
+            "status": {"tier": "Brass", "standing": 5},
+            "attributes": ["Strength"],
+            "skills": [
+                "Bribery",
+                "Gamble",
+                "Intimidate",
+                "Ranged (Crossbow)",
+            ],
+            "talents": [
+                "Night Vision",
+                "Nimble Fingered",
+                "Step Aside",
+                "Trapper",
+            ],
+            "trappings": [
+                "Crossbow Pistol with 10 Bolts",
+            ],
+        },
+        "Cat Burglar": {
+            "status": {"tier": "Silver", "standing": 1},
+            "attributes": ["Fellowship"],
+            "skills": [
+                "Charm",
+                "Set Trap",
+            ],
+            "talents": [
+                "Catfall",
+                "Scale Sheer Surface",
+                "Strong Legs",
+                "Wealthy",
+            ],
+            "trappings": [
+                "Dark Clothing",
+                "Grappling Hook",
+                "Mask or Scarves",
+            ],
+        },
     },
     "Witch": {
         "Hexer": {
@@ -214,6 +651,69 @@ ROGUES_CLASS_DATA = {
                 "Chalk",
                 "Doll",
                 "Pins",
+            ],
+        },
+        "Witch": {
+            "status": {"tier": "Brass", "standing": 2},
+            "attributes": ["Initiative"],
+            "skills": [
+                "Charm Animal",
+                "Dodge",
+                "Intuition",
+                "Melee (Polearm)",
+                "Perception",
+                "Trade (Herbalist)",
+            ],
+            "talents": [
+                "Arcane Magic (Witchery)",
+                "Attractive",
+                "Second Sight",
+                "Witch!",
+            ],
+            "trappings": [
+                "Quarterstaff",
+                "Sack",
+                "Selection of Herbs",
+                "Trade Tools (Herbalist)",
+            ],
+        },
+        "Wyrd": {
+            "status": {"tier": "Brass", "standing": 3},
+            "attributes": ["Fellowship"],
+            "skills": [
+                "Bribery",
+                "Charm",
+                "Haggle",
+                "Lore (Dark Magic)",
+            ],
+            "talents": [
+                "Animal Affinity",
+                "Fast Hands",
+                "Frightening",
+                "Magical Sense",
+            ],
+            "trappings": [
+                "Backpack",
+                "Cloak with Several Pockets",
+                "Lucky Charm",
+            ],
+        },
+        "Warlock": {
+            "status": {"tier": "Brass", "standing": 5},
+            "attributes": ["Intelligence"],
+            "skills": [
+                "Lore (Daemonology)",
+                "Lore (Magic)",
+            ],
+            "talents": [
+                "Aethyric Attunement",
+                "Luck",
+                "Strong-minded",
+                "Very Resilient",
+            ],
+            "trappings": [
+                "Robes",
+                "Skull",
             ],
         },
     },

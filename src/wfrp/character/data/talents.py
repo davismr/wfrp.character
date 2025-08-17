@@ -100,6 +100,40 @@ BASIC_TALENTS = {
             "having nearby young."
         ),
     },
+    "Arcane Magic": {
+        "max": 1,
+        "short_description": "",
+        "description": (
+            "You either study one of the 8 Arcane Lores of Magic — Beasts, Death, "
+            "Fire, Heavens, Metal, Shadow, Light, or Life — or practice a lesser known "
+            "Lore, such as Hedgecraft or Necromancy. You may now memorise spells from "
+            "your chosen Lore for the following cost in XP. Number of Spells Currently "
+            "Known Up to Intelligence Bonus × 1 Up to Intelligence Bonus × 2 Up to "
+            "Intelligence Bonus × 3 Up to Intelligence Bonus × 4 ...and so on."
+            "XP Cost for a new spell"
+            "100 XP"
+            "200 XP"
+            "300 XP"
+            "400 XP"
+            "So, if your Intelligence Bonus is 4, it will cost you 100 XP for the "
+            "first spell, and the next 4, then 200 XP for the next 4, and so on. Full "
+            "rules for learning new spells are provided in Chapter 8: Magic. Under "
+            "normal circumstances, you may not learn more than one Arcane Magic (Lore) "
+            "Talent. Further, you may not learn the Bless or Invoke Talents when you "
+            "have the Arcane Magic Talent. You can unlearn this Talent for 100 XP, but "
+            "will immediately lose all of your spells if you do so."
+        ),
+    },
+    "Argumentative": {
+        "max": "Fellowship",
+        "tests": "Charm Tests when arguing and debating",
+        "description": (
+            "You are used to arguing your points and winning. If you roll a successful "
+            "Charm Test to debate with an opponent, you can choose to either use your "
+            "rolled SL, or the number rolled on your units die. So, a successful roll "
+            "of 24 could be used for +4 SL."
+        ),
+    },
     "Artistic": {
         "description": (
             "You have a natural talent for art, able to produce precise sketches with "
@@ -118,6 +152,15 @@ BASIC_TALENTS = {
             "attracted to you, you can choose to either use your rolled SL, or the "
             "number rolled on your units die. So, a successful roll of 38 could be "
             "used for +8 SL."
+        ),
+    },
+    "Battle Rage": {
+        "max": "Willpower",
+        "tests": "Melee Tests when Frenzied",
+        "short_description": "",
+        "description": (
+            "You are better able to control your Frenzy in combat. You can end your "
+            "Frenzy with a successful Cool Test at the end of the round."
         ),
     },
     "Beat Blade": {
@@ -629,6 +672,38 @@ BASIC_TALENTS = {
             "significant events have occurred there in the past."
         ),
     },
+    "Hunter’s Eye": {
+        "max": "Initiative",
+        "tests": "Any Test to trail or capture game",
+        "short_description": "",
+        "description": (
+            "You are a skilled hunter and know all the best techniques to find game. "
+            "When travelling through well-stocked lands, you are automatically assumed "
+            "to be able to hunt down enough game to feed yourself and a number of "
+            "others equal to your level in Hunter’s Eye, so long as you have time and "
+            "the correct equipment. You may secure more food in addition to this using "
+            "the normal rules for foraging (see page 127)."
+        ),
+    },
+    "Impassioned Zeal": {
+        "max": "Fellowship",
+        "tests": "Charm when speaking about your cause",
+        "description": (
+            "When you talk about your cause, case, or religion, your words fill with "
+            "passion and fervent zeal. You may double your Fellowship for the purposes "
+            "of determining the number of people influenced by your Public Speaking "
+            "(see page 142) when talking about your cause."
+        ),
+    },
+    "Implacable": {
+        "max": "Toughness",
+        "short_description": "",
+        "description": (
+            "It takes a lot to finish you off. You can ignore the Wound loss from a "
+            "Bleeding Condition. Each level in this Talent lets you ignore the Wound "
+            "loss from an extra Bleeding Condition."
+        ),
+    },
     "In-fighter": {
         "description": (
             "You are skilled at drawing in close to an opponent. You suffer no "
@@ -715,6 +790,17 @@ BASIC_TALENTS = {
             "communicate with others, so does not work with Language (Magick)."
         ),
     },
+    "Lip Reading": {
+        "max": "Initiative",
+        "tests": "Perception Tests concerning this Talent",
+        "short_description": "",
+        "description": (
+            "You can tell what people are saying by simply watching their lips; you do "
+            "not need to hear what they are saying. If you have an unobstructed view "
+            "of the speaker’s lower face, you can attempt a Perception Test to "
+            "understand what they are saying."
+        ),
+    },
     "Luck": {
         "description": (
             "They say when you were born, Ranald smiled. Your maximum Fortune Points "
@@ -728,12 +814,57 @@ BASIC_TALENTS = {
             "this Talent."
         ),
     },
+    "Magical Sense": {
+        "max": "Initiative",
+        "tests": "Intuition Tests to detect Wizards",
+        "short_description": "",
+        "description": (
+            "You are able to sense the Winds of Magic in others. You may attempt an "
+            "Average (+20) Intuition Test whenever you encounter a spellcaster. If you "
+            "pass, you sense the target is a witch. Further, if you score an "
+            "Astounding Success (+6), can also determine the target’s highest "
+            "Channelling Specialisation."
+        ),
+    },
+    "Magnum Opus": {
+        "max": None,
+        "description": (
+            "You are an undisputed master in your field, able to create work of such "
+            "incredible complexity others can but sit back and marvel at your genius. "
+            "Each time you take this Talent you may create a single, extraordinary "
+            "work of art with one of your Art or Trade Skills. This work is unrivalled "
+            "in your field, a unique piece that will always impress, giving bonuses as "
+            "determined by the GM, most commonly to Fellowship Tests from those who "
+            "have witnessed your astounding work. Selling the piece will net you at "
+            "least ten times its normal value, and sometimes significantly more than "
+            "this."
+        ),
+    },
     "Marksman": {
         "max": 1,
-        "short_description": ("+5 BS, already included"),
+        "short_description": "+5 BS, already included",
         "description": (
             "You gain a permanent +5 bonus to your starting Ballistic Skill "
             "(this does not count towards your Advances)."
+        ),
+    },
+    "Master of Disguise": {
+        "max": "Fellowship",
+        "tests": "Entertain (Acting) when being someone else",
+        "short_description": "",
+        "description": (
+            "You are an expert at taking on the appearance and mannerisms of others. "
+            "With nothing but posture changes, face twisting, and careful use of "
+            "appropriate clothing, you no longer look like yourself without having to "
+            "use a Disguise Kit."
+        ),
+    },
+    "Master Orator": {
+        "max": "Fellowship",
+        "description": (
+            "You are skilled at firing up crowds. You gain a gain a SL bonus equal to "
+            "your levels of Master Orator to any Charm Test when Public Speaking "
+            "before a crowd."
         ),
     },
     "Master Tradesman": {
@@ -1070,6 +1201,25 @@ BASIC_TALENTS = {
             "(this does not count towards your Advances)."
         ),
     },
+    "Sharpshooter": {
+        "max": 1,
+        "short_description": "",
+        "description": (
+            "You can make aimed shots of exceptional accuracy. You ignore any negative "
+            "Difficulty modifiers to Ranged Tests due to the size of your target."
+        ),
+    },
+    "Shieldsman": {
+        "max": "Strength",
+        "tests": "Any Test to defend with a shield",
+        "short_description": "",
+        "description": (
+            "You are skilled at using your shield to manoeuvre others in combat so you "
+            "can take advantage of a desperate situation. When using a Shield to "
+            "defend, you gain Advantage equal to the number of levels you have in "
+            "Shieldsman if you lose the Opposed Test."
+        ),
+    },
     "Sixth Sense": {
         "short_description": "GM may warn you of peril",
         "description": (
@@ -1319,7 +1469,7 @@ BASIC_TALENTS = {
             "are specifically on look-out, or watching for hidden others."
         ),
     },
-    "Unshakable": {
+    "Unshakeable": {
         "description": (
             "You are a jaded veteran who has survived more than one hail of shots from "
             "Blackpowder weapons. You need only take a Cool Test to resist a Broken "

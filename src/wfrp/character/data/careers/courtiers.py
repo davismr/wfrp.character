@@ -26,6 +26,66 @@ COURTIERS_CLASS_DATA = {
                 "Writing Kit",
             ],
         },
+        "Advisor": {
+            "status": {"tier": "Silver", "standing": 4},
+            "attributes": ["Fellowship"],
+            "skills": [
+                "Charm",
+                "Cool",
+                "Evaluate",
+                "Gamble",
+                "Intuition",
+                "Lore (Local)",
+            ],
+            "talents": [
+                "Blather",
+                "Criminal",
+                "Schemer",
+                "Supportive",
+            ],
+            "trappings": [
+                "Livery",
+            ],
+        },
+        "Counsellor": {
+            "status": {"tier": "Gold", "standing": 1},
+            "attributes": ["Intelligence"],
+            "skills": [
+                "Entertain (Storytelling)",
+                "Leadership",
+                "Language (Any)",
+                "Lore (Any)",
+            ],
+            "talents": [
+                "Argumentative",
+                "Briber",
+                "Carouser",
+                "Cat-tongued",
+            ],
+            "trappings": [
+                "Quality Clothing",
+                "Aide",
+            ],
+        },
+        "Chancellor": {
+            "status": {"tier": "Gold", "standing": 3},
+            "attributes": ["Willpower"],
+            "skills": [
+                "Lore (Heraldry)",
+                "Ride (Horse)",
+            ],
+            "talents": [
+                "Commanding Presence",
+                "Embezzle",
+                "Kingpin",
+                "Suave",
+            ],
+            "trappings": [
+                "Riding Horse with Saddle and Harness",
+                "Quality Courtly Garb",
+                "Staff of Advisors and Aides",
+            ],
+        },
     },
     "Artist": {
         "Apprentice Artist": {
@@ -49,6 +109,67 @@ COURTIERS_CLASS_DATA = {
             ],
             "trappings": [
                 "Brush or Chisel or Quill Pen",
+            ],
+        },
+        "Artist": {
+            "status": {"tier": "Silver", "standing": 3},
+            "attributes": ["Fellowship"],
+            "skills": [
+                "Climb",
+                "Gamble",
+                "Haggle",
+                "Intuition",
+                "Language (Classical)",
+                "Trade (Art Supplies)",
+            ],
+            "talents": [
+                "Carouser",
+                "Criminal",
+                "Gregarious",
+                "Nimble Fingered",
+            ],
+            "trappings": [
+                "Sling Bag containing Trade Tools (Artist)",
+            ],
+        },
+        "Master Artist": {
+            "status": {"tier": "Silver", "standing": 5},
+            "attributes": ["Willpower"],
+            "skills": [
+                "Charm",
+                "Leadership",
+                "Lore (Art)",
+                "Lore (Heraldry)",
+            ],
+            "talents": [
+                "Acute Sense (Any)",
+                "Dealmaker",
+                "Etiquette (any)",
+                "Nose for Trouble",
+            ],
+            "trappings": [
+                "Apprentice",
+                "Patron",
+                "Workshop (Artist)",
+            ],
+        },
+        "Maestro": {
+            "status": {"tier": "Gold", "standing": 2},
+            "attributes": ["Intelligence"],
+            "skills": [
+                "Research",
+                "Ride (Horse)",
+            ],
+            "talents": [
+                "Ambidextrous",
+                "Kingpin",
+                "Magnum Opus",
+                "Read/Write",
+            ],
+            "trappings": [
+                "Large Workshop (Artist)",
+                "Library (Art)",
+                "3 Apprentices",
             ],
         },
     },
@@ -78,6 +199,67 @@ COURTIERS_CLASS_DATA = {
                 f"{roll_d10()} Bandages",
             ],
         },
+        "Duellist": {
+            "status": {"tier": "Silver", "standing": 5},
+            "attributes": ["Ballistic Skill"],
+            "skills": [
+                "Charm",
+                "Cool",
+                "Gamble",
+                "Melee (Parry)",
+                "Ranged (Blackpowder)",
+                "Trade (Gunsmith)",
+            ],
+            "talents": [
+                "Combat Reflexes",
+                "Etiquette (Any)",
+                "Fast Shot",
+                "Reversal",
+            ],
+            "trappings": [
+                "Main Gauche or Sword-breaker",
+                "Pistol with Gunpowder and Ammunition",
+            ],
+        },
+        "Duelmaster": {
+            "status": {"tier": "Gold", "standing": 1},
+            "attributes": ["Strength"],
+            "skills": [
+                "Intimidate",
+                "Leadership",
+                "Melee (Basic)",
+                "Perform (Acrobatics)",
+            ],
+            "talents": [
+                "Ambidextrous",
+                "Disarm",
+                "Dual Wielder",
+                "Riposte",
+            ],
+            "trappings": [
+                "Quality Rapier",
+                "Hand Weapon",
+                "Trusty Second",
+                "2 Wooden Training Swords",
+            ],
+        },
+        "Judicial Champion": {
+            "status": {"tier": "Gold", "standing": 3},
+            "attributes": ["Willpower"],
+            "skills": [
+                "Lore (Law)",
+                "Melee (Any)",
+            ],
+            "talents": [
+                "Combat Master",
+                "Menacing",
+                "Reaction Strike",
+                "Strike to Injure",
+            ],
+            "trappings": [
+                "2 Quality Weapons",
+            ],
+        },
     },
     "Envoy": {
         "Herald": {
@@ -103,6 +285,69 @@ COURTIERS_CLASS_DATA = {
                 "Leather Jack",
                 "Livery",
                 "Scroll Case",
+            ],
+        },
+        "Envoy": {
+            "status": {"tier": "Silver", "standing": 4},
+            "attributes": ["Intelligence"],
+            "skills": [
+                "Art (Writing)",
+                "Bribery",
+                "Cool",
+                "Gossip",
+                "Haggle",
+                "Lore (Politics)",
+            ],
+            "talents": [
+                "Attractive",
+                "Cat-tongued",
+                "Etiquette (any)",
+                "Seasoned Traveller",
+            ],
+            "trappings": [
+                "Quill and Ink",
+                "10 sheets of parchment",
+            ],
+        },
+        "Diplomat": {
+            "status": {"tier": "Gold", "standing": 2},
+            "attributes": ["Initiative"],
+            "skills": [
+                "Intimidate",
+                "Language (Any)",
+                "Leadership",
+                "Navigation",
+            ],
+            "talents": [
+                "Carouser",
+                "Dealmaker",
+                "Gregarious",
+                "Schemer",
+            ],
+            "trappings": [
+                "Aide",
+                "Quality Clothes",
+                "Map",
+            ],
+        },
+        "Ambassador": {
+            "status": {"tier": "Gold", "standing": 5},
+            "attributes": ["Willpower"],
+            "skills": [
+                "Language (Any)",
+                "Lore (Any)",
+            ],
+            "talents": [
+                "Briber",
+                "Commanding Presence",
+                "Noble Blood",
+                "Savvy",
+            ],
+            "trappings": [
+                "Aide",
+                "Best Quality Courtly Clothes",
+                "Staff of Diplomats",
+                "Herald",
             ],
         },
     },
@@ -133,6 +378,76 @@ COURTIERS_CLASS_DATA = {
                 "Personal Servant",
             ],
         },
+        "Noble": {
+            "status": {"tier": "Gold", "standing": 3},
+            "attributes": ["Fellowship"],
+            "skills": [
+                "Charm",
+                "Gossip",
+                "Language (Classical)",
+                "Lore (Local)",
+                "Ride (Horse)",
+                "Melee (Parry)",
+            ],
+            "talents": [
+                "Attractive",
+                "Briber",
+                "Carouser",
+                "Suave",
+            ],
+            "trappings": [
+                "4 Household Servants",
+                "Quality Courtly Garb",
+                "Courtly Garb",
+                "Riding Horse with Saddle and Harness or Coach",
+                "Main Gauche or Quality Cloak",
+                "Jewellery worth 50 GC",
+            ],
+        },
+        "Magnate": {
+            "status": {"tier": "Gold", "standing": 5},
+            "attributes": ["Intelligence"],
+            "skills": [
+                "Language (Any)",
+                "Intuition",
+                "Lore (Politics)",
+                "Perception",
+            ],
+            "talents": [
+                "Coolheaded",
+                "Dealmaker",
+                "Public Speaker",
+                "Schemer",
+            ],
+            "trappings": [
+                "2 sets of Quality Courtly Garb",
+                "200 GC",
+                "Fiefdom",
+                "Jewellery worth 200 GC",
+                "Signet Ring",
+            ],
+        },
+        "Noble Lord ": {
+            "status": {"tier": "Gold", "standing": 7},
+            "attributes": ["Willpower"],
+            "skills": [
+                "Lore (Any)",
+                "Track",
+            ],
+            "talents": [
+                "Commanding Presence",
+                "Iron Will",
+                "War Leader",
+                "Wealthy",
+            ],
+            "trappings": [
+                "4 sets of Best Quality Courtly Garb",
+                "Quality Foil or Hand Mirror",
+                "500 GC",
+                "Jewellery worth 500 GC",
+                "Province",
+            ],
+        },
     },
     "Servant": {
         "Menial": {
@@ -156,6 +471,68 @@ COURTIERS_CLASS_DATA = {
             ],
             "trappings": [
                 "Floor Brush",
+            ],
+        },
+        "Servant": {
+            "status": {"tier": "Silver", "standing": 3},
+            "attributes": ["Initiative"],
+            "skills": [
+                "Animal Care",
+                "Consume Alcohol",
+                "Evaluate",
+                "Gamble",
+                "Gossip",
+                "Haggle",
+            ],
+            "talents": [
+                "Etiquette (Servants)",
+                "Shadow",
+                "Tenacious",
+                "Well-prepared",
+            ],
+            "trappings": [
+                "Livery",
+            ],
+        },
+        "Attendant": {
+            "status": {"tier": "Silver", "standing": 5},
+            "attributes": ["Intelligence"],
+            "skills": [
+                "Charm",
+                "Cool",
+                "Intimidate",
+                "Lore (Local)",
+            ],
+            "talents": [
+                "Embezzle",
+                "Resistance (Poison)",
+                "Suave",
+                "Supportive",
+            ],
+            "trappings": [
+                "Quality Livery",
+                "Storm Lantern",
+                "Tinderbox",
+                "Lamp Oil",
+            ],
+        },
+        "Steward": {
+            "status": {"tier": "Gold", "standing": 1},
+            "attributes": ["Fellowship"],
+            "skills": [
+                "Leadership",
+                "Melee (Basic)",
+            ],
+            "talents": [
+                "Etiquette (any)",
+                "Numismatics",
+                "Read/Write",
+                "Savvy",
+            ],
+            "trappings": [
+                "Hand Weapon",
+                "Fine Clothes",
+                "Servant",
             ],
         },
     },
@@ -184,6 +561,72 @@ COURTIERS_CLASS_DATA = {
                 "Sling Bag containing 2 different sets of clothing and Hooded Cloak",
             ],
         },
+        "Spy": {
+            "status": {"tier": "Silver", "standing": 3},
+            "attributes": ["Weapon Skill"],
+            "skills": [
+                "Climb",
+                "Entertain (Act)",
+                "Intuition",
+                "Melee (Basic)",
+                "Secret Signs (Any)",
+                "Sleight of Hand",
+            ],
+            "talents": [
+                "Etiquette (Any)",
+                "Lip Reading",
+                "Read/Write",
+                "Secret Identity",
+            ],
+            "trappings": [
+                "Informer",
+                "Hand Weapon",
+                "Disguise Kit",
+                "Ring of Informers",
+                "Telescope",
+            ],
+        },
+        "Agent": {
+            "status": {"tier": "Gold", "standing": 1},
+            "attributes": ["Initiative"],
+            "skills": [
+                "Animal Care",
+                "Animal Training (Pigeon)",
+                "Language (Any)",
+                "Leadership",
+            ],
+            "talents": [
+                "Attractive",
+                "Cat-tongued",
+                "Master of Disguise",
+                "Mimic",
+            ],
+            "trappings": [
+                "Book (Cryptography)",
+                "Ring of Spies and Informers",
+                "Loft of Homing Pigeons",
+                "Quill and Ink",
+            ],
+        },
+        "Spymaster": {
+            "status": {"tier": "Silver", "standing": 1},
+            "attributes": ["Intelligence"],
+            "skills": [
+                "Lore (Any)",
+                "Research",
+            ],
+            "talents": [
+                "Briber",
+                "Schemer",
+                "Suave",
+                "Tower of Memories",
+            ],
+            "trappings": [
+                "Office and Staff",
+                "Large Spy Ring of Agents",
+                "Spies, and Informers",
+            ],
+        },
     },
     "Warden": {
         "Custodian": {
@@ -210,6 +653,69 @@ COURTIERS_CLASS_DATA = {
                 "Lantern",
                 "Lamp Oil",
                 "Livery",
+            ],
+        },
+        "Warden": {
+            "status": {"tier": "Silver", "standing": 3},
+            "attributes": ["Weapon Skill"],
+            "skills": [
+                "Animal Care",
+                "Melee (Basic)",
+                "Outdoor Survival",
+                "Ranged (Bow)",
+                "Ride (Horse)",
+                "Swim",
+            ],
+            "talents": [
+                "Animal Affinity",
+                "Etiquette (Servants)",
+                "Strider (any)",
+                "Rover",
+            ],
+            "trappings": [
+                "Hand Weapon or Bow with 10 arrows",
+                "Riding Horse with Saddle and Harness",
+                "Leather Jack",
+            ],
+        },
+        "Seneschal": {
+            "status": {"tier": "Gold", "standing": 1},
+            "attributes": ["Fellowship"],
+            "skills": [
+                "Bribery",
+                "Charm",
+                "Gossip",
+                "Leadership",
+            ],
+            "talents": [
+                "Embezzle",
+                "Numismatics",
+                "Read/Write",
+                "Supportive",
+            ],
+            "trappings": [
+                "Breastplate",
+                "Ceremonial Staff of Office",
+                "Staff of Wardens and Custodians",
+            ],
+        },
+        "Governor": {
+            "status": {"tier": "Gold", "standing": 3},
+            "attributes": ["Intelligence"],
+            "skills": [
+                "Evaluate",
+                "Language (Any)",
+            ],
+            "talents": [
+                "Commanding Presence",
+                "Etiquette (any)",
+                "Savant (local)",
+                "Suave",
+            ],
+            "trappings": [
+                "Aide",
+                "Governor’s Residence",
+                "Servant",
             ],
         },
     },
