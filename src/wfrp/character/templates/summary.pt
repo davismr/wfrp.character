@@ -2,6 +2,9 @@
     <div metal:fill-slot="content">
         <div metal:use-macro="load: character_macros/character_summary.pt" />
         <div><a href="/character/${character.id}/experience">Spend experience</a></div>
+        <div>
+            <a href="/character/${character.id}/experience/add">Give experience</a>
+        </div>
         <div><a href="/character/${character.id}/view">Character sheet</a></div>
         <div><a href="/character/${character.id}/edit">Edit Character</a></div>
     </div>

@@ -3,6 +3,9 @@
         <div>
             <a href="/character/${character.id}/experience">Spend experience</a>
         </div>
+        <div>
+            <a href="/character/${character.id}/experience/add">Give experience</a>
+        </div>
         <div><a href="/character/${character.id}/summary">Character summary</a></div>
         <div>
             <a href="/character/${character.id}/pdf_print">

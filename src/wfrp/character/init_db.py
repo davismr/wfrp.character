@@ -9,6 +9,7 @@ from wfrp.character.application import DBSession
 from wfrp.character.models.campaign import Campaign
 from wfrp.character.models.character import Character
 from wfrp.character.models.experience import ExperienceCost
+from wfrp.character.models.experience import ExperienceGain
 from wfrp.character.models.user import User
 
 
@@ -29,4 +30,5 @@ def main(argv=sys.argv):
     Campaign.metadata.create_all(engine)
     Character.metadata.create_all(engine)
     ExperienceCost.metadata.create_all(engine)
+    ExperienceGain.metadata.create_all(engine)
     User.metadata.create_all(engine)

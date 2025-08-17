@@ -22,6 +22,7 @@ def includeme(config):
     config.add_route("details", "/character/{id}/details")
     config.add_route("name", "/character/{id}/name")
     config.add_route("experience", "/character/{id}/experience")
+    config.add_route("experience-add", "/character/{id}/experience/add")
     config.add_route("character_full", "/character/{id}/view")
     config.add_route("character_edit", "/character/{id}/edit")
     config.add_route("character_summary", "/character/{id}/summary")

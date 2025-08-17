@@ -49,6 +49,7 @@ class Character(Base):
     experience = Column(Integer, default=0)
     experience_spent = Column(Integer, default=0)
     experience_cost = relationship("ExperienceCost", back_populates="character")
+    experience_gain = relationship("ExperienceGain", back_populates="character")
     weapon_skill_initial = Column(Integer, default=0)
     ballistic_skill_initial = Column(Integer, default=0)
     strength_initial = Column(Integer, default=0)
