@@ -1,0 +1,42 @@
+<div metal:use-macro="load: layout.pt">
+    <div metal:fill-slot="content">
+        <h1>${campaign.name}</h1>
+        <div>Expansions: ${(", ").join(campaign.get_expansion_titles())}</div>
+        <div tal:define="gamemasters campaign.gamemasters"
+            tal:condition="gamemasters">
+            <h3>Gamemasters</h3>
+            <ul>
+                <li tal:repeat="gamemaster campaign.gamemasters">
+                    ${gamemaster.name}
+                </li>
+            </ul>
+        </div>
+        <div tal:define="players campaign.players"
+            tal:condition="players">
+            <h3>Players</h3>
+            <ul>
+                <li tal:repeat="player players">
+                    ${player.name}
+                </li>
+            </ul>
+        </div>
+        <h3>Characters</h3>
+        <ul tal:define="characters campaign.characters">
+            <li tal:repeat="character characters">
+                ${character.get_display_title()}
+            </li>
+            <li tal:condition="not: characters">No characters yet</li>
+        </ul>
+        <h3>Campaign Sessions</h3>
+        <div>
+            <a href="/campaign/${campaign.id}/session/add">Add campaign session</a>
+        </div>
+        <div tal:repeat="session sessions">
+            <h4>
+                ${session.title} - ${session.session_date}
+                [<a href="/session/${session.id}/edit">edit</a>]
+            </h4>
+            <div tal:content="structure: session.summary" />
+        </div>
+    </div>
+</div>

@@ -8,7 +8,7 @@ from wfrp.character.models.experience import ExperienceGain
 from wfrp.character.views.base_view import BaseView
 
 
-@view_defaults(route_name="experience-add")
+@view_defaults(renderer="wfrp.character:templates/forms/experience.pt")
 class ExperienceGainViews(BaseView):
     def schema(self):
         schema = colander.SchemaNode(colander.Mapping(), title="Give Experience")
@@ -36,7 +36,7 @@ class ExperienceGainViews(BaseView):
         schema.add(experience_schema)
         return schema
 
-    @view_config(renderer="wfrp.character:templates/forms/experience.pt")
+    @view_config(route_name="experience-add")
     def form_view(self):
         schema = self.schema()
         form = deform.Form(

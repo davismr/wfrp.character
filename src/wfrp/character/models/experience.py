@@ -34,6 +34,8 @@ class ExperienceGain(Base):
     created = Column(DateTime, default=lambda: datetime.now(timezone.utc))
     character_id = Column(Uuid, ForeignKey("character.id"))
     character = relationship("Character", back_populates="experience_gain")
+    session_id = Column(Uuid, ForeignKey("campaign_session.id"))
+    campaign_session = relationship("CampaignSession", back_populates="experience_gain")
     amount = Column(Integer)
     reason = Column(String)
 

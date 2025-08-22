@@ -7,6 +7,7 @@ from sqlalchemy import engine_from_config
 
 from wfrp.character.application import DBSession
 from wfrp.character.models.campaign import Campaign
+from wfrp.character.models.campaign import CampaignSession
 from wfrp.character.models.character import Character
 from wfrp.character.models.experience import ExperienceCost
 from wfrp.character.models.experience import ExperienceGain
@@ -28,6 +29,7 @@ def main(argv=sys.argv):
     engine = engine_from_config(settings, "sqlalchemy.")
     DBSession.configure(bind=engine)
     Campaign.metadata.create_all(engine)
+    CampaignSession.metadata.create_all(engine)
     Character.metadata.create_all(engine)
     ExperienceCost.metadata.create_all(engine)
     ExperienceGain.metadata.create_all(engine)
