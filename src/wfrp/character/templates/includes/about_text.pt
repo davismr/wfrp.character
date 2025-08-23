@@ -2,13 +2,16 @@
 <p>Ideally this is intended to be everything you could want to manage all of your
 characters and campaigns for Warhammer Fantasy Roleplay</p>
 <p>The intention is for you to be able to run it locally, or use the online version.
+    you just need python on your local machine and able to run some terminal commands.
+    Instructions are in the readme.
     Check out the github repo, linked in the top right hand side.
 </p>
-<p>Currently it can do starting careers, spending experience, but you can't add experience yet,
-and the only expansion that is added so far is <i>Rough Nights and Hard Day</i>.</p>
+<p>All core careers are added, and you can add experience and spend experience.
+    The only expansions that are added so far is <i>Rough Nights and Hard Day</i>,
+    and the Seafarer classes from <i>Sea of Claws</i>.</p>
 <p>Things I'm working on in the nearish future:</p>
 <ul>
     <li>Campaigns and expansions</li>
-    <li>Adding experience</li>
+    <li>Fixing the pdf print out</li>
     <li>Import/export characters</li>
 </ul>
