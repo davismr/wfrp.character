@@ -7,7 +7,10 @@ from pyramid.view import view_defaults
 from wfrp.character.views.create_character.base_create import BaseCreateView
 
 
-@view_defaults(route_name="name", permission="create_character")
+@view_defaults(
+    renderer="wfrp.character:templates/forms/base_form.pt",
+    permission="create_character",
+)
 class NameViews(BaseCreateView):
     def schema(self):
         schema = colander.SchemaNode(colander.Mapping(), title="Character Name")
@@ -22,7 +25,7 @@ class NameViews(BaseCreateView):
         )
         return schema
 
-    @view_config(renderer="wfrp.character:templates/forms/base_form.pt")
+    @view_config(route_name="name")
     def form_view(self):
         schema = self.schema()
         form = deform.Form(schema, buttons=("Select Name",))
@@ -34,7 +37,7 @@ class NameViews(BaseCreateView):
             else:
                 character_name = captured.get("character_name")
                 self.character.name = character_name
-                url = self.request.route_url("character_summary", id=self.character.id)
+                url = self.request.route_url("character-summary", id=self.character.id)
                 self.character.status = {"complete": ""}
                 return HTTPFound(location=url)
         else:

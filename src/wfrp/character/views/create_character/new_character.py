@@ -11,7 +11,7 @@ from wfrp.character.models.character import Character
 from wfrp.character.models.user import User
 
 
-@view_defaults(route_name="new_character", permission="create_character")
+@view_defaults(permission="create_character")
 class NewCharacterViews:
     def __init__(self, request):
         self.request = request
@@ -21,7 +21,7 @@ class NewCharacterViews:
             except KeyError:
                 raise HTTPUnauthorized
 
-    @view_config(request_method="GET")
+    @view_config(route_name="new-character", request_method="GET")
     def get_view(self):
         new_id = uuid.uuid4()
         character = Character(id=new_id)

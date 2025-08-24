@@ -11,7 +11,9 @@ from wfrp.character.data.talents import TALENT_DATA
 from wfrp.character.views.create_character.base_create import BaseCreateView
 
 
-@view_defaults(route_name="career_skills", permission="create_character")
+@view_defaults(
+    renderer="wfrp.character:templates/forms/skills.pt", permission="create_character"
+)
 class CareerSkillsViews(BaseCreateView):
     def initialise_form(self):
         if "sea_of_claws" in self.character.expansions:
@@ -141,7 +143,7 @@ class CareerSkillsViews(BaseCreateView):
                 f"You must allocate all 40 advances, you have only allocated {total}",
             )
 
-    @view_config(renderer="wfrp.character:templates/forms/skills.pt")
+    @view_config(route_name="career-skills")
     def form_view(self):
         data = self.initialise_form()
         schema = self.schema(data)

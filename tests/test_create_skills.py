@@ -19,10 +19,10 @@ class DummyRoute:
 def test_species_skills_view(new_character):
     new_character.species = "Wood Elf"
     new_character.career = "Apothecary"
-    new_character.status = {"species_skills": ""}
+    new_character.status = {"species-skills": ""}
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
-    request.matched_route = DummyRoute(name="species_skills")
+    request.matched_route = DummyRoute(name="species-skills")
     request.matchdict = {"id": str(new_character.id)}
     view = SpeciesSkillsViews(request)
     response = view.form_view()
@@ -35,10 +35,10 @@ def test_species_skills_view(new_character):
 def test_initialise_form_return(new_character):
     new_character.species = "Human"
     new_character.career = "Witch"
-    new_character.status = {"species_skills": ["talent1", "talent2"]}
+    new_character.status = {"species-skills": ["talent1", "talent2"]}
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
-    request.matched_route = DummyRoute(name="species_skills")
+    request.matched_route = DummyRoute(name="species-skills")
     request.matchdict = {"id": str(new_character.id)}
     view = SpeciesSkillsViews(request)
     response = view.initialise_form()
@@ -54,10 +54,10 @@ def test_initialise_form_return(new_character):
 def test_initialise_form_extra(new_character):
     new_character.species = "Human"
     new_character.career = "Witch"
-    new_character.status = {"species_skills": ""}
+    new_character.status = {"species-skills": ""}
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
-    request.matched_route = DummyRoute(name="species_skills")
+    request.matched_route = DummyRoute(name="species-skills")
     request.matchdict = {"id": str(new_character.id)}
     view = SpeciesSkillsViews(request)
     with patch(
@@ -79,10 +79,10 @@ def test_initialise_form_extra(new_character):
 def test_random_talents(new_character, species, expected_talents):
     new_character.species = species
     new_character.career = "Apothecary"
-    new_character.status = {"species_skills": ""}
+    new_character.status = {"species-skills": ""}
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
-    request.matched_route = DummyRoute(name="species_skills")
+    request.matched_route = DummyRoute(name="species-skills")
     request.matchdict = {"id": str(new_character.id)}
     view = SpeciesSkillsViews(request)
     response = view.form_view()
@@ -121,10 +121,10 @@ def test_species_skills_submit(new_character):
     }
     new_character.species = "High Elf"
     new_character.career = "Apothecary"
-    new_character.status = {"species_skills": ""}
+    new_character.status = {"species-skills": ""}
     request = testing.DummyRequest(post=payload)
     request.dbsession = dbsession(request)
-    request.matched_route = DummyRoute(name="species_skills")
+    request.matched_route = DummyRoute(name="species-skills")
     request.matchdict = {"id": str(new_character.id)}
     view = SpeciesSkillsViews(request)
     response = view.form_view()
@@ -132,7 +132,7 @@ def test_species_skills_submit(new_character):
     payload["species_skills"]["Specialisation for Play"] = "Lute"
     request = testing.DummyRequest(post=payload)
     request.dbsession = dbsession(request)
-    request.matched_route = DummyRoute(name="species_skills")
+    request.matched_route = DummyRoute(name="species-skills")
     request.matchdict = {"id": str(new_character.id)}
     view = SpeciesSkillsViews(request)
     response = view.form_view()
@@ -174,10 +174,10 @@ def test_species_skills_invalid(new_character):
     }
     new_character.species = "High Elf"
     new_character.career = "Apothecary"
-    new_character.status = {"species_skills": ""}
+    new_character.status = {"species-skills": ""}
     request = testing.DummyRequest(post=payload)
     request.dbsession = dbsession(request)
-    request.matched_route = DummyRoute(name="species_skills")
+    request.matched_route = DummyRoute(name="species-skills")
     request.matchdict = {"id": str(new_character.id)}
     view = SpeciesSkillsViews(request)
     response = view.form_view()
@@ -215,10 +215,10 @@ def test_species_skills_invalid_none(new_character):
     }
     new_character.species = "High Elf"
     new_character.career = "Apothecary"
-    new_character.status = {"species_skills": ""}
+    new_character.status = {"species-skills": ""}
     request = testing.DummyRequest(post=payload)
     request.dbsession = dbsession(request)
-    request.matched_route = DummyRoute(name="species_skills")
+    request.matched_route = DummyRoute(name="species-skills")
     request.matchdict = {"id": str(new_character.id)}
     view = SpeciesSkillsViews(request)
     response = view.form_view()
@@ -232,10 +232,10 @@ def test_species_skills_invalid_none(new_character):
 def test_career_skills_view(new_character):
     new_character.career = "Apothecary"
     new_character.career_title = "Apothecary’s Apprentice"
-    new_character.status = {"career_skills": ""}
+    new_character.status = {"career-skills": ""}
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
-    request.matched_route = DummyRoute(name="career_skills")
+    request.matched_route = DummyRoute(name="career-skills")
     request.matchdict = {"id": str(new_character.id)}
     view = CareerSkillsViews(request)
     response = view.initialise_form()
@@ -249,10 +249,10 @@ def test_career_skills_view(new_character):
 def test_form_view(new_character):
     new_character.career = "Apothecary"
     new_character.career_title = "Apothecary’s Apprentice"
-    new_character.status = {"career_skills": ""}
+    new_character.status = {"career-skills": ""}
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
-    request.matched_route = DummyRoute(name="career_skills")
+    request.matched_route = DummyRoute(name="career-skills")
     request.matchdict = {"id": str(new_character.id)}
     view = CareerSkillsViews(request)
     response = view.form_view()
@@ -278,10 +278,10 @@ def test_career_skills_submit(new_character):
     new_character.species = "High Elf"
     new_character.career = "Apothecary"
     new_character.career_title = "Apothecary’s Apprentice"
-    new_character.status = {"career_skills": ""}
+    new_character.status = {"career-skills": ""}
     request = testing.DummyRequest(post=payload)
     request.dbsession = dbsession(request)
-    request.matched_route = DummyRoute(name="career_skills")
+    request.matched_route = DummyRoute(name="career-skills")
     request.matchdict = {"id": str(new_character.id)}
     view = CareerSkillsViews(request)
     response = view.form_view()
@@ -311,10 +311,10 @@ def test_validation_error(new_character, skill_level, message):
     new_character.species = "High Elf"
     new_character.career = "Apothecary"
     new_character.career_title = "Apothecary’s Apprentice"
-    new_character.status = {"career_skills": ""}
+    new_character.status = {"career-skills": ""}
     request = testing.DummyRequest(post=payload)
     request.dbsession = dbsession(request)
-    request.matched_route = DummyRoute(name="career_skills")
+    request.matched_route = DummyRoute(name="career-skills")
     request.matchdict = {"id": str(new_character.id)}
     view = CareerSkillsViews(request)
     response = view.form_view()
@@ -352,15 +352,15 @@ def test_skills_add_submit(new_character):
     new_character.species = "High Elf"
     new_character.career = "Apothecary"
     new_character.career_title = "Apothecary’s Apprentice"
-    new_character.status = {"species_skills": ""}
+    new_character.status = {"species-skills": ""}
     request = testing.DummyRequest(post=payload)
     request.dbsession = dbsession(request)
-    request.matched_route = DummyRoute(name="species_skills")
+    request.matched_route = DummyRoute(name="species-skills")
     request.matchdict = {"id": str(new_character.id)}
     view = SpeciesSkillsViews(request)
     response = view.form_view()
     assert isinstance(response, HTTPFound)
-    assert new_character.status == {"career_skills": ""}
+    assert new_character.status == {"career-skills": ""}
     payload = {
         "career_skills": {
             "Consume Alcohol": "5",
@@ -377,7 +377,7 @@ def test_skills_add_submit(new_character):
     }
     request = testing.DummyRequest(post=payload)
     request.dbsession = dbsession(request)
-    request.matched_route = DummyRoute(name="career_skills")
+    request.matched_route = DummyRoute(name="career-skills")
     request.matchdict = {"id": str(new_character.id)}
     view = CareerSkillsViews(request)
     response = view.form_view()
@@ -401,7 +401,7 @@ def test_career_skills_any(new_character):
     new_character.species = "Wood Elf"
     new_character.career = "Artisan"
     new_character.career_title = "Apprentice Artisan"
-    new_character.status = {"career_skills": ""}
+    new_character.status = {"career-skills": ""}
     payload = {
         "career_skills": {
             "Athletics": "5",
@@ -418,7 +418,7 @@ def test_career_skills_any(new_character):
     }
     request = testing.DummyRequest(post=payload)
     request.dbsession = dbsession(request)
-    request.matched_route = DummyRoute(name="career_skills")
+    request.matched_route = DummyRoute(name="career-skills")
     request.matchdict = {"id": str(new_character.id)}
     view = CareerSkillsViews(request)
     response = view.form_view()
@@ -428,7 +428,7 @@ def test_career_skills_any(new_character):
     payload["career_talents"]["career_talent"] = "Craftsman (Any)"
     request = testing.DummyRequest(post=payload)
     request.dbsession = dbsession(request)
-    request.matched_route = DummyRoute(name="career_skills")
+    request.matched_route = DummyRoute(name="career-skills")
     request.matchdict = {"id": str(new_character.id)}
     view = CareerSkillsViews(request)
     response = view.form_view()
@@ -437,7 +437,7 @@ def test_career_skills_any(new_character):
     payload["career_talents"]["career_talent"] = "Craftsman (Calligrapher)"
     request = testing.DummyRequest(post=payload)
     request.dbsession = dbsession(request)
-    request.matched_route = DummyRoute(name="career_skills")
+    request.matched_route = DummyRoute(name="career-skills")
     request.matchdict = {"id": str(new_character.id)}
     view = CareerSkillsViews(request)
     response = view.form_view()
@@ -453,7 +453,7 @@ def test_career_skills_or_fail(new_character):
     new_character.species = "Human"
     new_character.career = "Pedlar"
     new_character.career_title = "Vagabond"
-    new_character.status = {"career_skills": ""}
+    new_character.status = {"career-skills": ""}
     payload = {
         "career_skills": {
             "Charm": "5",
@@ -470,7 +470,7 @@ def test_career_skills_or_fail(new_character):
     }
     request = testing.DummyRequest(post=payload)
     request.dbsession = dbsession(request)
-    request.matched_route = DummyRoute(name="career_skills")
+    request.matched_route = DummyRoute(name="career-skills")
     request.matchdict = {"id": str(new_character.id)}
     view = CareerSkillsViews(request)
     response = view.form_view()
@@ -482,7 +482,7 @@ def test_career_skills_or_fail(new_character):
     payload["career_skills"]["Stealth (Rural or Urban) specialisation"] = "Urban"
     request = testing.DummyRequest(post=payload)
     request.dbsession = dbsession(request)
-    request.matched_route = DummyRoute(name="career_skills")
+    request.matched_route = DummyRoute(name="career-skills")
     request.matchdict = {"id": str(new_character.id)}
     view = CareerSkillsViews(request)
     response = view.form_view()

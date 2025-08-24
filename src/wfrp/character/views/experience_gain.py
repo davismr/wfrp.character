@@ -55,7 +55,7 @@ class ExperienceGainViews(BaseView):
                     reason=captured["experience_gain"]["reason"],
                 )
                 self.request.dbsession.add(experience)
-                url = self.request.route_url("character_summary", id=self.character.id)
+                url = self.request.route_url("character-summary", id=self.character.id)
                 return HTTPFound(location=url)
         else:
             html = form.render()

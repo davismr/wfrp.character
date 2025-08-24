@@ -45,13 +45,13 @@ class HomePageViews:
             gamemaster_campaigns = {}
             characters = self.request.dbsession.query(Character).all()
         for campaign in campaigns:
-            url = self.request.route_url("campaign_view", id=campaign.id)
+            url = self.request.route_url("campaign-view", id=campaign.id)
             campaign_list[url] = campaign.get_display_title()
         for campaign in gamemaster_campaigns:
-            url = self.request.route_url("campaign_view", id=campaign.id)
+            url = self.request.route_url("campaign-view", id=campaign.id)
             gamemaster_campaigns_list[url] = campaign.get_display_title()
         for character in characters:
-            url = self.request.route_url("character_summary", id=character.id)
+            url = self.request.route_url("character-summary", id=character.id)
             character_list[url] = character.get_display_title()
         return {
             "gamemaster_campaigns": gamemaster_campaigns_list,

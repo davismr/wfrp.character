@@ -8,7 +8,10 @@ from wfrp.character.data.expansions import EXPANSIONS
 from wfrp.character.views.create_character.base_create import BaseCreateView
 
 
-@view_defaults(route_name="expansions", permission="create_character")
+@view_defaults(
+    renderer="wfrp.character:templates/forms/base_form.pt",
+    permission="create_character",
+)
 class ExpansionsViews(BaseCreateView):
     def initialise_form(self):
         if self.character.campaign:
@@ -47,7 +50,7 @@ class ExpansionsViews(BaseCreateView):
         schema.add(expansions_schema)
         return schema
 
-    @view_config(renderer="wfrp.character:templates/forms/base_form.pt")
+    @view_config(route_name="expansions")
     def form_view(self):
         self.initialise_form()
         schema = self.schema()

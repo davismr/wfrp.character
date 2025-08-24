@@ -23,7 +23,10 @@ ATTRIBUTES = [
 ATTRIBUTES_LOWER = [x.lower().replace(" ", "_") for x in ATTRIBUTES]
 
 
-@view_defaults(route_name="attributes", permission="create_character")
+@view_defaults(
+    renderer="wfrp.character:templates/forms/base_form.pt",
+    permission="create_character",
+)
 class AttributesViews(BaseCreateView):
     def _roll_base_attributes(self):
         attributes = {}
@@ -287,7 +290,7 @@ class AttributesViews(BaseCreateView):
         )
         return data, form
 
-    @view_config(renderer="wfrp.character:templates/forms/base_form.pt")
+    @view_config(route_name="attributes")
     def form_view(self):
         if "Rearrange_Attributes" in self.request.POST:
             self.character.status = {

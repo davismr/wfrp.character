@@ -8,7 +8,7 @@ from wfrp.character.models.campaign import Campaign
 from wfrp.character.models.user import User
 
 
-@view_defaults(route_name="campaign_view")
+@view_defaults(renderer="wfrp.character:templates/campaign.pt")
 class CampaignViews:
     def __init__(self, request):
         self.request = request
@@ -28,7 +28,7 @@ class CampaignViews:
             .one()
         )
 
-    @view_config(renderer="wfrp.character:templates/campaign.pt")
+    @view_config(route_name="campaign-view")
     def full_view(self):
         return {
             "campaign": self.campaign,

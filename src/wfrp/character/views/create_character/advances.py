@@ -10,7 +10,10 @@ from wfrp.character.views.create_character.attributes import ATTRIBUTES
 from wfrp.character.views.create_character.base_create import BaseCreateView
 
 
-@view_defaults(route_name="advances", permission="create_character")
+@view_defaults(
+    renderer="wfrp.character:templates/forms/base_form.pt",
+    permission="create_character",
+)
 class AdvancesViews(BaseCreateView):
     def initialise_form(self):
         attributes = {}
@@ -153,7 +156,7 @@ class AdvancesViews(BaseCreateView):
                 "fate and resilience",
             )
 
-    @view_config(renderer="wfrp.character:templates/forms/base_form.pt")
+    @view_config(route_name="advances")
     def form_view(self):
         data = self.initialise_form()
         schema = self.schema(data)
@@ -184,8 +187,8 @@ class AdvancesViews(BaseCreateView):
                 self.character.resolve = self.character.resilience
                 self.character.extra_points = 0
                 self.character.motivation = captured["motivation"]["motivation"]
-                url = self.request.route_url("species_skills", id=self.character.id)
-                self.character.status = {"species_skills": ""}
+                url = self.request.route_url("species-skills", id=self.character.id)
+                self.character.status = {"species-skills": ""}
                 return HTTPFound(location=url)
         else:
             html = form.render()

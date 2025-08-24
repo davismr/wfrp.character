@@ -10,7 +10,7 @@ from wfrp.character.views.base_view import BaseView
 from wfrp.character.views.create_character.attributes import ATTRIBUTES
 
 
-@view_defaults(route_name="character_edit")
+@view_defaults(route_name="character-edit")
 class CharacterEditViews(BaseView):
     def schema(self):
         schema = colander.SchemaNode(
@@ -142,7 +142,7 @@ class CharacterEditViews(BaseView):
             except deform.ValidationFailure as error:
                 html = error.render()
             else:
-                url = self.request.route_url("character_summary", id=self.character.id)
+                url = self.request.route_url("character-summary", id=self.character.id)
                 return HTTPFound(location=url)
         else:
             html = form.render()

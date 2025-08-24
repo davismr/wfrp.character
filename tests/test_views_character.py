@@ -18,7 +18,7 @@ def test_full_view(new_character):
     new_character.status = {"complete": ""}
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
-    request.matched_route = DummyRoute(name="character_full")
+    request.matched_route = DummyRoute(name="character-full")
     request.matchdict = {"id": str(new_character.id)}
     view = CharacterViews(request)
     response = view.full_view()
@@ -30,7 +30,7 @@ def test_summary_view(new_character):
     new_character.status = {"complete": ""}
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
-    request.matched_route = DummyRoute(name="character_summary")
+    request.matched_route = DummyRoute(name="character-summary")
     request.matchdict = {"id": str(new_character.id)}
     view = CharacterViews(request)
     response = view.summary_view()
@@ -44,7 +44,7 @@ def test_summary_view(new_character):
 def test_pdf_view(complete_character):
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
-    request.matched_route = DummyRoute(name="pdf_print")
+    request.matched_route = DummyRoute(name="pdf-print")
     request.matchdict = {"id": str(complete_character.id)}
     view = CharacterViews(request)
     response = view.pdf_print()

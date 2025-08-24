@@ -10,7 +10,10 @@ from wfrp.character.models.campaign import Campaign
 from wfrp.character.views.create_character.base_create import BaseCreateView
 
 
-@view_defaults(route_name="campaign", permission="create_character")
+@view_defaults(
+    renderer="wfrp.character:templates/forms/base_form.pt",
+    permission="create_character",
+)
 class CampaignViews(BaseCreateView):
     def initialise_form(self):
         if self.character.user:
@@ -42,7 +45,7 @@ class CampaignViews(BaseCreateView):
         schema.add(campaign_schema)
         return schema
 
-    @view_config(renderer="wfrp.character:templates/forms/base_form.pt")
+    @view_config(route_name="campaign")
     def form_view(self):
         data = self.initialise_form()
         schema = self.schema(data)

@@ -9,7 +9,10 @@ from wfrp.character.utils import roll_d100
 from wfrp.character.views.create_character.base_create import BaseCreateView
 
 
-@view_defaults(route_name="species", permission="create_character")
+@view_defaults(
+    renderer="wfrp.character:templates/forms/base_form.pt",
+    permission="create_character",
+)
 class SpeciesViews(BaseCreateView):
     def _roll_new_species(self):
         result = roll_d100()
@@ -79,7 +82,7 @@ class SpeciesViews(BaseCreateView):
         schema.add(species_schema)
         return schema
 
-    @view_config(renderer="wfrp.character:templates/forms/base_form.pt")
+    @view_config(route_name="species")
     def form_view(self):
         self.initialise_form()
         schema = self.schema()

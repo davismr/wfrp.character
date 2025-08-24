@@ -23,7 +23,7 @@ except (ImportError, OSError):
 
 class CharacterViews(BaseView):
     @view_config(
-        route_name="character_full", renderer="wfrp.character:templates/character.pt"
+        route_name="character-full", renderer="wfrp.character:templates/character.pt"
     )
     def full_view(self):
         return {
@@ -35,12 +35,12 @@ class CharacterViews(BaseView):
         }
 
     @view_config(
-        route_name="character_summary", renderer="wfrp.character:templates/summary.pt"
+        route_name="character-summary", renderer="wfrp.character:templates/summary.pt"
     )
     def summary_view(self):
         return {"character": self.character}
 
-    @view_config(route_name="pdf_print")
+    @view_config(route_name="pdf-print")
     def pdf_print(self):
         html = render_to_response(
             "wfrp.character:templates/pdf.pt", self.full_view(), request=self.request

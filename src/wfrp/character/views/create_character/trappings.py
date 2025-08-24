@@ -11,7 +11,10 @@ from wfrp.character.utils import roll_d10
 from wfrp.character.views.create_character.base_create import BaseCreateView
 
 
-@view_defaults(route_name="trappings", permission="create_character")
+@view_defaults(
+    renderer="wfrp.character:templates/forms/base_form.pt",
+    permission="create_character",
+)
 class TrappingsViews(BaseCreateView):
     def _get_money(self, tier, standing):
         if tier == "Brass":
@@ -101,7 +104,7 @@ class TrappingsViews(BaseCreateView):
         schema.add(money_schema)
         return schema
 
-    @view_config(renderer="wfrp.character:templates/forms/base_form.pt")
+    @view_config(route_name="trappings")
     def form_view(self):
         data = self.initialise_form()
         schema = self.schema(data)
