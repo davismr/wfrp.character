@@ -1,6 +1,7 @@
 import logging
 
-from pyramid.renderers import render_to_response
+from fpdf import FPDF
+from pyramid.renderers import render_to_response, render
 from pyramid.response import Response
 from pyramid.view import view_config
 
@@ -12,13 +13,13 @@ from wfrp.character.views.base_view import BaseView
 
 logger = logging.getLogger(__name__)
 
-try:
-    from weasyprint import HTML
-
-    WEASYPRINT_INSTALLED = True
-except (ImportError, OSError):
-    logger.info("weasyprint not correctly installed")
-    WEASYPRINT_INSTALLED = False
+# try:
+#     from weasyprint import HTML
+#
+#     WEASYPRINT_INSTALLED = True
+# except (ImportError, OSError):
+#     logger.info("weasyprint not correctly installed")
+#     WEASYPRINT_INSTALLED = False
 
 
 class CharacterViews(BaseView):
@@ -42,10 +43,20 @@ class CharacterViews(BaseView):
 
     @view_config(route_name="pdf-print")
     def pdf_print(self):
-        html = render_to_response(
+        breakpoint()
+        pdf = FPDF()
+        pdf.add_page()
+        pdf.add_font("Caslon", "", "fonts/caslon-antique.regular.ttf")
+        pdf.add_font("Caslon", "b", "fonts/caslon-antique.bold.ttf")
+        pdf.add_font("Caslon", "i", "fonts/caslon-antique.italic.ttf")
+        pdf.add_font("Caslon", "bi", "fonts/caslon-antique.bolditalic.ttf")
+        pdf.set_font("Caslon")
+        html = render(
             "wfrp.character:templates/pdf.pt", self.full_view(), request=self.request
         )
+        pdf.write_html(html, )
         filename = f"{self.character.get_filename()}.pdf"
-        response = Response(body=HTML(string=html.body).write_pdf())
+        pdf.output(filename)
+        response = Response(body=bytes(pdf.output()))
         response.headers["Content-Disposition"] = f"attachment;filename={filename}"
         return response
