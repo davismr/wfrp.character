@@ -12,7 +12,10 @@ from wfrp.character.utils import roll_d10
 from wfrp.character.views.create_character.base_create import BaseCreateView
 
 
-@view_defaults(route_name="details", permission="create_character")
+@view_defaults(
+    renderer="wfrp.character:templates/forms/base_form.pt",
+    permission="create_character",
+)
 class DetailsViews(BaseCreateView):
     def _get_hair_colour(self, species):
         return get_hair_colour(species, roll_2d10())
@@ -97,7 +100,7 @@ class DetailsViews(BaseCreateView):
         schema.add(details_schema)
         return schema
 
-    @view_config(renderer="wfrp.character:templates/forms/base_form.pt")
+    @view_config(route_name="details")
     def form_view(self):
         data = self.initialise_form()
         schema = self.schema(data)

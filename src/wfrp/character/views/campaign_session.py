@@ -128,7 +128,7 @@ class CampaignSessionViews(BaseView):
                                 campaign_session=session,
                             )
                             self.request.dbsession.add(experience)
-                url = self.request.route_url("campaign_view", id=self.campaign.id)
+                url = self.request.route_url("campaign-view", id=self.campaign.id)
                 return HTTPFound(location=url)
         else:
             html = form.render()

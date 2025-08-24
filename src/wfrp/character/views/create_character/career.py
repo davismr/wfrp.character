@@ -15,7 +15,10 @@ from wfrp.character.utils import roll_d100
 from wfrp.character.views.create_character.base_create import BaseCreateView
 
 
-@view_defaults(route_name="career", permission="create_character")
+@view_defaults(
+    renderer="wfrp.character:templates/forms/base_form.pt",
+    permission="create_character",
+)
 class CareerViews(BaseCreateView):
     def initialise_form(self):
         self.sea_of_claws = False
@@ -131,7 +134,7 @@ class CareerViews(BaseCreateView):
         if not selected:
             raise colander.Invalid(form, "You have to select a career")
 
-    @view_config(renderer="wfrp.character:templates/forms/base_form.pt")
+    @view_config(route_name="career")
     def form_view(self):
         if "Reroll" in self.request.POST:
             self.reroll_career_view()

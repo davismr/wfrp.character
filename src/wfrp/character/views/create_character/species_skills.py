@@ -12,15 +12,17 @@ from wfrp.character.utils import roll_d100
 from wfrp.character.views.create_character.base_create import BaseCreateView
 
 
-@view_defaults(route_name="species_skills", permission="create_character")
+@view_defaults(
+    renderer="wfrp.character:templates/forms/skills.pt", permission="create_character"
+)
 class SpeciesSkillsViews(BaseCreateView):
     def initialise_form(self):
         species = self.character.species
         species_skills = SPECIES_DATA[species]["skills"].copy()
         species_talents = SPECIES_DATA[species]["talents"].copy()
         if species in ["Human", "Halfling"]:
-            if self.character.status["species_skills"]:
-                extra_talents = self.character.status["species_skills"]
+            if self.character.status["species-skills"]:
+                extra_talents = self.character.status["species-skills"]
             else:
                 extra_talents = []
                 while True:
@@ -34,7 +36,7 @@ class SpeciesSkillsViews(BaseCreateView):
                         break
                     if len(extra_talents) == 3 and species == "Human":
                         break
-                self.character.status = {"species_skills": extra_talents}
+                self.character.status = {"species-skills": extra_talents}
             species_talents.extend(extra_talents)
         return {"species_skills": species_skills, "species_talents": species_talents}
 
@@ -132,7 +134,7 @@ class SpeciesSkillsViews(BaseCreateView):
         if errors:
             raise colander.Invalid(form, ". ".join(errors))
 
-    @view_config(renderer="wfrp.character:templates/forms/skills.pt")
+    @view_config(route_name="species-skills")
     def form_view(self):
         data = self.initialise_form()
         schema = self.schema(data)
@@ -144,8 +146,8 @@ class SpeciesSkillsViews(BaseCreateView):
                 html = error.render()
             else:
                 self.update_values(captured)
-                url = self.request.route_url("career_skills", id=self.character.id)
-                self.character.status = {"career_skills": ""}
+                url = self.request.route_url("career-skills", id=self.character.id)
+                self.character.status = {"career-skills": ""}
                 return HTTPFound(location=url)
         else:
             html = form.render()

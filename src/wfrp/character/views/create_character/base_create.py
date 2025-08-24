@@ -16,11 +16,11 @@ class BaseCreateView:
             .one()
         )
         if "complete" in self.character.status and self.request.matched_route.name in [
-            "character_edit",
-            "character_full",
-            "character_summary",
+            "character-edit",
+            "character-full",
+            "character-summary",
             "experience",
-            "pdf_print",
+            "pdf-print",
         ]:
             pass
         elif self.request.matched_route.name not in self.character.status:

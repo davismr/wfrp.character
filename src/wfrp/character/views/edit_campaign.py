@@ -31,7 +31,7 @@ class Player(colander.SequenceSchema):
     )
 
 
-@view_defaults(route_name="campaign_edit")
+@view_defaults(renderer="wfrp.character:templates/forms/campaign.pt")
 class CampaignEditViews:
     def __init__(self, request):
         self.request = request
@@ -113,13 +113,8 @@ class CampaignEditViews:
         )
         return schema
 
-    @view_config(
-        route_name="campaign_new", renderer="wfrp.character:templates/forms/campaign.pt"
-    )
-    @view_config(
-        route_name="campaign_edit",
-        renderer="wfrp.character:templates/forms/campaign.pt",
-    )
+    @view_config(route_name="campaign-new")
+    @view_config(route_name="campaign-edit")
     def form_view(self):
         if "Delete" in self.request.POST or "Confirm_delete" in self.request.POST:
             schema = self.confirm_schema()
