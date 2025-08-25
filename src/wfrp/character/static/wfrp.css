@@ -1,3 +1,7 @@
+html, body {
+    font-family: 'Caslon Antique', arial, sans-serif;
+}
+
 #character-page,
 #character-page th,
 #character-page td {

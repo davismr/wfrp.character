@@ -9,6 +9,8 @@
         <meta name="google-site-verification"
               tal:condition="request.registry.settings.get('google-site-verification')"
               content="${request.registry.settings['google-site-verification']}" />
+        <link rel="stylesheet" type="text/css"
+              href="${request.static_url('wfrp.character:static/fonts.css')}"/>
         <div metal:define-slot="header" tal:omit-tag="">
             <link rel="shortcut icon"
                   href="${request.static_url('wfrp.character:static/favicon.ico')}"/>
