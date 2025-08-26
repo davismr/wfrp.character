@@ -1,17 +1,8 @@
 <div metal:use-macro="load: layout.pt">
+    <div metal:fill-slot="page_links"/>
+    <div metal:fill-slot="github"/>
     <div metal:fill-slot="content">
-        <div>
-            <a href="/character/${character.id}/experience">Spend experience</a>
-        </div>
-        <div>
-            <a href="/character/${character.id}/experience/add">Give experience</a>
-        </div>
-        <div><a href="/character/${character.id}/summary">Character summary</a></div>
-        <div>
-            <a href="/character/${character.id}/pdf-print">
-                Print Character
-            </a>
-        </div>
         <div metal:use-macro="load: character_sheet.pt"/>
     </div>
+    <div metal:fill-slot="footer"/>
 </div>
