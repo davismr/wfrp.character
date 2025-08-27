@@ -20,112 +20,113 @@ html, body {
     padding: 0px;
 }
 
-#character-sheet {
+.character-sheet {
     display: grid;
+    page-break-after: always;
     grid-template-columns: repeat(6, 1fr);
 }
 
-#character-sheet .details {
+.character-sheet .details {
     grid-column: 1 / span 6;
 }
 
-#character-sheet .attributes {
+.character-sheet .attributes {
     grid-column: 1 / span 3;
     grid-row: 2 / span 2;
 }
 
-#character-sheet .fate {
+.character-sheet .fate {
     grid-column: 4;
 }
 
-#character-sheet .resilience {
+.character-sheet .resilience {
     grid-column: 5;
 }
 
-#character-sheet .experience {
+.character-sheet .experience {
     grid-column: 6;
 }
 
-#character-sheet .movement {
+.character-sheet .movement {
     grid-column: 4 / span 3;
 }
 
-#character-sheet .skills_left {
+.character-sheet .skills_left {
     grid-column: 1 / span 2;
 }
 
-#character-sheet .skills_right {
+.character-sheet .skills_right {
     grid-column: 3 / span 2;
 }
 
-#character-sheet .skills_advanced {
+.character-sheet .skills_advanced {
     grid-column: 5 / span 2;
 }
 
-#character-sheet .talents {
+.character-sheet .talents {
     grid-column: 1 / span 3;
     grid-row: 5 / span 2;
 }
 
-#character-sheet .ambitions {
+.character-sheet .ambitions {
     grid-column: 4 / span 3;
 }
 
-#character-sheet .party {
+.character-sheet .party {
     grid-column: 4 / span 3;
 }
 
-#character-sheet .armour {
+.character-sheet .armour {
     grid-column: 1 / span 4;
 }
 
-#character-sheet .armour_layout {
+.character-sheet .armour_layout {
     grid-column: 5 / span 2;
     grid-row: 7 / span 3;
 }
 
-#character-sheet .trappings {
+.character-sheet .trappings {
     grid-column: 1 / span 2;
     grid-row: 8 / span 3;
 }
 
-#character-sheet .psychology {
+.character-sheet .psychology {
     grid-column: 3 / span 2;
 }
 
-#character-sheet .corruption {
+.character-sheet .corruption {
     grid-column: 3 / span 2;
 }
 
-#character-sheet .wealth {
+.character-sheet .wealth {
     grid-column: 3;
 }
 
-#character-sheet .encumberance {
+.character-sheet .encumberance {
     grid-column: 4;
 }
 
-#character-sheet .wounds {
+.character-sheet .wounds {
     grid-column: 5 / span 2;
 }
 
-#character-sheet .weapons {
+.character-sheet .weapons {
     grid-column: 1 / span 6;
 }
 
-#character-sheet .section-header {
+.character-sheet .section-header {
     text-align: center;
     text-transform: uppercase;
 }
 
-#character-sheet table {
+.character-sheet table {
     border: 2px solid black;
     width: 100%;
     margin: 0px;
     border-collapse: collapse;
 }
 
-#character-sheet table caption {
+.character-sheet table caption {
     text-transform: uppercase;
     border: 2px solid black;
 }
