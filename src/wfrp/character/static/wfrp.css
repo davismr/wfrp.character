@@ -82,12 +82,12 @@ html, body {
 
 .character-sheet .armour_layout {
     grid-column: 5 / span 2;
-    grid-row: 7 / span 3;
+    grid-row: 1 / span 3;
 }
 
 .character-sheet .trappings {
     grid-column: 1 / span 2;
-    grid-row: 8 / span 3;
+    grid-row: 2 / span 3;
 }
 
 .character-sheet .psychology {

@@ -35,6 +35,8 @@
     <div class="party">
         <div metal:use-macro="load: character_macros/party.pt" />
     </div>
+</div>
+<div class="character-sheet">
     <div class="armour">
         <div metal:use-macro="load: character_macros/armour.pt" />
     </div>
