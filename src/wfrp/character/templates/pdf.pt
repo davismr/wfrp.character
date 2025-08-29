@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <meta charset="utf-8">
+    </head>
     <body>
         <div metal:use-macro="load: character_sheet.pt"/>
     </body>
