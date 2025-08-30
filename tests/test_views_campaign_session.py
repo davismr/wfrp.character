@@ -25,7 +25,7 @@ def test_form_view(new_campaign):
     assert isinstance(response["form"], str)
 
 
-@pytest.mark.current
+@pytest.mark.views
 def test_form_view_character(new_campaign, new_character):
     new_campaign.characters.append(new_character)
     request = testing.DummyRequest()
@@ -58,7 +58,7 @@ def test_form_valid(new_campaign):
     assert response.location == (f"http://example.com/campaign/{new_campaign.id}/view")
 
 
-@pytest.mark.current
+@pytest.mark.views
 def test_form_valid_character(new_campaign, new_character):
     DBSession.query(ExperienceGain).delete()
     new_campaign.characters.append(new_character)

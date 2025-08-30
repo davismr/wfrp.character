@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from unittest.mock import patch
 
 from pyramid import testing
 from pyramid.httpexceptions import HTTPFound
@@ -85,6 +86,35 @@ def test_eye_colour(new_character, species):
             break
     else:
         raise AssertionError
+
+
+@pytest.mark.create
+def test_eye_colour_free(new_character):
+    new_character.species = "Human"
+    new_character.status = {"details": ""}
+    request = testing.DummyRequest()
+    request.dbsession = dbsession(request)
+    request.matched_route = DummyRoute(name="details")
+    request.matchdict = {"id": str(new_character.id)}
+    with patch("wfrp.character.views.create_character.details.roll_2d10") as mock_roll:
+        mock_roll.return_value = 2
+        view = DetailsViews(request)
+        response = view.form_view()
+    assert 'value="Pale Blue"' in response["form"]
+    assert new_character.status["details"]["eye_colour"] == ""
+    assert new_character.status["details"]["hair_colour"] == "White Blond"
+    payload = {
+        "character_details": {"eye_colour": "Pale Grey"},
+        "Choose_Details": "Choose_Details",
+    }
+    request = testing.DummyRequest(post=payload)
+    request.dbsession = dbsession(request)
+    request.matched_route = DummyRoute(name="details")
+    request.matchdict = {"id": str(new_character.id)}
+    view = DetailsViews(request)
+    response = view.form_view()
+    assert response.status_code == 302
+    assert new_character.eyes == "Pale Grey"
 
 
 @pytest.mark.create

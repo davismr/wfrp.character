@@ -4,6 +4,7 @@ from pyramid.httpexceptions import HTTPFound
 from pyramid.view import view_config
 from pyramid.view import view_defaults
 
+from wfrp.character.data.species import SPECIES_DATA
 from wfrp.character.data.species import get_eye_colour
 from wfrp.character.data.species import get_hair_colour
 from wfrp.character.utils import roll_2d10
@@ -43,11 +44,13 @@ class DetailsViews(BaseCreateView):
         elif species in ["High Elf", "Wood Elf"]:
             age = 30 + roll_5d10() + roll_5d10()
             height = 71 + roll_d10()
-            eye_colour += f"{self._get_eye_colour(species)}, "
         else:
             raise NotImplementedError(f"{species} is not defined")
-        # eye colour is set here to allow previous catch to raise the error
         eye_colour += self._get_eye_colour(species)
+        if species in ["High Elf", "Wood Elf"]:
+            second_eye_colour = self._get_eye_colour(species)
+            if second_eye_colour != eye_colour:
+                eye_colour += f" and {second_eye_colour}"
         data = {
             "age": age,
             "height": height,
@@ -65,14 +68,26 @@ class DetailsViews(BaseCreateView):
             colander.Mapping(),
             name="character_details",
         )
-        details_schema.add(
-            colander.SchemaNode(
-                colander.String(),
-                widget=deform.widget.TextInputWidget(readonly=True),
-                missing="",
-                name="eye_colour",
+        if data["eye_colour"]:
+            details_schema.add(
+                colander.SchemaNode(
+                    colander.String(),
+                    widget=deform.widget.TextInputWidget(readonly=True),
+                    missing="",
+                    name="eye_colour",
+                )
             )
-        )
+        else:
+            eye_colours = SPECIES_DATA["Human"]["eye_colour"].values()
+            details_schema.add(
+                colander.SchemaNode(
+                    colander.String(),
+                    widget=deform.widget.SelectWidget(
+                        values=[(i, i) for i in eye_colours if i]
+                    ),
+                    name="eye_colour",
+                )
+            )
         details_schema.add(
             colander.SchemaNode(
                 colander.String(),
@@ -109,11 +124,14 @@ class DetailsViews(BaseCreateView):
         )
         if "Choose_Details" in self.request.POST:
             try:
-                form.validate(self.request.POST.items())
+                captured = form.validate(self.request.POST.items())
             except deform.ValidationFailure as error:
                 html = error.render()
             else:
-                self.character.eyes = self.character.status["details"]["eye_colour"]
+                if self.character.status["details"]["eye_colour"]:
+                    self.character.eyes = self.character.status["details"]["eye_colour"]
+                else:
+                    self.character.eyes = captured["character_details"]["eye_colour"]
                 self.character.hair = self.character.status["details"]["hair_colour"]
                 self.character.height = self.character.status["details"]["height"]
                 self.character.age = self.character.status["details"]["age"]
