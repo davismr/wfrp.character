@@ -128,7 +128,7 @@ def test_species_skills_submit(new_character):
     view = SpeciesSkillsViews(request)
     response = view.form_view()
     assert "You have to select a specialisation for Play (Any)" in response["form"]
-    payload["species_skills"]["Specialisation for Play"] = "Lute"
+    payload["species_skills"]["Play (Any) specialisation"] = "Lute"
     request = testing.DummyRequest(post=payload)
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="species-skills")
@@ -137,7 +137,8 @@ def test_species_skills_submit(new_character):
     response = view.form_view()
     assert isinstance(response, HTTPFound)
     assert "Cool" not in new_character.skills
-    assert "Specialisation for Play" not in new_character.skills
+    assert "Play (Any)" not in new_character.skills
+    assert "Play (Any) Specialisation" not in new_character.skills
     assert new_character.skills["Perception"] == 5
     assert new_character.skills["Swim"] == 3
     assert new_character.skills["Play (Lute)"] == 5
@@ -225,3 +226,58 @@ def test_species_skills_invalid_none(new_character):
     assert "form" in response
     assert "You must select 3 skills for 3 advances" in response["form"]
     assert "You must select 3 skills for 5 advances" in response["form"]
+
+
+@pytest.mark.create
+def test_species_skills_any(new_character):
+    new_character.species = "Human"
+    new_character.career = "Apothecary"
+    new_character.status = {
+        "species-skills": ["Acute Sense (Any)", "Craftsman (Any)", "Resistance (Any)"]
+    }
+    payload = {
+        "species_skills": {
+            "Animal Care": "5",
+            "Charm": "5",
+            "Cool": "5",
+            "Evaluate": "3",
+            "Gossip": "3",
+            "Haggle": "3",
+            "Language (Bretonnian)": "0",
+            "Language (Wastelander)": "0",
+            "Leadership": "0",
+            "Lore (Reikland)": "0",
+            "Melee (Basic)": "0",
+            "Ranged (Bow)": "0",
+        },
+        "species_talents": {
+            "Doomed": "Doomed",
+            "Savvy or Suave": "Suave",
+            "Acute Sense (Any)": "Acute Sense (Any)",
+            "Craftsman (Any)": "Craftsman (Any)",
+            "Resistance (Any)": "Resistance (Any)",
+        },
+        "Choose_Skills": "Choose_Skills",
+    }
+    request = testing.DummyRequest(post=payload)
+    request.dbsession = dbsession(request)
+    request.matched_route = DummyRoute(name="species-skills")
+    request.matchdict = {"id": str(new_character.id)}
+    view = SpeciesSkillsViews(request)
+    response = view.form_view()
+    assert isinstance(response, dict)
+    assert "Errors have been highlighted below" in response["form"]
+    assert response["form"].count("Choose the specialisation below") == 6
+    payload["species_talents"]["Acute Sense (Any) specialisation"] = "Hearing"
+    payload["species_talents"]["Craftsman (Any) specialisation"] = "Chandler"
+    payload["species_talents"]["Resistance (Any) specialisation"] = "Magic"
+    request = testing.DummyRequest(post=payload)
+    request.dbsession = dbsession(request)
+    request.matched_route = DummyRoute(name="species-skills")
+    request.matchdict = {"id": str(new_character.id)}
+    view = SpeciesSkillsViews(request)
+    response = view.form_view()
+    assert response.status_code == 302
+    assert new_character.talents["Acute Sense (Hearing)"] == 1
+    assert new_character.talents["Craftsman (Chandler)"] == 1
+    assert new_character.talents["Resistance (Magic)"] == 1

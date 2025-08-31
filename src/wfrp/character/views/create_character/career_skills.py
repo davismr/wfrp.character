@@ -35,7 +35,7 @@ class CareerSkillsViews(BaseCreateView):
                 "Allocate 40 Advances to your eight starting Skills, with no more than "
                 "10 Advances allocated to any single Skill at this stage."
             ),
-            validator=self.validate,
+            validator=self.validate_skills,
             name="career_skills",
         )
         skill_choices = [
@@ -52,6 +52,9 @@ class CareerSkillsViews(BaseCreateView):
             (10, 10),
         ]
         for skill in data["career_skills"]:
+            description = ""
+            if "(Any)" in skill:
+                description = "Choose the specialisation below"
             skill_schema.add(
                 colander.SchemaNode(
                     colander.Int(),
@@ -60,9 +63,7 @@ class CareerSkillsViews(BaseCreateView):
                         values=skill_choices, inline=True
                     ),
                     default=0,
-                    description="(Any)" in skill
-                    and "Choose the specialisation below"
-                    or "",
+                    description=description,
                     name=skill,
                 )
             )
@@ -87,22 +88,15 @@ class CareerSkillsViews(BaseCreateView):
                         name=f"{skill} specialisation",
                     )
                 )
-
         talent_schema = colander.SchemaNode(
             colander.Mapping(),
             description=("You may choose a single Talent to learn."),
             name="career_talents",
+            validator=self.validate_talents,
         )
         talent_choices = []
         for item in data["career_talents"]:
-            if "(Any)" in item:
-                item = item.replace(" (Any)", "")
-                for specialisation in TALENT_DATA[item]["specialisations"]:
-                    talent_choices.append(
-                        (f"{item} ({specialisation})", f"{item} ({specialisation})")
-                    )
-            else:
-                talent_choices.append((item, item))
+            talent_choices.append((item, item))
         talent_schema.add(
             colander.SchemaNode(
                 colander.String(),
@@ -112,11 +106,30 @@ class CareerSkillsViews(BaseCreateView):
                 default=talent_choices[0][0],
             )
         )
+        for item in data["career_talents"]:
+            if "(Any)" in item:
+                specialisation_choices = []
+                choices = TALENT_DATA[item.split(" (")[0]]["specialisations"]
+                for choice in choices:
+                    specialisation_choices.append((choice, choice))
+                talent_schema.add(
+                    colander.SchemaNode(
+                        colander.String(),
+                        validator=colander.OneOf(
+                            [x[0] for x in specialisation_choices]
+                        ),
+                        widget=deform.widget.RadioChoiceWidget(
+                            values=specialisation_choices, inline=True
+                        ),
+                        missing="",
+                        name=f"{item} specialisation",
+                    )
+                )
         schema.add(skill_schema)
         schema.add(talent_schema)
         return schema
 
-    def validate(self, form, values):
+    def validate_skills(self, form, values):
         total = 0
         for value in values:
             if not values[value]:
@@ -141,6 +154,13 @@ class CareerSkillsViews(BaseCreateView):
             raise colander.Invalid(
                 form,
                 f"You must allocate all 40 advances, you have only allocated {total}",
+            )
+
+    def validate_talents(self, form, values):
+        talent = values["career_talent"]
+        if "(Any)" in talent and not values[f"{talent} specialisation"]:
+            raise colander.Invalid(
+                form, f"You have to select a specialisation for {talent}"
             )
 
     @view_config(route_name="career-skills")
@@ -195,6 +215,9 @@ class CareerSkillsViews(BaseCreateView):
                 self.character.skills[item.replace(option, specialisation)] = int(value)
             else:
                 self.character.skills[item] = int(value)
-        for item in captured["career_talents"]:
-            value = captured["career_talents"].get(item)
+        value = captured["career_talents"]["career_talent"]
+        if "(Any)" in value:
+            specialisation = captured["career_talents"].get(f"{value} specialisation")
+            self.character.talents[value.replace("Any", specialisation)] = 1
+        else:
             self.character.talents[value] = 1

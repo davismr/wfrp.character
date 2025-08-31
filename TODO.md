@@ -1,9 +1,3 @@
-### Fixes
-- Species Talents with Any
-  - Acute Sense (any one)
-  - Craftsman (any one)
-  - Resistance (any one)
-
 ### Layout
 - Fix layout
 - Armour layout

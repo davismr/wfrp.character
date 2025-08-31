@@ -52,7 +52,7 @@ class SpeciesSkillsViews(BaseCreateView):
                 "You may choose 3 Skills to gain 5 Advances each, and 3 Skills to gain "
                 "3 Advances each."
             ),
-            validator=self.validate,
+            validator=self.validate_skills,
             name="species_skills",
         )
         skill_choices = ((0, "No Advances"), (3, "3 Advances"), (5, "5 Advances"))
@@ -83,7 +83,7 @@ class SpeciesSkillsViews(BaseCreateView):
                             values=specialisation_choices, inline=True
                         ),
                         missing="",
-                        name=f"Specialisation for {skill.split(' (')[0]}",
+                        name=f"{skill} specialisation",
                     )
                 )
         talent_schema = colander.SchemaNode(
@@ -92,12 +92,16 @@ class SpeciesSkillsViews(BaseCreateView):
                 "If a Talent listing presents a choice, you select one Talent from "
                 "the choices given."
             ),
+            validator=self.validate_talents,
             name="species_talents",
         )
         for talent in species_talents:
             talent_choices = []
             for talent_choice in talent.split(" or "):
                 talent_choices.append((talent_choice, talent_choice))
+            description = ""
+            if "(Any)" in talent:
+                description = "Choose the specialisation below"
             talent_schema.add(
                 colander.SchemaNode(
                     colander.String(),
@@ -106,20 +110,40 @@ class SpeciesSkillsViews(BaseCreateView):
                     widget=deform.widget.RadioChoiceWidget(
                         values=talent_choices, inline=True
                     ),
+                    description=description,
                     default=talent_choices[0][0],
                 )
             )
+            if "(Any)" in talent:
+                specialisation_choices = []
+                choices = TALENT_DATA[talent.split(" (")[0]]["specialisations"]
+                for choice in choices:
+                    specialisation_choices.append((choice, choice))
+                talent_schema.add(
+                    colander.SchemaNode(
+                        colander.String(),
+                        validator=colander.OneOf(
+                            [x[0] for x in specialisation_choices]
+                        ),
+                        widget=deform.widget.RadioChoiceWidget(
+                            values=specialisation_choices, inline=True
+                        ),
+                        missing="",
+                        name=f"{talent} specialisation",
+                    )
+                )
         schema.add(skill_schema)
         schema.add(talent_schema)
         return schema
 
-    def validate(self, form, values):
+    def validate_skills(self, form, values):
         errors = []
         for value in values:
             if (
                 "(Any)" in value
                 and values[value]
-                and not values[f"Specialisation for {value.split(' (')[0]}"]
+                and isinstance(values[value], int)
+                and not values[f"{value} specialisation"]
             ):
                 errors.append(f"You have to select a specialisation for {value}")
         list_values = list(values.values())
@@ -131,6 +155,18 @@ class SpeciesSkillsViews(BaseCreateView):
             errors.append("You can only select 3 skills for 5 advances")
         elif list_values.count(5) < 3:
             errors.append("You must select 3 skills for 5 advances")
+        if errors:
+            raise colander.Invalid(form, ". ".join(errors))
+
+    def validate_talents(self, form, values):
+        errors = []
+        for value in values.values():
+            if (
+                "(Any)" in value
+                and values[value]
+                and not values[f"{value} specialisation"]
+            ):
+                errors.append(f"You have to select a specialisation for {value}")
         if errors:
             raise colander.Invalid(form, ". ".join(errors))
 
@@ -179,13 +215,23 @@ class SpeciesSkillsViews(BaseCreateView):
             value = captured["species_skills"].get(item)
             if value == 0:
                 continue
+            if "(Any) specialisation" in item:
+                continue
             if "(Any)" in item:
                 specialisation = captured["species_skills"].get(
-                    f"Specialisation for {item.split(' (')[0]}"
+                    f"{item} specialisation"
                 )
                 self.character.skills[item.replace("Any", specialisation)] = value
-            elif "Specialisation for" not in item:
+            else:
                 self.character.skills[item] = value
         for item in captured["species_talents"]:
             value = captured["species_talents"].get(item)
-            self.character.talents[value] = 1
+            if "(Any) specialisation" in item:
+                continue
+            if "(Any)" in item:
+                specialisation = captured["species_talents"].get(
+                    f"{value} specialisation"
+                )
+                self.character.talents[item.replace("Any", specialisation)] = 1
+            else:
+                self.character.talents[value] = 1

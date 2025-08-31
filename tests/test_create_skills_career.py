@@ -219,8 +219,8 @@ def test_career_skills_any(new_character):
     view = CareerSkillsViews(request)
     response = view.form_view()
     assert isinstance(response, dict)
-    assert '"Craftsman (Any)" is not one of ' in response["form"]
-    payload["career_talents"]["career_talent"] = "Craftsman (Calligrapher)"
+    assert "You have to select a specialisation for Craftsman (Any)" in response["form"]
+    payload["career_talents"]["Craftsman (Any) specialisation"] = "Calligrapher"
     request = testing.DummyRequest(post=payload)
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="career-skills")
