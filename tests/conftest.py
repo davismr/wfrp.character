@@ -31,6 +31,7 @@ def testapp():
     config.add_request_method(dbsession, reify=True)
     config.include("pyramid_chameleon")
     config.include("wfrp.character.routes")
+    config.set_session_factory(SignedCookieSessionFactory("secret"))
     config.add_static_view("static", "wfrp.character:static")
     config.add_static_view("static_deform", "deform:static")
     config.scan()

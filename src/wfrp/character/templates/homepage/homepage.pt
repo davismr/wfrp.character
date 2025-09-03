@@ -5,6 +5,7 @@
     </div>
     <div metal:fill-slot="content">
         <h2>Warhammer Fantasy Roleplay Character generator</h2>
+        <div metal:use-macro="load: ../includes/flash_message.pt" />
         <div metal:use-macro="load: ../includes/about_warning.pt" />
         <div tal:condition="request.registry.settings['enable_auth']">
             <div metal:use-macro="load: home_auth.pt" />
