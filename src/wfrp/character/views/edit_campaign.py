@@ -115,16 +115,19 @@ class CampaignEditViews:
 
     @view_config(route_name="campaign-new")
     @view_config(route_name="campaign-edit")
-    def form_view(self):
+    def form_view(self):  # noqa: C901
         if "Delete" in self.request.POST or "Confirm_delete" in self.request.POST:
             schema = self.confirm_schema()
-            buttons = ["Confirm delete"]
+            buttons = ["Confirm delete", "Cancel"]
         else:
             schema = self.schema()
             buttons = ["Save"]
             if self.campaign.name is not None:
                 buttons.append("Delete")
         form = deform.Form(schema, buttons=buttons)
+        if "Cancel" in self.request.POST:
+            url = self.request.route_url("campaign-view", id=self.campaign.id)
+            return HTTPFound(location=url)
         if "Save" in self.request.POST:
             try:
                 captured = form.validate(self.request.POST.items())

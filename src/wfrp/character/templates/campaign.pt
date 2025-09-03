@@ -1,6 +1,7 @@
 <div metal:use-macro="load: layout.pt">
     <div metal:fill-slot="content">
         <h1>${campaign.name}</h1>
+        <div><a href="/campaign/${campaign.id}/edit">Edit</a></div>
         <div>Expansions: ${(", ").join(campaign.get_expansion_titles())}</div>
         <div tal:define="gamemasters campaign.gamemasters"
             tal:condition="gamemasters">

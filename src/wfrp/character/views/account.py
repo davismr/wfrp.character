@@ -64,8 +64,10 @@ class AccountPageViews:
         )
         form = deform.Form(
             schema,
-            buttons=("Confirm Account",),
+            buttons=("Confirm Account", "Cancel"),
         )
+        if "Cancel" in self.request.POST:
+            return HTTPFound(location="/")
         if "Confirm_Account" in self.request.POST:
             try:
                 form.validate(self.request.POST.items())

@@ -17,6 +17,7 @@ from wfrp.character.views.base_view import BaseView
 )
 class TransferViews(BaseView):
     def initialise_form(self):
+        confirm = False
         all_actions = [
             "Delete_Character",
             "Confirm_Delete",
@@ -24,12 +25,13 @@ class TransferViews(BaseView):
             "Confirm_Transfer",
         ]
         button = set(self.request.POST).intersection(all_actions)
+        if not button:
+            return {"action": "cancel", "confirm": confirm}
         elements = button.pop().split("_")
         if elements[0] == "Confirm":
             confirm = True
             action = elements[1].lower()
         else:
-            confirm = False
             action = elements[0].lower()
         return {"action": action, "confirm": confirm}
 
@@ -93,8 +95,11 @@ class TransferViews(BaseView):
         action = data["action"]
         form = deform.Form(
             schema,
-            buttons=(f"Confirm {action.title()}",),
+            buttons=(f"Confirm {action.title()}", "Cancel"),
         )
+        if "Cancel" in self.request.POST:
+            url = self.request.route_url("character-summary", id=self.character.id)
+            return HTTPFound(location=url)
         if data["confirm"] is True:
             try:
                 captured = form.validate(self.request.POST.items())
