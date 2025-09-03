@@ -47,6 +47,24 @@ def test_get_view_gnome(new_character):
 
 
 @pytest.mark.create
+def test_get_view_norse_dwarf(new_character):
+    new_character.status = {"species": ""}
+    request = testing.DummyRequest(path="species")
+    request.dbsession = dbsession(request)
+    request.matched_route = DummyRoute(name="species")
+    request.matchdict = {"id": str(new_character.id)}
+    view = SpeciesViews(request)
+    response = view.form_view()
+    assert "form" in response
+    assert "Dwarf (Norse)" not in response["form"]
+    assert "Choose species" in response["form"]
+    new_character.expansions = ["sea_of_claws"]
+    view = SpeciesViews(request)
+    response = view.form_view()
+    assert "Dwarf (Norse)" in response["form"]
+
+
+@pytest.mark.create
 @pytest.mark.parametrize(
     "species, roll",
     [

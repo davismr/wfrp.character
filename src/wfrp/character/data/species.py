@@ -1,4 +1,6 @@
-SPECIES_DATA = {
+from wfrp.character.data.species_norse import NORSE_SPECIES_DATA
+
+STANDARD_SPECIES_DATA = {
     "Human": {
         "skills": [
             "Animal Care",
@@ -277,6 +279,8 @@ SPECIES_DATA = {
     },
 }
 
+SPECIES_DATA = STANDARD_SPECIES_DATA | NORSE_SPECIES_DATA
+STANDARD_SPECIES_LIST = list(STANDARD_SPECIES_DATA.keys())
 SPECIES_LIST = list(SPECIES_DATA.keys())
 
 

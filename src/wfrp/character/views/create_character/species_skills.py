@@ -20,7 +20,7 @@ class SpeciesSkillsViews(BaseCreateView):
         species = self.character.species
         species_skills = SPECIES_DATA[species]["skills"].copy()
         species_talents = SPECIES_DATA[species]["talents"].copy()
-        if species in ["Human", "Halfling"]:
+        if species == "Halfling" or species.startswith("Human"):
             if self.character.status["species-skills"]:
                 extra_talents = self.character.status["species-skills"]
             else:
@@ -31,8 +31,15 @@ class SpeciesSkillsViews(BaseCreateView):
                         continue
                     if extra_talent in ["Savvy", "Suave"] and species == "Human":
                         continue
+                    if (
+                        extra_talent == "Pure Soul"
+                        and self.character.species.startswith("Human (")
+                    ):
+                        extra_talent = "Pure Soul or Mark of Khorne"
                     extra_talents.append(extra_talent)
                     if len(extra_talents) == 2 and species == "Halfling":
+                        break
+                    if len(extra_talents) == 2 and species.startswith("Human ("):
                         break
                     if len(extra_talents) == 3 and species == "Human":
                         break

@@ -840,6 +840,22 @@ BASIC_TALENTS = {
             "this."
         ),
     },
+    "Mark of Khorne": {
+        "max": 1,
+        "description": (
+            "Khorne has marked this creature with a physical brand, proclaiming it "
+            "sworn to his cause. The creature benefits from the Frenzy Talent. This "
+            "creature gains the Etiquette (Followers of Khorne) Talent and is subject "
+            "to Animosity towards overt followers of Slaanesh. The creature is also "
+            "subject to Animosity by followers of Slaanesh, so long as the Mark of "
+            "Khorne is visible. The Character may never use the Language (Magick) or "
+            "Channelling skills unless it is to dispel a spell. Additonally they may "
+            "purchase the following Talents as if they were Career Advances for the "
+            "normal XP costs: Berserk Charge, Combat Aware, Combat Reflexes, Furious "
+            "Assault, Implacable, Magic Resistance, Resistance (Magic), Resolute, "
+            "Strike Mighty Blow, Warrior Born."
+        ),
+    },
     "Marksman": {
         "max": 1,
         "short_description": "+5 BS, already included",

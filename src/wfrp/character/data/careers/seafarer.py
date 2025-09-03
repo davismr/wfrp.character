@@ -714,3 +714,98 @@ SEAFARER_CLASS_DATA = {
         },
     },
 }
+
+PRIEST_OF_STROMFELS = {
+    "Priest of Stromfels": {
+        "Initiate": {
+            "status": {"tier": "Silver", "standing": 2},
+            "attributes": ["Weapon Skill", "Strength", "Initiative"],
+            "skills": [
+                "Climb",
+                "Consume Alcohol",
+                "Endurance",
+                "Intimidate",
+                "Intuition",
+                "Melee (Basic)",
+                "Pray",
+                "Row",
+                "Sail",
+                "Swim",
+            ],
+            "talents": [
+                "Bless (Stromfels)",
+                "Criminal",
+                "Holy Visions",
+                "Strong Swimmer",
+            ],
+            "trappings": [
+                "Crowbar",
+                "Hand Weapon",
+                "Large Sack",
+                "Leather Jerkin",
+                "Leather Gloves",
+            ],
+        },
+        "Priest of Stromfels": {
+            "status": {"tier": "Silver", "standing": 3},
+            "attributes": ["Fellowship"],
+            "skills": [
+                "Cool",
+                "Entertain (Singing)",
+                "Lore (Stromfels)",
+                "Navigation",
+                "Perception",
+                "Track",
+            ],
+            "talents": [
+                "Fearless (Any)",
+                "Flee!",
+                "Invoke (Stromfels)",
+                "Menacing",
+            ],
+            "trappings": [
+                "Leather Jack",
+                "Storm Lantern and Oil",
+            ],
+        },
+        "Pirate Priest": {
+            "status": {"tier": "Silver", "standing": 4},
+            "attributes": ["Agility"],
+            "skills": [
+                "Gossip",
+                "Leadership",
+                "Lore (Oceans)",
+                "Set Trap",
+            ],
+            "talents": [
+                "Hatred (Manannites or Followers of Chaos)",
+                "Impassioned Zeal",
+                "Master Orator",
+                "Rover",
+            ],
+            "trappings": [
+                "Grappling Hook and Rope",
+                "Religious Relic",
+                "Riverboat",
+            ],
+        },
+        "Pirate Captain": {
+            "status": {"tier": "Silver", "standing": 5},
+            "attributes": ["Ballistic Skill"],
+            "skills": [
+                "Melee (Any)",
+                "Ranged (Blackpowder)",
+            ],
+            "talents": [
+                "Furious Assault",
+                "In-fighter",
+                "Pilot",
+                "Warrior Born",
+            ],
+            "trappings": [
+                "Group of Cultists",
+                "Pistol with 10 Shots",
+            ],
+        },
+    },
+}

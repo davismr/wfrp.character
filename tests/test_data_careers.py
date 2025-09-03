@@ -7,6 +7,7 @@ from wfrp.character.data.careers.peasants import PEASANTS_CLASS_DATA
 from wfrp.character.data.careers.rangers import RANGERS_CLASS_DATA
 from wfrp.character.data.careers.riverfolk import RIVERFOLK_CLASS_DATA
 from wfrp.character.data.careers.rogues import ROGUES_CLASS_DATA
+from wfrp.character.data.careers.seafarer import PRIEST_OF_STROMFELS
 from wfrp.character.data.careers.seafarer import SEAFARER_CLASS_DATA
 from wfrp.character.data.careers.tables import get_career
 from wfrp.character.data.careers.tables import list_careers
@@ -124,12 +125,14 @@ def test_list_careers_invalid():
         RIVERFOLK_CLASS_DATA,
         ROGUES_CLASS_DATA,
         SEAFARER_CLASS_DATA,
+        PRIEST_OF_STROMFELS,
         WARRIORS_CLASS_DATA,
     ],
 )
 def test_career_data(career_data):  # noqa: C901
-    # 8 careers per class
-    assert len(career_data) == 8
+    if "Priest of Stromfels" not in career_data:
+        # 8 careers per class
+        assert len(career_data) == 8
     for career_class in career_data.values():
         # should be 4 career levels
         assert len(career_class) == 4

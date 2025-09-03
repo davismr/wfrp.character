@@ -5,6 +5,7 @@ from pyramid.view import view_config
 from pyramid.view import view_defaults
 
 from wfrp.character.data.species import SPECIES_LIST
+from wfrp.character.data.species import STANDARD_SPECIES_LIST
 from wfrp.character.utils import roll_d100
 from wfrp.character.views.create_character.base_create import BaseCreateView
 
@@ -49,8 +50,11 @@ class SpeciesViews(BaseCreateView):
         return species
 
     def initialise_form(self):
+        if "sea_of_claws" in self.character.expansions:
+            self.species_list = SPECIES_LIST.copy()
+        else:
+            self.species_list = STANDARD_SPECIES_LIST.copy()
         gnome_active = "rough_nights" in self.character.expansions
-        self.species_list = SPECIES_LIST.copy()
         if gnome_active is False:
             self.species_list.remove("Gnome")
         if not self.character.status["species"]:
@@ -112,7 +116,7 @@ class SpeciesViews(BaseCreateView):
         }
 
     def _set_species_attributes(self, species):
-        if species == "Human":
+        if species.startswith("Human"):
             self.character.fate = 2
             self.character.resilience = 1
             self.character.extra_points = 3
@@ -120,7 +124,7 @@ class SpeciesViews(BaseCreateView):
         elif species == "Halfling":
             self.character.resilience = 2
             self.character.extra_points = 2
-        elif species == "Dwarf":
+        elif species in ["Dwarf", "Dwarf (Norse)"]:
             self.character.resilience = 2
             self.character.extra_points = 3
         elif species == "Gnome":

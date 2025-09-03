@@ -8,6 +8,8 @@ def list_careers(species=None, with_seafarer=False):  # noqa: C901
         return list(HUMAN_CAREERS.values())
     if species == "Human":
         return list(HUMAN_CAREERS_WITH_SEAFARER.values())
+    if species.startswith("Human"):
+        return list(HUMAN_NORSE_CAREERS.values())
     if species == "Halfling" and with_seafarer is False:
         return list(HALFLING_CAREERS.values())
     if species == "Halfling":
@@ -15,6 +17,8 @@ def list_careers(species=None, with_seafarer=False):  # noqa: C901
     if species == "Dwarf" and with_seafarer is False:
         return list(DWARF_CAREERS.values())
     if species == "Dwarf":
+        return list(DWARF_CAREERS_WITH_SEAFARER.values())
+    if species == "Dwarf (Norse)":
         return list(DWARF_CAREERS_WITH_SEAFARER.values())
     if species == "Gnome":
         return list(GNOME_CAREERS.values())
@@ -32,6 +36,8 @@ def get_career(species, die_roll, with_seafarer=False):  # noqa: C901
         career_list = HUMAN_CAREERS
     elif species == "Human":
         career_list = HUMAN_CAREERS_WITH_SEAFARER
+    elif species.startswith("Human"):
+        career_list = HUMAN_NORSE_CAREERS
     elif species == "Halfling" and with_seafarer is False:
         career_list = HALFLING_CAREERS
     elif species == "Halfling":
@@ -39,6 +45,8 @@ def get_career(species, die_roll, with_seafarer=False):  # noqa: C901
     elif species == "Dwarf" and with_seafarer is False:
         career_list = DWARF_CAREERS
     elif species == "Dwarf":
+        career_list = DWARF_CAREERS_WITH_SEAFARER
+    elif species == "Dwarf (Norse)":
         career_list = DWARF_CAREERS_WITH_SEAFARER
     elif species == "Gnome":
         career_list = GNOME_CAREERS
@@ -135,6 +143,40 @@ HUMAN_CAREERS_WITH_SEAFARER[74] = "Wrecker"
 del HUMAN_CAREERS_WITH_SEAFARER[65]
 del HUMAN_CAREERS_WITH_SEAFARER[68]
 del HUMAN_CAREERS_WITH_SEAFARER[70]
+
+HUMAN_NORSE_CAREERS = {
+    2: "Nun",
+    4: "Scholar",
+    6: "Agitator",
+    10: "Artisan",
+    12: "Beggar",
+    13: "Rat Catcher",
+    15: "Merchant",
+    18: "Advisor",
+    19: "Artist",
+    20: "Noble",
+    27: "Servant",
+    30: "Herbalist",
+    34: "Hunter",
+    37: "Mystic",
+    40: "Scout",
+    46: "Villager",
+    48: "Entertainer",
+    49: "Messenger",
+    52: "Pedlar",
+    54: "Charlatan",
+    57: "Outlaw",
+    61: "Thief",
+    64: "Witch",
+    66: "Beachcomber",
+    69: "Huffer",
+    77: "Sailor",
+    82: "Wrecker",
+    85: "Cavalryman",
+    89: "Pit Fighter",
+    92: "Protagonist",
+    100: "Soldier",
+}
 
 DWARF_CAREERS = {
     1: "Apothecary",

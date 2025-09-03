@@ -38,7 +38,7 @@ class AttributesViews(BaseCreateView):
         attributes = {}
         for attribute in ATTRIBUTES:
             attributes[attribute] = 20
-        if species == "Human":
+        if species.startswith("Human"):
             pass
         elif species == "Halfling":
             attributes["Weapon Skill"] += -10
@@ -47,7 +47,7 @@ class AttributesViews(BaseCreateView):
             attributes["Dexterity"] += -10
             attributes["Willpower"] += -10
             attributes["Fellowship"] += -10
-        elif species == "Dwarf":
+        elif species in ["Dwarf", "Dwarf (Norse)"]:
             attributes["Weapon Skill"] += 10
             attributes["Toughness"] += 10
             attributes["Agility"] += -10

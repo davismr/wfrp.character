@@ -29,13 +29,13 @@ class DetailsViews(BaseCreateView):
             return self.character.status["details"]
         species = self.character.species
         eye_colour = ""
-        if species == "Human":
+        if species.startswith("Human"):
             age = 15 + roll_d10()
             height = 57 + roll_2d10()
         elif species == "Halfling":
             age = 15 + roll_5d10()
             height = 37 + roll_d10()
-        elif species == "Dwarf":
+        elif species in ["Dwarf", "Dwarf (Norse)"]:
             age = 15 + roll_5d10() + roll_5d10()
             height = 51 + roll_d10()
         elif species == "Gnome":
