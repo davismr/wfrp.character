@@ -48,8 +48,12 @@ class Character(Base):
     career_path = Column(MutableList.as_mutable(JSON), default=[])
     experience = Column(Integer, default=0)
     experience_spent = Column(Integer, default=0)
-    experience_cost = relationship("ExperienceCost", back_populates="character")
-    experience_gain = relationship("ExperienceGain", back_populates="character")
+    experience_cost = relationship(
+        "ExperienceCost", back_populates="character", cascade="all, delete-orphan"
+    )
+    experience_gain = relationship(
+        "ExperienceGain", back_populates="character", cascade="all, delete-orphan"
+    )
     weapon_skill_initial = Column(Integer, default=0)
     ballistic_skill_initial = Column(Integer, default=0)
     strength_initial = Column(Integer, default=0)

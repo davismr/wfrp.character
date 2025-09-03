@@ -5,8 +5,6 @@
 
 ### Authentication/Authorization
 - Assign a GM with view/edit rights
-- Transfer character to another user
-- Give character from GM to player
 - Open character for editing
 
 ### Additional functionality
@@ -16,7 +14,6 @@
 - Skill descriptions
 - Tests and max for talents
 - Attribute bonus max for talents
-- Delete character
 - Copy character
 - Import/export
 - Ready made characters

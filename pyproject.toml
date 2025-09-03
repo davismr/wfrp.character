@@ -11,6 +11,7 @@ filterwarnings = [
 markers = [
     "account",
     "campaign",
+    "character",
     "create",
     "data",
     "edit",

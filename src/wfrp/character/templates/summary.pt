@@ -8,5 +8,6 @@
         <div><a href="/character/${character.id}/view">Character sheet</a></div>
         <div><a href="/character/${character.id}/pdf-print">Print Character</a></div>
         <div><a href="/character/${character.id}/edit">Edit Character</a></div>
+        <div><a href="/character/${character.id}/transfer">Transfer/Delete Character</a></div>
     </div>
 </div>
