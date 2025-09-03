@@ -5,7 +5,7 @@ from faker import Factory as FakerFactory
 
 from wfrp.character.data.careers.tables import list_careers
 from wfrp.character.data.species import SPECIES_DATA
-from wfrp.character.data.species import SPECIES_LIST
+from wfrp.character.data.species import STANDARD_SPECIES_LIST
 from wfrp.character.models.campaign import Campaign
 from wfrp.character.models.character import Character
 
@@ -43,7 +43,7 @@ class CharacterFactory(factory.Factory):
 
     class Params:
         species_param = factory.LazyAttribute(
-            lambda x: faker.random_element(SPECIES_LIST)
+            lambda x: faker.random_element(STANDARD_SPECIES_LIST)
         )
 
     class Meta:

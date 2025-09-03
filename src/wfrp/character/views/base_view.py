@@ -1,5 +1,7 @@
 import uuid
 
+from pyramid.httpexceptions import HTTPFound
+
 from wfrp.character.models.character import Character
 
 
@@ -13,6 +15,12 @@ class BaseView:
             .filter(Character.id == uuid.UUID(id))
             .one()
         )
+        if "complete" not in self.character.status:
+            self.redirect_request(list(self.character.status)[0])
+
+    def redirect_request(self, route):
+        url = self.request.route_url(route, id=self.character.id)
+        raise HTTPFound(location=url)
 
     def get_widget_resources(self, form):
         static_assets = form.get_widget_resources()

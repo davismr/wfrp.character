@@ -6,58 +6,58 @@ from wfrp.character.views.experience_gain import ExperienceGainViews
 
 
 @pytest.mark.views
-def test_form_view(new_character):
+def test_form_view(complete_character):
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
-    request.matchdict = {"id": str(new_character.id)}
+    request.matchdict = {"id": str(complete_character.id)}
     view = ExperienceGainViews(request)
     response = view.form_view()
     assert isinstance(response["form"], str)
 
 
 @pytest.mark.views
-def test_form_valid(new_character):
+def test_form_valid(complete_character):
     payload = {
         "experience_gain": {"amount": "40", "reason": "Give some experience"},
         "Give_Experience": "Give_Experience",
     }
     request = testing.DummyRequest(post=payload)
     request.dbsession = dbsession(request)
-    request.matchdict = {"id": str(new_character.id)}
+    request.matchdict = {"id": str(complete_character.id)}
     view = ExperienceGainViews(request)
     response = view.form_view()
     assert response.status_code == 302
     assert response.location == (
-        f"http://example.com/character/{new_character.id}/summary"
+        f"http://example.com/character/{complete_character.id}/summary"
     )
 
 
 @pytest.mark.views
-def test_form_negative_amount(new_character):
+def test_form_negative_amount(complete_character):
     payload = {
         "experience_gain": {"amount": "-40", "reason": "Give some experience"},
         "Give_Experience": "Give_Experience",
     }
     request = testing.DummyRequest(post=payload)
     request.dbsession = dbsession(request)
-    request.matchdict = {"id": str(new_character.id)}
+    request.matchdict = {"id": str(complete_character.id)}
     view = ExperienceGainViews(request)
     response = view.form_view()
     assert response.status_code == 302
     assert response.location == (
-        f"http://example.com/character/{new_character.id}/summary"
+        f"http://example.com/character/{complete_character.id}/summary"
     )
 
 
 @pytest.mark.views
-def test_form_text_amount(new_character):
+def test_form_text_amount(complete_character):
     payload = {
         "experience_gain": {"amount": "broken", "reason": "Give some experience"},
         "Give_Experience": "Give_Experience",
     }
     request = testing.DummyRequest(post=payload)
     request.dbsession = dbsession(request)
-    request.matchdict = {"id": str(new_character.id)}
+    request.matchdict = {"id": str(complete_character.id)}
     view = ExperienceGainViews(request)
     response = view.form_view()
     assert isinstance(response, dict)
@@ -65,14 +65,14 @@ def test_form_text_amount(new_character):
 
 
 @pytest.mark.views
-def test_form_missing_amount(new_character):
+def test_form_missing_amount(complete_character):
     payload = {
         "experience_gain": {"reason": "Give some experience"},
         "Give_Experience": "Give_Experience",
     }
     request = testing.DummyRequest(post=payload)
     request.dbsession = dbsession(request)
-    request.matchdict = {"id": str(new_character.id)}
+    request.matchdict = {"id": str(complete_character.id)}
     view = ExperienceGainViews(request)
     response = view.form_view()
     assert isinstance(response, dict)
