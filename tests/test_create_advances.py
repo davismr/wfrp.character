@@ -22,7 +22,7 @@ def test_initialise_form(new_character):
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="advances")
-    request.matchdict = {"id": str(str(new_character.id))}
+    request.matchdict = {"id": str(new_character.id)}
     view = AdvancesViews(request)
     response = view.initialise_form()
     assert isinstance(response, dict)
@@ -41,7 +41,7 @@ def test_form_view(new_character):
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="advances")
-    request.matchdict = {"id": str(str(new_character.id))}
+    request.matchdict = {"id": str(new_character.id)}
     view = AdvancesViews(request)
     response = view.form_view()
     assert isinstance(response, dict)
@@ -69,7 +69,7 @@ def test_submit_view(new_character):
     )
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="advances")
-    request.matchdict = {"id": str(str(new_character.id))}
+    request.matchdict = {"id": str(new_character.id)}
     view = AdvancesViews(request)
     response = view.form_view()
     assert isinstance(response, HTTPFound)
@@ -103,7 +103,7 @@ def test_invalid_submit_view(new_character, advance, message):
     )
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="advances")
-    request.matchdict = {"id": str(str(new_character.id))}
+    request.matchdict = {"id": str(new_character.id)}
     view = AdvancesViews(request)
     response = view.form_view()
     assert isinstance(response, dict)
@@ -128,7 +128,7 @@ def test_invalid_fate_submit_view(new_character, advance):
     )
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="advances")
-    request.matchdict = {"id": str(str(new_character.id))}
+    request.matchdict = {"id": str(new_character.id)}
     view = AdvancesViews(request)
     response = view.form_view()
     assert isinstance(response, dict)
@@ -152,7 +152,7 @@ def test_motivation(new_character):
     )
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="advances")
-    request.matchdict = {"id": str(str(new_character.id))}
+    request.matchdict = {"id": str(new_character.id)}
     view = AdvancesViews(request)
     response = view.form_view()
     assert isinstance(response, HTTPFound)
@@ -174,7 +174,7 @@ def test_motivation_not_required(new_character):
     )
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="advances")
-    request.matchdict = {"id": str(str(new_character.id))}
+    request.matchdict = {"id": str(new_character.id)}
     view = AdvancesViews(request)
     response = view.form_view()
     assert isinstance(response, HTTPFound)

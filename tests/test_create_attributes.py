@@ -21,7 +21,7 @@ def test_get_view(new_character):
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="attributes")
-    request.matchdict = {"id": str(str(new_character.id))}
+    request.matchdict = {"id": str(new_character.id)}
     view = AttributesViews(request)
     response = view.initialise_form()
     assert "base_attributes" in response
@@ -38,7 +38,7 @@ def test_bonus_attributes_view(new_character):
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="attributes")
-    request.matchdict = {"id": str(str(new_character.id))}
+    request.matchdict = {"id": str(new_character.id)}
     view = AttributesViews(request)
     response = view._get_bonus_attributes("Human")
     assert len(response) == 10
@@ -53,7 +53,7 @@ def test_bonus_attributes_halfling(new_character):
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="attributes")
-    request.matchdict = {"id": str(str(new_character.id))}
+    request.matchdict = {"id": str(new_character.id)}
     view = AttributesViews(request)
     response = view._get_bonus_attributes("Halfling")
     assert len(response) == 10
@@ -67,7 +67,7 @@ def test_bonus_attributes_dwarf(new_character):
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="attributes")
-    request.matchdict = {"id": str(str(new_character.id))}
+    request.matchdict = {"id": str(new_character.id)}
     view = AttributesViews(request)
     response = view._get_bonus_attributes("Dwarf")
     assert len(response) == 10
@@ -81,7 +81,7 @@ def test_bonus_attributes_elf(new_character):
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="attributes")
-    request.matchdict = {"id": str(str(new_character.id))}
+    request.matchdict = {"id": str(new_character.id)}
     view = AttributesViews(request)
     response = view._get_bonus_attributes("High Elf")
     assert len(response) == 10
@@ -95,7 +95,7 @@ def test_bonus_attributes_invalid(new_character):
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="attributes")
-    request.matchdict = {"id": str(str(new_character.id))}
+    request.matchdict = {"id": str(new_character.id)}
     view = AttributesViews(request)
     with pytest.raises(NotImplementedError):
         view._get_bonus_attributes("Not a species")
@@ -109,7 +109,7 @@ def test_submit_full_experience(new_character):
     request = testing.DummyRequest(post=payload)
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="attributes")
-    request.matchdict = {"id": str(str(new_character.id))}
+    request.matchdict = {"id": str(new_character.id)}
     view = AttributesViews(request)
     response = view.form_view()
     assert isinstance(response, HTTPFound)
@@ -139,7 +139,7 @@ def test_submit_rearrange(new_character):
     )
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="attributes")
-    request.matchdict = {"id": str(str(new_character.id))}
+    request.matchdict = {"id": str(new_character.id)}
     view = AttributesViews(request)
     response = view.form_view()
     assert isinstance(response, dict)
@@ -162,7 +162,7 @@ def test_submit_rearrange(new_character):
     request = testing.DummyRequest(post=payload)
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="attributes")
-    request.matchdict = {"id": str(str(new_character.id))}
+    request.matchdict = {"id": str(new_character.id)}
     view = AttributesViews(request)
     response = view.form_view()
     assert isinstance(response, dict)
@@ -172,7 +172,7 @@ def test_submit_rearrange(new_character):
     request = testing.DummyRequest(post=payload)
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="attributes")
-    request.matchdict = {"id": str(str(new_character.id))}
+    request.matchdict = {"id": str(new_character.id)}
     view = AttributesViews(request)
     response = view.form_view()
     assert isinstance(response, HTTPFound)
@@ -199,7 +199,7 @@ def test_reroll_submit(new_character):
     request = testing.DummyRequest(post=payload)
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="attributes")
-    request.matchdict = {"id": str(str(new_character.id))}
+    request.matchdict = {"id": str(new_character.id)}
     view = AttributesViews(request)
     response = view.form_view()
     assert isinstance(response, dict)
@@ -214,7 +214,7 @@ def test_reroll_submit(new_character):
     request = testing.DummyRequest(post=payload)
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="attributes")
-    request.matchdict = {"id": str(str(new_character.id))}
+    request.matchdict = {"id": str(new_character.id)}
     view = AttributesViews(request)
     response = view.form_view()
     assert isinstance(response, HTTPFound)
@@ -228,7 +228,7 @@ def test_allocate_submit(new_character):
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="attributes")
-    request.matchdict = {"id": str(str(new_character.id))}
+    request.matchdict = {"id": str(new_character.id)}
     view = AttributesViews(request)
     response = view.form_view()
     assert "form" in response
@@ -236,7 +236,7 @@ def test_allocate_submit(new_character):
     request = testing.DummyRequest(post=payload)
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="attributes")
-    request.matchdict = {"id": str(str(new_character.id))}
+    request.matchdict = {"id": str(new_character.id)}
     view = AttributesViews(request)
     response = view.form_view()
     assert "form" in response
@@ -255,7 +255,7 @@ def test_allocate_submit(new_character):
     request = testing.DummyRequest(post=payload)
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="attributes")
-    request.matchdict = {"id": str(str(new_character.id))}
+    request.matchdict = {"id": str(new_character.id)}
     view = AttributesViews(request)
     response = view.form_view()
     assert "Must be a minimum of 4" in response["form"]
@@ -265,7 +265,7 @@ def test_allocate_submit(new_character):
     request = testing.DummyRequest(post=payload)
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="attributes")
-    request.matchdict = {"id": str(str(new_character.id))}
+    request.matchdict = {"id": str(new_character.id)}
     view = AttributesViews(request)
     response = view.form_view()
     assert "Total must be 100, total is currently 102" in response["form"]
@@ -273,7 +273,7 @@ def test_allocate_submit(new_character):
     request = testing.DummyRequest(post=payload)
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="attributes")
-    request.matchdict = {"id": str(str(new_character.id))}
+    request.matchdict = {"id": str(new_character.id)}
     view = AttributesViews(request)
     response = view.form_view()
     assert isinstance(response, HTTPFound)
