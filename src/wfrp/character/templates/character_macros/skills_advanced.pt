@@ -1,22 +1,22 @@
-<table>
-    <caption>Grouped & Advanced Skills</caption>
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th colspan="2">Characteristic</th>
-            <th>Adv</th>
-            <th>Skill</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr tal:repeat="skill character.skills">
-            <div tal:define="data python:skill_data[skill.split(' (')[0]]">
-                <td>${skill}</td>
-                <td>${data["characteristic"][1]}</td>
-                <td>${getattr(character, data["characteristic"][0])}</td>
-                <td>${character.skills[skill]}</td>
-                <td>${character.skills[skill] + getattr(character, data["characteristic"][0])}</td>
-            </div>
-        </tr>
-    </tbody>
-</table>
+<div id="skills-advanced" class="border">
+    <div class="row">
+        <div class="col-md-12 caption">Grouped & Advanced Skills</div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">Name</div>
+        <div class="col-md-4">Characteristic</div>
+        <div class="col-md-2">Adv</div>
+        <div class="col-md-2">Skill</div>
+    </div>
+    <div class="row"
+        tal:repeat="skill character.skills">
+        <div tal:omit-tag=""
+            tal:define="data python:skill_data[skill.split(' (')[0]]">
+            <div class="col-md-4">${skill}</div>
+            <div class="col-md-2">${data["characteristic"][1]}</div>
+            <div class="col-md-2">${getattr(character, data["characteristic"][0])}</div>
+            <div class="col-md-2">${character.skills[skill]}</div>
+            <div class="col-md-2">${character.skills[skill] + getattr(character, data["characteristic"][0])}</div>
+        </div>
+    </div>
+</div>

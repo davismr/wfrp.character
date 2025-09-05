@@ -1,0 +1,104 @@
+<table>
+    <caption>Basic Skills</caption>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th colspan="2">Characteristic</th>
+            <th>Adv</th>
+            <th>Skill</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Gossip</td>
+            <td>Fel</td>
+            <td>${character.fellowship}</td>
+            <td>${character.skills.get("Gossip", "&nbsp;")}</td>
+            <td>${character.skills.get("Gossip", 0) + character.fellowship}</td>
+        </tr>
+        <tr>
+            <td>Haggle</td>
+            <td>Fel</td>
+            <td>${character.fellowship}</td>
+            <td>${character.skills.get("Haggle", "&nbsp;")}</td>
+            <td>${character.skills.get("Haggle", 0) + character.fellowship}</td>
+        </tr>
+        <tr>
+            <td>Intimidate</td>
+            <td>S</td>
+            <td>${character.strength}</td>
+            <td>${character.skills.get("Intimidate", "&nbsp;")}</td>
+            <td>${character.skills.get("Intimidate", 0) + character.strength}</td>
+        </tr>
+        <tr>
+            <td>Intuition</td>
+            <td>I</td>
+            <td>${character.initiative}</td>
+            <td>${character.skills.get("Intuition", "&nbsp;")}</td>
+            <td>${character.skills.get("Intuition", 0) + character.initiative}</td>
+        </tr>
+        <tr>
+            <td>Leadership</td>
+            <td>Fel</td>
+            <td>${character.fellowship}</td>
+            <td>${character.skills.get("Leadership", "&nbsp;")}</td>
+            <td>${character.skills.get("Leadership", 0) + character.fellowship}</td>
+        </tr>
+        <tr>
+            <td>Melee (basic)</td>
+            <td>WS</td>
+            <td>${character.weapon_skill}</td>
+            <td>${character.skills.get("Melee (basic)", "&nbsp;")}</td>
+            <td>${character.skills.get("Melee (basic)", 0) + character.weapon_skill}</td>
+        </tr>
+        <tr>
+            <td>Melee</td>
+            <td>WS</td>
+            <td>${character.weapon_skill}</td>
+            <td>${character.skills.get("Melee", "&nbsp;")}</td>
+            <td>${character.skills.get("Melee", 0) + character.weapon_skill}</td>
+        </tr>
+        <tr>
+            <td>Navigation</td>
+            <td>I</td>
+            <td>${character.initiative}</td>
+            <td>${character.skills.get("Navigation", "&nbsp;")}</td>
+            <td>${character.skills.get("Navigation", 0) + character.initiative}</td>
+        </tr>
+        <tr>
+            <td>Outdoor Survival</td>
+            <td>Int</td>
+            <td>${character.intelligence}</td>
+            <td>${character.skills.get("Outdoor Survival", "&nbsp;")}</td>
+            <td>${character.skills.get("Outdoor Survival", 0) + character.intelligence}</td>
+        </tr>
+        <tr>
+            <td>Perception</td>
+            <td>I</td>
+            <td>${character.initiative}</td>
+            <td>${character.skills.get("Perception", "&nbsp;")}</td>
+            <td>${character.skills.get("Perception", 0) + character.initiative}</td>
+        </tr>
+        <tr>
+            <td>Ride</td>
+            <td>Ag</td>
+            <td>${character.agility}</td>
+            <td>${character.skills.get("Ride", "&nbsp;")}</td>
+            <td>${character.skills.get("Ride", 0) + character.agility}</td>
+        </tr>
+        <tr>
+            <td>Row</td>
+            <td>S</td>
+            <td>${character.strength}</td>
+            <td>${character.skills.get("Row", "&nbsp;")}</td>
+            <td>${character.skills.get("Row", 0) + character.strength}</td>
+        </tr>
+        <tr>
+            <td>Stealth</td>
+            <td>Ag</td>
+            <td>${character.agility}</td>
+            <td>${character.skills.get("Stealth", "&nbsp;")}</td>
+            <td>${character.skills.get("Stealth", 0) + character.agility}</td>
+        </tr>
+    </tbody>
+</table>

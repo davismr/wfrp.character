@@ -1,0 +1,25 @@
+<table tal:define="weapons python:character.total_encumberance_weapons();
+                   armour python:character.total_encumberance_armour();
+                   trappings python:character.total_encumberance_trappings()">
+    <caption>Encumberance</caption>
+    <tr>
+        <td>Weapons</td>
+        <td>${weapons}</td>
+    </tr>
+    <tr>
+        <td>Armour</td>
+        <td>${armour}</td>
+    </tr>
+    <tr>
+        <td>Trappings</td>
+        <td>${trappings}</td>
+    </tr>
+    <tr>
+        <td>Max Enc.</td>
+        <td>${(character.strength // 10) + (character.toughness // 10)}</td>
+    </tr>
+    <tr>
+        <td>Total</td>
+        <td>${armour + weapons + trappings}</td>
+    </tr>
+</table>

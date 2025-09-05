@@ -1,13 +1,15 @@
-<table>
-    <caption>Experience</caption>
-    <tr>
-        <td>Current</td>
-        <td>Spent</td>
-        <td>Total</td>
-    </tr>
-    <tr>
-        <td>${character.experience}</td>
-        <td>${character.experience_spent}</td>
-        <td>${character.experience + character.experience_spent}</td>
-    </tr>
-</table>
+<div id="experience" class="border">
+    <div class="row">
+        <div class="col-md-12 caption">Experience</div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">Current</div>
+        <div class="col-md-4">Spent</div>
+        <div class="col-md-4">Total</div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">${character.experience}</div>
+        <div class="col-md-4">${character.experience_spent}</div>
+        <div class="col-md-4">${character.experience + character.experience_spent}</div>
+    </div>
+</div>

@@ -1,7 +1,55 @@
 @page {
-    margin: 0.8cm;
+    margin: 40px;
+}
+
+html, body {
+    font-family: 'Caslon Antique', arial, sans-serif;
 }
 
 #character-page {
     font-size: 12px;
+}
+
+
+
+/*
+
+// 2480 x 3508 pixels
+
+.character-sheet table {
+    border: 2px solid black;
+    width: 100%;
+    margin: 0px;
+    border-collapse: collapse;
+}
+
+.character-sheet table caption {
+    text-transform: uppercase;
+    border: 2px solid black;
+}
+
+.character-sheet .details table {
+    width: 100%;
+    height: 400px
+}
+.attributes, .movement {
+    width: 50%;
+}
+.fate, .resilience, .experience {
+    width: 50%;
+}
+
+.character-sheet .weapons table {
+    height: 600px;
+    color:red;
+}
+*/
+
+.details table {
+    height: 200px;
+}
+
+
+.attributes table {
+    flex: 1;
 }

@@ -1,67 +1,67 @@
 <div class="character-sheet">
-    <div class="details">
+    <div class="details container">
         <div metal:use-macro="load: character_macros/details.pt" />
     </div>
-    <div class="attributes">
+    <div class="attributes col-md-6">
         <div metal:use-macro="load: character_macros/attributes.pt" />
     </div>
-    <div class="fate">
+    <div class="fate container">
         <div metal:use-macro="load: character_macros/fate.pt" />
     </div>
-    <div class="resilience">
+    <div class="resilience container">
         <div metal:use-macro="load: character_macros/resilience.pt" />
     </div>
-    <div class="experience">
+    <div class="experience container">
         <div metal:use-macro="load: character_macros/experience.pt" />
     </div>
-    <div class="movement">
+    <div class="movement container">
         <div metal:use-macro="load: character_macros/movement.pt" />
     </div>
-    <div class="skills_left">
+    <div class="skills_left container">
         <div metal:use-macro="load: character_macros/skills_left.pt" />
     </div>
-    <div class="skills_right">
+    <div class="skills_right container">
         <div metal:use-macro="load: character_macros/skills_right.pt" />
     </div>
-    <div class="skills_advanced">
+    <div class="skills_advanced container">
         <div metal:use-macro="load: character_macros/skills_advanced.pt" />
     </div>
-    <div class="talents">
+    <div class="talents container">
         <div metal:use-macro="load: character_macros/talents.pt" />
     </div>
-    <div class="ambitions">
+    <div class="ambitions container">
         <div metal:use-macro="load: character_macros/ambitions.pt" />
     </div>
-    <div class="party">
+    <div class="party container">
         <div metal:use-macro="load: character_macros/party.pt" />
     </div>
 </div>
 <div class="character-sheet">
-    <div class="armour">
+    <div class="armour container">
         <div metal:use-macro="load: character_macros/armour.pt" />
     </div>
-    <div class="armour_layout">
+    <div class="armour_layout container">
         <div metal:use-macro="load: character_macros/armour_layout.pt" />
     </div>
-    <div class="trappings">
+    <div class="trappings container">
         <div metal:use-macro="load: character_macros/trappings.pt" />
     </div>
-    <div class="psychology">
+    <div class="psychology container">
         <div metal:use-macro="load: character_macros/psychology.pt" />
     </div>
-    <div class="corruption">
+    <div class="corruption container">
         <div metal:use-macro="load: character_macros/corruption.pt" />
     </div>
-    <div class="wealth">
+    <div class="wealth container">
         <div metal:use-macro="load: character_macros/wealth.pt" />
     </div>
-    <div class="encumberance">
+    <div class="encumberance container">
         <div metal:use-macro="load: character_macros/encumberance.pt" />
     </div>
-    <div class="wounds">
+    <div class="wounds container">
         <div metal:use-macro="load: character_macros/wounds.pt" />
     </div>
-    <div class="weapons">
+    <div class="weapons container">
         <div metal:use-macro="load: character_macros/weapons.pt" />
     </div>
 </div>

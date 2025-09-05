@@ -47,10 +47,15 @@ class CharacterViews(BaseView):
     def pdf_print(self):
         font_config = FontConfiguration()
         css_folder = Path(__file__).parent.parent / "static/"
-        with open(css_folder / "wfrp.css") as file:
+        # css = ""
+        with open(css_folder / "print-new.css") as file:
             css = file.read()
-        with open(css_folder / "print.css") as file:
+        with open(css_folder / "bootstrap.css") as file:
             css += file.read()
+        # with open(css_folder / "wfrp.css") as file:
+        #     css = file.read()
+        # with open(css_folder / "print.css") as file:
+        #     css += file.read()
         font_folder = css_folder / "fonts/"
         css += (
             "@font-face {"
@@ -72,4 +77,6 @@ class CharacterViews(BaseView):
             )
         )
         response.headers["Content-Disposition"] = f"attachment;filename={filename}"
+        # response.headers["Content-Disposition"] = f"inline;filename={filename}"
+        # response.headers['Content-Type'] = 'application/pdf'
         return response

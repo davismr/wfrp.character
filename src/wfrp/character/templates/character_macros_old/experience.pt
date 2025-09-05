@@ -1,0 +1,13 @@
+<table>
+    <caption>Experience</caption>
+    <tr>
+        <td>Current</td>
+        <td>Spent</td>
+        <td>Total</td>
+    </tr>
+    <tr>
+        <td>${character.experience}</td>
+        <td>${character.experience_spent}</td>
+        <td>${character.experience + character.experience_spent}</td>
+    </tr>
+</table>

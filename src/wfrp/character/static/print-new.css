@@ -1,0 +1,43 @@
+@page {
+    margin: 40px;
+}
+
+html, body {
+    font-family: 'Caslon Antique', arial, sans-serif;
+    font-size: 12px;
+}
+
+#details {
+    border: 2px solid black;
+}
+.container div {
+    border: 1px solid grey;
+}
+
+.caption {
+    text-transform: uppercase;
+    text-align: center;
+}
+
+/*
+.character-page {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0px;
+}
+#details {
+    display: subgrid;
+    grid-template-columns: repeat(6, 1fr);
+    border: 2px solid black;
+}
+#details div {
+    border: 1px solid red;
+}
+#details div span {
+    border: 1px solid green;
+}
+
+#details div .col-3 {
+    grid-column: 1 / span 3;
+}
+*/

@@ -1,0 +1,13 @@
+<table>
+    <caption>Resilience</caption>
+    <tr>
+        <td>Resilience</td>
+        <td>Resolve</td>
+        <td>Motivation</td>
+    </tr>
+    <tr>
+        <td>${character.resilience}</td>
+        <td>${character.resolve}</td>
+        <td>${character.motivation}</td>
+    </tr>
+</table>

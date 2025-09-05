@@ -1,0 +1,15 @@
+<table>
+    <caption>Trappings</caption>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Enc</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr tal:repeat="trapping python:character.trappings">
+            <td>${trapping}</td>
+            <td>${character.get_encumberance_trapping(trapping)}</td>
+        </tr>
+    </tbody>
+</table>

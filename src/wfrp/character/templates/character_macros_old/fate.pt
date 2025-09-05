@@ -1,0 +1,11 @@
+<table id="fate">
+    <caption>Fate</caption>
+    <tr>
+        <td>Fate</td>
+        <td>${character.fate}</td>
+    </tr>
+    <tr>
+        <td>Fortune</td>
+        <td>${character.fortune}</td>
+    </tr>
+</table>
