@@ -445,6 +445,7 @@ BASIC_TALENTS = {
     },
     "Deadeye Shot": {
         "max": 1,
+        "short_description": "Choose hit location",
         "description": (
             "You always hit an opponent right between the eyes... or wherever else you "
             "intended to hit. Instead of reversing the dice to determine which Hit "
@@ -486,6 +487,7 @@ BASIC_TALENTS = {
     "Dirty Fighting": {
         "max": "Weapon Skill Bonus",
         "tests": "Melee (Brawling)",
+        "short_description": "+1 Damage for each level to Melee (Brawling) hit",
         "description": (
             "You have been taught all the dirty tricks of unarmed combat. You may "
             "choose to cause an extra +1 Damage for each level in Dirty Fighting with "
@@ -1537,6 +1539,7 @@ BASIC_TALENTS = {
     "Strider": {
         "max": "Agility Bonus",
         "tests": "Athletics Tests to traverse the Terrain",
+        "short_description": "No penalties in specialist areas",
         "description": (
             "You are experienced in traversing difficult ground. You ignore all "
             "movement penalties when crossing over or through a specified terrain. "
