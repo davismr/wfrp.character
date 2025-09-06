@@ -1,4 +1,8 @@
 <div metal:use-macro="load: layout.pt">
+    <div metal:fill-slot="page_css">
+        <link rel="stylesheet" type="text/css"
+              href="${request.static_url('wfrp.character:static/character-sheet.css')}"/>
+    </div>
     <div metal:fill-slot="page_links"/>
     <div metal:fill-slot="github"/>
     <div metal:fill-slot="content">
