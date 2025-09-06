@@ -1,23 +1,21 @@
-<table>
-    <caption>Weapons</caption>
-    <thead>
-        <tr>
-            <td>Name</td>
-            <td>Group</td>
-            <td>Enc</td>
-            <td>Range/Reach</td>
-            <td>Damage</td>
-            <td>Qualities</td>
-        </tr>
-    </thead>
-    <tbody>
-        <tr tal:repeat="weapon python:character.weapons">
-            <td>${weapon}</td>
-            <td>${weapons_data[weapon]["Group"]}</td>
-            <td>${weapons_data[weapon]["Enc"]}</td>
-            <td>${weapons_data[weapon]["Reach"]}</td>
-            <td><!-- TODO ${weapons_data[weapon]["Damage"]} --></td>
-            <td>${weapons_data[weapon]["Qualities"]|"&nbsp;"}</td>
-        </tr>
-    </tbody>
-</table>
+<div id="weapons" class="border">
+    <div class="row">
+        <div class="col-md-12 caption">Weapons</div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">Name</div>
+        <div class="col-md-1">Group</div>
+        <div class="col-md-1">Enc</div>
+        <div class="col-md-1">Range/Reach</div>
+        <div class="col-md-1">Damage</div>
+        <div class="col-md-5">Qualities</div>
+    </div>
+    <div class="row" tal:repeat="weapon python:character.weapons">
+        <div class="col-md-3">${weapon}</div>
+        <div class="col-md-1">${weapons_data[weapon]["Group"]}</div>
+        <div class="col-md-1">${weapons_data[weapon]["Enc"]}</div>
+        <div class="col-md-1">${weapons_data[weapon]["Reach"]}</div>
+        <div class="col-md-1"><!-- TODO ${weapons_data[weapon]["Damage"]} --></div>
+        <div class="col-md-5">${weapons_data[weapon]["Qualities"]|"&nbsp;"}</div>
+    </div>
+</div>

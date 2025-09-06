@@ -1,21 +1,21 @@
-<table>
-    <tr>
-        <td colspan="2">Name: ${character.name}</td>
-        <td>Species: ${character.species}</td>
-        <td>Class: ${character.career_class}</td>
-    </tr>
-    <tr>
-        <td colspan="2">Career: ${character.career}</td>
-        <td colspan="2">Career Tier: ${character.career_title}</td>
-    </tr>
-    <tr>
-        <td colspan="3">Career Path: ${", ".join(character.career_path)}</td>
-        <td>Status: ${character.career_tier} ${character.career_standing}</td>
-    </tr>
-    <tr>
-        <td>Age: ${character.age} years</td>
-        <td>Height: ${character.height//12}'${character.height % 12}"</td>
-        <td>Hair: ${character.hair}</td>
-        <td>Eyes: ${character.eyes}</td>
-    </tr>
-</table>
+<div id="details" class="border">
+    <div class="row">
+        <div class="col-md-6"><span>Name: ${character.name}</span></div>
+        <div class="col-md-3"><span>Species: ${character.species}</span></div>
+        <div class="col-md-3"><span>Class: ${character.career_class}</span></div>
+    </div>
+    <div class="row">
+        <div class="col-md-6"><span>Career: ${character.career}</span></div>
+        <div class="col-md-6"><span>Career Tier: ${character.career_title}</span></div>
+    </div>
+    <div class="row">
+        <div class="col-md-9"><span>Career Path: ${", ".join(character.career_path)}</span></div>
+        <div class="col-md-3"><span>Status: ${character.career_tier} ${character.career_standing}</span></div>
+    </div>
+    <div class="row">
+        <div class="col-md-3"><span>Age: ${character.age} years</span></div>
+        <div class="col-md-3"><span>Height: ${character.height//12}'${character.height % 12}"</span></div>
+        <div class="col-md-3"><span>Hair: ${character.hair}</span></div>
+        <div class="col-md-3"><span>Eyes: ${character.eyes}</span></div>
+    </div>
+</div>

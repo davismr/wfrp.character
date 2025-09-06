@@ -1,13 +1,15 @@
-<table>
-    <caption>Resilience</caption>
-    <tr>
-        <td>Resilience</td>
-        <td>Resolve</td>
-        <td>Motivation</td>
-    </tr>
-    <tr>
-        <td>${character.resilience}</td>
-        <td>${character.resolve}</td>
-        <td>${character.motivation}</td>
-    </tr>
-</table>
+<div id="resilience" class="border">
+    <div class="row">
+        <div class="col-md-12 caption">Resilience</div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">Resilience</div>
+        <div class="col-md-4">Resolve</div>
+        <div class="col-md-4">Motivation</div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">${character.resilience}</div>
+        <div class="col-md-4">${character.resolve}</div>
+        <div class="col-md-4">${character.motivation}</div>
+    </div>
+</div>

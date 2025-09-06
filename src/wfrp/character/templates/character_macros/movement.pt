@@ -1,11 +1,13 @@
-<table>
-    <caption>Movement</caption>
-    <tr>
-        <td>Movement</td>
-        <td>${character.movement}</td>
-        <td>Walk</td>
-        <td>${character.movement * 2}</td>
-        <td>Run</td>
-        <td>${character.movement * 4}</td>
-    </tr>
-</table>
+<div id="movement" class="border">
+    <div class="row">
+        <div class="col-md-12 caption">Movement</div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">Movement</div>
+        <div class="col-md-2">${character.movement}</div>
+        <div class="col-md-2">Walk</div>
+        <div class="col-md-2">${character.movement * 2}</div>
+        <div class="col-md-2">Run</div>
+        <div class="col-md-2">${character.movement * 4}</div>
+    </div>
+</div>

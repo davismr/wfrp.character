@@ -1,25 +1,32 @@
-<table>
-    <caption>Wounds</caption>
-    <tr>
-        <td>SB</td>
-        <td tal:condition="python: 'Hardy' in character.talents">${character.strength // 10}</td>
-        <td tal:condition="python: 'Hardy' not in character.talents">0</td>
-    </tr>
-    <tr>
-        <td>TBx2</td>
-        <td>${character.toughness // 10 * 2}</td>
-    </tr>
-    <tr>
-        <td>WPB</td>
-        <td>${character.willpower // 10}</td>
-    </tr>
-    <tr>
-        <td>Hardy</td>
-        <td tal:condition="python: 'Hardy' in character.talents">${character.toughness // 10}</td>
-        <td tal:condition="python: 'Hardy' not in character.talents">0</td>
-    </tr>
-    <tr>
-        <td>Wounds</td>
-        <td>${character.calculate_wounds()}</td>
-    </tr>
-</table>
+<div id="wounds" class="border">
+    <div class="row">
+        <div class="col-md-12 caption">Wounds</div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">SB</div>
+        <div class="col-md-1" tal:condition="python: 'Hardy' in character.talents">${character.strength // 10}</div>
+        <div class="col-md-1" tal:condition="python: 'Hardy' not in character.talents">0</div>
+        <div class="col-md-8"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">TBx2</div>
+        <div class="col-md-1">${character.toughness // 10 * 2}</div>
+        <div class="col-md-8"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">WPB</div>
+        <div class="col-md-1">${character.willpower // 10}</div>
+        <div class="col-md-8"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">Hardy</div>
+        <div class="col-md-1" tal:condition="python: 'Hardy' in character.talents">${character.toughness // 10}</div>
+        <div class="col-md-1" tal:condition="python: 'Hardy' not in character.talents">0</div>
+        <div class="col-md-8"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">Wounds</div>
+        <div class="col-md-1">${character.calculate_wounds()}</div>
+        <div class="col-md-8"></div>
+    </div>
+</div>

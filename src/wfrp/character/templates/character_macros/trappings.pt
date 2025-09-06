@@ -1,15 +1,13 @@
-<table>
-    <caption>Trappings</caption>
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Enc</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr tal:repeat="trapping python:character.trappings">
-            <td>${trapping}</td>
-            <td>${character.get_encumberance_trapping(trapping)}</td>
-        </tr>
-    </tbody>
-</table>
+<div id="trappings" class="border">
+    <div class="row">
+        <div class="col-md-12 caption">Trappings</div>
+    </div>
+    <div class="row">
+        <div class="col-md-10">Name</div>
+        <div class="col-md-2">Enc</div>
+    </div>
+    <div class="row" tal:repeat="trapping python:character.trappings">
+        <div class="col-md-10">${trapping}</div>
+        <div class="col-md-2">${character.get_encumberance_trapping(trapping)}</div>
+    </div>
+</div>
