@@ -381,6 +381,7 @@ BASIC_TALENTS = {
         ),
     },
     "Deadeye Shot": {
+        "short_description": "Choose hit location",
         "description": (
             "You always hit an opponent right between the eyes... or wherever else you "
             "intended to hit. Instead of reversing the dice to determine which Hit "
@@ -415,6 +416,7 @@ BASIC_TALENTS = {
         ),
     },
     "Dirty Fighting": {
+        "short_description": "+1 Damage for each level to Melee (Brawling) hit",
         "description": (
             "You have been taught all the dirty tricks of unarmed combat. You may "
             "choose to cause an extra +1 Damage for each level in Dirty Fighting with "
