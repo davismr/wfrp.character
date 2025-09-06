@@ -1,67 +1,70 @@
 <div class="character-sheet">
-    <div class="details">
+    <div id="details-block">
         <div metal:use-macro="load: character_macros/details.pt" />
     </div>
-    <div class="attributes">
+    <div id="attributes-block">
         <div metal:use-macro="load: character_macros/attributes.pt" />
     </div>
-    <div class="fate">
+    <div id="fate-block">
         <div metal:use-macro="load: character_macros/fate.pt" />
     </div>
-    <div class="resilience">
+    <div id="resilience-block">
         <div metal:use-macro="load: character_macros/resilience.pt" />
     </div>
-    <div class="experience">
+    <div id="experience-block">
         <div metal:use-macro="load: character_macros/experience.pt" />
     </div>
-    <div class="movement">
+    <div id="movement-block">
         <div metal:use-macro="load: character_macros/movement.pt" />
     </div>
-    <div class="skills_left">
+    <div id="skills_left-block">
         <div metal:use-macro="load: character_macros/skills_left.pt" />
     </div>
-    <div class="skills_right">
+    <div id="skills_right-block">
         <div metal:use-macro="load: character_macros/skills_right.pt" />
     </div>
-    <div class="skills_advanced">
+    <div id="skills_advanced-block">
         <div metal:use-macro="load: character_macros/skills_advanced.pt" />
     </div>
-    <div class="talents">
+    <div id="talents-block">
         <div metal:use-macro="load: character_macros/talents.pt" />
     </div>
-    <div class="ambitions">
+    <div id="ambitions-block">
         <div metal:use-macro="load: character_macros/ambitions.pt" />
     </div>
-    <div class="party">
+    <div id="party-block">
         <div metal:use-macro="load: character_macros/party.pt" />
     </div>
 </div>
 <div class="character-sheet">
-    <div class="armour">
+    <div id="armour-block">
         <div metal:use-macro="load: character_macros/armour.pt" />
     </div>
-    <div class="armour_layout">
+    <div id="armour_layout-block">
         <div metal:use-macro="load: character_macros/armour_layout.pt" />
     </div>
-    <div class="trappings">
+    <div id="trappings-block">
         <div metal:use-macro="load: character_macros/trappings.pt" />
     </div>
-    <div class="psychology">
+    <div id="psychology-block">
         <div metal:use-macro="load: character_macros/psychology.pt" />
     </div>
-    <div class="corruption">
+    <div id="corruption-block">
         <div metal:use-macro="load: character_macros/corruption.pt" />
     </div>
-    <div class="wealth">
+    <div id="wealth-block">
         <div metal:use-macro="load: character_macros/wealth.pt" />
     </div>
-    <div class="encumberance">
-        <div metal:use-macro="load: character_macros/encumberance.pt" />
+    <div id="encumbrance-block">
+        <div metal:use-macro="load: character_macros/encumbrance.pt" />
     </div>
-    <div class="wounds">
+    <div id="wounds-block">
         <div metal:use-macro="load: character_macros/wounds.pt" />
     </div>
-    <div class="weapons">
+    <div id="weapons-block">
         <div metal:use-macro="load: character_macros/weapons.pt" />
+    </div>
+    <div id="spells-block">
+        <div metal:use-macro="load: character_macros/spells.pt" />
     </div>
 </div>
