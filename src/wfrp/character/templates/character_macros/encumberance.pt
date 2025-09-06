@@ -1,25 +1,25 @@
-<table tal:define="weapons python:character.total_encumberance_weapons();
-                   armour python:character.total_encumberance_armour();
-                   trappings python:character.total_encumberance_trappings()">
-    <caption>Encumberance</caption>
-    <tr>
-        <td>Weapons</td>
-        <td>${weapons}</td>
-    </tr>
-    <tr>
-        <td>Armour</td>
-        <td>${armour}</td>
-    </tr>
-    <tr>
-        <td>Trappings</td>
-        <td>${trappings}</td>
-    </tr>
-    <tr>
-        <td>Max Enc.</td>
-        <td>${(character.strength // 10) + (character.toughness // 10)}</td>
-    </tr>
-    <tr>
-        <td>Total</td>
-        <td>${armour + weapons + trappings}</td>
-    </tr>
-</table>
+<div id="encumberance" class="border">
+    <div class="row">
+        <div class="col-md-12 caption">Encumberance</div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">Weapons</div>
+        <div class="col-md-6">${character.total_encumberance_weapons()}</div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">Armour</div>
+        <div class="col-md-6">${character.total_encumberance_armour()}</div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">Trappings</div>
+        <div class="col-md-6">${character.total_encumberance_trappings()}</div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">Max Enc.</div>
+        <div class="col-md-6">${(character.strength // 10) + (character.toughness // 10)}</div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">Total</div>
+        <div class="col-md-6">${character.total_encumberance()}</div>
+    </div>
+</div>

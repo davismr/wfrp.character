@@ -234,6 +234,12 @@ class Character(Base):
                 total += ARMOUR_DATA[armour]["Enc"]
         return total
 
+    def total_encumberance(self):
+        armour = self.total_encumberance_armour()
+        trappings = self.total_encumberance_trappings()
+        weapons = self.total_encumberance_weapons()
+        return armour + trappings + weapons
+
     def completed_career(self):  # noqa: C901
         career_data = self.career_data()
         current_level = self.career_level()

@@ -1,21 +1,19 @@
-<table>
-    <caption>Armour</caption>
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Locations</th>
-            <th>Enc</th>
-            <th>AP</th>
-            <th>Qualities</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr tal:repeat="armour python:character.armour">
-            <td>${armour}</td>
-            <td>${", ".join(armour_data[armour]["Locations"])}</td>
-            <td>${armour_data[armour]["Enc"]}</td>
-            <td>${armour_data[armour]["APs"]}</td>
-            <td>${armour_data[armour]["Qualities"]|"&nbsp;"}</td>
-        </tr>
-    </tbody>
-</table>
+<div id="armour" class="border">
+    <div class="row">
+        <div class="col-md-12 caption">Armour</div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">Name</div>
+        <div class="col-md-2">Locations</div>
+        <div class="col-md-1">Enc</div>
+        <div class="col-md-1">AP</div>
+        <div class="col-md-5">Qualities</div>
+    </div>
+    <div class="row" tal:repeat="armour python:character.armour">
+        <div class="col-md-3">${armour}</div>
+        <div class="col-md-2">${", ".join(armour_data[armour]["Locations"])}</div>
+        <div class="col-md-1">${armour_data[armour]["Enc"]}</div>
+        <div class="col-md-1">${armour_data[armour]["APs"]}</div>
+        <div class="col-md-5">${armour_data[armour]["Qualities"]|"&nbsp;"}</div>
+    </div>
+</div>

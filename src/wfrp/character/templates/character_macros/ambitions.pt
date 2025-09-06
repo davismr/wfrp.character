@@ -1,11 +1,13 @@
-<table>
-    <caption>Ambitions</caption>
-    <tr>
-        <td>Short-term</td>
-        <td><!-- TODO --></td>
-    </tr>
-    <tr>
-        <td>Long-term</td>
-        <td><!-- TODO --></td>
-    </tr>
-</table>
+<div id="ambitions" class="border">
+    <div class="row">
+        <div class="col-md-12 caption">Ambitions</div>
+    </div>
+    <div class="row">
+        <div class="col-md-1">Short-term</div>
+        <div class="col-md-11"><!-- TODO --></div>
+    </div>
+    <div class="row">
+        <div class="col-md-1">Long-term</div>
+        <div class="col-md-11"><!-- TODO --></div>
+    </div>
+</div>

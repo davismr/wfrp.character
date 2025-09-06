@@ -1,6 +1,8 @@
-<table>
-    <caption>Corruption</caption>
-    <tr>
-        <td>&nbsp;</td>
-    </tr>
-</table>
+<div id="corruption" class="border">
+    <div class="row">
+        <div class="col-md-12 caption">Corruption & mutation</div>
+    </div>
+    <div class="row">
+        <div class="col">&nbsp;</div>
+    </div>
+</div>

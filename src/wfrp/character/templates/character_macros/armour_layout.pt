@@ -1,6 +1,8 @@
-<table>
-    <caption>Armour Points</caption>
-    <tr>
-        <td><!-- TODO --></td>
-    </tr>
-</table>
+<div id="armour-layout" class="border">
+    <div class="row">
+        <div class="col-md-12 caption">Armour Points</div>
+    </div>
+    <div class="row">
+        <div class="col-md-12"><!-- TODO --></div>
+    </div>
+</div>

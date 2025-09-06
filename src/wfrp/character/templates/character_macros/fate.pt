@@ -1,11 +1,13 @@
-<table id="fate">
-    <caption>Fate</caption>
-    <tr>
-        <td>Fate</td>
-        <td>${character.fate}</td>
-    </tr>
-    <tr>
-        <td>Fortune</td>
-        <td>${character.fortune}</td>
-    </tr>
-</table>
+<div id="fate" class="border">
+    <div class="row">
+        <div class="col-md-12 caption">Fate</div>
+    </div>
+    <div class="row">
+        <div class="col-md-8">Fate</div>
+        <div class="col-md-4">${character.fate}</div>
+    </div>
+    <div class="row">
+        <div class="col-md-8">Fortune</div>
+        <div class="col-md-4">${character.fortune}</div>
+    </div>
+</div>

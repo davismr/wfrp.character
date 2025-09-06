@@ -1,6 +1,8 @@
-<table>
-    <caption>Psychology</caption>
-    <tr>
-        <td>&nbsp;</td>
-    </tr>
-</table>
+<div id="psychology" class="border">
+    <div class="row">
+        <div class="col-md-12 caption">Psychology</div>
+    </div>
+    <div class="row">
+        <div class="col">&nbsp;</div>
+    </div>
+</div>

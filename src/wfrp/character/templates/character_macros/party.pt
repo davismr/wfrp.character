@@ -1,19 +1,21 @@
-<table>
-    <caption>Party</caption>
-    <tr>
-        <td>Party Name</td>
-        <td><!-- TODO --></td>
-    </tr>
-    <tr>
-        <td>Short-term</td>
-        <td><!-- TODO --></td>
-    </tr>
-    <tr>
-        <td>Long-term</td>
-        <td><!-- TODO --></td>
-    </tr>
-    <tr>
-        <td>Members</td>
-        <td><!-- TODO --></td>
-    </tr>
-</table>
+<div id="party" class="border">
+    <div class="row">
+        <div class="col-md-12 caption">Party</div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">Party Name</div>
+        <div class="col-md-10"><!-- TODO --></div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">Short-term</div>
+        <div class="col-md-10"><!-- TODO --></div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">Long-term</div>
+        <div class="col-md-10"><!-- TODO --></div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">Members</div>
+        <div class="col-md-10"><!-- TODO --></div>
+    </div>
+</div>

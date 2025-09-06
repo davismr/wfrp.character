@@ -1,17 +1,15 @@
-<table id="talents">
-    <caption>Talents</caption>
-    <thead>
-        <tr>
-            <th>Talent Name</th>
-            <th>Times taken</th>
-            <th>Description</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr tal:repeat="talent character.talents">
-            <td>${talent}</td>
-            <td>${character.talents[talent]}</td>
-            <td>${character.get_talent_description(talent)}</td>
-        </tr>
-    </tbody>
-</table>
+<div id="talents" class="border">
+    <div class="row">
+        <div class="col-md-12 caption">Talents</div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">Talent Name</div>
+        <div class="col-md-2">Times taken</div>
+        <div class="col-md-7">Description</div>
+    </div>
+    <div class="row" tal:repeat="talent character.talents">
+        <div class="col-md-3">${talent}</div>
+        <div class="col-md-2">${character.talents[talent]}</div>
+        <div class="col-md-7">${character.get_talent_description(talent)}</div>
+    </div>
+</div>

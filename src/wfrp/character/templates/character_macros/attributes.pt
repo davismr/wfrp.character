@@ -1,59 +1,57 @@
-<table>
-    <caption>Characteristics</caption>
-    <thead>
-        <tr>
-            <td>&nbsp;</td>
-            <td>WS</td>
-            <td>BS</td>
-            <td>S</td>
-            <td>T</td>
-            <td>I</td>
-            <td>Ag</td>
-            <td>Dex</td>
-            <td>Int</td>
-            <td>WP</td>
-            <td>Fel</td>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>Initial</td>
-            <td>${character.weapon_skill_initial}</td>
-            <td>${character.ballistic_skill_initial}</td>
-            <td>${character.strength_initial}</td>
-            <td>${character.toughness_initial}</td>
-            <td>${character.initiative_initial}</td>
-            <td>${character.agility_initial}</td>
-            <td>${character.dexterity_initial}</td>
-            <td>${character.intelligence_initial}</td>
-            <td>${character.willpower_initial}</td>
-            <td>${character.fellowship_initial}</td>
-        </tr>
-        <tr>
-            <td>Advances</td>
-            <td>${character.weapon_skill_advances}</td>
-            <td>${character.ballistic_skill_advances}</td>
-            <td>${character.strength_advances}</td>
-            <td>${character.toughness_advances}</td>
-            <td>${character.initiative_advances}</td>
-            <td>${character.agility_advances}</td>
-            <td>${character.dexterity_advances}</td>
-            <td>${character.intelligence_advances}</td>
-            <td>${character.willpower_advances}</td>
-            <td>${character.fellowship_advances}</td>
-        </tr>
-        <tr>
-            <td>Current</td>
-            <td>${character.weapon_skill}</td>
-            <td>${character.ballistic_skill}</td>
-            <td>${character.strength}</td>
-            <td>${character.toughness}</td>
-            <td>${character.initiative}</td>
-            <td>${character.agility}</td>
-            <td>${character.dexterity}</td>
-            <td>${character.intelligence}</td>
-            <td>${character.willpower}</td>
-            <td>${character.fellowship}</td>
-        </tr>
-    </tbody>
-</table>
+<div id="attributes" class="border">
+    <div class="row caption">
+        <div class="col-md-12">Characteristics</div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">&nbsp;</div>
+        <div class="col-md-1">WS</div>
+        <div class="col-md-1">BS</div>
+        <div class="col-md-1">S</div>
+        <div class="col-md-1">T</div>
+        <div class="col-md-1">I</div>
+        <div class="col-md-1">Ag</div>
+        <div class="col-md-1">Dex</div>
+        <div class="col-md-1">Int</div>
+        <div class="col-md-1">WP</div>
+        <div class="col-md-1">Fel</div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">Initial</div>
+        <div class="col-md-1">${character.weapon_skill_initial}</div>
+        <div class="col-md-1">${character.ballistic_skill_initial}</div>
+        <div class="col-md-1">${character.strength_initial}</div>
+        <div class="col-md-1">${character.toughness_initial}</div>
+        <div class="col-md-1">${character.initiative_initial}</div>
+        <div class="col-md-1">${character.agility_initial}</div>
+        <div class="col-md-1">${character.dexterity_initial}</div>
+        <div class="col-md-1">${character.intelligence_initial}</div>
+        <div class="col-md-1">${character.willpower_initial}</div>
+        <div class="col-md-1">${character.fellowship_initial}</div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">Advances</div>
+        <div class="col-md-1">${character.weapon_skill_advances}</div>
+        <div class="col-md-1">${character.ballistic_skill_advances}</div>
+        <div class="col-md-1">${character.strength_advances}</div>
+        <div class="col-md-1">${character.toughness_advances}</div>
+        <div class="col-md-1">${character.initiative_advances}</div>
+        <div class="col-md-1">${character.agility_advances}</div>
+        <div class="col-md-1">${character.dexterity_advances}</div>
+        <div class="col-md-1">${character.intelligence_advances}</div>
+        <div class="col-md-1">${character.willpower_advances}</div>
+        <div class="col-md-1">${character.fellowship_advances}</div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">Advances</div>
+        <div class="col-md-1">${character.weapon_skill}</div>
+        <div class="col-md-1">${character.ballistic_skill}</div>
+        <div class="col-md-1">${character.strength}</div>
+        <div class="col-md-1">${character.toughness}</div>
+        <div class="col-md-1">${character.initiative}</div>
+        <div class="col-md-1">${character.agility}</div>
+        <div class="col-md-1">${character.dexterity}</div>
+        <div class="col-md-1">${character.intelligence}</div>
+        <div class="col-md-1">${character.willpower}</div>
+        <div class="col-md-1">${character.fellowship}</div>
+    </div>
+</div>

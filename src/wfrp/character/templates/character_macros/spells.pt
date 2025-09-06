@@ -1,0 +1,13 @@
+<div id="spells" class="border">
+    <div class="row">
+        <div class="col-md-12 caption">Spells and Prayers</div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">Name</div>
+        <div class="col-md-1">CN</div>
+        <div class="col-md-1">Range</div>
+        <div class="col-md-1">Target</div>
+        <div class="col-md-1">Duration</div>
+        <div class="col-md-6">Effect</div>
+    </div>
+</div>

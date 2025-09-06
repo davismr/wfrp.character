@@ -1,15 +1,17 @@
-<table>
-    <caption>Wealth</caption>
-    <tr>
-        <td>D</td>
-        <td>${character.wealth['brass pennies']|0}</td>
-    </tr>
-    <tr>
-        <td>SS</td>
-        <td>${character.wealth['silver shillings']|0}</td>
-    </tr>
-    <tr>
-        <td>GC</td>
-        <td>${character.wealth['gold crowns']|0}</td>
-    </tr>
-</table>
+<div id="wealth" class="border">
+    <div class="row">
+        <div class="col-md-12 caption">Wealth</div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">D</div>
+        <div class="col-md-6">${character.wealth['brass pennies']|0}</div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">SS</div>
+        <div class="col-md-6">${character.wealth['silver shillings']|0}</div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">GC</div>
+        <div class="col-md-6">${character.wealth['gold crowns']|0}</div>
+    </div>
+</div>
