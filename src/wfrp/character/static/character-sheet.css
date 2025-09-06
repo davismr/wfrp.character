@@ -4,101 +4,96 @@
     grid-template-columns: repeat(6, 1fr);
 }
 
-.character-sheet .details {
+#details-block {
     grid-column: 1 / span 6;
 }
 
-.character-sheet .attributes {
+#attributes-block {
     grid-column: 1 / span 3;
     grid-row: 2 / span 2;
 }
 
-.character-sheet .fate {
+#fate-block {
     grid-column: 4;
 }
 
-.character-sheet .resilience {
+#resilience-block {
     grid-column: 5;
 }
 
-.character-sheet .experience {
+#experience-block {
     grid-column: 6;
 }
 
-.character-sheet .movement {
+#movement-block {
     grid-column: 4 / span 3;
 }
 
-.character-sheet .skills_left {
+#skills_left-block {
     grid-column: 1 / span 2;
 }
 
-.character-sheet .skills_right {
+#skills_right-block {
     grid-column: 3 / span 2;
 }
 
-.character-sheet .skills_advanced {
+#skills_advanced-block {
     grid-column: 5 / span 2;
 }
 
-.character-sheet .talents {
+#talents-block {
     grid-column: 1 / span 3;
     grid-row: 5 / span 2;
 }
 
-.character-sheet .ambitions {
+#ambitions-block {
     grid-column: 4 / span 3;
 }
 
-.character-sheet .party {
+#party-block {
     grid-column: 4 / span 3;
 }
 
-.character-sheet .armour {
+#armour-block {
     grid-column: 1 / span 4;
 }
 
-.character-sheet .armour_layout {
+#armour_layout-block {
     grid-column: 5 / span 2;
     grid-row: 1 / span 3;
 }
 
-.character-sheet .trappings {
+#trappings-block {
     grid-column: 1 / span 2;
     grid-row: 2 / span 3;
 }
 
-.character-sheet .psychology {
+#psychology-block {
     grid-column: 3 / span 2;
 }
 
-.character-sheet .corruption {
+#corruption-block {
     grid-column: 3 / span 2;
 }
 
-.character-sheet .wealth {
+#wealth-block {
     grid-column: 3;
 }
 
-.character-sheet .encumberance {
+#encumbrance-block {
     grid-column: 4;
 }
 
-.character-sheet .wounds {
+#wounds-block {
     grid-column: 5 / span 2;
 }
 
-.character-sheet .weapons {
+#weapons-block {
     grid-column: 1 / span 6;
 }
 
-.caption {
-    text-transform: uppercase;
-    text-align: center;
-}
-
-.section {
-    border: 2px solid black;
+#spells-block {
+    grid-column: 1 / span 6;
 }
 
 .col-md-12, .col-md-11, .col-md-10, .col-md-9, .col-md-8,
@@ -158,4 +153,18 @@
 
 .col-md-1 {
     width: 8.33333333%;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.caption {
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.section {
+    border: 2px solid black;
 }
