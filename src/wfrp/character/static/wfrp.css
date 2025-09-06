@@ -2,24 +2,6 @@ html, body {
     font-family: 'Caslon Antique', arial, sans-serif;
 }
 
-#character-page,
-#character-page th,
-#character-page td {
-    border: 2px solid black;
-    padding: 0px;
-}
-
-#character-page table {
-    height: 100%;
-    width: 100%;
-}
-
-#character-page table th,
-#character-page table td {
-    border: 2px solid black;
-    padding: 0px;
-}
-
 .character-sheet {
     display: grid;
     page-break-after: always;
@@ -112,23 +94,6 @@ html, body {
 
 .character-sheet .weapons {
     grid-column: 1 / span 6;
-}
-
-.character-sheet .section-header {
-    text-align: center;
-    text-transform: uppercase;
-}
-
-.character-sheet table {
-    border: 2px solid black;
-    width: 100%;
-    margin: 0px;
-    border-collapse: collapse;
-}
-
-.character-sheet table caption {
-    text-transform: uppercase;
-    border: 2px solid black;
 }
 
 #create-form {
