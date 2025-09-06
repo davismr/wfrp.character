@@ -2,8 +2,143 @@
 <html>
     <head>
         <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css"
+              href="${request.static_url('wfrp.character:static/fonts.css')}"/>
+        <link rel="stylesheet" type="text/css"
+              href="${request.static_url('wfrp.character:static/print-new.css')}"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     </head>
     <body>
-        <div metal:use-macro="load: character_sheet.pt"/>
+        <div id="character-page" class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div metal:use-macro="load: character_macros_new/details.pt" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div metal:use-macro="load: character_macros_new/attributes.pt" />
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div metal:use-macro="load: character_macros_new/fate.pt" />
+                        </div>
+                        <div class="col-md-5">
+                            <div metal:use-macro="load: character_macros_new/resilience.pt" />
+                        </div>
+                        <div class="col-md-5">
+                            <div metal:use-macro="load: character_macros_new/experience.pt" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div metal:use-macro="load: character_macros_new/movement.pt" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div metal:use-macro="load: character_macros_new/skills_left.pt" />
+                </div>
+                <div class="col-md-4">
+                    <div metal:use-macro="load: character_macros_new/skills_right.pt" />
+                </div>
+                <div class="col-md-4">
+                    <div metal:use-macro="load: character_macros_new/skills_advanced.pt" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div metal:use-macro="load: character_macros_new/talents.pt" />
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col">
+                            <div metal:use-macro="load: character_macros_new/ambitions.pt" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div metal:use-macro="load: character_macros_new/party.pt" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="character-page" class="container">
+            <!-- Large armour area -->
+            <div class="row">
+                <div class="col">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <div class="row">
+                                <div class="col">
+                                    <div metal:use-macro="load: character_macros_new/armour.pt" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div metal:use-macro="load: character_macros_new/trappings.pt" />
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <div metal:use-macro="load: character_macros_new/psychology.pt" />
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col">
+                                                    <div metal:use-macro="load: character_macros_new/corruption.pt" />
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div metal:use-macro="load: character_macros_new/wealth.pt" />
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div metal:use-macro="load: character_macros_new/encumbrance.pt" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="row">
+                                <div class="col">
+                                    <div metal:use-macro="load: character_macros_new/armour_layout.pt" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div metal:use-macro="load: character_macros_new/wounds.pt" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div metal:use-macro="load: character_macros_new/weapons.pt" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div metal:use-macro="load: character_macros_new/spells.pt" />
+                </div>
+            </div>
+        </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
     </body>
 </html>
