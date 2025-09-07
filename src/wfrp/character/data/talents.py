@@ -1314,6 +1314,7 @@ BASIC_TALENTS = {
         ),
     },
     "Strider": {
+        "short_description": "No penalties in specialist areas",
         "description": (
             "You are experienced in traversing difficult ground. You ignore all "
             "movement penalties when crossing over or through a specified terrain. "
