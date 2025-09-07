@@ -4,10 +4,10 @@
     </div>
     <div class="row">
         <div class="col-md-8">Fate</div>
-        <div class="col-md-4">${character.fate}</div>
+        <div class="col-md-4 center">${character.fate}</div>
     </div>
     <div class="row">
         <div class="col-md-8">Fortune</div>
-        <div class="col-md-4">${character.fortune}</div>
+        <div class="col-md-4 center">${character.fortune}</div>
     </div>
 </div>

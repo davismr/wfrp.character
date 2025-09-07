@@ -4,12 +4,12 @@
     </div>
     <div class="row">
         <div class="col-md-3">Talent Name</div>
-        <div class="col-md-2">Times taken</div>
-        <div class="col-md-7">Description</div>
+        <div class="col-md-1 center">Times taken</div>
+        <div class="col-md-8">Description</div>
     </div>
     <div class="row" tal:repeat="talent character.talents">
         <div class="col-md-3">${talent}</div>
-        <div class="col-md-2">${character.talents[talent]}</div>
-        <div class="col-md-7">${character.get_talent_description(talent)}</div>
+        <div class="col-md-1 center">${character.talents[talent]}</div>
+        <div class="col-md-8">${character.get_talent_description(talent)}</div>
     </div>
 </div>

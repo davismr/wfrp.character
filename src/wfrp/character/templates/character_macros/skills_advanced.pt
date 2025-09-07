@@ -4,9 +4,9 @@
     </div>
     <div class="row">
         <div class="col-md-4">Name</div>
-        <div class="col-md-4">Characteristic</div>
-        <div class="col-md-2">Adv</div>
-        <div class="col-md-2">Skill</div>
+        <div class="col-md-4 center">Characteristic</div>
+        <div class="col-md-2 center">Adv</div>
+        <div class="col-md-2 center">Skill</div>
     </div>
     <div class="row"
         tal:repeat="skill character.skills">
@@ -14,9 +14,11 @@
             tal:define="data python:skill_data[skill.split(' (')[0]]">
             <div class="col-md-4">${skill}</div>
             <div class="col-md-2">${data["characteristic"][1]}</div>
-            <div class="col-md-2">${getattr(character, data["characteristic"][0])}</div>
-            <div class="col-md-2">${character.skills[skill]}</div>
-            <div class="col-md-2">${character.skills[skill] + getattr(character, data["characteristic"][0])}</div>
+            <div class="col-md-2 center">${getattr(character, data["characteristic"][0])}</div>
+            <div class="col-md-2 center">${character.skills[skill]}</div>
+            <div class="col-md-2 center">
+                ${character.skills[skill] + getattr(character, data["characteristic"][0])}
+            </div>
         </div>
     </div>
 </div>

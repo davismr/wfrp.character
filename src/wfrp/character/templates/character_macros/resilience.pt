@@ -3,13 +3,13 @@
         <div class="col-md-12 caption">Resilience</div>
     </div>
     <div class="row">
-        <div class="col-md-4">Resilience</div>
-        <div class="col-md-4">Resolve</div>
-        <div class="col-md-4">Motivation</div>
+        <div class="col-md-4 center">Resilience</div>
+        <div class="col-md-4 center">Resolve</div>
+        <div class="col-md-4 center">Motivation</div>
     </div>
     <div class="row">
-        <div class="col-md-4">${character.resilience}</div>
-        <div class="col-md-4">${character.resolve}</div>
-        <div class="col-md-4">${character.motivation}</div>
+        <div class="col-md-4 center">${character.resilience}</div>
+        <div class="col-md-4 center">${character.resolve}</div>
+        <div class="col-md-4 center">${character.motivation}</div>
     </div>
 </div>

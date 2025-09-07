@@ -4,10 +4,10 @@
     </div>
     <div class="row">
         <div class="col-md-10">Name</div>
-        <div class="col-md-2">Enc</div>
+        <div class="col-md-2 center">Enc</div>
     </div>
     <div class="row" tal:repeat="trapping python:character.trappings">
         <div class="col-md-10">${trapping}</div>
-        <div class="col-md-2">${character.get_encumberance_trapping(trapping)}</div>
+        <div class="col-md-2 center">${character.get_encumberance_trapping(trapping)}</div>
     </div>
 </div>
