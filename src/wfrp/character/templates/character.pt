@@ -7,6 +7,8 @@
               href="${request.static_url('wfrp.character:static/fonts.css')}"/>
         <link rel="stylesheet" type="text/css"
               href="${request.static_url('wfrp.character:static/character-sheet.css')}"/>
+        <link rel="stylesheet" media="print" type="text/css"
+              href="${request.static_url('wfrp.character:static/print.css')}">
     </head>
     <body>
         <div metal:use-macro="load: character_sheet.pt"/>

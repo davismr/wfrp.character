@@ -2,6 +2,6 @@
     margin: 0.8cm;
 }
 
-#character-page {
-    font-size: 12px;
+html, body {
+    font-size: 12px !important;
 }

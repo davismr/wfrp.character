@@ -47,7 +47,7 @@ class CharacterViews(BaseView):
     def pdf_print(self):
         font_config = FontConfiguration()
         css_folder = Path(__file__).parent.parent / "static/"
-        with open(css_folder / "wfrp.css") as file:
+        with open(css_folder / "character-sheet.css") as file:
             css = file.read()
         with open(css_folder / "print.css") as file:
             css += file.read()
