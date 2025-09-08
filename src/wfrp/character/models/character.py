@@ -18,6 +18,7 @@ from wfrp.character.application import Base
 from wfrp.character.data.armour import ARMOUR_DATA
 from wfrp.character.data.careers.careers import CAREER_DATA
 from wfrp.character.data.careers.careers import CAREER_DATA_WITH_SEAFARER
+from wfrp.character.data.skills import BASIC_SKILL_LIST
 from wfrp.character.data.skills import SKILL_DATA
 from wfrp.character.data.talents import TALENT_DATA
 from wfrp.character.data.trappings import TRAPPINGS_DATA
@@ -200,6 +201,13 @@ class Character(Base):
     def get_skill_level(self, skill):
         skill_data = SKILL_DATA[skill.split(" (")[0]]
         return self.skills[skill] + getattr(self, skill_data["characteristic"][0])
+
+    def get_basic_skills(self, skill_type="all"):
+        if skill_type == "left":
+            return BASIC_SKILL_LIST[:13]
+        if skill_type == "right":
+            return BASIC_SKILL_LIST[13:]
+        return BASIC_SKILL_LIST
 
     def get_talent_description(self, talent):
         if talent not in TALENT_DATA:

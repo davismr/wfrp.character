@@ -4,99 +4,19 @@
     </div>
     <div class="row">
         <div class="col-md-4">Name</div>
-        <div class="col-md-4">Characteristic</div>
-        <div class="col-md-2">Adv</div>
-        <div class="col-md-2">Skill</div>
+        <div class="col-md-4 center">Characteristic</div>
+        <div class="col-md-2 center">Adv</div>
+        <div class="col-md-2 center">Skill</div>
     </div>
-    <div class="row">
-        <div class="col-md-4">Art</div>
-        <div class="col-md-2">Dex</div>
-        <div class="col-md-2">${character.dexterity}</div>
-        <div class="col-md-2">${character.skills.get("Art", "&nbsp;")}</div>
-        <div class="col-md-2">${character.skills.get("Art", 0) + character.dexterity}</div>
-    </div>
-    <div class="row">
-        <div class="col-md-4">Athletics</div>
-        <div class="col-md-2">Ag</div>
-        <div class="col-md-2">${character.agility}</div>
-        <div class="col-md-2">${character.skills.get("Athletics", "&nbsp;")}</div>
-        <div class="col-md-2">${character.skills.get("Athletics", 0) + character.agility}</div>
-    </div>
-    <div class="row">
-        <div class="col-md-4">Bribery</div>
-        <div class="col-md-2">Fel</div>
-        <div class="col-md-2">${character.fellowship}</div>
-        <div class="col-md-2">${character.skills.get("Bribery", "&nbsp;")}</div>
-        <div class="col-md-2">${character.skills.get("Bribery", 0) + character.fellowship}</div>
-    </div>
-    <div class="row">
-        <div class="col-md-4">Charm</div>
-        <div class="col-md-2">Fel</div>
-        <div class="col-md-2">${character.fellowship}</div>
-        <div class="col-md-2">${character.skills.get("Charm", "&nbsp;")}</div>
-        <div class="col-md-2">${character.skills.get("Charm", 0) + character.fellowship}</div>
-    </div>
-    <div class="row">
-        <div class="col-md-4">Charm Animal</div>
-        <div class="col-md-2">WP</div>
-        <div class="col-md-2">${character.willpower}</div>
-        <div class="col-md-2">${character.skills.get("Charm Animal", "&nbsp;")}</div>
-        <div class="col-md-2">${character.skills.get("Charm Animal", 0) + character.willpower}</div>
-    </div>
-    <div class="row">
-        <div class="col-md-4">Climb</div>
-        <div class="col-md-2">S</div>
-        <div class="col-md-2">${character.strength}</div>
-        <div class="col-md-2">${character.skills.get("Climb", "&nbsp;")}</div>
-        <div class="col-md-2">${character.skills.get("Climb", 0) + character.strength}</div>
-    </div>
-    <div class="row">
-        <div class="col-md-4">Cool</div>
-        <div class="col-md-2">WP</div>
-        <div class="col-md-2">${character.willpower}</div>
-        <div class="col-md-2">${character.skills.get("Cool", "&nbsp;")}</div>
-        <div class="col-md-2">${character.skills.get("Cool", 0) + character.willpower}</div>
-    </div>
-    <div class="row">
-        <div class="col-md-4">Consume Alcohol</div>
-        <div class="col-md-2">T</div>
-        <div class="col-md-2">${character.toughness}</div>
-        <div class="col-md-2">${character.skills.get("Consume Alcohol", "&nbsp;")}</div>
-        <div class="col-md-2">${character.skills.get("Consume Alcohol", 0) + character.toughness}</div>
-    </div>
-    <div class="row">
-        <div class="col-md-4">Dodge</div>
-        <div class="col-md-2">Ag</div>
-        <div class="col-md-2">${character.agility}</div>
-        <div class="col-md-2">${character.skills.get("Dodge", "&nbsp;")}</div>
-        <div class="col-md-2">${character.skills.get("Dodge", 0) + character.agility}</div>
-    </div>
-    <div class="row">
-        <div class="col-md-4">Drive</div>
-        <div class="col-md-2">Ag</div>
-        <div class="col-md-2">${character.agility}</div>
-        <div class="col-md-2">${character.skills.get("Drive", "&nbsp;")}</div>
-        <div class="col-md-2">${character.skills.get("Drive", 0) + character.agility}</div>
-    </div>
-    <div class="row">
-        <div class="col-md-4">Endurance</div>
-        <div class="col-md-2">T</div>
-        <div class="col-md-2">${character.toughness}</div>
-        <div class="col-md-2">${character.skills.get("Endurance", "&nbsp;")}</div>
-        <div class="col-md-2">${character.skills.get("Endurance", 0) + character.toughness}</div>
-    </div>
-    <div class="row">
-        <div class="col-md-4">Entertain</div>
-        <div class="col-md-2">Fel</div>
-        <div class="col-md-2">${character.fellowship}</div>
-        <div class="col-md-2">${character.skills.get("Entertain", "&nbsp;")}</div>
-        <div class="col-md-2">${character.skills.get("Entertain", 0) + character.fellowship}</div>
-    </div>
-    <div class="row">
-        <div class="col-md-4">Gamble</div>
-        <div class="col-md-2">Int</div>
-        <div class="col-md-2">${character.intelligence}</div>
-        <div class="col-md-2">${character.skills.get("Gamble", "&nbsp;")}</div>
-        <div class="col-md-2">${character.skills.get("Gamble", 0) + character.intelligence}</div>
+    <div class="row" tal:repeat="skill character.get_basic_skills('left')">
+        <div tal:omit-tag=""
+             tal:define="skill_info skill_data[skill.split(' (')[0]];
+                         attribute_level getattr(character, skill_info['characteristic'][0])">
+            <div class="col-md-4">${skill}</div>
+            <div class="col-md-2 center">${skill_info["characteristic"][1]}</div>
+            <div class="col-md-2 center">${attribute_level}</div>
+            <div class="col-md-2 center">${character.skills.get(skill, "&nbsp;")}</div>
+            <div class="col-md-2 center">${character.skills.get(skill, 0) + attribute_level}</div>
+        </div>
     </div>
 </div>

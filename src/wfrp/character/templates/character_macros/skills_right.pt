@@ -4,99 +4,19 @@
     </div>
     <div class="row">
         <div class="col-md-4">Name</div>
-        <div class="col-md-4">Characteristic</div>
-        <div class="col-md-2">Adv</div>
-        <div class="col-md-2">Skill</div>
+        <div class="col-md-4 center">Characteristic</div>
+        <div class="col-md-2 center">Adv</div>
+        <div class="col-md-2 center">Skill</div>
     </div>
-    <div class="row">
-        <div class="col-md-4">Gossip</div>
-        <div class="col-md-2">Fel</div>
-        <div class="col-md-2">${character.fellowship}</div>
-        <div class="col-md-2">${character.skills.get("Gossip", "&nbsp;")}</div>
-        <div class="col-md-2">${character.skills.get("Gossip", 0) + character.fellowship}</div>
-    </div>
-    <div class="row">
-        <div class="col-md-4">Haggle</div>
-        <div class="col-md-2">Fel</div>
-        <div class="col-md-2">${character.fellowship}</div>
-        <div class="col-md-2">${character.skills.get("Haggle", "&nbsp;")}</div>
-        <div class="col-md-2">${character.skills.get("Haggle", 0) + character.fellowship}</div>
-    </div>
-    <div class="row">
-        <div class="col-md-4">Intimidate</div>
-        <div class="col-md-2">S</div>
-        <div class="col-md-2">${character.strength}</div>
-        <div class="col-md-2">${character.skills.get("Intimidate", "&nbsp;")}</div>
-        <div class="col-md-2">${character.skills.get("Intimidate", 0) + character.strength}</div>
-    </div>
-    <div class="row">
-        <div class="col-md-4">Intuition</div>
-        <div class="col-md-2">I</div>
-        <div class="col-md-2">${character.initiative}</div>
-        <div class="col-md-2">${character.skills.get("Intuition", "&nbsp;")}</div>
-        <div class="col-md-2">${character.skills.get("Intuition", 0) + character.initiative}</div>
-    </div>
-    <div class="row">
-        <div class="col-md-4">Leadership</div>
-        <div class="col-md-2">Fel</div>
-        <div class="col-md-2">${character.fellowship}</div>
-        <div class="col-md-2">${character.skills.get("Leadership", "&nbsp;")}</div>
-        <div class="col-md-2">${character.skills.get("Leadership", 0) + character.fellowship}</div>
-    </div>
-    <div class="row">
-        <div class="col-md-4">Melee (basic)</div>
-        <div class="col-md-2">WS</div>
-        <div class="col-md-2">${character.weapon_skill}</div>
-        <div class="col-md-2">${character.skills.get("Melee (basic)", "&nbsp;")}</div>
-        <div class="col-md-2">${character.skills.get("Melee (basic)", 0) + character.weapon_skill}</div>
-    </div>
-    <div class="row">
-        <div class="col-md-4">Melee</div>
-        <div class="col-md-2">WS</div>
-        <div class="col-md-2">${character.weapon_skill}</div>
-        <div class="col-md-2">${character.skills.get("Melee", "&nbsp;")}</div>
-        <div class="col-md-2">${character.skills.get("Melee", 0) + character.weapon_skill}</div>
-    </div>
-    <div class="row">
-        <div class="col-md-4">Navigation</div>
-        <div class="col-md-2">I</div>
-        <div class="col-md-2">${character.initiative}</div>
-        <div class="col-md-2">${character.skills.get("Navigation", "&nbsp;")}</div>
-        <div class="col-md-2">${character.skills.get("Navigation", 0) + character.initiative}</div>
-    </div>
-    <div class="row">
-        <div class="col-md-4">Outdoor Survival</div>
-        <div class="col-md-2">Int</div>
-        <div class="col-md-2">${character.intelligence}</div>
-        <div class="col-md-2">${character.skills.get("Outdoor Survival", "&nbsp;")}</div>
-        <div class="col-md-2">${character.skills.get("Outdoor Survival", 0) + character.intelligence}</div>
-    </div>
-    <div class="row">
-        <div class="col-md-4">Perception</div>
-        <div class="col-md-2">I</div>
-        <div class="col-md-2">${character.initiative}</div>
-        <div class="col-md-2">${character.skills.get("Perception", "&nbsp;")}</div>
-        <div class="col-md-2">${character.skills.get("Perception", 0) + character.initiative}</div>
-    </div>
-    <div class="row">
-        <div class="col-md-4">Ride</div>
-        <div class="col-md-2">Ag</div>
-        <div class="col-md-2">${character.agility}</div>
-        <div class="col-md-2">${character.skills.get("Ride", "&nbsp;")}</div>
-        <div class="col-md-2">${character.skills.get("Ride", 0) + character.agility}</div>
-    </div>
-    <div class="row">
-        <div class="col-md-4">Row</div>
-        <div class="col-md-2">S</div>
-        <div class="col-md-2">${character.strength}</div>
-        <div class="col-md-2">${character.skills.get("Row", "&nbsp;")}</div>
-        <div class="col-md-2">${character.skills.get("Row", 0) + character.strength}</div>
-    </div>
-    <div class="row">
-        <div class="col-md-4">Stealth</div>
-        <div class="col-md-2">Ag</div>
-        <div class="col-md-2">${character.agility}</div>
-        <div class="col-md-2">${character.skills.get("Stealth", "&nbsp;")}</div>
-        <div class="col-md-2">${character.skills.get("Stealth", 0) + character.agility}</div>
+    <div class="row" tal:repeat="skill character.get_basic_skills('right')">
+        <div tal:omit-tag=""
+             tal:define="skill_info skill_data[skill.split(' (')[0]];
+                         attribute_level getattr(character, skill_info['characteristic'][0])">
+            <div class="col-md-4">${skill}</div>
+            <div class="col-md-2 center">${skill_info["characteristic"][1]}</div>
+            <div class="col-md-2 center">${attribute_level}</div>
+            <div class="col-md-2 center">${character.skills.get(skill, "&nbsp;")}</div>
+            <div class="col-md-2 center">${character.skills.get(skill, 0) + attribute_level}</div>
+        </div>
     </div>
 </div>
