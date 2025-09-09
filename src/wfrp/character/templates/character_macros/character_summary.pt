@@ -1,5 +1,5 @@
 <h4>${character.get_display_title()}</h4>
-<table>
+<table class="summary">
     <tr>
         <td>M</td>
         <td>WS</td>

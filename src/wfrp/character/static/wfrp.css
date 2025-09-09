@@ -11,6 +11,14 @@ html, body {
     grid-column: 4 / span 3;
 }
 
+.summary,
+.summary th,
+.summary td {
+    border: 2px solid black;
+    padding: 5px;
+    text-align: center;
+}
+
 #input-form {
     grid-column: 1 / span 3;
     grid-row: 1 / span 2;
