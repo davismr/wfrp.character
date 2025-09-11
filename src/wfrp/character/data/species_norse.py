@@ -1,3 +1,5 @@
+from wfrp.character.data.species_standard import STANDARD_SPECIES_DATA
+
 NORSE_SPECIES_DATA = {
     "Dwarf (Norse)": {
         "skills": [
@@ -21,30 +23,8 @@ NORSE_SPECIES_DATA = {
             "Read/Write or Relentless",
             "Sturdy",
         ],
-        "hair_colour": {
-            2: "White",
-            3: "Grey",
-            4: "Pale Blond",
-            7: "Golden",
-            11: "Copper",
-            14: "Bronze",
-            17: "Brown",
-            18: "Dark Brown",
-            19: "Reddish Brown",
-            20: "Black",
-        },
-        "eye_colour": {
-            2: "Coal",
-            3: "Lead",
-            4: "Steel",
-            7: "Blue",
-            11: "Earth Brown",
-            14: "Dark Brown",
-            17: "Hazel",
-            18: "Green",
-            19: "Copper",
-            20: "Gold",
-        },
+        "hair_colour": STANDARD_SPECIES_DATA["Dwarf"]["hair_colour"].copy(),
+        "eye_colour": STANDARD_SPECIES_DATA["Dwarf"]["eye_colour"].copy(),
     },
     "Human (Bjornling Norse)": {
         "skills": [
@@ -67,30 +47,8 @@ NORSE_SPECIES_DATA = {
             "Sea Legs or Warrior Born",
         ],
         # 2 Random Talents
-        "hair_colour": {
-            2: "White Blond",
-            3: "Golden Blond",
-            4: "Red Blond",
-            7: "Golden Brown",
-            11: "Light Brown",
-            14: "Dark Brown",
-            17: "Black",
-            18: "Auburn",
-            19: "Red",
-            20: "Grey",
-        },
-        "eye_colour": {
-            2: "",
-            3: "Green",
-            4: "Pale Blue",
-            7: "Blue",
-            11: "Pale Grey",
-            14: "Grey",
-            17: "Brown",
-            18: "Hazel",
-            19: "Dark Brown",
-            20: "Black",
-        },
+        "hair_colour": STANDARD_SPECIES_DATA["Human"]["hair_colour"].copy(),
+        "eye_colour": STANDARD_SPECIES_DATA["Human"]["eye_colour"].copy(),
     },
     "Human (Sarl Norse)": {
         "skills": [
@@ -113,30 +71,8 @@ NORSE_SPECIES_DATA = {
             "Roughrider or Sea Legs",
         ],
         # 2 Random Talents
-        "hair_colour": {
-            2: "White Blond",
-            3: "Golden Blond",
-            4: "Red Blond",
-            7: "Golden Brown",
-            11: "Light Brown",
-            14: "Dark Brown",
-            17: "Black",
-            18: "Auburn",
-            19: "Red",
-            20: "Grey",
-        },
-        "eye_colour": {
-            2: "",
-            3: "Green",
-            4: "Pale Blue",
-            7: "Blue",
-            11: "Pale Grey",
-            14: "Grey",
-            17: "Brown",
-            18: "Hazel",
-            19: "Dark Brown",
-            20: "Black",
-        },
+        "hair_colour": STANDARD_SPECIES_DATA["Human"]["hair_colour"].copy(),
+        "eye_colour": STANDARD_SPECIES_DATA["Human"]["eye_colour"].copy(),
     },
     "Human (Skaeling Norse)": {
         "skills": [
@@ -159,33 +95,7 @@ NORSE_SPECIES_DATA = {
             "Resistance (Chaos)",
         ],
         # 2 Random Talents
-        "hair_colour": {
-            2: "White Blond",
-            3: "Golden Blond",
-            4: "Red Blond",
-            7: "Golden Brown",
-            11: "Light Brown",
-            14: "Dark Brown",
-            17: "Black",
-            18: "Auburn",
-            19: "Red",
-            20: "Grey",
-        },
-        "eye_colour": {
-            2: "",
-            3: "Green",
-            4: "Pale Blue",
-            7: "Blue",
-            11: "Pale Grey",
-            14: "Grey",
-            17: "Brown",
-            18: "Hazel",
-            19: "Dark Brown",
-            20: "Black",
-        },
+        "hair_colour": STANDARD_SPECIES_DATA["Human"]["hair_colour"].copy(),
+        "eye_colour": STANDARD_SPECIES_DATA["Human"]["eye_colour"].copy(),
     },
 }
-
-
-# A Skaeling Character who generates the Pure Soul Talent
-# as a Random Talent may take the Mark of Khorne instead.

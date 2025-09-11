@@ -33,7 +33,7 @@ class SpeciesSkillsViews(BaseCreateView):
                         continue
                     if (
                         extra_talent == "Pure Soul"
-                        and self.character.species.startswith("Human (")
+                        and "Skaeling Norse" in self.character.species
                     ):
                         extra_talent = "Pure Soul or Mark of Khorne"
                     extra_talents.append(extra_talent)
