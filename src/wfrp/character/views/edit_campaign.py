@@ -13,12 +13,13 @@ from wfrp.character.models.campaign import Campaign
 from wfrp.character.models.user import User
 from wfrp.character.validators import confirm_delete_validator
 from wfrp.character.validators import is_user_found
+from wfrp.character.widgets import UserWidget
 
 
 class Gamemaster(colander.SequenceSchema):
     gamemaster = colander.SchemaNode(
         colander.String(),
-        widget=deform.widget.TextInputWidget(),
+        widget=UserWidget(),
         validator=is_user_found,
     )
 
@@ -26,7 +27,7 @@ class Gamemaster(colander.SequenceSchema):
 class Player(colander.SequenceSchema):
     player = colander.SchemaNode(
         colander.String(),
-        widget=deform.widget.TextInputWidget(),
+        widget=UserWidget(),
         validator=is_user_found,
     )
 
