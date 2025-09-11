@@ -87,6 +87,28 @@ def test_reroll_view(new_character):
 
 
 @pytest.mark.create
+def test_reroll_view_seafarer(new_character):
+    new_character.expansions = ["sea_of_claws"]
+    new_character.species = "Human"
+    new_character.status = {"career": "Beachcomber"}
+    request = testing.DummyRequest(
+        post={
+            "Reroll": "Reroll",
+        }
+    )
+    request.dbsession = dbsession(request)
+    request.matched_route = DummyRoute(name="career")
+    request.matchdict = {"id": str(new_character.id)}
+    view = CareerViews(request)
+    response = view.form_view()
+    assert isinstance(response, dict)
+    choices = new_character.status["career"].split(",")
+    assert len(choices) == 3
+    assert "Beachcomber" in choices
+    assert "or reroll for 3 choices and" not in response["form"]
+
+
+@pytest.mark.create
 def test_invalid_number_careers(new_character):
     new_character.species = "Human"
     new_character.status = {"career": "Soldier,Beggar"}

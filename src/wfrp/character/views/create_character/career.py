@@ -20,17 +20,17 @@ from wfrp.character.views.create_character.base_create import BaseCreateView
     permission="create_character",
 )
 class CareerViews(BaseCreateView):
-    def initialise_form(self):
+    def __init__(self, request):
+        super().__init__(request)
         self.sea_of_claws = False
         if "sea_of_claws" in self.character.expansions:
             self.sea_of_claws = True
+
+    def initialise_form(self):
         if self.character.status["career"]:
             career = self.character.status["career"]
         else:
-            if self.sea_of_claws:
-                career = get_career(self.character.species, roll_d100(), True)
-            else:
-                career = get_career(self.character.species, roll_d100())
+            career = get_career(self.character.species, roll_d100(), self.sea_of_claws)
             self.character.status = {"career": career}
         if self.sea_of_claws:
             career_list = list_careers(self.character.species, True)
@@ -45,7 +45,7 @@ class CareerViews(BaseCreateView):
     def reroll_career_view(self):
         career_choice = self.character.status["career"].split(",")
         while len(career_choice) < 3:
-            career = get_career(self.character.species, roll_d100())
+            career = get_career(self.character.species, roll_d100(), self.sea_of_claws)
             if career not in career_choice:
                 career_choice.append(career)
         self.character.status = {"career": ",".join(career_choice)}
@@ -149,7 +149,6 @@ class CareerViews(BaseCreateView):
             schema,
             buttons=form_buttons,
         )
-
         if "Choose_Career" in self.request.POST:
             try:
                 captured = form.validate(self.request.POST.items())
@@ -184,7 +183,6 @@ class CareerViews(BaseCreateView):
                 return HTTPFound(location=url)
         else:
             html = form.render()
-
         static_assets = self.get_widget_resources(form)
         return {
             "form": html,
