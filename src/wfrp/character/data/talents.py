@@ -125,7 +125,7 @@ BASIC_TALENTS = {
         ),
     },
     "Argumentative": {
-        "max": "Fellowship",
+        "max": "Fellowship Bonus",
         "tests": "Charm Tests when arguing and debating",
         "description": (
             "You are used to arguing your points and winning. If you roll a successful "
@@ -155,7 +155,7 @@ BASIC_TALENTS = {
         ),
     },
     "Battle Rage": {
-        "max": "Willpower",
+        "max": "Willpower Bonus",
         "tests": "Melee Tests when Frenzied",
         "short_description": "",
         "description": (
@@ -597,6 +597,7 @@ BASIC_TALENTS = {
         ),
     },
     "Flee!": {
+        "max": "Agility Bonus",
         "description": (
             "When your life is on the line you are capable of impressive bursts of "
             "speed. Your Movement Attribute counts as 1 higher when Fleeing "
@@ -634,7 +635,7 @@ BASIC_TALENTS = {
         ),
     },
     "Hardy": {
-        "max": "Toughness bonus",
+        "max": "Toughness Bonus",
         "short_description": ("+5 wounds"),
         "description": (
             "You gain a permanent addition to your Wounds, equal to your Toughness "
@@ -675,7 +676,7 @@ BASIC_TALENTS = {
         ),
     },
     "Hunter’s Eye": {
-        "max": "Initiative",
+        "max": "Initiative Bonus",
         "tests": "Any Test to trail or capture game",
         "short_description": "",
         "description": (
@@ -688,7 +689,7 @@ BASIC_TALENTS = {
         ),
     },
     "Impassioned Zeal": {
-        "max": "Fellowship",
+        "max": "Fellowship Bonus",
         "tests": "Charm when speaking about your cause",
         "description": (
             "When you talk about your cause, case, or religion, your words fill with "
@@ -698,7 +699,7 @@ BASIC_TALENTS = {
         ),
     },
     "Implacable": {
-        "max": "Toughness",
+        "max": "Toughness Bonus",
         "short_description": "",
         "description": (
             "It takes a lot to finish you off. You can ignore the Wound loss from a "
@@ -793,7 +794,7 @@ BASIC_TALENTS = {
         ),
     },
     "Lip Reading": {
-        "max": "Initiative",
+        "max": "Initiative Bonus",
         "tests": "Perception Tests concerning this Talent",
         "short_description": "",
         "description": (
@@ -817,7 +818,7 @@ BASIC_TALENTS = {
         ),
     },
     "Magical Sense": {
-        "max": "Initiative",
+        "max": "Initiative Bonus",
         "tests": "Intuition Tests to detect Wizards",
         "short_description": "",
         "description": (
@@ -867,7 +868,7 @@ BASIC_TALENTS = {
         ),
     },
     "Master of Disguise": {
-        "max": "Fellowship",
+        " Bonus": "Fellowship",
         "tests": "Entertain (Acting) when being someone else",
         "short_description": "",
         "description": (
@@ -878,7 +879,7 @@ BASIC_TALENTS = {
         ),
     },
     "Master Orator": {
-        "max": "Fellowship",
+        "max": "Fellowship Bonus",
         "description": (
             "You are skilled at firing up crowds. You gain a gain a SL bonus equal to "
             "your levels of Master Orator to any Charm Test when Public Speaking "
@@ -1228,7 +1229,7 @@ BASIC_TALENTS = {
         ),
     },
     "Shieldsman": {
-        "max": "Strength",
+        "max": "Strength Bonus",
         "tests": "Any Test to defend with a shield",
         "short_description": "",
         "description": (
