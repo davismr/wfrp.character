@@ -6,6 +6,7 @@ from wfrp.character.data.careers.rangers import RANGERS_CLASS_DATA
 from wfrp.character.data.careers.riverfolk import RIVERFOLK_CLASS_DATA
 from wfrp.character.data.careers.rogues import ROGUES_CLASS_DATA
 from wfrp.character.data.careers.seafarer import SEAFARER_CLASS_DATA
+from wfrp.character.data.careers.up_in_arms import UP_IN_ARMS_CLASS_DATA
 from wfrp.character.data.careers.warriors import WARRIORS_CLASS_DATA
 
 CAREER_DATA = (
@@ -19,6 +20,8 @@ CAREER_DATA = (
     | WARRIORS_CLASS_DATA
 )
 
+ALL_CAREER_DATA = CAREER_DATA | UP_IN_ARMS_CLASS_DATA
+
 CAREER_DATA_WITH_SEAFARER = (
     ACADEMIC_CLASS_DATA
     | BURGHERS_CLASS_DATA
@@ -29,6 +32,8 @@ CAREER_DATA_WITH_SEAFARER = (
     | ROGUES_CLASS_DATA
     | WARRIORS_CLASS_DATA
 )
+
+ALL_CAREER_DATA_WITH_SEAFARER = CAREER_DATA_WITH_SEAFARER | UP_IN_ARMS_CLASS_DATA
 
 CAREER_BY_CLASS = (
     {career: "Academics" for career in ACADEMIC_CLASS_DATA}

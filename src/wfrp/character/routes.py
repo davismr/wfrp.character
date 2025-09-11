@@ -17,6 +17,7 @@ def includeme(config):
     config.add_route("expansions", "/character/{id}/expansions")
     config.add_route("species", "/character/{id}/species")
     config.add_route("career", "/character/{id}/career")
+    config.add_route("sub-career", "/character/{id}/sub-career")
     config.add_route("attributes", "/character/{id}/attributes")
     config.add_route("advances", "/character/{id}/advances")
     config.add_route("career-skills", "/character/{id}/career_skills")

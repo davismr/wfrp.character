@@ -7,10 +7,10 @@ EXPANSIONS = {
         "title": "Sea of Claws",
         "description": "Seafarer class replaces Riverfolk class",
     },
-    # "up_in_arms": {
-    #     "title": "Up in Arms",
-    #     "description": "Sub careers for some careers",
-    # },
+    "up_in_arms": {
+        "title": "Up in Arms",
+        "description": "Sub careers for some military careers",
+    },
     # "winds_of_magic": {
     #     "title": "Winds of Magic",
     #     "description": "Sub careers for some careers",

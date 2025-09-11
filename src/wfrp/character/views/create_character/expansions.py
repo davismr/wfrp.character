@@ -31,7 +31,10 @@ class ExpansionsViews(BaseCreateView):
         choices = (("false", "Not Enabled"), ("true", "Enabled"))
         for expansion in self.available_expansions:
             read_only = False
-            if self.restricted_expansions and expansion in ["rough_nights"]:
+            if self.restricted_expansions and expansion in [
+                "rough_nights",
+                "up_in_arms",
+            ]:
                 read_only = True
             expansions_schema.add(
                 colander.SchemaNode(

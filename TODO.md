@@ -27,5 +27,5 @@
 
 ### Expansions
 - Priest of Stromfels - sea of claws
-- Up in Arms
+- Tilean characters - Up in Arms
 - Winds of Magic

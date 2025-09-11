@@ -4,8 +4,8 @@ from pyramid.httpexceptions import HTTPFound
 from pyramid.view import view_config
 from pyramid.view import view_defaults
 
-from wfrp.character.data.careers.careers import CAREER_DATA
-from wfrp.character.data.careers.careers import CAREER_DATA_WITH_SEAFARER
+from wfrp.character.data.careers.careers import ALL_CAREER_DATA
+from wfrp.character.data.careers.careers import ALL_CAREER_DATA_WITH_SEAFARER
 from wfrp.character.views.create_character.attributes import ATTRIBUTES
 from wfrp.character.views.create_character.base_create import BaseCreateView
 
@@ -21,9 +21,9 @@ class AdvancesViews(BaseCreateView):
             attribute_lower = f'{attribute.lower().replace(" ", "_")}_initial'
             attributes[attribute] = getattr(self.character, attribute_lower)
         if "sea_of_claws" in self.character.expansions:
-            career_data = CAREER_DATA_WITH_SEAFARER[self.character.career]
+            career_data = ALL_CAREER_DATA_WITH_SEAFARER[self.character.career]
         else:
-            career_data = CAREER_DATA[self.character.career]
+            career_data = ALL_CAREER_DATA[self.character.career]
         career_details = career_data[self.character.career_title]
         career_advances = career_details["attributes"]
         return {"attributes": attributes, "advances": career_advances}

@@ -16,8 +16,8 @@ from sqlalchemy.schema import ForeignKey
 
 from wfrp.character.application import Base
 from wfrp.character.data.armour import ARMOUR_DATA
-from wfrp.character.data.careers.careers import CAREER_DATA
-from wfrp.character.data.careers.careers import CAREER_DATA_WITH_SEAFARER
+from wfrp.character.data.careers.careers import ALL_CAREER_DATA
+from wfrp.character.data.careers.careers import ALL_CAREER_DATA_WITH_SEAFARER
 from wfrp.character.data.skills import BASIC_SKILL_LIST
 from wfrp.character.data.skills import SKILL_DATA
 from wfrp.character.data.talents import TALENT_DATA
@@ -97,8 +97,8 @@ class Character(Base):
 
     def career_data(self):
         if "sea_of_claws" in self.expansions:
-            return CAREER_DATA_WITH_SEAFARER[self.career]
-        return CAREER_DATA[self.career]
+            return ALL_CAREER_DATA_WITH_SEAFARER[self.career]
+        return ALL_CAREER_DATA[self.career]
 
     def career_level(self):
         return list(self.career_data().keys()).index(self.career_title) + 1

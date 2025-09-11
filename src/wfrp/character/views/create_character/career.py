@@ -11,6 +11,7 @@ from wfrp.character.data.careers.careers import CAREER_DATA
 from wfrp.character.data.careers.careers import CAREER_DATA_WITH_SEAFARER
 from wfrp.character.data.careers.tables import get_career
 from wfrp.character.data.careers.tables import list_careers
+from wfrp.character.data.careers.up_in_arms import UP_IN_ARMS_CAREERS
 from wfrp.character.utils import roll_d100
 from wfrp.character.views.create_character.base_create import BaseCreateView
 
@@ -178,8 +179,7 @@ class CareerViews(BaseCreateView):
                 self.character.career_standing = career_data[career_title]["status"][
                     "standing"
                 ]
-                url = self.request.route_url("attributes", id=self.character.id)
-                self.character.status = {"attributes": ""}
+                url = self.get_next_url()
                 return HTTPFound(location=url)
         else:
             html = form.render()
@@ -190,3 +190,13 @@ class CareerViews(BaseCreateView):
             "css_links": static_assets["css"],
             "js_links": static_assets["js"],
         }
+
+    def get_next_url(self):
+        if (
+            "up_in_arms" in self.character.expansions
+            and self.character.career in UP_IN_ARMS_CAREERS
+        ):
+            self.character.status = {"sub-career": ""}
+            return self.request.route_url("sub-career", id=self.character.id)
+        self.character.status = {"attributes": ""}
+        return self.request.route_url("attributes", id=self.character.id)
