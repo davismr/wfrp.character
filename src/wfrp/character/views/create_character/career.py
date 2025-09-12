@@ -5,10 +5,10 @@ from pyramid.httpexceptions import HTTPFound
 from pyramid.view import view_config
 from pyramid.view import view_defaults
 
+from wfrp.character.data.careers.careers import ALL_CAREER_DATA
+from wfrp.character.data.careers.careers import ALL_CAREER_DATA_WITH_SEAFARER
 from wfrp.character.data.careers.careers import CAREER_BY_CLASS
 from wfrp.character.data.careers.careers import CAREER_BY_CLASS_WITH_SEAFARER
-from wfrp.character.data.careers.careers import CAREER_DATA
-from wfrp.character.data.careers.careers import CAREER_DATA_WITH_SEAFARER
 from wfrp.character.data.careers.tables import get_career
 from wfrp.character.data.careers.tables import list_careers
 from wfrp.character.data.careers.up_in_arms import UP_IN_ARMS_CAREERS
@@ -38,11 +38,22 @@ class CareerViews(BaseCreateView):
             career_list = list_careers(self.character.species, True)
         else:
             career_list = list_careers(self.character.species)
-        career_choice = []
+        if self.character.species == "Human (Tilean)":
+            if "Flagellant" in careers:
+                careers.remove("Flagellant")
+                careers.append("Nun")
+                careers.append("Priest")
+            if "Cavalryman" in careers and "Light Cavalry" not in careers:
+                careers.append("Light Cavalry")
+            if "Soldier" in careers and "Pikeman" not in careers:
+                careers.append("Pikeman")
+            if "Warrior Priest" in careers and "Priest of Myrmidia" not in careers:
+                careers.append("Priest of Myrmidia")
+            self.character.status["career"] = careers
         for item in careers:
-            career_list.remove(item)
-            career_choice.append(item)
-        return {"career_choice": career_choice, "career_list": career_list}
+            if item not in ["Light Cavalry", "Pikeman", "Priest of Myrmidia"]:
+                career_list.remove(item)
+        return {"career_choice": careers, "career_list": career_list}
 
     def reroll_career_view(self):
         career_choice = self.character.status["career"]
@@ -50,8 +61,7 @@ class CareerViews(BaseCreateView):
             career = get_career(self.character.species, roll_d100(), self.sea_of_claws)
             if career not in career_choice:
                 career_choice.append(career)
-        # need to add a key so sqlalchemy will detect a change
-        self.character.status = {"career": career_choice, "reroll": True}
+        self.character.status["career"] = career_choice
 
     def schema(self, data):
         schema = colander.SchemaNode(
@@ -72,7 +82,7 @@ class CareerViews(BaseCreateView):
                 f"Accept {career_choices[0][0]} for 50XP, or reroll for 3 choices and "
                 "25XP."
             )
-        elif len(career_choices) == 3:
+        elif len(career_choices) >= 3:
             description = (
                 f"Accept {career_choices[0][0]}, {career_choices[1][0]} or "
                 f"{career_choices[2][0]} for 25XP."
@@ -170,10 +180,10 @@ class CareerViews(BaseCreateView):
                 self.character.career = career
                 if self.sea_of_claws:
                     self.character.career_class = CAREER_BY_CLASS_WITH_SEAFARER[career]
-                    career_data = CAREER_DATA_WITH_SEAFARER[career]
+                    career_data = ALL_CAREER_DATA_WITH_SEAFARER[career]
                 else:
                     self.character.career_class = CAREER_BY_CLASS[career]
-                    career_data = CAREER_DATA[career]
+                    career_data = ALL_CAREER_DATA[career]
                 career_title = list(career_data.keys())[0]
                 self.character.career_path.append(career_title)
                 self.character.career_title = career_title

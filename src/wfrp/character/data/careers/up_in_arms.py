@@ -22,7 +22,7 @@ UP_IN_ARMS_CAREERS = {
     },
     "Cavalryman": {
         75: "Cavalryman",
-        100: "Light Cavalryman",
+        100: "Light Cavalry",
     },
     "Knight": {
         55: "Knight",
@@ -46,6 +46,23 @@ UP_IN_ARMS_CAREERS = {
     },
 }
 
+UP_IN_ARMS_CAREER_BY_CLASS = {
+    "Artillerist": "Academics",
+    "Cartographer": "Academics",
+    "Camp Follower": "Rangers",
+    "Light Cavalry": "Warriors",
+    "Freelance": "Warriors",
+    "Knight of the Blazing Sun": "Warriors",
+    "Knight of the White Wolf": "Warriors",
+    "Knight Panther": "Warriors",
+    "Archer": "Warriors",
+    "Greatsword": "Warriors",
+    "Halberdier": "Warriors",
+    "Handgunner": "Warriors",
+    "Pikeman": "Warriors",
+    "Siege Specialist": "Warriors",
+    "Priest of Myrmidia": "Warriors",
+}
 
 UP_IN_ARMS_CLASS_DATA = {
     "Archer": {

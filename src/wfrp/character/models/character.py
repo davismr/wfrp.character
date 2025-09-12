@@ -89,7 +89,7 @@ class Character(Base):
     armour = Column(MutableList.as_mutable(JSON), default=[])
     trappings = Column(MutableList.as_mutable(JSON), default=[])
     wealth = Column(MutableDict.as_mutable(JSON), default={})
-    status = Column(JSON, default={})  # this is intentionally not mutable
+    status = Column(MutableDict.as_mutable(JSON), default={})
 
     def __init__(self, **kwargs):
         kwargs["id"] = kwargs.get("id", uuid.uuid4())

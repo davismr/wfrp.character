@@ -52,6 +52,48 @@ def test_initialise_form_seafarer(new_character):
 
 
 @pytest.mark.create
+def test_initialise_form_tilean(new_character):
+    new_character.species = "Human (Tilean)"
+    new_character.expansions = ["up_in_arms"]
+    new_character.status = {"career": ["Flagellant"]}
+    request = testing.DummyRequest()
+    request.dbsession = dbsession(request)
+    request.matched_route = DummyRoute(name="career")
+    request.matchdict = {"id": str(new_character.id)}
+    view = CareerViews(request)
+    response = view.initialise_form()
+    assert isinstance(response, dict)
+    assert "career_choice" in response
+    assert response["career_choice"] == ["Nun", "Priest"]
+    assert response["career_choice"] == new_character.status["career"]
+
+
+@pytest.mark.create
+def test_initialise_form_tilean_multiple(new_character):
+    new_character.species = "Human (Tilean)"
+    new_character.expansions = ["up_in_arms"]
+    new_character.status = {"career": ["Cavalryman", "Soldier", "Warrior Priest"]}
+    request = testing.DummyRequest()
+    request.dbsession = dbsession(request)
+    request.matched_route = DummyRoute(name="career")
+    request.matchdict = {"id": str(new_character.id)}
+    view = CareerViews(request)
+    response = view.initialise_form()
+    assert isinstance(response, dict)
+    assert "career_choice" in response
+    assert len(response["career_choice"]) == 6
+    assert response["career_choice"] == [
+        "Cavalryman",
+        "Soldier",
+        "Warrior Priest",
+        "Light Cavalry",
+        "Pikeman",
+        "Priest of Myrmidia",
+    ]
+    assert response["career_choice"] == new_character.status["career"]
+
+
+@pytest.mark.create
 def test_form_view(new_character):
     new_character.species = "Wood Elf"
     new_character.status = {"career": ""}
