@@ -1,40 +1,10 @@
 from wfrp.character.data.careers.careers import CAREER_DATA
 
 
-def list_careers(species=None, with_seafarer=False):  # noqa: C901
-    if species is None:
-        return list(CAREER_DATA.keys())
-    if species == "Human" and with_seafarer is False:
-        return list(HUMAN_CAREERS.values())
-    if species == "Human":
-        return list(HUMAN_CAREERS_WITH_SEAFARER.values())
-    if species.startswith("Human"):
-        return list(HUMAN_NORSE_CAREERS.values())
-    if species == "Halfling" and with_seafarer is False:
-        return list(HALFLING_CAREERS.values())
-    if species == "Halfling":
-        return list(HALFLING_CAREERS_WITH_SEAFARER.values())
-    if species == "Dwarf" and with_seafarer is False:
-        return list(DWARF_CAREERS.values())
-    if species == "Dwarf":
-        return list(DWARF_CAREERS_WITH_SEAFARER.values())
-    if species == "Dwarf (Norse)":
-        return list(DWARF_CAREERS_WITH_SEAFARER.values())
-    if species == "Gnome":
-        return list(GNOME_CAREERS.values())
-    if species == "High Elf" and with_seafarer is False:
-        return list(HIGH_ELF_CAREERS.values())
-    if species == "High Elf":
-        return list(HIGH_ELF_CAREERS_WITH_SEAFARER.values())
-    if species == "Wood Elf":
-        return list(WOOD_ELF_CAREERS.values())
-    raise NotImplementedError("Invalid species sent to list careers")
-
-
-def get_career(species, die_roll, with_seafarer=False):  # noqa: C901
-    if species == "Human" and with_seafarer is False:
+def get_career_list(species, with_seafarer=False):  # noqa: C901
+    if species in ["Human", "Human (Tilean)"] and with_seafarer is False:
         career_list = HUMAN_CAREERS
-    elif species == "Human":
+    elif species in ["Human", "Human (Tilean)"]:
         career_list = HUMAN_CAREERS_WITH_SEAFARER
     elif species.startswith("Human"):
         career_list = HUMAN_NORSE_CAREERS
@@ -57,7 +27,18 @@ def get_career(species, die_roll, with_seafarer=False):  # noqa: C901
     elif species == "Wood Elf":
         career_list = WOOD_ELF_CAREERS
     else:
-        raise NotImplementedError("Invalid species sent to get career")
+        raise NotImplementedError("Invalid species sent to list careers")
+    return career_list
+
+
+def list_careers(species=None, with_seafarer=False):
+    if species is None:
+        return list(CAREER_DATA.keys())
+    return list(get_career_list(species, with_seafarer).values())
+
+
+def get_career(species, die_roll, with_seafarer=False):
+    career_list = get_career_list(species, with_seafarer)
     while True:
         try:
             return career_list[die_roll]
