@@ -29,27 +29,29 @@ class CareerViews(BaseCreateView):
 
     def initialise_form(self):
         if self.character.status["career"]:
-            career = self.character.status["career"]
+            careers = self.character.status["career"]
         else:
             career = get_career(self.character.species, roll_d100(), self.sea_of_claws)
-            self.character.status = {"career": career}
+            careers = [career]
+            self.character.status = {"career": careers}
         if self.sea_of_claws:
             career_list = list_careers(self.character.species, True)
         else:
             career_list = list_careers(self.character.species)
         career_choice = []
-        for item in career.split(","):
+        for item in careers:
             career_list.remove(item)
             career_choice.append(item)
         return {"career_choice": career_choice, "career_list": career_list}
 
     def reroll_career_view(self):
-        career_choice = self.character.status["career"].split(",")
+        career_choice = self.character.status["career"]
         while len(career_choice) < 3:
             career = get_career(self.character.species, roll_d100(), self.sea_of_claws)
             if career not in career_choice:
                 career_choice.append(career)
-        self.character.status = {"career": ",".join(career_choice)}
+        # need to add a key so sqlalchemy will detect a change
+        self.character.status = {"career": career_choice, "reroll": True}
 
     def schema(self, data):
         schema = colander.SchemaNode(
@@ -159,7 +161,7 @@ class CareerViews(BaseCreateView):
                 career = captured.get("random_career").get(
                     "random_career"
                 ) or captured.get("career").get("career")
-                career_choice = self.character.status["career"].split(",")
+                career_choice = self.character.status["career"]
                 if career in career_choice:
                     if len(career_choice) == 1:
                         self.character.experience += 50
