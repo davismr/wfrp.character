@@ -64,7 +64,7 @@ def test_initialise_form_tilean(new_character):
     response = view.initialise_form()
     assert isinstance(response, dict)
     assert "career_choice" in response
-    assert response["career_choice"] == ["Nun", "Priest"]
+    assert response["career_choice"] == ["Flagellant", "Nun", "Priest"]
     assert response["career_choice"] == new_character.status["career"]
 
 

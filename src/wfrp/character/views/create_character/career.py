@@ -40,7 +40,6 @@ class CareerViews(BaseCreateView):
             career_list = list_careers(self.character.species)
         if self.character.species == "Human (Tilean)":
             if "Flagellant" in careers:
-                careers.remove("Flagellant")
                 careers.append("Nun")
                 careers.append("Priest")
             if "Cavalryman" in careers and "Light Cavalry" not in careers:
