@@ -7,6 +7,17 @@ STANDARD_SPECIES_LIST = list(STANDARD_SPECIES_DATA.keys())
 SPECIES_LIST = list(SPECIES_DATA.keys())
 
 
+def get_species_list(expansions):
+    species_list = STANDARD_SPECIES_LIST.copy()
+    if "rough_nights" not in expansions:
+        species_list.remove("Gnome")
+    if "sea_of_claws" in expansions:
+        species_list.extend(NORSE_SPECIES_DATA.keys())
+    if "up_in_arms" in expansions:
+        species_list.extend(TILEAN_SPECIES_DATA.keys())
+    return species_list
+
+
 def get_hair_colour(species, die_roll):
     hair_colours = SPECIES_DATA[species]["hair_colour"]
     while True:

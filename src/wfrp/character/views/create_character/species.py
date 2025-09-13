@@ -4,8 +4,7 @@ from pyramid.httpexceptions import HTTPFound
 from pyramid.view import view_config
 from pyramid.view import view_defaults
 
-from wfrp.character.data.species import SPECIES_LIST
-from wfrp.character.data.species import STANDARD_SPECIES_LIST
+from wfrp.character.data.species import get_species_list
 from wfrp.character.utils import roll_d100
 from wfrp.character.views.create_character.base_create import BaseCreateView
 
@@ -50,15 +49,9 @@ class SpeciesViews(BaseCreateView):
         return species
 
     def initialise_form(self):
-        if "sea_of_claws" in self.character.expansions:
-            self.species_list = SPECIES_LIST.copy()
-        else:
-            self.species_list = STANDARD_SPECIES_LIST.copy()
-        gnome_active = "rough_nights" in self.character.expansions
-        if gnome_active is False:
-            self.species_list.remove("Gnome")
+        self.species_list = get_species_list(self.character.expansions)
         if not self.character.status["species"]:
-            if gnome_active is True:
+            if "rough_nights" in self.character.expansions:
                 species = self._roll_new_species_with_gnome()
             else:
                 species = self._roll_new_species()
