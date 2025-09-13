@@ -4,10 +4,10 @@
     </div>
     <div class="row">
         <div class="col-md-1">Short-term</div>
-        <div class="col-md-11"><!-- TODO --></div>
+        <div class="col-md-11">${character.short_term_ambition|""}</div>
     </div>
     <div class="row">
         <div class="col-md-1">Long-term</div>
-        <div class="col-md-11"><!-- TODO --></div>
+        <div class="col-md-11">${character.long_term_ambition|""}</div>
     </div>
 </div>

@@ -81,6 +81,8 @@ class Character(Base):
     resilience = Column(Integer, default=0)
     resolve = Column(Integer, default=0)
     motivation = Column(Text)
+    short_term_ambition = Column(Text)
+    long_term_ambition = Column(Text)
     extra_points = Column(Integer, default=0)
     movement = Column(Integer, default=3)
     skills = Column(MutableDict.as_mutable(JSON), default={})

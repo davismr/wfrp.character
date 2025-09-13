@@ -31,6 +31,9 @@ class Campaign(Base):
         "User", secondary="campaign_player", back_populates="player_campaigns"
     )
     name = Column(Text)
+    party_name = Column(Text, default="")
+    short_term_ambition = Column(Text, default="")
+    long_term_ambition = Column(Text, default="")
     expansions = Column(MutableList.as_mutable(JSON), default=[])
     sessions = relationship("CampaignSession", back_populates="campaign")
 

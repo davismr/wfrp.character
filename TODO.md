@@ -19,12 +19,9 @@
 - Ready made characters
 - Name generator
 - Optional modules
-- Extra steps
-  - Motivation, party etc
 - Mark which skill is used for earning money
 - Change career
 
 ### Expansions
 - Priest of Stromfels - sea of claws
-- Tilean characters - Up in Arms
 - Winds of Magic

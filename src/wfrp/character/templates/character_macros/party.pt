@@ -4,15 +4,15 @@
     </div>
     <div class="row">
         <div class="col-md-2">Party Name</div>
-        <div class="col-md-10"><!-- TODO --></div>
+        <div class="col-md-10">${character.campaign.party_name|""}</div>
     </div>
     <div class="row">
         <div class="col-md-2">Short-term</div>
-        <div class="col-md-10"><!-- TODO --></div>
+        <div class="col-md-10">${character.campaign.short_term_ambition|""}</div>
     </div>
     <div class="row">
         <div class="col-md-2">Long-term</div>
-        <div class="col-md-10"><!-- TODO --></div>
+        <div class="col-md-10">${character.campaign.long_term_ambition|""}</div>
     </div>
     <div class="row">
         <div class="col-md-2">Members</div>

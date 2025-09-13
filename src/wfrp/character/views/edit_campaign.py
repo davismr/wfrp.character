@@ -96,6 +96,41 @@ class CampaignEditViews:
         )
         schema.add(Gamemaster(name="gamemasters", validator=self.validate_gamemaster))
         schema.add(Player(name="players"))
+        party_schema = colander.SchemaNode(
+            colander.Mapping(),
+            name="party",
+        )
+        party_schema.add(
+            colander.SchemaNode(
+                colander.String(),
+                name="party_name",
+                widget=deform.widget.TextInputWidget(),
+                validator=colander.Length(max=100),
+                default=self.campaign.party_name or "",
+                missing="",
+            )
+        )
+        party_schema.add(
+            colander.SchemaNode(
+                colander.String(),
+                name="short_term_ambition",
+                widget=deform.widget.TextAreaWidget(),
+                validator=colander.Length(max=100),
+                default=self.campaign.short_term_ambition or "",
+                missing="",
+            )
+        )
+        party_schema.add(
+            colander.SchemaNode(
+                colander.String(),
+                name="long_term_ambition",
+                widget=deform.widget.TextAreaWidget(),
+                validator=colander.Length(max=100),
+                default=self.campaign.long_term_ambition or "",
+                missing="",
+            )
+        )
+        schema.add(party_schema)
         return schema
 
     def confirm_schema(self):
@@ -138,6 +173,13 @@ class CampaignEditViews:
                 self.update_users(captured)
                 self.campaign.name = captured.get("campaign_name")
                 self.campaign.expansions = list(captured.get("expansions"))
+                self.campaign.party_name = captured["party"]["party_name"]
+                self.campaign.short_term_ambition = captured["party"][
+                    "short_term_ambition"
+                ]
+                self.campaign.long_term_ambition = captured["party"][
+                    "long_term_ambition"
+                ]
                 if (
                     self.request.dbsession.query(
                         exists().where(Campaign.id == self.campaign.id)
