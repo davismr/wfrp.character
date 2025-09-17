@@ -143,7 +143,8 @@ class SpeciesSkillsViews(BaseCreateView):
         schema.add(talent_schema)
         return schema
 
-    def validate_skills(self, form, values):
+    def validate_skills(self, node, values):  # noqa: C901
+        error = colander.Invalid(node, "Error message on form")
         errors = []
         for value in values:
             if (
@@ -153,29 +154,45 @@ class SpeciesSkillsViews(BaseCreateView):
                 and not values[f"{value} specialisation"]
             ):
                 errors.append(f"You have to select a specialisation for {value}")
-        list_values = list(values.values())
-        if list_values.count(3) > 3:
+                error[f"{value} specialisation"] = (
+                    f"You have to select a specialisation for {value}"
+                )
+        zero_fields = [item for item, value in values.items() if value == 0]
+        fields = [item for item, value in values.items() if value == 3]
+        if len(fields) > 3:
             errors.append("You can only select 3 skills for 3 advances")
-        elif list_values.count(3) < 3:
+            for field in fields:
+                error[field] = "You can only select 3 skills for 3 advances"
+        elif len(fields) < 3:
             errors.append("You must select 3 skills for 3 advances")
-        if list_values.count(5) > 3:
+            for field in zero_fields:
+                error[field] = "You must select 3 skills for 3 advances"
+        fields = [item for item, value in values.items() if value == 5]
+        if len(fields) > 3:
             errors.append("You can only select 3 skills for 5 advances")
-        elif list_values.count(5) < 3:
+            for field in fields:
+                error[field] = "You can only select 3 skills for 5 advances"
+        elif len(fields) < 3:
             errors.append("You must select 3 skills for 5 advances")
+            for field in zero_fields:
+                error[field] = "You must select 3 skills for 5 advances"
         if errors:
-            raise colander.Invalid(form, ". ".join(errors))
+            error.msg = ". ".join(errors)
+            raise error
 
-    def validate_talents(self, form, values):
-        errors = []
+    def validate_talents(self, node, values):
+        error = colander.Invalid(node, "You have to select a specialisation")
         for value in values.values():
             if (
                 "(Any)" in value
                 and values[value]
                 and not values[f"{value} specialisation"]
             ):
-                errors.append(f"You have to select a specialisation for {value}")
-        if errors:
-            raise colander.Invalid(form, ". ".join(errors))
+                error[f"{value} specialisation"] = (
+                    f"You have to select a specialisation for {value}"
+                )
+        if error.children:
+            raise error
 
     @view_config(route_name="species-skills")
     def form_view(self):

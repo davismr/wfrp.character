@@ -36,7 +36,7 @@ class AdvancesViews(BaseCreateView):
         advances_schema = colander.SchemaNode(
             colander.Mapping(),
             name="attributes",
-            validator=self.validate,
+            validator=self.validate_attributes,
             description=(
                 "You can allocate a total of 5 Advances across these Characteristics"
             ),
@@ -127,34 +127,46 @@ class AdvancesViews(BaseCreateView):
         schema.add(motivation_schema)
         return schema
 
-    def validate(self, form, values):
+    def validate_attributes(self, node, values):
         total = 0
         for value in values:
             if values[value]:
                 total += int(values[value])
         if total > 5:
-            raise colander.Invalid(form, "You can only add a total of 5 advances")
+            error = colander.Invalid(node, "You can only add a total of 5 advances")
+            for field, value in values.items():
+                if value != 0:
+                    error[field] = "You can only add a total of 5 advances"
+            raise error
         elif total < 5:
-            raise colander.Invalid(form, "You have to add a total of 5 advances")
+            error = colander.Invalid(node, "You have to add a total of 5 advances")
+            for field, value in values.items():
+                error[field] = "You have to add a total of 5 advances"
+            raise error
 
-    def validate_fate(self, form, values):
+    def validate_fate(self, node, values):
         total = 0
         for value in values:
             if values[value]:
                 total += int(values[value])
         total_allowed = self.character.extra_points
         if total > total_allowed:
-            raise colander.Invalid(
-                form,
-                f"You can only spread {total_allowed} points between "
-                "fate and resilience",
+            error_message = (
+                f"You can only spread {total_allowed} points between fate and "
+                "resilience"
             )
+            error = colander.Invalid(node, error_message)
+            for field in values:
+                error[field] = error_message
+            raise error
         elif total < self.character.extra_points:
-            raise colander.Invalid(
-                form,
-                f"You have to spread {total_allowed} points between "
-                "fate and resilience",
+            error_message = (
+                f"You have to spread {total_allowed} points between fate and resilience"
             )
+            error = colander.Invalid(node, error_message)
+            for field in values:
+                error[field] = error_message
+            raise error
 
     @view_config(route_name="advances")
     def form_view(self):

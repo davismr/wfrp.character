@@ -65,8 +65,8 @@ class CareerViews(BaseCreateView):
     def schema(self, data):
         schema = colander.SchemaNode(
             colander.Mapping(),
-            title="Career Skills and Talents",
-            validator=self.validate,
+            title="Career",
+            validator=self.validate_form,
         )
         career_choices = []
         for item in data["career_choice"]:
@@ -135,16 +135,19 @@ class CareerViews(BaseCreateView):
         schema.add(career_schema)
         return schema
 
-    def validate(self, form, values):
+    def validate_form(self, node, values):
         selected = []
         for item in values.keys():
             for value in values[item].keys():
                 if values[item][value]:
                     selected.append(values[item][value])
         if len(selected) > 1:
-            raise colander.Invalid(form, "You can only select a single career")
+            error = colander.Invalid(node, "You can only select a single career")
+            error["random_career"] = "You can only select a single career"
+            error["career"] = "You can only select a single career"
+            raise error
         if not selected:
-            raise colander.Invalid(form, "You have to select a career")
+            raise colander.Invalid(node, "You have to select a career")
 
     @view_config(route_name="career")
     def form_view(self):

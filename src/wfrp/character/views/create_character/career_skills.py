@@ -129,39 +129,49 @@ class CareerSkillsViews(BaseCreateView):
         schema.add(talent_schema)
         return schema
 
-    def validate_skills(self, form, values):
+    def validate_skills(self, node, values):
+        error = colander.Invalid(node, "Error message on form")
         total = 0
+        errors = []
         for value in values:
-            if not values[value]:
-                # ignore zeros and empty strings
+            if not values[value] or not isinstance(values[value], int):
+                # ignore zeros, empty strings and specialisation fields
                 continue
-            try:
-                total += values[value]
-            except TypeError:
-                # ignore talent and specialisation strings
-                continue
+            total += values[value]
             if ("(Any)" in value or " or " in value) and not values[
                 f"{value} specialisation"
             ]:
-                raise colander.Invalid(
-                    form, f"You have to select a specialisation for {value}"
-                )
+                error_msg = f"You have to select a specialisation for {value}"
+                errors.append(error_msg)
+                error[f"{value} specialisation"] = error_msg
         if total > 40:
-            raise colander.Invalid(
-                form, f"You can only allocate 40 advances, you have allocated {total}"
-            )
+            error_msg = f"You can only allocate 40 advances, you have allocated {total}"
+            errors.append(error_msg)
+            for field in [
+                item
+                for item, value in values.items()
+                if isinstance(value, int) and value > 5
+            ]:
+                error[field] = error_msg
         elif total < 40:
-            raise colander.Invalid(
-                form,
-                f"You must allocate all 40 advances, you have only allocated {total}",
+            error_msg = (
+                f"You must allocate all 40 advances, you have only allocated {total}"
             )
+            errors.append(error_msg)
+            for field in [item for item, value in values.items() if value == 0]:
+                error[field] = error_msg
+        if errors:
+            error.msg = ". ".join(errors)
+            raise error
 
-    def validate_talents(self, form, values):
+    def validate_talents(self, node, values):
         talent = values["career_talent"]
         if "(Any)" in talent and not values[f"{talent} specialisation"]:
-            raise colander.Invalid(
-                form, f"You have to select a specialisation for {talent}"
+            error = colander.Invalid(node, "You have to select a specialisation")
+            error[f"{talent} specialisation"] = (
+                f"You have to select a specialisation for {talent}"
             )
+            raise error
 
     @view_config(route_name="career-skills")
     def form_view(self):
