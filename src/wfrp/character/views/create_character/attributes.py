@@ -145,7 +145,7 @@ class AttributesViews(BaseCreateView):
         attribute_list = "-".join(
             [str(x) for x in sorted(data["base_attributes"].values())]
         )
-        choices = [(0, "Select")]
+        choices = []
         for attribute in sorted(
             data["base_attributes"], key=data["base_attributes"].get
         ):
@@ -189,7 +189,7 @@ class AttributesViews(BaseCreateView):
                     description=(
                         f"{species} bonus is +{data['bonus_attributes'][attribute]}"
                     ),
-                    widget=deform.widget.SelectWidget(values=choices),
+                    widget=deform.widget.RadioChoiceWidget(values=choices, inline=True),
                     validator=colander.OneOf(data["base_attributes"].values()),
                 )
             )
