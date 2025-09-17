@@ -115,10 +115,12 @@ class SpeciesSkillsViews(BaseCreateView):
                     name=talent,
                     validator=colander.OneOf([x[0] for x in talent_choices]),
                     widget=deform.widget.RadioChoiceWidget(
-                        values=talent_choices, inline=True
+                        values=talent_choices,
+                        inline=True,
+                        readonly=len(talent_choices) == 1,
                     ),
                     description=description,
-                    default=talent_choices[0][0],
+                    missing=talent_choices[0][0],
                 )
             )
             if "(Any)" in talent:

@@ -66,8 +66,12 @@ class TrappingsViews(BaseCreateView):
                     colander.String(),
                     name=trapping,
                     validator=colander.OneOf([x[0] for x in choices]),
-                    widget=deform.widget.RadioChoiceWidget(values=choices, inline=True),
-                    default=trapping,
+                    widget=deform.widget.RadioChoiceWidget(
+                        values=choices,
+                        inline=True,
+                        readonly=len(choices) == 1,
+                    ),
+                    missing=choices[0][0],
                 )
             )
         career_schema = colander.SchemaNode(
@@ -83,8 +87,12 @@ class TrappingsViews(BaseCreateView):
                     colander.String(),
                     name=trapping,
                     validator=colander.OneOf([x[0] for x in choices]),
-                    widget=deform.widget.RadioChoiceWidget(values=choices, inline=True),
-                    default=trapping,
+                    widget=deform.widget.RadioChoiceWidget(
+                        values=choices,
+                        inline=True,
+                        readonly=len(choices) == 1,
+                    ),
+                    missing=choices[0][0],
                 )
             )
         money_schema = colander.SchemaNode(

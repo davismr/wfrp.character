@@ -283,13 +283,13 @@ def test_submit_view_duplicate_item(new_character):
 
 @pytest.mark.create
 def test_submit_invalid(new_character):
-    new_character.career = "Soldier"
+    new_character.career = "Protagonist"
     new_character.career_class = "Warriors"
-    new_character.career_title = "Recruit"
+    new_character.career_title = "Braggart"
     new_character.status = {"trappings": ""}
     payload = {
         "class_trappings": {},
-        "career_trappings": {},
+        "career_trappings": {"Hood or Mask": "Scarf"},
         "Choose_trappings": "Choose_trappings",
     }
     request = testing.DummyRequest(post=payload)
