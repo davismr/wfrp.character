@@ -250,6 +250,14 @@ class Character(Base):
         weapons = self.total_encumberance_weapons()
         return armour + trappings + weapons
 
+    @property
+    def get_party_member_names(self):
+        members = []
+        for member in self.campaign.characters:
+            if "complete" in member.status:
+                members.append(member.name)
+        return "; ".join(members)
+
     def completed_career(self):  # noqa: C901
         career_data = self.career_data()
         current_level = self.career_level()

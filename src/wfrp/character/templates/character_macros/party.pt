@@ -16,6 +16,6 @@
     </div>
     <div class="row">
         <div class="col-md-2">Members</div>
-        <div class="col-md-10"><!-- TODO --></div>
+        <div class="col-md-10">${character.get_party_member_names}</div>
     </div>
 </div>
