@@ -189,6 +189,7 @@ BASIC_TALENTS = {
     "Beat Blade": {
         "max": "Weapon Skill Bonus",
         "tests": "Melee for a Beat Blade",
+        "short_description": "",
         "description": (
             "You are trained to make sharp controlled blows to your opponent’s weapon, "
             "creating an opening for an attack or simply impeding an incoming attack. "
@@ -1901,6 +1902,20 @@ SEA_OF_CLAWS_TALENTS = {
             "Test on board your ship or involving your crew gains an SL bonus equal to "
             "your levels in Master and Commander. This bonus applies to Crew Tests as "
             "well as individual Leadership Tests."
+        ),
+    },
+}
+
+UP_IN_ARMS_TALENTS = {
+    "Beat Blade": {
+        "description": (
+            "You are trained to make sharp controlled blows to your opponent’s weapon, "
+            "creating an opening for an attack or simply impeding an incoming attack. "
+            "For your Action, you can choose to Beat Blade before rolling. Perform a "
+            "Melee Test; if successful, the opposing Advantage Pool loses –1 "
+            "Advantage, and loses a further –1 if you score 6 SL. This Test is not "
+            "Opposed. This Talent is of no use if your opponent has no weapon or has a "
+            "larger Size than you."
         ),
     },
 }
