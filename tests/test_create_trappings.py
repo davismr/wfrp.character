@@ -33,8 +33,8 @@ def test_initalise_form(new_character):
     assert "Writing Kit" in response["class_trappings"]
     assert "career_trappings" in response
     assert "Healing Draught" in response["career_trappings"]
-    assert "money" in response
-    assert isinstance(response["money"]["brass pennies"], int)
+    assert "wealth" in response
+    assert isinstance(response["wealth"]["brass"], int)
 
 
 @pytest.mark.create
@@ -74,17 +74,17 @@ def test_money(new_character):
     request.matched_route = DummyRoute(name="trappings")
     request.matchdict = {"id": str(new_character.id)}
     view = TrappingsViews(request)
-    response = view._get_money("Brass", 2)
-    assert "brass pennies" in response
-    assert response["brass pennies"] >= 4
-    assert response["brass pennies"] <= 40
-    response = view._get_money("Silver", 2)
-    assert response["silver shillings"] >= 2
-    assert response["silver shillings"] <= 20
-    response = view._get_money("Gold", 2)
-    assert response == {"gold crowns": 2}
+    response = view._get_wealth("Brass", 2)
+    assert "brass" in response
+    assert response["brass"] >= 4
+    assert response["brass"] <= 40
+    response = view._get_wealth("Silver", 2)
+    assert response["silver"] >= 2
+    assert response["silver"] <= 20
+    response = view._get_wealth("Gold", 2)
+    assert response == {"gold": 2}
     with pytest.raises(NotImplementedError) as error:
-        view._get_money("Bronze", 5)
+        view._get_wealth("Bronze", 5)
     assert str(error.value) == "Bronze is not defined"
 
 
@@ -115,8 +115,7 @@ def test_submit_view(new_character):
     view = TrappingsViews(request)
     response = view.form_view()
     assert isinstance(response, HTTPFound)
-    assert "brass pennies" in new_character.wealth
-    assert isinstance(new_character.wealth["brass pennies"], int)
+    assert new_character.brass_pennies > 0
     assert new_character.weapons == ["Dagger", "Hand Weapon", "Knuckledusters"]
     assert new_character.armour == ["Leather Jack"]
     assert new_character.trappings == [
@@ -157,8 +156,7 @@ def test_submit_artist(new_character):
     view = TrappingsViews(request)
     response = view.form_view()
     assert isinstance(response, HTTPFound)
-    assert "silver shillings" in new_character.wealth
-    assert isinstance(new_character.wealth["silver shillings"], int)
+    assert new_character.silver_shillings > 0
     assert new_character.weapons == ["Dagger"]
     assert new_character.armour == []
     assert new_character.trappings == [
@@ -196,8 +194,7 @@ def test_submit_bawd(mock_rolld10, new_character):
     view = TrappingsViews(request)
     response = view.form_view()
     assert isinstance(response, HTTPFound)
-    assert "brass pennies" in new_character.wealth
-    assert isinstance(new_character.wealth["brass pennies"], int)
+    assert new_character.brass_pennies > 0
     assert new_character.weapons == ["Dagger", "Sling"]
     assert new_character.armour == []
     assert "Hood" in new_character.trappings
@@ -233,8 +230,7 @@ def test_submit_item_with_space(new_character):
     view = TrappingsViews(request)
     response = view.form_view()
     assert isinstance(response, HTTPFound)
-    assert "brass pennies" in new_character.wealth
-    assert isinstance(new_character.wealth["brass pennies"], int)
+    assert new_character.brass_pennies > 0
     assert new_character.weapons == ["Crossbow", "Dagger"]
     assert new_character.armour == ["Leather Jack"]
     assert "Crossbow with 10 Bolts" in new_character.trappings
@@ -267,8 +263,7 @@ def test_submit_view_duplicate_item(new_character):
     view = TrappingsViews(request)
     response = view.form_view()
     assert isinstance(response, HTTPFound)
-    assert "silver shillings" in new_character.wealth
-    assert isinstance(new_character.wealth["silver shillings"], int)
+    assert new_character.silver_shillings > 0
     assert new_character.weapons == ["Dagger", "Hand Weapon"]
     assert new_character.armour == ["Leather Breastplate"]
     assert new_character.trappings == [

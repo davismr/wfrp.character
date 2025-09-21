@@ -4,14 +4,14 @@
     </div>
     <div class="row">
         <div class="col-md-6">D</div>
-        <div class="col-md-6">${character.wealth['brass pennies']|0}</div>
+        <div class="col-md-6">${character.brass_pennies}</div>
     </div>
     <div class="row">
         <div class="col-md-6">SS</div>
-        <div class="col-md-6">${character.wealth['silver shillings']|0}</div>
+        <div class="col-md-6">${character.silver_shillings}</div>
     </div>
     <div class="row">
         <div class="col-md-6">GC</div>
-        <div class="col-md-6">${character.wealth['gold crowns']|0}</div>
+        <div class="col-md-6">${character.gold_crowns}</div>
     </div>
 </div>

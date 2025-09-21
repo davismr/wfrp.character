@@ -16,20 +16,20 @@ from wfrp.character.views.create_character.base_create import BaseCreateView
     permission="create_character",
 )
 class TrappingsViews(BaseCreateView):
-    def _get_money(self, tier, standing):
+    def _get_wealth(self, tier, standing):
         if tier == "Brass":
-            money = {"brass pennies": 0}
+            wealth = {"brass": 0}
             for i in range(standing):
-                money["brass pennies"] += roll_d10() + roll_d10()
+                wealth["brass"] += roll_d10() + roll_d10()
         elif tier == "Silver":
-            money = {"silver shillings": 0}
+            wealth = {"silver": 0}
             for i in range(standing):
-                money["silver shillings"] += roll_d10()
+                wealth["silver"] += roll_d10()
         elif tier == "Gold":
-            money = {"gold crowns": standing}
+            wealth = {"gold": standing}
         else:
             raise NotImplementedError(f"{tier} is not defined")
-        return money
+        return wealth
 
     def initialise_form(self):
         if self.character.status["trappings"]:
@@ -38,13 +38,13 @@ class TrappingsViews(BaseCreateView):
         class_trappings = get_class_trappings(self.character.career_class)
         career_details = career_data[self.character.career_title]
         career_trappings = career_details["trappings"]
-        money = self._get_money(
+        wealth = self._get_wealth(
             career_details["status"]["tier"], career_details["status"]["standing"]
         )
         data = {
             "class_trappings": class_trappings,
             "career_trappings": career_trappings,
-            "money": money,
+            "wealth": wealth,
         }
         self.character.status = {"trappings": data}
         return data
@@ -95,35 +95,35 @@ class TrappingsViews(BaseCreateView):
                     missing=choices[0][0],
                 )
             )
-        money_schema = colander.SchemaNode(
+        wealth_schema = colander.SchemaNode(
             colander.Mapping(),
-            name="money",
+            name="wealth",
         )
-        money_schema.add(
+        if "brass" in data["wealth"]:
+            default_wealth = f"{data['wealth']['brass']} Brass Pennies"
+        elif "silver" in data["wealth"]:
+            default_wealth = f"{data['wealth']['silver']} Silver Shillings"
+        elif "gold" in data["wealth"]:
+            default_wealth = f"{data['wealth']['gold']} Gold Crowns"
+        wealth_schema.add(
             colander.SchemaNode(
                 colander.String(),
                 widget=deform.widget.TextInputWidget(readonly=True),
+                default=default_wealth,
                 missing="",
-                name="money_field",
+                name="wealth_field",
             )
         )
         schema.add(class_schema)
         schema.add(career_schema)
-        schema.add(money_schema)
+        schema.add(wealth_schema)
         return schema
 
     @view_config(route_name="trappings")
     def form_view(self):
         data = self.initialise_form()
         schema = self.schema(data)
-        values = {
-            "money": {
-                "money_field": (
-                    f"{data['money'][list(data['money'])[0]]} {list(data['money'])[0]}"
-                )
-            }
-        }
-        form = deform.Form(schema, buttons=("Choose trappings",), appstruct=values)
+        form = deform.Form(schema, buttons=("Choose trappings",))
         if "Choose_trappings" in self.request.POST:
             try:
                 captured = form.validate(self.request.POST.items())
@@ -144,7 +144,7 @@ class TrappingsViews(BaseCreateView):
             "js_links": static_assets["js"],
         }
 
-    def update_values(self, captured):
+    def update_values(self, captured):  # noqa: C901
         all_items = []
         items = (
             self.character.status["trappings"]["class_trappings"]
@@ -169,4 +169,10 @@ class TrappingsViews(BaseCreateView):
         self.character.weapons.sort()
         self.character.armour.sort()
         self.character.trappings.sort()
-        self.character.wealth = self.character.status["trappings"]["money"]
+        wealth = self.character.status["trappings"]["wealth"]
+        if "brass" in wealth:
+            self.character.brass_pennies = wealth["brass"]
+        elif "silver" in wealth:
+            self.character.silver_shillings = wealth["silver"]
+        if "gold" in wealth:
+            self.character.gold_crowns = wealth["gold"]

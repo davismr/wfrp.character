@@ -39,6 +39,6 @@
 </div>
 <div>
     <b>Possessions:</b>
-    ${", ".join(character.trappings)}
-    , ${", ".join([str(character.wealth[x]) + " " + x for x in character.wealth])}
+    ${", ".join(character.trappings)},
+    ${character.get_wealth()}
 </div>

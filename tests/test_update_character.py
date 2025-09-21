@@ -61,8 +61,6 @@ def test_submit_wealth_view(new_character):
     view = UpdateCharacterViews(request)
     response = view.form_view()
     assert isinstance(response, HTTPFound)
-    assert new_character.wealth == {
-        "gold_coins": 0,
-        "silver_shillings": 0,
-        "brass_pennies": 15,
-    }
+    assert new_character.brass_pennies == 15
+    assert new_character.silver_shillings == 0
+    assert new_character.gold_crowns == 0

@@ -90,7 +90,9 @@ class Character(Base):
     weapons = Column(MutableList.as_mutable(JSON), default=[])
     armour = Column(MutableList.as_mutable(JSON), default=[])
     trappings = Column(MutableList.as_mutable(JSON), default=[])
-    wealth = Column(MutableDict.as_mutable(JSON), default={})
+    brass_pennies = Column(Integer, default=0)
+    silver_shillings = Column(Integer, default=0)
+    gold_crowns = Column(Integer, default=0)
     status = Column(MutableDict.as_mutable(JSON), default={})
 
     def __init__(self, **kwargs):
@@ -217,6 +219,16 @@ class Character(Base):
         if "short_description" in TALENT_DATA[talent]:
             return TALENT_DATA[talent]["short_description"]
         return TALENT_DATA[talent]["description"]
+
+    def get_wealth(self):
+        wealth = []
+        if self.brass_pennies:
+            wealth.append(f"{self.brass_pennies} Brass Pennies")
+        if self.silver_shillings:
+            wealth.append(f"{self.silver_shillings} Silver Shillings")
+        if self.gold_crowns:
+            wealth.append(f"{self.gold_crowns} Gold Crowns")
+        return ", ".join(wealth)
 
     def get_encumberance_trapping(self, trapping):
         if trapping in TRAPPINGS_DATA:

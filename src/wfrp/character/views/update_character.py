@@ -49,20 +49,12 @@ class UpdateCharacterViews(BaseView):
             colander.Mapping(),
             name="wealth",
         )
-        wealth = self.character.wealth
-        gold_crowns = silver_shillings = brass_pennies = 0
-        if "gold crowns" in wealth:
-            gold_crowns = wealth["gold crowns"]
-        if "silver shillings" in wealth:
-            silver_shillings = wealth["silver shillings"]
-        if "brass pennies" in wealth:
-            brass_pennies = wealth["brass pennies"]
         wealth_schema.add(
             colander.SchemaNode(
                 colander.Integer(),
-                name="gold_coins",
+                name="gold_crowns",
                 widget=deform.widget.TextInputWidget(style="width:100px;"),
-                default=gold_crowns,
+                default=self.character.gold_crowns,
                 missing=0,
             )
         )
@@ -71,7 +63,7 @@ class UpdateCharacterViews(BaseView):
                 colander.Integer(),
                 name="silver_shillings",
                 widget=deform.widget.TextInputWidget(style="width:100px;"),
-                default=silver_shillings,
+                default=self.character.silver_shillings,
                 missing=0,
             )
         )
@@ -80,7 +72,7 @@ class UpdateCharacterViews(BaseView):
                 colander.Integer(),
                 name="brass_pennies",
                 widget=deform.widget.TextInputWidget(style="width:100px;"),
-                default=brass_pennies,
+                default=self.character.brass_pennies,
                 missing=0,
             )
         )
@@ -139,6 +131,8 @@ class UpdateCharacterViews(BaseView):
             ]
             message = "You have updated your ambitions"
         elif form_id == "wealth_form":
-            self.character.wealth = captured["wealth"]
+            self.character.brass_pennies = captured["wealth"]["brass_pennies"]
+            self.character.silver_shillings = captured["wealth"]["silver_shillings"]
+            self.character.gold_crowns = captured["wealth"]["gold_crowns"]
             message = "You have updated your wealth"
         return message
