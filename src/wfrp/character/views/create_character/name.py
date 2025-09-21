@@ -104,7 +104,6 @@ class NameViews(BaseCreateView):
                 return HTTPFound(location=url)
         else:
             html = form.render()
-
         static_assets = form.get_widget_resources()
         return {
             "form": html,

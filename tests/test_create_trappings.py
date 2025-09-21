@@ -82,7 +82,7 @@ def test_money(new_character):
     assert response["silver shillings"] >= 2
     assert response["silver shillings"] <= 20
     response = view._get_money("Gold", 2)
-    assert response == {"Gold crown": 2}
+    assert response == {"gold crowns": 2}
     with pytest.raises(NotImplementedError) as error:
         view._get_money("Bronze", 5)
     assert str(error.value) == "Bronze is not defined"

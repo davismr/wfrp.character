@@ -26,7 +26,7 @@ class TrappingsViews(BaseCreateView):
             for i in range(standing):
                 money["silver shillings"] += roll_d10()
         elif tier == "Gold":
-            money = {"Gold crown": standing}
+            money = {"gold crowns": standing}
         else:
             raise NotImplementedError(f"{tier} is not defined")
         return money

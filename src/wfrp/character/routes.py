@@ -29,6 +29,7 @@ def includeme(config):
     config.add_route("experience-add", "/character/{id}/experience/add")
     config.add_route("character-full", "/character/{id}/view")
     config.add_route("character-edit", "/character/{id}/edit")
+    config.add_route("character-update", "/character/{id}/update")
     config.add_route("character-summary", "/character/{id}/summary")
     config.add_route("character-transfer", "/character/{id}/transfer")
     config.add_route("pdf-print", "/character/{id}/pdf-print")

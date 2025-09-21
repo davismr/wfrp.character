@@ -284,7 +284,6 @@ class ExperienceViews(BaseView):
                 message = self.update_character(form.formid, captured)
                 self.request.session.flash(message, "success")
                 url = self.request.route_url("experience", id=self.character.id)
-                self.character.status = {"complete": ""}
                 return HTTPFound(location=url)
         else:
             for form in forms:
