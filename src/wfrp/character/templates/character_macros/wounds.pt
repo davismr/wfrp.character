@@ -3,30 +3,34 @@
         <div class="col-md-12 caption">Wounds</div>
     </div>
     <div class="row">
-        <div class="col-md-3">SB</div>
-        <div class="col-md-1" tal:condition="python: 'Hardy' in character.talents">${character.strength // 10}</div>
-        <div class="col-md-1" tal:condition="python: 'Hardy' not in character.talents">0</div>
-        <div class="col-md-8"></div>
-    </div>
-    <div class="row">
-        <div class="col-md-3">TBx2</div>
-        <div class="col-md-1">${character.toughness // 10 * 2}</div>
-        <div class="col-md-8"></div>
-    </div>
-    <div class="row">
-        <div class="col-md-3">WPB</div>
-        <div class="col-md-1">${character.willpower // 10}</div>
-        <div class="col-md-8"></div>
-    </div>
-    <div class="row">
-        <div class="col-md-3">Hardy</div>
-        <div class="col-md-1" tal:condition="python: 'Hardy' in character.talents">${character.toughness // 10}</div>
-        <div class="col-md-1" tal:condition="python: 'Hardy' not in character.talents">0</div>
-        <div class="col-md-8"></div>
-    </div>
-    <div class="row">
-        <div class="col-md-3">Wounds</div>
-        <div class="col-md-1">${character.calculate_wounds()}</div>
-        <div class="col-md-8"></div>
+        <div class="col-md-3">
+            <div class="row">
+                <div class="col-md-8">SB</div>
+                <div class="col-md-4" tal:condition="python: 'Hardy' in character.talents">${character.strength // 10}</div>
+                <div class="col-md-4" tal:condition="python: 'Hardy' not in character.talents">0</div>
+            </div>
+            <div class="row">
+                <div class="col-md-8">TBx2</div>
+                <div class="col-md-4">${character.toughness // 10 * 2}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-8">WPB</div>
+                <div class="col-md-4">${character.willpower // 10}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-8">Hardy</div>
+                <div class="col-md-4" tal:condition="python: 'Hardy' in character.talents">${character.toughness // 10}</div>
+                <div class="col-md-4" tal:condition="python: 'Hardy' not in character.talents">0</div>
+            </div>
+            <div class="row">
+                <div class="col-md-8">Wounds</div>
+                <div class="col-md-4">${character.calculate_wounds()}</div>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="row">
+                <div class="col-md-12">${character.wounds_current}</div>
+            </div>
+        </div>
     </div>
 </div>

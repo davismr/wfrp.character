@@ -19,6 +19,26 @@ def test_get_view(new_character):
 
 
 @pytest.mark.create
+def test_submit_wounds_view(new_character):
+    new_character.status = {"complete": ""}
+    request = testing.DummyRequest(
+        post={
+            "__formid__": "wounds_form",
+            "Update_Wounds": "Update_Wounds",
+            "wounds": {
+                "wounds": "2 wounds, bleeding",
+            },
+        }
+    )
+    request.matchdict = {"id": str(new_character.id)}
+    request.dbsession = dbsession(request)
+    view = UpdateCharacterViews(request)
+    response = view.form_view()
+    assert isinstance(response, HTTPFound)
+    assert new_character.wounds_current == "2 wounds, bleeding"
+
+
+@pytest.mark.create
 def test_submit_ambitions_view(new_character):
     new_character.status = {"complete": ""}
     new_character.short_term_ambition = "Have breakfast"

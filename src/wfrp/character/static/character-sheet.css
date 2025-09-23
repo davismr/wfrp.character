@@ -127,24 +127,33 @@ html, body {
     padding: 2px;
 }
 
+#wounds .row div {
+    border-left: 0;
+    padding: 0px;
+}
+
+#wounds .row div .row div {
+    padding: 2px;
+}
+
 .center {
     text-align: center;
 }
 
 .row:first-child div {
-  border-top: 0;
+    border-top: 0;
 }
 
 .row div:first-child {
-  border-left: 0;
+    border-left: 0;
 }
 
 .row:last-child div {
-  border-bottom: 0;
+    border-bottom: 0;
 }
 
 .row div:last-child {
-  border-right: 0;
+    border-right: 0;
 }
 
 .col, .col-md-12 {
@@ -196,8 +205,8 @@ html, body {
 }
 
 .row {
-  display: flex;
-  flex-wrap: wrap;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .caption {

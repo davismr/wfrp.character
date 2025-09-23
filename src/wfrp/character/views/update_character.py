@@ -9,6 +9,25 @@ from wfrp.character.views.base_view import BaseView
 
 @view_defaults(route_name="character-update")
 class UpdateCharacterViews(BaseView):
+    def wounds_schema(self):
+        schema = colander.SchemaNode(colander.Mapping(), title="Update Ambitions")
+        wounds_schema = colander.SchemaNode(
+            colander.Mapping(),
+            name="wounds",
+        )
+        wounds_schema.add(
+            colander.SchemaNode(
+                colander.String(),
+                name="wounds",
+                widget=deform.widget.TextAreaWidget(),
+                validator=colander.Length(max=100),
+                default=self.character.wounds_current,
+                missing="",
+            )
+        )
+        schema.add(wounds_schema)
+        return schema
+
     def ambitions_schema(self):
         schema = colander.SchemaNode(colander.Mapping(), title="Update Ambitions")
         ambitions_schema = colander.SchemaNode(
@@ -82,7 +101,7 @@ class UpdateCharacterViews(BaseView):
     @view_config(renderer="wfrp.character:templates/forms/experience.pt")
     def form_view(self):
         html = []
-        all_forms = ["ambitions", "wealth"]
+        all_forms = ["wounds", "ambitions", "wealth"]
         forms = {}
         for form in all_forms:
             button = f"Update {form.capitalize()}"
@@ -122,7 +141,10 @@ class UpdateCharacterViews(BaseView):
         }
 
     def update_character(self, form_id, captured):
-        if form_id == "ambitions_form":
+        if form_id == "wounds_form":
+            self.character.wounds_current = captured["wounds"]["wounds"]
+            message = "You have updated your wounds"
+        elif form_id == "ambitions_form":
             self.character.short_term_ambition = captured["ambition"][
                 "short_term_ambition"
             ]

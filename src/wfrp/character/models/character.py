@@ -76,6 +76,7 @@ class Character(Base):
     willpower_advances = Column(Integer, default=0)
     fellowship_advances = Column(Integer, default=0)
     wounds = Column(Integer, default=0)
+    wounds_current = Column(Text, default="")
     fate = Column(Integer, default=0)
     fortune = Column(Integer, default=0)
     resilience = Column(Integer, default=0)
@@ -265,6 +266,8 @@ class Character(Base):
     @property
     def get_party_member_names(self):
         members = []
+        if not self.campaign:
+            return ""
         for member in self.campaign.characters:
             if "complete" in member.status:
                 members.append(member.name)
