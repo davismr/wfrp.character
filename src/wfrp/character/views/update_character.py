@@ -10,7 +10,7 @@ from wfrp.character.views.base_view import BaseView
 @view_defaults(route_name="character-update")
 class UpdateCharacterViews(BaseView):
     def wounds_schema(self):
-        schema = colander.SchemaNode(colander.Mapping(), title="Update Ambitions")
+        schema = colander.SchemaNode(colander.Mapping(), title="Update Wounds")
         wounds_schema = colander.SchemaNode(
             colander.Mapping(),
             name="wounds",
@@ -26,40 +26,6 @@ class UpdateCharacterViews(BaseView):
             )
         )
         schema.add(wounds_schema)
-        return schema
-
-    def ambitions_schema(self):
-        schema = colander.SchemaNode(colander.Mapping(), title="Update Ambitions")
-        ambitions_schema = colander.SchemaNode(
-            colander.Mapping(),
-            name="ambition",
-            description=(
-                "Ambitions are a Character’s goals in life – what they want to "
-                "achieve. All characters have both a Short-Term and Long-Term "
-                "Ambition. You can change ambitions between sessions."
-            ),
-        )
-        ambitions_schema.add(
-            colander.SchemaNode(
-                colander.String(),
-                name="short_term_ambition",
-                widget=deform.widget.TextAreaWidget(),
-                validator=colander.Length(max=100),
-                default=self.character.short_term_ambition or "",
-                missing="",
-            )
-        )
-        ambitions_schema.add(
-            colander.SchemaNode(
-                colander.String(),
-                name="long_term_ambition",
-                widget=deform.widget.TextAreaWidget(),
-                validator=colander.Length(max=100),
-                default=self.character.long_term_ambition or "",
-                missing="",
-            )
-        )
-        schema.add(ambitions_schema)
         return schema
 
     def wealth_schema(self):
@@ -98,10 +64,44 @@ class UpdateCharacterViews(BaseView):
         schema.add(wealth_schema)
         return schema
 
+    def ambitions_schema(self):
+        schema = colander.SchemaNode(colander.Mapping(), title="Update Ambitions")
+        ambitions_schema = colander.SchemaNode(
+            colander.Mapping(),
+            name="ambition",
+            description=(
+                "Ambitions are a Character’s goals in life – what they want to "
+                "achieve. All characters have both a Short-Term and Long-Term "
+                "Ambition. You can change ambitions between sessions."
+            ),
+        )
+        ambitions_schema.add(
+            colander.SchemaNode(
+                colander.String(),
+                name="short_term_ambition",
+                widget=deform.widget.TextAreaWidget(),
+                validator=colander.Length(max=100),
+                default=self.character.short_term_ambition or "",
+                missing="",
+            )
+        )
+        ambitions_schema.add(
+            colander.SchemaNode(
+                colander.String(),
+                name="long_term_ambition",
+                widget=deform.widget.TextAreaWidget(),
+                validator=colander.Length(max=100),
+                default=self.character.long_term_ambition or "",
+                missing="",
+            )
+        )
+        schema.add(ambitions_schema)
+        return schema
+
     @view_config(renderer="wfrp.character:templates/forms/experience.pt")
     def form_view(self):
         html = []
-        all_forms = ["wounds", "ambitions", "wealth"]
+        all_forms = ["wounds", "wealth", "ambitions"]
         forms = {}
         for form in all_forms:
             button = f"Update {form.capitalize()}"
@@ -144,6 +144,11 @@ class UpdateCharacterViews(BaseView):
         if form_id == "wounds_form":
             self.character.wounds_current = captured["wounds"]["wounds"]
             message = "You have updated your wounds"
+        elif form_id == "wealth_form":
+            self.character.brass_pennies = captured["wealth"]["brass_pennies"]
+            self.character.silver_shillings = captured["wealth"]["silver_shillings"]
+            self.character.gold_crowns = captured["wealth"]["gold_crowns"]
+            message = "You have updated your wealth"
         elif form_id == "ambitions_form":
             self.character.short_term_ambition = captured["ambition"][
                 "short_term_ambition"
@@ -152,9 +157,4 @@ class UpdateCharacterViews(BaseView):
                 "long_term_ambition"
             ]
             message = "You have updated your ambitions"
-        elif form_id == "wealth_form":
-            self.character.brass_pennies = captured["wealth"]["brass_pennies"]
-            self.character.silver_shillings = captured["wealth"]["silver_shillings"]
-            self.character.gold_crowns = captured["wealth"]["gold_crowns"]
-            message = "You have updated your wealth"
         return message
