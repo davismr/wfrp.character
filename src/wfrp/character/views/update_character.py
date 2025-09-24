@@ -28,6 +28,44 @@ class UpdateCharacterViews(BaseView):
         schema.add(wounds_schema)
         return schema
 
+    def psychology_schema(self):
+        schema = colander.SchemaNode(colander.Mapping(), title="Update Psychology")
+        psychology_schema = colander.SchemaNode(
+            colander.Mapping(),
+            name="psychology",
+        )
+        psychology_schema.add(
+            colander.SchemaNode(
+                colander.String(),
+                name="psychology",
+                widget=deform.widget.TextAreaWidget(),
+                validator=colander.Length(max=100),
+                default=self.character.psychology,
+                missing="",
+            )
+        )
+        schema.add(psychology_schema)
+        return schema
+
+    def corruption_schema(self):
+        schema = colander.SchemaNode(colander.Mapping(), title="Update Corruption")
+        corruption_schema = colander.SchemaNode(
+            colander.Mapping(),
+            name="corruption",
+        )
+        corruption_schema.add(
+            colander.SchemaNode(
+                colander.String(),
+                name="corruption",
+                widget=deform.widget.TextAreaWidget(),
+                validator=colander.Length(max=100),
+                default=self.character.corruption,
+                missing="",
+            )
+        )
+        schema.add(corruption_schema)
+        return schema
+
     def wealth_schema(self):
         schema = colander.SchemaNode(colander.Mapping(), title="Update Money")
         wealth_schema = colander.SchemaNode(
@@ -101,7 +139,7 @@ class UpdateCharacterViews(BaseView):
     @view_config(renderer="wfrp.character:templates/forms/experience.pt")
     def form_view(self):
         html = []
-        all_forms = ["wounds", "wealth", "ambitions"]
+        all_forms = ["wounds", "psychology", "corruption", "wealth", "ambitions"]
         forms = {}
         for form in all_forms:
             button = f"Update {form.capitalize()}"
@@ -144,6 +182,12 @@ class UpdateCharacterViews(BaseView):
         if form_id == "wounds_form":
             self.character.wounds_current = captured["wounds"]["wounds"]
             message = "You have updated your wounds"
+        elif form_id == "psychology_form":
+            self.character.psychology = captured["psychology"]["psychology"]
+            message = "You have updated your psychology"
+        elif form_id == "corruption_form":
+            self.character.corruption = captured["corruption"]["corruption"]
+            message = "You have updated your corruption"
         elif form_id == "wealth_form":
             self.character.brass_pennies = captured["wealth"]["brass_pennies"]
             self.character.silver_shillings = captured["wealth"]["silver_shillings"]

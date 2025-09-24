@@ -77,6 +77,8 @@ class Character(Base):
     fellowship_advances = Column(Integer, default=0)
     wounds = Column(Integer, default=0)
     wounds_current = Column(Text, default="")
+    psychology = Column(Text, default="")
+    corruption = Column(Text, default="")
     fate = Column(Integer, default=0)
     fortune = Column(Integer, default=0)
     resilience = Column(Integer, default=0)
