@@ -255,3 +255,6 @@ PETTY_MAGIC_DATA = {
         ),
     },
 }
+
+for spell in PETTY_MAGIC_DATA:
+    PETTY_MAGIC_DATA[spell]["CN"] = 0

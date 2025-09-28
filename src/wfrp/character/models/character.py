@@ -18,6 +18,7 @@ from wfrp.character.application import Base
 from wfrp.character.data.armour import ARMOUR_DATA
 from wfrp.character.data.careers.careers import ALL_CAREER_DATA
 from wfrp.character.data.careers.careers import ALL_CAREER_DATA_WITH_SEAFARER
+from wfrp.character.data.magic.petty import PETTY_MAGIC_DATA
 from wfrp.character.data.skills import BASIC_SKILL_LIST
 from wfrp.character.data.skills import SKILL_DATA
 from wfrp.character.data.talents import TALENT_DATA
@@ -265,6 +266,12 @@ class Character(Base):
         trappings = self.total_encumberance_trappings()
         weapons = self.total_encumberance_weapons()
         return armour + trappings + weapons
+
+    def get_spells(self):
+        spell_list = {}
+        for spell in self.spells.get("petty", []):
+            spell_list[spell] = PETTY_MAGIC_DATA[spell]
+        return spell_list
 
     @property
     def get_party_member_names(self):
