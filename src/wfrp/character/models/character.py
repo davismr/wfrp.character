@@ -90,6 +90,7 @@ class Character(Base):
     movement = Column(Integer, default=3)
     skills = Column(MutableDict.as_mutable(JSON), default={})
     talents = Column(MutableDict.as_mutable(JSON), default={})
+    spells = Column(MutableDict.as_mutable(JSON), default={})
     weapons = Column(MutableList.as_mutable(JSON), default=[])
     armour = Column(MutableList.as_mutable(JSON), default=[])
     trappings = Column(MutableList.as_mutable(JSON), default=[])

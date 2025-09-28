@@ -90,7 +90,7 @@ class CareerSkillsViews(BaseCreateView):
                 )
         talent_schema = colander.SchemaNode(
             colander.Mapping(),
-            description=("You may choose a single Talent to learn."),
+            description="You may choose a single Talent to learn.",
             name="career_talents",
             validator=self.validate_talents,
         )
@@ -186,8 +186,7 @@ class CareerSkillsViews(BaseCreateView):
                 html = error.render()
             else:
                 self.update_values(captured)
-                url = self.request.route_url("trappings", id=self.character.id)
-                self.character.status = {"trappings": ""}
+                url = self.get_next_url()
                 return HTTPFound(location=url)
         else:
             html = form.render()
@@ -231,3 +230,10 @@ class CareerSkillsViews(BaseCreateView):
             self.character.talents[value.replace("Any", specialisation)] = 1
         else:
             self.character.talents[value] = 1
+
+    def get_next_url(self):
+        if "Petty Magic" in self.character.talents:
+            self.character.status = {"spells": ""}
+            return self.request.route_url("spells", id=self.character.id)
+        self.character.status = {"trappings": ""}
+        return self.request.route_url("trappings", id=self.character.id)
