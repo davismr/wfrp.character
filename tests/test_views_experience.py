@@ -234,12 +234,13 @@ def test_increase_talent(new_character):
     new_character.species = "Wood Elf"
     new_character.career = "Soldier"
     new_character.career_title = "Recruit"
-    new_character.talents = {"Marksman": 1}
+    new_character.intelligence_initial = 20
+    new_character.talents = {"Diceman": 1}
     new_character.experience = 200
     new_character.status = {"complete": ""}
     payload = {
         "__formid__": "talent_form",
-        "add_talent": {"talent": "Marksman"},
+        "add_talent": {"talent": "Diceman"},
     }
     request = testing.DummyRequest(post=payload)
     request.dbsession = dbsession(request)
@@ -247,14 +248,14 @@ def test_increase_talent(new_character):
     request.matchdict = {"id": str(new_character.id)}
     view = ExperienceViews(request)
     view.form_view()
-    assert new_character.talents["Marksman"] == 2
+    assert new_character.talents["Diceman"] == 2
     assert new_character.experience == 0
     assert new_character.experience_spent == 200
     # experience cost should be added
     assert len(new_character.experience_cost) == 1
     assert new_character.experience_cost[0].cost == 200
     assert new_character.experience_cost[0].type == "talent"
-    assert new_character.experience_cost[0].name == "Marksman"
+    assert new_character.experience_cost[0].name == "Diceman"
 
 
 @pytest.mark.views

@@ -9,6 +9,7 @@ from sqlalchemy.orm import attributes
 
 from wfrp.character.data.magic.petty import PETTY_MAGIC_DATA
 from wfrp.character.data.skills import SKILL_DATA
+from wfrp.character.data.talents import TALENT_DATA
 from wfrp.character.models.experience import ExperienceCost
 from wfrp.character.views.base_view import BaseView
 
@@ -168,13 +169,15 @@ class ExperienceViews(BaseView):
                 advances = self.character.talents[talent]
             except KeyError:
                 advances = 0
-            choices.append(
-                (
-                    talent,
-                    f"{talent} ({advances}), {self.character.cost_talent(advances + 1)}"
-                    f" experience to increase",
+            if not self.check_talent_max(talent, advances):
+                choices.append(
+                    (
+                        talent,
+                        f"{talent} ({advances}), "
+                        f"{self.character.cost_talent(advances + 1)} experience to "
+                        "increase",
+                    )
                 )
-            )
         talent_schema.add(
             colander.SchemaNode(
                 colander.String(),
@@ -186,6 +189,20 @@ class ExperienceViews(BaseView):
         )
         schema.add(talent_schema)
         return schema
+
+    def check_talent_max(self, talent, advances):
+        talent_data = TALENT_DATA[talent.split(" (")[0]]
+        if "max" not in talent_data:
+            return False
+        max = talent_data["max"]
+        if isinstance(max, int):
+            if advances >= max:
+                return True
+        elif "Bonus" in max:
+            max_bonus = getattr(self.character, max.replace(" Bonus", "").lower()) // 10
+            if advances >= max_bonus:
+                return True
+        return False
 
     def validate_talent(self, node, values):
         talent = values["talent"]
