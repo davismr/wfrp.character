@@ -69,6 +69,8 @@ BASIC_TALENTS = {
         ],
     },
     "Aethyric Attunement": {
+        "max": "Initiative Bonus",
+        "tests": "Channelling (Any)",
         "description": (
             "Your experience, talent or training lets you more safely manipulate the "
             "Winds of Magic. You do not suffer a Miscast if you roll a double on a "
@@ -404,6 +406,7 @@ BASIC_TALENTS = {
         ),
     },
     "Diceman": {
+        "max": "Intelligence Bonus",
         "tests": "Gamble and Sleight of Hand when playing dice games",
         "description": (
             "You are a dicing master, and all claims you cheat are clearly wrong. When "
@@ -988,6 +991,7 @@ BASIC_TALENTS = {
         ),
     },
     "Petty Magic": {
+        "max": 1,
         "short_description": "Learn and cast Petty spells",
         "description": (
             "You have the spark to cast magic within you and have mastered techniques "
@@ -1044,6 +1048,7 @@ BASIC_TALENTS = {
         ),
     },
     "Read/Write": {
+        "max": 1,
         "short_description": "You can read and write",
         "description": (
             "You are one of the rare literate individuals in the Old World. You are "
@@ -1185,6 +1190,8 @@ BASIC_TALENTS = {
         ),
     },
     "Second Sight": {
+        "max": "Initiative Bonus",
+        "tests": "Any Test to detect the Winds of Magic",
         "description": (
             "You can perceive the shifting Winds of Magic that course from the Chaos "
             "Gates at the poles of the world. You now have the Sight (see page 233)."
@@ -1350,6 +1357,8 @@ BASIC_TALENTS = {
         ),
     },
     "Strong Back": {
+        "max": "Strength Bonus",
+        "tests": "Row and Swim",
         "short_description": "+1 Enc, +1 SL to S tests",
         "description": (
             "You have a strong back that is used to hard work. You may add your levels "
@@ -1359,6 +1368,7 @@ BASIC_TALENTS = {
         ),
     },
     "Strong Legs": {
+        "max": "Strength Bonus",
         "description": (
             "You have strong legs able to carry you great distances when you jump. Add "
             "your Strong Legs level to your SL in any Athletics Tests involving "
