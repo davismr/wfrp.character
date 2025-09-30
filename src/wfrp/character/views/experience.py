@@ -5,7 +5,9 @@ import deform
 from pyramid.httpexceptions import HTTPFound
 from pyramid.view import view_config
 from pyramid.view import view_defaults
+from sqlalchemy.orm import attributes
 
+from wfrp.character.data.magic.petty import PETTY_MAGIC_DATA
 from wfrp.character.data.skills import SKILL_DATA
 from wfrp.character.models.experience import ExperienceCost
 from wfrp.character.views.base_view import BaseView
@@ -58,7 +60,7 @@ class ExperienceViews(BaseView):
         schema.add(characteristic_schema)
         return schema
 
-    def validate_characteristic(self, form, values):
+    def validate_characteristic(self, node, values):
         characteristic = values["characteristic"]
         cost = self.character.cost_characteristic(
             getattr(self.character, f"{characteristic}_advances") + 1
@@ -66,7 +68,7 @@ class ExperienceViews(BaseView):
         if cost > self.character.experience:
             characteristic_display = characteristic.replace("_", " ").title()
             raise colander.Invalid(
-                form,
+                node,
                 f"You do not have enough experience to increase "
                 f"{characteristic_display}, you need {cost} XP",
             )
@@ -138,7 +140,7 @@ class ExperienceViews(BaseView):
         schema.add(skill_schema)
         return schema
 
-    def validate_skill(self, form, values):
+    def validate_skill(self, node, values):
         skill = values["skill"]
         if skill in self.character.skills:
             cost = self.character.cost_skill(self.character.skills[skill] + 1)
@@ -146,7 +148,7 @@ class ExperienceViews(BaseView):
             cost = self.character.cost_skill(1)
         if cost > self.character.experience:
             raise colander.Invalid(
-                form,
+                node,
                 f"You do not have enough experience to increase {skill}, "
                 f"you need {cost} XP",
             )
@@ -185,7 +187,7 @@ class ExperienceViews(BaseView):
         schema.add(talent_schema)
         return schema
 
-    def validate_talent(self, form, values):
+    def validate_talent(self, node, values):
         talent = values["talent"]
         if talent in self.character.talents:
             cost = self.character.cost_talent(self.character.talents[talent] + 1)
@@ -193,8 +195,51 @@ class ExperienceViews(BaseView):
             cost = self.character.cost_talent(1)
         if cost > self.character.experience:
             raise colander.Invalid(
-                form,
+                node,
                 f"You do not have enough experience to increase {talent}, "
+                f"you need {cost} XP",
+            )
+
+    def magic_schema(self):
+        schema = colander.SchemaNode(colander.Mapping(), title="Spells")
+        petty_magic_spells = self.character.spells["petty"]
+        spell_schema = colander.SchemaNode(
+            colander.Mapping(),
+            name="spells",
+            description=(
+                f"You have a willpower of {self.character.willpower} and have learned "
+                f"{len(petty_magic_spells)} petty magic spells; "
+                f"{', '.join(petty_magic_spells)}. "
+                f"You have {self.character.experience} experience to spend"
+            ),
+            validator=self.validate_magic,
+        )
+        choices = [("", "None")]
+        for spell in PETTY_MAGIC_DATA:
+            if spell in petty_magic_spells:
+                continue
+            choices.append((spell, spell))
+        spell_schema.add(
+            colander.SchemaNode(
+                colander.String(),
+                name="petty_magic",
+                widget=deform.widget.RadioChoiceWidget(values=choices),
+                validator=colander.OneOf([x[0] for x in choices]),
+                description=(
+                    "Choose a Petty Magic Spell to Learn, this costs "
+                    f"{self.character.cost_petty_magic()} XP"
+                ),
+            )
+        )
+        schema.add(spell_schema)
+        return schema
+
+    def validate_magic(self, node, values):
+        cost = self.character.cost_petty_magic()
+        if cost > self.character.experience:
+            raise colander.Invalid(
+                node,
+                "You do not have enough experience to change career, "
                 f"you need {cost} XP",
             )
 
@@ -237,29 +282,33 @@ class ExperienceViews(BaseView):
         schema.add(career_schema)
         return schema
 
-    def validate_career(self, form, values):
+    def validate_career(self, node, values):
         cost = 200
         if self.completed_career is True:
             cost = 100
         if cost > self.character.experience:
             raise colander.Invalid(
-                form,
+                node,
                 "You do not have enough experience to change career, "
                 f"you need {cost} XP",
             )
 
     @view_config(renderer="wfrp.character:templates/forms/experience.pt")
-    def form_view(self):
+    def form_view(self):  # noqa: C901
         self.initialise_form()
         html = []
-        all_forms = ["characteristic", "skill", "talent", "career"]
+        all_forms = ["characteristic", "skill", "talent", "magic", "career"]
+        if not self.character.get_spells():
+            all_forms.remove("magic")
         forms = {}
         counter = itertools.count()
         for form in all_forms:
-            if form != "career":
-                button = f"Increase {form}"
-            else:
+            if form == "career":
                 button = "Change Career"
+            elif form == "magic":
+                button = "Learn Spell"
+            else:
+                button = f"Increase {form}"
             attribute_schema = getattr(self, f"{form}_schema")()
             forms[f"{form}_form"] = deform.Form(
                 attribute_schema,
@@ -281,9 +330,7 @@ class ExperienceViews(BaseView):
                     else:
                         html.append(forms[form].render())
             else:
-                message = self.update_character(form.formid, captured)
-                self.request.session.flash(message, "success")
-                url = self.request.route_url("experience", id=self.character.id)
+                url = self.update_character(form.formid, captured)
                 return HTTPFound(location=url)
         else:
             for form in forms:
@@ -316,7 +363,7 @@ class ExperienceViews(BaseView):
                 name=attribute,
             )
             self.request.dbsession.add(experience_cost)
-            message = f"You have spent {cost}XP to increase {attribute} by 1"
+            message = f"You have spent {cost} XP to increase {attribute} by 1"
         elif form_id == "skill_form":
             skill = captured["increase_skill"]["skill"]
             if skill in self.character.skills:
@@ -328,7 +375,7 @@ class ExperienceViews(BaseView):
                 character_id=self.character.id, type="skill", cost=cost, name=skill
             )
             self.request.dbsession.add(experience_cost)
-            message = f"You have spent {cost}XP to increase {skill} by 1"
+            message = f"You have spent {cost} XP to increase {skill} by 1"
         elif form_id == "talent_form":
             talent = captured["add_talent"]["talent"]
             if talent in self.character.talents:
@@ -340,7 +387,20 @@ class ExperienceViews(BaseView):
                 character_id=self.character.id, type="talent", cost=cost, name=talent
             )
             self.request.dbsession.add(experience_cost)
-            message = f"You have spent {cost}XP to increase {talent} by 1"
+            message = f"You have spent {cost} XP to increase {talent} by 1"
+        elif form_id == "magic_form":
+            cost = self.character.cost_petty_magic()
+            spell = captured["spells"]["petty_magic"]
+            self.character.spells["petty"].append(spell)
+            attributes.flag_modified(self.character, "spells")
+            experience_cost = ExperienceCost(
+                character_id=self.character.id,
+                type="spell",
+                cost=cost,
+                name=spell,
+            )
+            self.request.dbsession.add(experience_cost)
+            message = f"You have spent {cost} XP to learn {spell} petty magic spell."
         elif form_id == "career_form":
             new_career = captured["change_career"]["advance_career"]
             self.character.career_title = new_career
@@ -355,7 +415,8 @@ class ExperienceViews(BaseView):
                 name=new_career,
             )
             self.request.dbsession.add(experience_cost)
-            message = f"You have spent {cost}XP to advance career to {new_career}"
+            message = f"You have spent {cost} XP to advance career to {new_career}"
         self.character.experience -= cost
         self.character.experience_spent += cost
-        return message
+        self.request.session.flash(message, "success")
+        return self.request.route_url("experience", id=self.character.id)

@@ -273,6 +273,11 @@ class Character(Base):
             spell_list[spell] = PETTY_MAGIC_DATA[spell]
         return spell_list
 
+    def cost_petty_magic(self):
+        known_spells = len(self.spells["petty"])
+        willpower_bonus = self.willpower // 10
+        return (((known_spells - 1) // willpower_bonus) + 1) * 50
+
     @property
     def get_party_member_names(self):
         members = []
