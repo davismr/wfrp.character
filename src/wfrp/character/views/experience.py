@@ -395,6 +395,9 @@ class ExperienceViews(BaseView):
             message = f"You have spent {cost} XP to increase {skill} by 1"
         elif form_id == "talent_form":
             talent = captured["add_talent"]["talent"]
+            if talent in ["Petty Magic"]:
+                url = self.request.route_url("experience-talent", id=self.character.id)
+                return f"{url}?talent={talent}"
             if talent in self.character.talents:
                 self.character.talents[talent] += 1
             else:

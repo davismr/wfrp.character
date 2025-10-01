@@ -29,7 +29,7 @@ def test_form_view(new_character):
 
 
 @pytest.mark.create
-def test_submit_experience(new_character):
+def test_submit(new_character):
     new_character.species = "High Elf"
     new_character.career = "Wizard"
     new_character.willpower_initial = 34

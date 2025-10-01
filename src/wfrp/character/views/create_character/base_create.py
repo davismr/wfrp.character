@@ -20,6 +20,7 @@ class BaseCreateView:
             "character-full",
             "character-summary",
             "experience",
+            "experience-talent",
             "pdf-print",
         ]:
             pass
