@@ -30,10 +30,12 @@ def test_form_valid(complete_character):
     assert response.location == (
         f"http://example.com/character/{complete_character.id}/summary"
     )
+    assert complete_character.experience == 40
 
 
 @pytest.mark.views
 def test_form_negative_amount(complete_character):
+    complete_character.experience = 50
     payload = {
         "experience_gain": {"amount": "-40", "reason": "Give some experience"},
         "Give_Experience": "Give_Experience",
@@ -47,6 +49,7 @@ def test_form_negative_amount(complete_character):
     assert response.location == (
         f"http://example.com/character/{complete_character.id}/summary"
     )
+    assert complete_character.experience == 10
 
 
 @pytest.mark.views
