@@ -82,8 +82,8 @@ class DetailsViews(BaseCreateView):
             details_schema.add(
                 colander.SchemaNode(
                     colander.String(),
-                    widget=deform.widget.SelectWidget(
-                        values=[(i, i) for i in eye_colours if i]
+                    widget=deform.widget.RadioChoiceWidget(
+                        values=[(i, i) for i in eye_colours if i], inline=True
                     ),
                     name="eye_colour",
                 )
