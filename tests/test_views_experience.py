@@ -55,14 +55,20 @@ def test_increase_characteristic(new_character):
     view.form_view()
     assert new_character.weapon_skill == 51
     assert new_character.weapon_skill_advances == 11
-    assert new_character.experience == 130
-    assert new_character.experience_spent == 70
-    # experience cost should be added for both
-    assert len(new_character.experience_cost) == 2
+    assert new_character.experience == 140
+    assert new_character.experience_spent == 60
+    view.form_view()
+    assert new_character.weapon_skill == 52
+    assert new_character.weapon_skill_advances == 12
+    assert new_character.experience == 100
+    assert new_character.experience_spent == 100
+    # experience cost should be added for all three
+    assert len(new_character.experience_cost) == 3
     assert new_character.experience_cost[0].cost == 30
     assert new_character.experience_cost[0].type == "characteristic"
     assert new_character.experience_cost[0].name == "weapon_skill"
-    assert new_character.experience_cost[1].cost == 40
+    assert new_character.experience_cost[1].cost == 30
+    assert new_character.experience_cost[2].cost == 40
 
 
 @pytest.mark.views
@@ -144,8 +150,12 @@ def test_increase_existing_skill(new_character):
     assert new_character.experience_spent == 15
     view.form_view()
     assert new_character.skills["Language (Battle)"] == 11
-    assert new_character.experience == 165
-    assert new_character.experience_spent == 35
+    assert new_character.experience == 170
+    assert new_character.experience_spent == 30
+    view.form_view()
+    assert new_character.skills["Language (Battle)"] == 12
+    assert new_character.experience == 150
+    assert new_character.experience_spent == 50
 
 
 @pytest.mark.views

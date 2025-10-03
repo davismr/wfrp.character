@@ -180,9 +180,9 @@ def test_experience_skill_cost(new_character, advances, cost):
 @pytest.mark.parametrize(
     "advances, cost",
     [
-        (1, 100),
-        (2, 200),
-        (3, 300),
+        (0, 100),
+        (1, 200),
+        (2, 300),
     ],
 )
 def test_experience_talent_cost(new_character, advances, cost):

@@ -45,7 +45,7 @@ class ExperienceViews(BaseView):
                 (
                     characteristic_lower,
                     f"{characteristic} ({current}) - {advances} advances, "
-                    f"{self.character.cost_characteristic(advances + 1)} "
+                    f"{self.character.cost_characteristic(advances)} "
                     "experience to increase",
                 )
             )
@@ -64,7 +64,7 @@ class ExperienceViews(BaseView):
     def validate_characteristic(self, node, values):
         characteristic = values["characteristic"]
         cost = self.character.cost_characteristic(
-            getattr(self.character, f"{characteristic}_advances") + 1
+            getattr(self.character, f"{characteristic}_advances")
         )
         if cost > self.character.experience:
             characteristic_display = characteristic.replace("_", " ").title()
@@ -126,7 +126,7 @@ class ExperienceViews(BaseView):
                 (
                     skill,
                     f"{skill} ({advances}), "
-                    f"{self.character.cost_skill(advances + 1)} experience to increase",
+                    f"{self.character.cost_skill(advances)} experience to increase",
                 )
             )
         skill_schema.add(
@@ -144,7 +144,7 @@ class ExperienceViews(BaseView):
     def validate_skill(self, node, values):
         skill = values["skill"]
         if skill in self.character.skills:
-            cost = self.character.cost_skill(self.character.skills[skill] + 1)
+            cost = self.character.cost_skill(self.character.skills[skill])
         else:
             cost = self.character.cost_skill(1)
         if cost > self.character.experience:
@@ -174,7 +174,7 @@ class ExperienceViews(BaseView):
                     (
                         talent,
                         f"{talent} ({advances}), "
-                        f"{self.character.cost_talent(advances + 1)} experience to "
+                        f"{self.character.cost_talent(advances)} experience to "
                         "increase",
                     )
                 )
@@ -199,7 +199,8 @@ class ExperienceViews(BaseView):
             if advances >= max:
                 return True
         elif "Bonus" in max:
-            max_bonus = getattr(self.character, max.replace(" Bonus", "").lower()) // 10
+            characteristic = max.replace(" Bonus", "").replace(" ", "_").lower()
+            max_bonus = getattr(self.character, characteristic) // 10
             if advances >= max_bonus:
                 return True
         return False
@@ -207,9 +208,9 @@ class ExperienceViews(BaseView):
     def validate_talent(self, node, values):
         talent = values["talent"]
         if talent in self.character.talents:
-            cost = self.character.cost_talent(self.character.talents[talent] + 1)
+            cost = self.character.cost_talent(self.character.talents[talent])
         else:
-            cost = self.character.cost_talent(1)
+            cost = self.character.cost_talent(0)
         if cost > self.character.experience:
             raise colander.Invalid(
                 node,
@@ -364,14 +365,13 @@ class ExperienceViews(BaseView):
     def update_character(self, form_id, captured):
         if form_id == "characteristic_form":
             attribute = captured["increase_characteristic"]["characteristic"]
+            cost = self.character.cost_characteristic(
+                getattr(self.character, f"{attribute}_advances")
+            )
             setattr(
                 self.character,
                 f"{attribute}_advances",
                 getattr(self.character, f"{attribute}_advances") + 1,
-            )
-            # attribute has increased, so this is the cost for getting there
-            cost = self.character.cost_characteristic(
-                getattr(self.character, f"{attribute}_advances")
             )
             experience_cost = ExperienceCost(
                 character_id=self.character.id,
@@ -383,11 +383,11 @@ class ExperienceViews(BaseView):
             message = f"You have spent {cost} XP to increase {attribute} by 1"
         elif form_id == "skill_form":
             skill = captured["increase_skill"]["skill"]
+            cost = self.character.cost_skill(self.character.skills.get(skill, 0))
             if skill in self.character.skills:
                 self.character.skills[skill] += 1
             else:
                 self.character.skills[skill] = 1
-            cost = self.character.cost_skill(self.character.skills[skill])
             experience_cost = ExperienceCost(
                 character_id=self.character.id, type="skill", cost=cost, name=skill
             )
@@ -395,6 +395,7 @@ class ExperienceViews(BaseView):
             message = f"You have spent {cost} XP to increase {skill} by 1"
         elif form_id == "talent_form":
             talent = captured["add_talent"]["talent"]
+            cost = self.character.cost_talent(self.character.talents.get(talent, 0))
             if talent in ["Petty Magic"]:
                 url = self.request.route_url("experience-talent", id=self.character.id)
                 return f"{url}?talent={talent}"
@@ -402,7 +403,6 @@ class ExperienceViews(BaseView):
                 self.character.talents[talent] += 1
             else:
                 self.character.talents[talent] = 1
-            cost = self.character.cost_talent(self.character.talents[talent])
             experience_cost = ExperienceCost(
                 character_id=self.character.id, type="talent", cost=cost, name=talent
             )

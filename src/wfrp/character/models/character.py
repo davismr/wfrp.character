@@ -385,7 +385,7 @@ class Character(Base):
 
     def cost_talent(self, advance):
         """Return the experience cost of an increase in a talent."""
-        return 100 * advance
+        return 100 + (100 * advance)
 
 
 @event.listens_for(Character, "before_update")
