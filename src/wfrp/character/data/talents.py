@@ -43,6 +43,7 @@ TALENT_LIST = {
 
 BASIC_TALENTS = {
     "Accurate Shot": {
+        "max": "Ballistic Skill Bonus",
         "description": (
             "You are an exceptional shot and know where to shoot an enemy in order to "
             "inflict maximum damage. You deal your Accurate Shot level in extra Damage "
@@ -50,6 +51,8 @@ BASIC_TALENTS = {
         ),
     },
     "Acute Sense": {
+        "max": "Initiative Bonus",
+        "tests": "Perception (Sense)",
         "description": (
             "One of your primary five senses is highly developed, allowing you to spot "
             "what others miss. You may take Perception Tests to detect normally "
@@ -78,6 +81,8 @@ BASIC_TALENTS = {
         ),
     },
     "Alley Cat": {
+        "max": "Initiative Bonus",
+        "tests": "Stealth (Urban)",
         "short_description": "Reverse dice on Stealth (Urban)",
         "description": (
             "You are at home in shadowy backstreets. When using Stealth (Urban), "
@@ -94,6 +99,8 @@ BASIC_TALENTS = {
         ),
     },
     "Animal Affinity": {
+        "max": "Willpower Bonus",
+        "tests": "Charm Animal",
         "description": (
             "Wild animals feel comfortable in your presence, and often follow your "
             "lead. All creatures with the Bestial Trait not trained to be belligerent "
@@ -137,6 +144,8 @@ BASIC_TALENTS = {
         ),
     },
     "Artistic": {
+        "max": "Dexterity Bonus",
+        "tests": "Art (Any)",
         "description": (
             "You have a natural talent for art, able to produce precise sketches with "
             "nothing but time and appropriate media. This ability has several in-game "
@@ -147,6 +156,8 @@ BASIC_TALENTS = {
         ),
     },
     "Attractive": {
+        "max": "Fellowship Bonus",
+        "tests": "Charm Tests to influence those attracted to you",
         "description": (
             "Whether it’s your piercing eyes, your strong frame, or maybe the way you "
             "flash your perfect teeth, you know how to make the best use of what the "
@@ -166,6 +177,8 @@ BASIC_TALENTS = {
         ),
     },
     "Beat Blade": {
+        "max": "Weapon Skill Bonus",
+        "tests": "Melee for a Beat Blade",
         "description": (
             "You are trained to make sharp controlled blows to your opponent’s weapon, "
             "creating an opening for an attack or simply impeding an incoming attack. "
@@ -177,6 +190,8 @@ BASIC_TALENTS = {
         ),
     },
     "Beneath Notice": {
+        "max": "Fellowship Bonus",
+        "tests": "Stealth when in plain sight",
         "description": (
             "The high and mighty pay no attention to your presence, knowing you are "
             "well beneath their notice. Assuming you are properly attired and not in "
@@ -189,6 +204,8 @@ BASIC_TALENTS = {
         ),
     },
     "Berserk Charge": {
+        "max": "Strength Bonus",
+        "tests": "Melee on a Round when you Charge",
         "description": (
             "You hurl yourself at your enemies with reckless abandon, using the force "
             "of your charge to add weight to your strikes. When you Charge, you gain "
@@ -196,15 +213,18 @@ BASIC_TALENTS = {
         ),
     },
     "Blather": {
+        "max": "Fellowship Bonus",
+        "tests": "Charm to Blather",
         "description": (
             "Attempt an Opposed Charm/Intelligence Test. Success gives your opponent a "
             "Stunned Condition. Further, for each level you have in Blather, your "
             "opponent gains another Stunned Condition. Targets Stunned by Blather may "
             "do nothing other than stare at you dumbfounded as they try to catch-up "
             "with or understand what you are saying..."
-        )
+        ),
     },
     "Bless": {
+        "max": 1,
         "description": (
             "You are watched over by one of the Gods and can empower simple prayers. "
             "You can now deploy the Blessings of your deity as listed in Chapter 7: "
@@ -225,6 +245,8 @@ BASIC_TALENTS = {
         ],
     },
     "Bookish": {
+        "max": "Intelligence Bonus",
+        "tests": "Research",
         "description": (
             "You are as at home in a library as a seaman at sea or a farmer a-farming. "
             "When using Research, you may reverse the dice of any failed Test if this "
@@ -232,6 +254,8 @@ BASIC_TALENTS = {
         ),
     },
     "Break and Enter": {
+        "max": "Strength Bonus",
+        "tests": "Melee when forcing or breaking inanimate objects",
         "description": (
             "You are an expert at quickly breaking down doors and forcing entry. You "
             "may add +1 Damage for each level in this Talent when determining damage "
@@ -239,6 +263,8 @@ BASIC_TALENTS = {
         ),
     },
     "Briber": {
+        "max": "Fellowship Bonus",
+        "tests": "Bribery",
         "description": (
             "You are an exceedingly skilled briber. The GM should reduce the base cost "
             "of any required bribe by 10% per level you have in Briber, to a minimum "
@@ -246,6 +272,8 @@ BASIC_TALENTS = {
         ),
     },
     "Cardsharp": {
+        "max": "Intelligence Bonus",
+        "tests": "Gamble and Sleight of Hand when playing card games",
         "description": (
             "You are used to playing, and winning, at cards, although your methods may "
             "involve a little cheating. When you successfully use Gamble or Sleight of "
@@ -258,6 +286,7 @@ BASIC_TALENTS = {
         ),
     },
     "Careful Strike": {
+        "max": "Initiative Bonus",
         "description": (
             "You are skilled at hitting your enemy exactly where you want to, either "
             "at range or in melee. You may modify your Hit Location result by up to "
@@ -267,12 +296,16 @@ BASIC_TALENTS = {
         ),
     },
     "Carouser": {
+        "max": "Toughness Bonus",
+        "tests": "Charm at Parties, Gossip at Parties, Consume Alcohol",
         "description": (
             "You are a seasoned drinker and know how to party hard. You may reverse "
             "the dice of any failed Consume Alcohol Test if this will score a Success."
         ),
     },
     "Catfall": {
+        "max": "Agility Bonus",
+        "tests": "Athletics when falling",
         "description": (
             "You are nimble and balanced like a cat, and are able to fall much greater "
             "distances unharmed than others might. Whenever you fall, you attempt an "
@@ -281,6 +314,8 @@ BASIC_TALENTS = {
         ),
     },
     "Cat-tongued": {
+        "max": "Fellowship Bonus",
+        "tests": "Charm when lying",
         "description": (
             "Like Ranald the Trickster God, you blend truth and lies as if there were "
             "no difference. When using Charm to lie, listeners do not get to oppose "
@@ -289,6 +324,7 @@ BASIC_TALENTS = {
         ),
     },
     "Chaos Magic": {
+        "max": "Number of Spells available in chosen Chaos Magic Lore",
         "description": (
             "Each time you take this Talent, which always costs 100 XP per time "
             "instead of the normal cost, you learn another spell from your chosen Lore "
@@ -298,6 +334,8 @@ BASIC_TALENTS = {
         ),
     },
     "Combat Aware": {
+        "max": "Initiative Bonus",
+        "tests": "Perception during melee",
         "description": (
             "You are used to scanning the battlefield to make snap decisions informed "
             "by the shifting tides of war.You may take a Challenging (+0) Perception "
@@ -305,6 +343,7 @@ BASIC_TALENTS = {
         ),
     },
     "Combat Master": {
+        "max": "Agility Bonus",
         "description": (
             "Your accumulated years of combat experience allow you to keep lesser "
             "fighters at bay. For each level in this Talent, you count as one more "
@@ -314,12 +353,15 @@ BASIC_TALENTS = {
         ),
     },
     "Combat Reflexes": {
+        "max": "Initiative Bonus",
         "description": (
             "You react like a flash of lightning. Add 10 to your Initiative for each "
             "level in this Talent when determining Combat Initiative."
         ),
     },
     "Commanding Presence": {
+        "max": "Fellowship Bonus",
+        "tests": "Leadership",
         "description": (
             "Your presence fills others with hushed awe and admiration. Such is your "
             "aura of authority, those with a lower Status may not resist your "
@@ -329,6 +371,8 @@ BASIC_TALENTS = {
         ),
     },
     "Concoct": {
+        "max": "Intelligence Bonus",
+        "tests": "Lore (Apothecary)",
         "description": (
             "You are skilled at making potions, philtres, and draughts on the go. You "
             "may take one free Crafting Endeavour to use Lore (Apothecary) without "
@@ -336,6 +380,8 @@ BASIC_TALENTS = {
         ),
     },
     "Contortionist": {
+        "max": "Agility Bonus",
+        "tests": "Perform and Agility Tests when contorting helps",
         "description": (
             "You can bend and manipulate your body in a myriad of seemingly unnatural "
             "ways. This allows you to squeeze through unlikely gaps and bend your body "
@@ -352,6 +398,8 @@ BASIC_TALENTS = {
         ),
     },
     "Crack the Whip": {
+        "max": "Dexterity Bonus",
+        "tests": "Drive or Ride Tests when Fleeing or Running",
         "description": (
             "You know how to get the most out of your animals. When an animal you "
             "control is Fleeing or Running, it gains +1 Movement if you are using a "
@@ -359,6 +407,8 @@ BASIC_TALENTS = {
         ),
     },
     "Craftsman": {
+        "max": "Dexterity Bonus",
+        "tests": "Trade (any one)",
         "short_description": "Add this skill to any career",
         "description": (
             "You have true creative talent. Add the associated Trade Skill to any "
@@ -377,12 +427,14 @@ BASIC_TALENTS = {
         ],
     },
     "Criminal": {
+        "max": None,
         "description": (
             "You are an active criminal making money from illegal sources, and you’re "
             "not always quiet about it..."
         ),
     },
     "Deadeye Shot": {
+        "max": 1,
         "description": (
             "You always hit an opponent right between the eyes... or wherever else you "
             "intended to hit. Instead of reversing the dice to determine which Hit "
@@ -390,6 +442,8 @@ BASIC_TALENTS = {
         ),
     },
     "Dealmaker": {
+        "max": "Fellowship Bonus",
+        "tests": "Haggle",
         "description": (
             "You are a skilled businessman who knows how to close a deal. When using "
             "the Haggle skill, you reduce or increase the price of the products by an "
@@ -397,6 +451,8 @@ BASIC_TALENTS = {
         ),
     },
     "Detect Artefact": {
+        "max": "Initiative Bonus",
+        "tests": "Intuition tests to detect magical artefacts",
         "description": (
             "You are able to sense when magic lies within an artefact. You may attempt "
             "an Intuition Test for any magical artefact touched. If successful, you "
@@ -418,6 +474,8 @@ BASIC_TALENTS = {
         ),
     },
     "Dirty Fighting": {
+        "max": "Weapon Skill Bonus",
+        "tests": "Melee (Brawling)",
         "description": (
             "You have been taught all the dirty tricks of unarmed combat. You may "
             "choose to cause an extra +1 Damage for each level in Dirty Fighting with "
@@ -425,12 +483,16 @@ BASIC_TALENTS = {
         ),
     },
     "Disarm": {
+        "max": "Initiative Bonus",
+        "tests": "Melee Tests concerning this Talent",
         "description": (
             "You are able to disarm an opponent with a careful flick of the wrist or a "
             "well-aimed blow to the hand."
         ),
     },
     "Distract": {
+        "max": "Agility Bonus",
+        "tests": "Athletics to Distract",
         "description": (
             "You are trained in simple movements to distract or startle your opponent, "
             "drawing eyes from your true intent. You may use your Move to perform a "
@@ -439,6 +501,7 @@ BASIC_TALENTS = {
         ),
     },
     "Doomed": {
+        "max": 1,
         "short_description": "Lo, I would rather not say",
         "description": (
             "At the age of 10, a Priest of Morr called a Doomsayer took you aside to "
@@ -450,6 +513,8 @@ BASIC_TALENTS = {
         ),
     },
     "Drilled": {
+        "max": "Weapon Skill Bonus",
+        "tests": "Melee Tests when beside an ally with Drilled",
         "description": (
             "You have been trained to fight shoulder-to-shoulder with other soldiers. "
             "If an enemy causes you to lose Advantage when standing beside an active "
@@ -458,6 +523,8 @@ BASIC_TALENTS = {
         ),
     },
     "Dual Wielder": {
+        "max": "Agility Bonus",
+        "tests": "Melee or Ranged when attacking with two weapons",
         "description": (
             "When armed with two weapons, you may attack with both for your Action. "
             "Roll to hit with the weapon held in your primary hand. If you hit, "
@@ -481,6 +548,8 @@ BASIC_TALENTS = {
         ),
     },
     "Embezzle": {
+        "max": "Intelligence Bonus",
+        "tests": "Intelligence (Embezzling)",
         "description": (
             "You are skilled at skimming money from your employers without being "
             "detected. Whenever you secure money when Earning (during play or "
@@ -495,6 +564,8 @@ BASIC_TALENTS = {
         ),
     },
     "Enclosed Fighter": {
+        "max": "Agility Bonus",
+        "tests": "Dodge in enclosed environments",
         "description": (
             "You have learned to make the most benefit out of fighting in enclosed "
             "spaces. You ignore penalties to Melee caused by confined spaces such as "
@@ -503,6 +574,8 @@ BASIC_TALENTS = {
         ),
     },
     "Etiquette": {
+        "max": "Fellowship Bonus",
+        "tests": "Charm and Gossip (Social Group)",
         "description": (
             "You can blend in socially with the chosen group so long as you are "
             "dressed and acting appropriately. Example social groups for this Talent "
@@ -523,6 +596,8 @@ BASIC_TALENTS = {
         ],
     },
     "Fast Hands": {
+        "max": "Dexterity Bonus",
+        "tests": "Sleight of Hand, Melee (Brawling) to touch an opponent",
         "description": (
             "You can move your hands with surprising dexterity. Bystanders get no "
             "passive Perception Tests to spot your use of the Sleight of Hand Skill, "
@@ -533,6 +608,8 @@ BASIC_TALENTS = {
         ),
     },
     "Fast Shot": {
+        "max": "Agility Bonus",
+        "tests": "Ranged when making a Fast Shot",
         "description": (
             "If you have a loaded ranged weapon, you can fire it outside the normal "
             "Initiative Order before any other combatant reacts in the following "
@@ -546,6 +623,8 @@ BASIC_TALENTS = {
         ),
     },
     "Fearless": {
+        "max": "Willpower Bonus",
+        "tests": "Cool to oppose your Enemy’s Intimidate, Fear, and Terror",
         "description": (
             "You are either brave enough or crazy enough that fear of certain enemies "
             "has become a distant memory. With a single Average (+20%) Cool Test, you "
@@ -562,6 +641,8 @@ BASIC_TALENTS = {
         ],
     },
     "Feint": {
+        "max": "Weapon Skill Bonus",
+        "tests": "Melee (Fencing) for Feints",
         "description": (
             "You have trained how to make false attacks in close combat to fool your "
             "opponent. You may now make a Feint for your Action against any opponent "
@@ -571,6 +652,8 @@ BASIC_TALENTS = {
         ),
     },
     "Field Dressing": {
+        "max": "Intelligence Bonus",
+        "tests": "Heal during combat Rounds",
         "description": (
             "You are used to treating wounds quickly. If you fail a Heal Test when "
             "using Bandages, you may reverse the result if this will score a success; "
@@ -579,6 +662,8 @@ BASIC_TALENTS = {
         ),
     },
     "Fisherman": {
+        "max": "Initiative Bonus",
+        "tests": "Any Test involving fishing",
         "description": (
             "You are a very capable fisherman and know all the best ways to land fish. "
             "Assuming a large enough body of water is available, you are automatically "
@@ -589,6 +674,8 @@ BASIC_TALENTS = {
         ),
     },
     "Flagellant": {
+        "max": "Toughness Bonus",
+        "tests": "Any for resisting the Ruinous Powers",
         "description": (
             "You have dedicated your pain to the service of your God. Each day, you "
             "must spend half a bell (half an hour) praying as you maintain a number of "
@@ -599,15 +686,20 @@ BASIC_TALENTS = {
     },
     "Flee!": {
         "max": "Agility Bonus",
+        "tests": "Athletics when Fleeing",
         "description": (
             "When your life is on the line you are capable of impressive bursts of "
             "speed. Your Movement Attribute counts as 1 higher when Fleeing "
             "(see page 165)."
         ),
     },
-    "Fleet Footed": {"description": "You gain +1 to your Movement Attribute."},
-    "Frenzy": {"description": "You can Frenzy as described on page 190."},
+    "Fleet Footed": {
+        "max": 1,
+        "description": "You gain +1 to your Movement Attribute.",
+    },
+    "Frenzy": {"max": 1, "description": "You can Frenzy as described on page 190."},
     "Frightening": {
+        "max": "Strength Bonus",
         "description": (
             "Anyone sane thinks twice before approaching you. If you wish, you have a "
             "Fear Rating of 1 (see page 190). Add +1 to this number per extra time you "
@@ -615,6 +707,8 @@ BASIC_TALENTS = {
         ),
     },
     "Furious Assault": {
+        "max": "Agility Bonus",
+        "tests": "Melee when making extra attacks",
         "description": (
             "Your blows follow one another in quick succession, raining down on your "
             "opponents with the fury of Ulric. Once per Round, if you hit an opponent "
@@ -623,6 +717,8 @@ BASIC_TALENTS = {
         ),
     },
     "Gregarious": {
+        "max": "Fellowship Bonus",
+        "tests": "Gossip Tests with travellers",
         "description": (
             "You just like talking to other folk and it seems they like talking to "
             "you. You may reverse any failed Gossip Test if this allows the Test to "
@@ -630,6 +726,7 @@ BASIC_TALENTS = {
         ),
     },
     "Gunner": {
+        "max": "Dexterity Bonus",
         "description": (
             "You can reload blackpowder weapons with practiced ease. Add SL equal to "
             "your level in Gunner to any Extended Test to reload a Blackpowder weapon."
@@ -645,6 +742,8 @@ BASIC_TALENTS = {
         ),
     },
     "Hatred": {
+        "max": "Willpower Bonus",
+        "tests": "Willpower (Resist Group)",
         "description": (
             "You are consumed with hatred for something in the Old World, as described "
             "on page 190. Each time you take this Talent you develop hatred for a new "
@@ -662,12 +761,15 @@ BASIC_TALENTS = {
         ],
     },
     "Holy Hatred": {
+        "max": "Fellowship Bonus",
         "description": (
             "Your prayers drip with the hatred you feel for your blasphemous enemies. "
             "You deal +1 Damage with Miracles for each level in this Talent."
         ),
     },
     "Holy Visions": {
+        "max": "Initiative Bonus",
+        "tests": "Intuition Tests when on holy ground",
         "description": (
             "You clearly see the great works of the Gods all around you. You "
             "automatically know when you enter Holy Ground, and may take an Intuition "
@@ -709,6 +811,8 @@ BASIC_TALENTS = {
         ),
     },
     "In-fighter": {
+        "max": "Dexterity Bonus",
+        "tests": "Melee when in-fighting, or to enter in-fighting",
         "description": (
             "You are skilled at drawing in close to an opponent. You suffer no "
             "penalties for fighting against an opponent with a longer weapon than you. "
@@ -717,6 +821,8 @@ BASIC_TALENTS = {
         ),
     },
     "Inspiring": {
+        "max": "Fellowship Bonus",
+        "tests": "Leadership during war",
         "description": (
             "Your rousing words and pleas can turn the tide of a battle. Refer to the "
             "following table to see how many people you can now influence with your "
@@ -724,6 +830,8 @@ BASIC_TALENTS = {
         ),
     },
     "Instinctive Diction": {
+        "max": "Initiative Bonus",
+        "tests": "Language (Magick) when casting",
         "description": (
             "You instinctively understand the language of Magick, and are capable of "
             "articulating the most complex phrases rapidly without error. You do not "
@@ -732,6 +840,7 @@ BASIC_TALENTS = {
         ),
     },
     "Invoke": {
+        "max": 1,
         "description": (
             "You are blessed by one of the Gods and can empower one of your Cult’s "
             "Miracles. Further, you may purchase extra miracles for 100 XP per miracle "
@@ -746,6 +855,8 @@ BASIC_TALENTS = {
         ),
     },
     "Iron Jaw": {
+        "max": "Toughness Bonus",
+        "tests": "Endurance tests to resist Stunned",
         "description": (
             "You are made of sturdy stuff and can weather even the strongest blows. "
             "Whenever you gain one or more Stunned Conditions, you may make an "
@@ -754,6 +865,8 @@ BASIC_TALENTS = {
         ),
     },
     "Iron Will": {
+        "max": "Willpower Bonus",
+        "tests": "Cool Tests to oppose Intimidate",
         "description": (
             "You have an indomitable will of iron, and will never willingly bow down "
             "before another. Use of the Intimidate skill does not cause Fear in you, "
@@ -761,6 +874,7 @@ BASIC_TALENTS = {
         ),
     },
     "Jump Up": {
+        "max": 1,
         "description": (
             "You are hard to keep down. You may perform a Challenging (+0) Athletics "
             "Test to immediately regain your feet whenever you gain a Prone Condition. "
@@ -771,6 +885,7 @@ BASIC_TALENTS = {
         ),
     },
     "Kingpin": {
+        "max": 1,
         "description": (
             "You have earned an air of respectability despite your nefarious ways. "
             "You may ignore the Status loss of the Criminal Talent."
@@ -785,6 +900,8 @@ BASIC_TALENTS = {
         ),
     },
     "Linguistics": {
+        "max": "Intelligence Bonus",
+        "tests": "Language (All)",
         "short_description": "Int test to learn languages",
         "description": (
             "You have a natural affinity for languages. Given a month’s exposure to "
@@ -806,6 +923,7 @@ BASIC_TALENTS = {
         ),
     },
     "Luck": {
+        "max": "Fellowship Bonus",
         "description": (
             "They say when you were born, Ranald smiled. Your maximum Fortune Points "
             "now equal your current Fate points plus the number of times you’ve taken "
@@ -813,6 +931,7 @@ BASIC_TALENTS = {
         ),
     },
     "Magic Resistance": {
+        "max": "Toughness Bonus",
         "description": (
             "The SL of any spell affecting you is reduced by 2 per point you have in "
             "this Talent."
@@ -869,7 +988,7 @@ BASIC_TALENTS = {
         ),
     },
     "Master of Disguise": {
-        " Bonus": "Fellowship",
+        "max": "Fellowship Bonus",
         "tests": "Entertain (Acting) when being someone else",
         "short_description": "",
         "description": (
@@ -897,12 +1016,16 @@ BASIC_TALENTS = {
         ),
     },
     "Menacing": {
+        "max": "Strength Bonus",
+        "tests": "Intimidate",
         "description": (
             "You have an imposing presence. When using the Intimidate Skill, gain a SL "
             "bonus equal to your levels of Menacing."
         ),
     },
     "Mimic": {
+        "max": "Initiative Bonus",
+        "tests": "Entertain (Acting) Tests where accents are important",
         "description": (
             "You have a good ear for accents and dialects, and can reproduce them "
             "accurately. You may replicate any accent you are exposed to for at least "
@@ -912,6 +1035,8 @@ BASIC_TALENTS = {
         ),
     },
     "Night Vision": {
+        "max": "Initiative Bonus",
+        "tests": "Perception tests in low-light conditions",
         "short_description": "See 20 yards in faint light",
         "description": (
             "You can see very well in natural darkness. Assuming you have at least a "
@@ -930,6 +1055,7 @@ BASIC_TALENTS = {
         ),
     },
     "Noble Blood": {
+        "max": 1,
         "description": (
             "You are either born into the nobility, or otherwise elevated to it by "
             "in-game events. Assuming you are dressed appropriately, you are always "
@@ -938,6 +1064,8 @@ BASIC_TALENTS = {
         ),
     },
     "Nose for Trouble": {
+        "max": "Initiative Bonus",
+        "tests": "Any Test to spot Troublemakers",
         "description": (
             "You are used to getting into, and preferably out of, trouble. You may "
             "attempt an Intuition Test to spot those seeking to cause trouble or "
@@ -950,6 +1078,8 @@ BASIC_TALENTS = {
         ),
     },
     "Numismatics": {
+        "max": "Initiative Bonus",
+        "tests": "Evaluate to establish the worth of coins",
         "description": (
             "You are well versed with the different coinage of the Old World, and are "
             "adept at determining their value. You can judge the true value of a coin "
@@ -959,6 +1089,8 @@ BASIC_TALENTS = {
         ),
     },
     "Old Salt": {
+        "max": "Agility Bonus",
+        "tests": "Sail (any Sea-worthy Vessels)",
         "description": (
             "You are an experienced seaman, and are very used to sea life. You can "
             "ignore all negative modifiers to Tests at sea derived from poor weather, "
@@ -967,6 +1099,8 @@ BASIC_TALENTS = {
         ),
     },
     "Orientation": {
+        "max": "Initiative Bonus",
+        "tests": "Navigation",
         "short_description": "Easily find North",
         "description": (
             "You are an experienced seaman, and are very used to sea life. You can "
@@ -976,6 +1110,8 @@ BASIC_TALENTS = {
         ),
     },
     "Panhandle": {
+        "max": "Fellowship Bonus",
+        "tests": "Charm (Begging)",
         "description": (
             "You are a skilled beggar, able to get even the most jaded individual to "
             "contribute to your cause. You can perform a Charm Test every half hour "
@@ -983,6 +1119,11 @@ BASIC_TALENTS = {
         ),
     },
     "Perfect Pitch": {
+        "max": "Initiative Bonus",
+        "tests": (
+            "Entertain (Sing), Language (Tonal Languages, such as Elthárin, Cathayan, "
+            "and Magick)"
+        ),
         "short_description": "Add Entertain (Sing) to career",
         "description": (
             "You are a skilled beggar, able to get even the most jaded individual to "
@@ -1001,6 +1142,8 @@ BASIC_TALENTS = {
         ),
     },
     "Pharmacist": {
+        "max": "Intelligence Bonus",
+        "tests": "Trade (Apothecary)",
         "description": (
             "You are highly skilled at pharmacy, better able than most to make pills, "
             "ointments, unguents, oils, creams, and more. You may reverse any failed "
@@ -1008,6 +1151,8 @@ BASIC_TALENTS = {
         ),
     },
     "Pilot": {
+        "max": "Initiative Bonus",
+        "tests": "Row or Sail Tests while navigating unsure waters",
         "description": (
             "You are skilled at leading vessels through dangerous waters. If you fail "
             "a Test to pass through dangerous waters, you may reverse the result if it "
@@ -1016,6 +1161,7 @@ BASIC_TALENTS = {
         ),
     },
     "Public Speaker": {
+        "max": "Fellowship Bonus",
         "short_description": "Charm Influences x 5 people",
         "description": (
             "You are a skilled orator and know how to work large groups of people. "
@@ -1024,6 +1170,7 @@ BASIC_TALENTS = {
         ),
     },
     "Pure Soul": {
+        "max": "Willpower Bonus",
         "description": (
             "Your soul is pure, quite resistant to the depredations of Chaos. You may "
             "gain extra Corruption points equal to your level of Pure Soul before "
@@ -1031,12 +1178,15 @@ BASIC_TALENTS = {
         ),
     },
     "Rapid Reload": {
+        "max": "Dexterity Bonus",
         "description": (
             "You can reload ranged weapons with practiced ease. You add SL equal to "
             "your level in Rapid Reload to any Test to reload a ranged weapon."
         ),
     },
     "Reaction Strike": {
+        "max": "Initiative Bonus",
+        "tests": "Initiative Tests concerning this Talent",
         "description": (
             "Your fast reactions have allowed you to fell many opponents before they "
             "have even swung their blades. When you are Charged, you may attempt a "
@@ -1057,6 +1207,7 @@ BASIC_TALENTS = {
         ),
     },
     "Relentless": {
+        "max": "Agility Bonus",
         "description": (
             "When you have your mind set on a target, there is nothing anyone can do "
             "to stop you reaching them. If you use Advantage when Disengaging, you may "
@@ -1066,6 +1217,8 @@ BASIC_TALENTS = {
         ),
     },
     "Resistance": {
+        "max": "Toughness Bonus",
+        "tests": "All those to resist the associated Threat",
         "short_description": "Pass 1 test per session",
         "description": (
             "Your strong constitution allows you to more readily survive a specific "
@@ -1076,12 +1229,15 @@ BASIC_TALENTS = {
         "specialisations": ["Magic", "Poison", "Disease", "Mutation"],
     },
     "Resolute": {
+        "max": "Strength Bonus",
         "description": (
             "You launch into attacks with grim determination. Add your level of "
             "Resolute to your Strength Bonus when you Charge."
         ),
     },
     "Reversal": {
+        "max": "Weapon Skill Bonus",
+        "tests": "Melee when defending",
         "description": (
             "You are used to desperate combats, able to turn even the direst "
             "circumstances to your Advantage. If you win an Opposed Melee Test, "
@@ -1091,6 +1247,8 @@ BASIC_TALENTS = {
         ),
     },
     "Riposte": {
+        "max": "Agility Bonus",
+        "tests": "Melee when defending",
         "description": (
             "Conforming to ‘the best defence is offence’, you respond to an incoming "
             "attack with a lightning-fast counterstrike of your own. If your weapon "
@@ -1100,6 +1258,8 @@ BASIC_TALENTS = {
         ),
     },
     "River Guide": {
+        "max": "Initiative Bonus",
+        "tests": "Any Lore Test concerning river matters",
         "description": (
             "You know all the tricks for navigating dangerous rivers. You don’t need "
             "to Test for passing through dangerous stretches of water until the "
@@ -1110,6 +1270,7 @@ BASIC_TALENTS = {
         ),
     },
     "Robust": {
+        "max": "Toughness Bonus",
         "description": (
             "You are as tough as old boots and just soak up damage. You reduce all "
             "incoming Damage by an extra +1 per time you have taken the Robust Talent, "
@@ -1118,6 +1279,8 @@ BASIC_TALENTS = {
         ),
     },
     "Roughrider": {
+        "max": "Agility Bonus",
+        "tests": "Ride (Horse) when in combat",
         "description": (
             "You are at home in the saddle in even the most difficult of "
             "circumstances, and know how to get the best out of your mount during "
@@ -1126,6 +1289,8 @@ BASIC_TALENTS = {
         ),
     },
     "Rover": {
+        "max": "Agility Bonus",
+        "tests": "Stealth Tests in a Rural environment",
         "short_description": "Pass stealthily in Rural areas",
         "description": (
             "You are at home roaming the wild places. When using Stealth in a rural "
@@ -1155,6 +1320,8 @@ BASIC_TALENTS = {
         ),
     },
     "Scale Sheer Surface": {
+        "max": "Strength Bonus",
+        "tests": "Climb",
         "description": (
             "You are an exceptional climber. You can attempt to climb even seemingly "
             "impossible surfaces such as sheer fortifications, ice shelves, plastered "
@@ -1163,6 +1330,8 @@ BASIC_TALENTS = {
         ),
     },
     "Schemer": {
+        "max": "Intelligence Bonus",
+        "tests": "Intelligence Tests concerning this Talent",
         "description": (
             "You are a master of politics and see conspiracy around every corner. "
             "Once per session, you may ask the GM one question regarding a political "
@@ -1172,6 +1341,8 @@ BASIC_TALENTS = {
         ),
     },
     "Sea Legs": {
+        "max": "Toughness Bonus",
+        "tests": "All those taken to resist Sea Sickness",
         "description": (
             "You are used to the rolling motion of the oceans, and are very unlikely "
             "to get sea sick, even in the worst storms. Under normal conditions at "
@@ -1181,6 +1352,8 @@ BASIC_TALENTS = {
         ),
     },
     "Seasoned Traveller": {
+        "max": "Intelligence Bonus",
+        "tests": "Any Lore Test concerning local detail",
         "description": (
             "You are an inquisitive soul who has travelled far and wide, learning all "
             "manner of local information. Add Lore (Local) to any Career you enter; if "
@@ -1198,6 +1371,8 @@ BASIC_TALENTS = {
         ),
     },
     "Secret Identity": {
+        "max": "Intelligence Bonus",
+        "tests": "Entertain (Acting) Tests to support your secret identities",
         "description": (
             "You maintain a secret identity that allows you to appear richer, or "
             "perhaps poorer, than you actually are. With GM permission, choose any one "
@@ -1210,6 +1385,8 @@ BASIC_TALENTS = {
         ),
     },
     "Shadow": {
+        "max": "Agility Bonus",
+        "tests": "Any Test involving Shadowing",
         "description": (
             "You are skilled at following people without being spotted. You may use "
             "the Shadowing rules on page 130 without doing a Combined Test. "
@@ -1245,6 +1422,8 @@ BASIC_TALENTS = {
         ),
     },
     "Sixth Sense": {
+        "max": "Initiative Bonus",
+        "tests": "Intuition Tests involving your Sixth Sense",
         "short_description": "GM may warn you of peril",
         "description": (
             "You get a strange feeling when you are threatened, and can react "
@@ -1254,6 +1433,7 @@ BASIC_TALENTS = {
         ),
     },
     "Slayer": {
+        "max": 1,
         "description": (
             "When determining Damage use your opponent’s Toughness Bonus as your "
             "Strength Bonus if it is higher; always determine this before any other "
@@ -1266,6 +1446,7 @@ BASIC_TALENTS = {
         ),
     },
     "Small": {
+        "max": 1,
         "short_description": "See WFRP, page 341",
         "description": (
             "You are much shorter than most folk in the Old World. The full rules for "
@@ -1273,6 +1454,8 @@ BASIC_TALENTS = {
         ),
     },
     "Sniper": {
+        "max": 4,
+        "tests": "Ranged (Long–Extreme Range)",
         "description": (
             "Distance is of no import to your shooting skills, and you are just as "
             "adept at picking off far away targets as those nearby. You suffer no "
@@ -1281,6 +1464,8 @@ BASIC_TALENTS = {
         ),
     },
     "Speedreader": {
+        "max": "Intelligence Bonus",
+        "tests": "Research and Language Tests where speed of reading is important",
         "description": (
             "You read books at a voracious pace. You may reverse a failed Research "
             "Test if this will grant success. If the speed at which you read is "
@@ -1290,12 +1475,16 @@ BASIC_TALENTS = {
         ),
     },
     "Sprinter": {
+        "max": "Strength Bonus",
+        "tests": "Athletics Tests concerning Running",
         "description": (
             "You are a swift runner. Your Movement Attribute counts as 1 higher when "
             "Running."
         ),
     },
     "Step Aside": {
+        "max": "Agility Bonus",
+        "tests": "Dodge Tests to activate this Talent",
         "description": (
             "You are skilled at being where enemy weapons are not. If you use Dodge to "
             "defend against an incoming attack and win the Opposed Test, you may move "
@@ -1304,6 +1493,8 @@ BASIC_TALENTS = {
         ),
     },
     "Stone Soup": {
+        "max": "Toughness Bonus",
+        "tests": "Endurance Tests to resist hunger",
         "description": (
             "You are used to getting by with less, and know how to survive lean times. "
             "You can subsist on half the amount of food required without any negative "
@@ -1312,6 +1503,8 @@ BASIC_TALENTS = {
         ),
     },
     "Stout-hearted": {
+        "max": "Willpower Bonus",
+        "tests": "Cool Tests to remove Broken Conditions",
         "description": (
             "No matter how bad things get, you always seem to come back for more. You "
             "may attempt a Cool Test to remove a Broken Condition at the end of each "
@@ -1320,6 +1513,8 @@ BASIC_TALENTS = {
         ),
     },
     "Strider": {
+        "max": "Agility Bonus",
+        "tests": "Athletics Tests to traverse the Terrain",
         "description": (
             "You are experienced in traversing difficult ground. You ignore all "
             "movement penalties when crossing over or through a specified terrain. "
@@ -1336,12 +1531,14 @@ BASIC_TALENTS = {
         ],
     },
     "Strike Mighty Blow": {
+        "max": "Strength Bonus",
         "description": (
             "You know how to hit hard! You deal your level of Strike Mighty Blow in "
             "extra Damage with melee weapons."
         ),
     },
     "Strike to Injure": {
+        "max": "Initiative Bonus",
         "description": (
             "You are an expert at striking your enemies most vulnerable areas. You "
             "inflict your level of Strike to Injure in additional Wounds when you "
@@ -1349,6 +1546,8 @@ BASIC_TALENTS = {
         ),
     },
     "Strike to Stun": {
+        "max": "Weapon Skill Bonus",
+        "tests": "Melee Tests when Striking to Stun",
         "description": (
             "You know where to hit an opponent to bring him down fast. You ignore the "
             "‘Called Shot’ penalty to strike the Head Hit Location when using a melee "
@@ -1376,12 +1575,15 @@ BASIC_TALENTS = {
         ),
     },
     "Strong-minded": {
+        "max": "Willpower Bonus",
         "description": (
             "You are the epitome of determination and resolve. Add your level in "
             "Strong Minded to your maximum Resolve pool."
         ),
     },
     "Strong Swimmer": {
+        "max": "Strength Bonus",
+        "tests": "Swim",
         "short_description": "+1 TB when holding breath",
         "description": (
             "You are an especially strong swimmer and used to holding your breath for "
@@ -1390,6 +1592,8 @@ BASIC_TALENTS = {
         ),
     },
     "Sturdy": {
+        "max": "Strength Bonus",
+        "tests": "Strength Tests when lifting",
         "description": (
             "You have a brawny physique, or are very used to carrying things. "
             "Increase the number of Encumbrance Points you can carry by your Sturdy "
@@ -1405,6 +1609,8 @@ BASIC_TALENTS = {
         ),
     },
     "Super Numerate": {
+        "max": "Intelligence Bonus",
+        "tests": "Evaluate, Gamble",
         "description": (
             "You have a gift for calculation and can work out the solution to most "
             "mathematical problems with ease. You may use a simple calculator to "
@@ -1412,6 +1618,8 @@ BASIC_TALENTS = {
         ),
     },
     "Supportive": {
+        "max": "Fellowship Bonus",
+        "tests": "Social Tests to influence a superior",
         "description": (
             "You know what to say and when to make the most impact upon your "
             "superiors. When you successfully use a social Skill to influence those "
@@ -1421,6 +1629,7 @@ BASIC_TALENTS = {
         ),
     },
     "Sure Shot": {
+        "max": "Initiative Bonus",
         "description": (
             "You know how to find the weak spots in a target’s armour. When you hit a "
             "target with a Ranged weapon, you may ignore Armour Points equal to your "
@@ -1428,6 +1637,11 @@ BASIC_TALENTS = {
         ),
     },
     "Surgery": {
+        "max": "Intelligence Bonus",
+        "tests": (
+            "Heal Tests outside combat rounds; i.e. when you have time to do it "
+            "‘properly’"
+        ),
         "description": (
             "You are a surgeon, able to open and close the flesh in order to heal "
             "others. You can treat any Critical Wound marked as needing Surgery. You "
@@ -1441,6 +1655,8 @@ BASIC_TALENTS = {
         ),
     },
     "Tenacious": {
+        "max": "Toughness Bonus",
+        "tests": "Endurance Tests for enduring hardships",
         "description": (
             "You never give up, no matter how impossible your travails appear. You can "
             "double the length of time successful Endurance Tests allow you to endure "
@@ -1449,6 +1665,8 @@ BASIC_TALENTS = {
         ),
     },
     "Tinker": {
+        "max": "Dexterity Bonus",
+        "tests": "Trade Tests to repair broken items",
         "description": (
             "You are somewhat of a Johann-of-all-trades, able to repair almost "
             "anything. You count all non-magical Trade Skills as Basic when repairing "
@@ -1456,6 +1674,7 @@ BASIC_TALENTS = {
         ),
     },
     "Tower of Memories": {
+        "max": "Intelligence Bonus",
         "description": (
             "A recollection technique first instigated by the Cult of Verena, "
             "reputedly from Elven practices taught by the Loremasters of Hoeth, Tower "
@@ -1473,6 +1692,8 @@ BASIC_TALENTS = {
         ),
     },
     "Trapper": {
+        "max": "Initiative Bonus",
+        "tests": "Perception Tests to spot traps, Set Trap",
         "description": (
             "You are skilled at spotting and using traps. You may take a Perception "
             "Test to spot traps automatically without having to tell the GM of your "
@@ -1481,6 +1702,8 @@ BASIC_TALENTS = {
         ),
     },
     "Trick Riding": {
+        "max": "Agility Bonus",
+        "tests": "Dodge Tests on Horseback, Ride (Horse)",
         "description": (
             "You are capable of amazing feats of agility on horseback. You can use any "
             "of your Performer Skills and unmodified Dodge skill when on horseback. "
@@ -1489,6 +1712,8 @@ BASIC_TALENTS = {
         ),
     },
     "Tunnel Rat": {
+        "max": "Agility Bonus",
+        "tests": "Stealth Tests when underground",
         "description": (
             "You are at home in tunnels, sewers, and other underground environments. "
             "When using Stealth in an underground environment, bystanders do not get "
@@ -1497,6 +1722,8 @@ BASIC_TALENTS = {
         ),
     },
     "Unshakeable": {
+        "max": "Willpower Bonus",
+        "tests": "Cool Tests to resist Blackpowder panic",
         "description": (
             "You are a jaded veteran who has survived more than one hail of shots from "
             "Blackpowder weapons. You need only take a Cool Test to resist a Broken "
@@ -1521,6 +1748,8 @@ BASIC_TALENTS = {
         ),
     },
     "War Leader": {
+        "max": "Fellowship Bonus",
+        "tests": "Leadership Tests during War",
         "description": (
             "Your stern gaze and inspiring words motivate your soldiers to fight on to "
             "the end. All subordinates able to see you may add your level in War "
@@ -1546,6 +1775,8 @@ BASIC_TALENTS = {
         ),
     },
     "Waterman": {
+        "max": "Agility Bonus",
+        "tests": "Sail Tests for river-going vessels",
         "description": (
             "You are an experienced freshwater sailor and are well-versed with river "
             "vessels. You can ignore all negatives to your Tests when onboard a barge "
@@ -1555,6 +1786,7 @@ BASIC_TALENTS = {
         ),
     },
     "Wealthy": {
+        "max": None,
         "description": (
             "You are fabulously wealthy, and are rarely ever short of coin. When "
             "Earning (including Income Endeavours) you secure +1 GC per time you have "
@@ -1562,6 +1794,7 @@ BASIC_TALENTS = {
         ),
     },
     "Well-prepared": {
+        "max": "Initiative Bonus",
         "description": (
             "You are used to anticipating the needs of others, and yourself. A number "
             "of times per session equal to your level of Well-Prepared, you may pull "
@@ -1575,6 +1808,7 @@ BASIC_TALENTS = {
         ),
     },
     "Witch!": {
+        "max": "Willpower Bonus",
         "description": (
             "You have learned magic through trial and error. Add Language (Magick) to "
             "any Career you enter; if it is already in your Career, you may purchase "
