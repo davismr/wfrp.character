@@ -164,7 +164,16 @@ class ExperienceViews(BaseView):
             validator=self.validate_talent,
         )
         choices = [("", "None")]
+        choice_talents = []
         for talent in career_talents:
+            if "(Any)" in talent:
+                talent_root = talent.split(" (")[0]
+                for item in self.character.talents:
+                    if item.startswith(talent_root):
+                        talent = item
+                        break
+                else:
+                    choice_talents.append(talent)
             try:
                 advances = self.character.talents[talent]
             except KeyError:
@@ -187,6 +196,22 @@ class ExperienceViews(BaseView):
                 description="Choose a talent to increase",
             )
         )
+        for item in choice_talents:
+            specialisation_choices = []
+            choices = TALENT_DATA[item.split(" (")[0]]["specialisations"]
+            for choice in choices:
+                specialisation_choices.append((choice, choice))
+            talent_schema.add(
+                colander.SchemaNode(
+                    colander.String(),
+                    validator=colander.OneOf([x[0] for x in specialisation_choices]),
+                    widget=deform.widget.RadioChoiceWidget(
+                        values=specialisation_choices, inline=True
+                    ),
+                    missing="",
+                    name=f"{item} specialisation",
+                )
+            )
         schema.add(talent_schema)
         return schema
 
@@ -195,7 +220,9 @@ class ExperienceViews(BaseView):
         if "max" not in talent_data:
             return False
         max = talent_data["max"]
-        if isinstance(max, int):
+        if max is None:
+            return True
+        elif isinstance(max, int):
             if advances >= max:
                 return True
         elif "Bonus" in max:
@@ -207,6 +234,12 @@ class ExperienceViews(BaseView):
 
     def validate_talent(self, node, values):
         talent = values["talent"]
+        if talent.endswith("(Any)") and not values[f"{talent} specialisation"]:
+            error = colander.Invalid(node, "You have to select a specialisation")
+            error[f"{talent} specialisation"] = (
+                f"You have to select a specialisation for {talent}"
+            )
+            raise error
         if talent in self.character.talents:
             cost = self.character.cost_talent(self.character.talents[talent])
         else:
@@ -362,7 +395,7 @@ class ExperienceViews(BaseView):
             "character": self.character,
         }
 
-    def update_character(self, form_id, captured):
+    def update_character(self, form_id, captured):  # noqa: C901
         if form_id == "characteristic_form":
             attribute = captured["increase_characteristic"]["characteristic"]
             cost = self.character.cost_characteristic(
@@ -399,7 +432,11 @@ class ExperienceViews(BaseView):
             if talent in ["Petty Magic"]:
                 url = self.request.route_url("experience-talent", id=self.character.id)
                 return f"{url}?talent={talent}"
-            if talent in self.character.talents:
+            if "(Any)" in talent:
+                specialisation = captured["add_talent"].get(f"{talent} specialisation")
+                talent = talent.replace("Any", specialisation)
+                self.character.talents[talent] = 1
+            elif talent in self.character.talents:
                 self.character.talents[talent] += 1
             else:
                 self.character.talents[talent] = 1
