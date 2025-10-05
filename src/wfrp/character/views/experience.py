@@ -166,7 +166,7 @@ class ExperienceViews(BaseView):
         choices = [("", "None")]
         choice_talents = []
         for talent in career_talents:
-            if "(Any)" in talent:
+            if "(Any)" in talent or "(Any Arcane Lore)" in talent:
                 talent_root = talent.split(" (")[0]
                 for item in self.character.talents:
                     if item.startswith(talent_root):
@@ -234,7 +234,7 @@ class ExperienceViews(BaseView):
 
     def validate_talent(self, node, values):
         talent = values["talent"]
-        if talent.endswith("(Any)") and not values[f"{talent} specialisation"]:
+        if "(Any" in talent and not values[f"{talent} specialisation"]:
             error = colander.Invalid(node, "You have to select a specialisation")
             error[f"{talent} specialisation"] = (
                 f"You have to select a specialisation for {talent}"
@@ -432,9 +432,12 @@ class ExperienceViews(BaseView):
             if talent in ["Petty Magic"]:
                 url = self.request.route_url("experience-talent", id=self.character.id)
                 return f"{url}?talent={talent}"
-            if "(Any)" in talent:
+            if "(Any" in talent:
                 specialisation = captured["add_talent"].get(f"{talent} specialisation")
-                talent = talent.replace("Any", specialisation)
+                if "(Any)" in talent:
+                    talent = talent.replace("Any", specialisation)
+                else:
+                    talent = talent.replace("Any Arcane Lore", specialisation)
                 self.character.talents[talent] = 1
             elif talent in self.character.talents:
                 self.character.talents[talent] += 1

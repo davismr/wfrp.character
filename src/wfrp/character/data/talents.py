@@ -132,6 +132,16 @@ BASIC_TALENTS = {
             "have the Arcane Magic Talent. You can unlearn this Talent for 100 XP, but "
             "will immediately lose all of your spells if you do so."
         ),
+        "specialisations": [
+            "Lore of Light",
+            "Lore of Metal",
+            "Lore of Life",
+            "Lore of Heavens",
+            "Lore of Shadows",
+            "Lore of Death",
+            "Lore of Fire",
+            "Lore of Beasts",
+        ],
     },
     "Argumentative": {
         "max": "Fellowship Bonus",

@@ -615,7 +615,7 @@ ACADEMIC_CLASS_DATA = {
             "status": {"tier": "Brass", "standing": 3},
             "attributes": ["Weapon Skill", "Intelligence", "Willpower"],
             "skills": [
-                "Channelling (Any Colour)",
+                "Channelling (Any)",
                 "Dodge",
                 "Intuition",
                 "Language (Magick)",
