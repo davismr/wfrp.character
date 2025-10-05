@@ -18,6 +18,7 @@ from wfrp.character.application import Base
 from wfrp.character.data.armour import ARMOUR_DATA
 from wfrp.character.data.careers.careers import ALL_CAREER_DATA
 from wfrp.character.data.careers.careers import ALL_CAREER_DATA_WITH_SEAFARER
+from wfrp.character.data.magic.bless import get_blessings
 from wfrp.character.data.magic.petty import PETTY_MAGIC_DATA
 from wfrp.character.data.skills import BASIC_SKILL_LIST
 from wfrp.character.data.skills import SKILL_DATA
@@ -269,6 +270,9 @@ class Character(Base):
 
     def get_spells(self):
         spell_list = {}
+        for talent in self.talents:
+            if talent.startswith("Bless ("):
+                spell_list = get_blessings(talent.split(" (")[1][:-1])
         for spell in self.spells.get("petty", []):
             spell_list[spell] = PETTY_MAGIC_DATA[spell]
         return spell_list

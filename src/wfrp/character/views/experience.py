@@ -349,7 +349,7 @@ class ExperienceViews(BaseView):
         self.initialise_form()
         html = []
         all_forms = ["characteristic", "skill", "talent", "magic", "career"]
-        if not self.character.get_spells():
+        if "Petty Magic" not in self.character.talents:
             all_forms.remove("magic")
         forms = {}
         counter = itertools.count()
