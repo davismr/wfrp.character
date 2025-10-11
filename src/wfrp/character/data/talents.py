@@ -863,6 +863,18 @@ BASIC_TALENTS = {
             "all of your miracles if you do so, and will also garner the extreme "
             "disfavour of your God, with effects determined by your GM."
         ),
+        "specialisations": [
+            "Sigmar",
+            "Ulric",
+            "Taal",
+            "Rhya",
+            "Manann",
+            "Morr",
+            "Myrmidia",
+            "Shallya",
+            "Verena",
+            "Ranald",
+        ],
     },
     "Iron Jaw": {
         "max": "Toughness Bonus",

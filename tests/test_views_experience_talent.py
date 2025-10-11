@@ -39,6 +39,7 @@ def test_submit(complete_character):
             "Choose_Spells": "Choose_Spells",
         }
     )
+    request.GET = {"talent": "Petty Magic"}
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="experience-talent")
     request.matchdict = {"id": str(complete_character.id)}

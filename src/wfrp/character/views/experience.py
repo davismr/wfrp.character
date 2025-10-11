@@ -348,7 +348,8 @@ class ExperienceViews(BaseView):
     def form_view(self):  # noqa: C901
         self.initialise_form()
         html = []
-        all_forms = ["characteristic", "skill", "talent", "magic", "career"]
+        all_forms = ["characteristic", "skill", "talent", "magic", "prayers", "career"]
+        all_forms.remove("prayers")
         if "Petty Magic" not in self.character.talents:
             all_forms.remove("magic")
         forms = {}
@@ -429,17 +430,16 @@ class ExperienceViews(BaseView):
         elif form_id == "talent_form":
             talent = captured["add_talent"]["talent"]
             cost = self.character.cost_talent(self.character.talents.get(talent, 0))
-            if talent in ["Petty Magic"]:
-                url = self.request.route_url("experience-talent", id=self.character.id)
-                return f"{url}?talent={talent}"
             if "(Any" in talent:
                 specialisation = captured["add_talent"].get(f"{talent} specialisation")
                 if "(Any)" in talent:
                     talent = talent.replace("Any", specialisation)
                 else:
                     talent = talent.replace("Any Arcane Lore", specialisation)
-                self.character.talents[talent] = 1
-            elif talent in self.character.talents:
+            if captured["add_talent"]["talent"] in ["Petty Magic", "Invoke (Any)"]:
+                url = self.request.route_url("experience-talent", id=self.character.id)
+                return f"{url}?talent={talent}"
+            if talent in self.character.talents:
                 self.character.talents[talent] += 1
             else:
                 self.character.talents[talent] = 1

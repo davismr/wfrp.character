@@ -1,29 +1,73 @@
+import colander
 import deform
 from pyramid.httpexceptions import HTTPFound
+from pyramid.httpexceptions import HTTPUnauthorized
 from pyramid.view import view_config
 from pyramid.view import view_defaults
 
+from wfrp.character.data.magic.miracles import get_miracles
 from wfrp.character.models.experience import ExperienceCost
 from wfrp.character.views.create_character.spells import SpellsViews
 
 
 @view_defaults(route_name="experience-talent")
 class ExperienceTalentViews(SpellsViews):
+    def invoke_schema(self):
+        schema = colander.SchemaNode(colander.Mapping(), title="Miracles")
+        miracle_schema = colander.SchemaNode(
+            colander.Mapping(),
+            name="miracles",
+            description="Select one miracle",
+        )
+        miracles = get_miracles(self.religion)
+        choices = [(x, x) for x in miracles]
+        miracle_schema.add(
+            colander.SchemaNode(
+                colander.String(),
+                widget=deform.widget.RadioChoiceWidget(values=choices),
+                name="miracle",
+            )
+        )
+        schema.add(miracle_schema)
+        return schema
+
     @view_config(renderer="wfrp.character:templates/forms/experience.pt")
     def form_view(self):
-        schema = self.schema()
-        form = deform.Form(schema, buttons=("Choose Spells",))
-        if "Choose_Spells" in self.request.POST:
+        talent = self.request.GET.get("talent")
+        if talent == "Petty Magic":
+            schema = self.schema()
+            form = deform.Form(schema, buttons=("Choose Spells",))
+        elif talent.startswith("Invoke ("):
+            self.religion = talent.split(" (")[1].replace(")", "")
+            schema = self.invoke_schema()
+            form = deform.Form(schema, buttons=("Choose Miracles",))
+        else:
+            raise HTTPUnauthorized
+        if (
+            "Choose_Spells" in self.request.POST
+            or "Choose_Miracles" in self.request.POST
+        ):
             try:
                 captured = form.validate(self.request.POST.items())
             except deform.ValidationFailure as error:
                 html = error.render()
             else:
-                talent = "Petty Magic"
-                petty_spells = [
-                    spell for spell, selected in captured["spells"].items() if selected
-                ]
-                self.character.spells = {"petty": petty_spells}
+                if "Choose_Spells" in self.request.POST:
+                    talent = "Petty Magic"
+                    petty_spells = []
+                    for spell in captured["spells"]:
+                        if captured["spells"][spell]:
+                            petty_spells.append(spell)
+                    self.character.spells = {"petty": petty_spells}
+                    spells_string = ", ".join(petty_spells)
+                    message = (
+                        f"You have learned {talent} and the spells {spells_string}"
+                    )
+                elif "Choose_Miracles" in self.request.POST:
+                    talent = f"Invoke ({self.religion})"
+                    miracle = captured["miracles"]["miracle"]
+                    self.character.spells["miracles"] = [miracle]
+                    message = f"You have learned Invoke and the miracle {miracle}"
                 self.character.talents[talent] = 1
                 cost = self.character.cost_talent(self.character.talents[talent])
                 experience_cost = ExperienceCost(
@@ -35,8 +79,6 @@ class ExperienceTalentViews(SpellsViews):
                 self.request.dbsession.add(experience_cost)
                 self.character.experience -= cost
                 self.character.experience_spent += cost
-                spells_string = ", ".join(petty_spells)
-                message = f"You have learned {talent} and the spells {spells_string}"
                 self.request.session.flash(message, "success")
                 url = self.request.route_url("experience", id=self.character.id)
                 return HTTPFound(location=url)
