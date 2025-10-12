@@ -469,6 +469,7 @@ MIRACLES_RHYA_DATA = {
         ),
     },
 }
+
 MIRACLES_SHALLYA_DATA = {
     "Anchorite’s Endurance": {
         "range": "Fellowship yards",
@@ -620,6 +621,7 @@ MIRACLES_SIGMAR_DATA = {
         ),
     },
 }
+
 MIRACLES_TAAL_DATA = {
     "Animal Instincts": {
         "range": "Touch",
@@ -691,6 +693,7 @@ MIRACLES_TAAL_DATA = {
         ),
     },
 }
+
 MIRACLES_ULRIC_DATA = {
     "Hoarfrost’s Chill": {
         "range": "You",
@@ -923,6 +926,25 @@ MIRACLES_STROMFELS_DATA = {
         ),
     },
 }
+
+
+ALL_MIRACLES_DATA = (
+    MIRACLES_MANANN_DATA
+    | MIRACLES_MANANN_SEA_OF_CLAWS_DATA
+    | MIRACLES_MORR_DATA
+    | MIRACLES_MYRMIDIA_DATA
+    | MIRACLES_RANALD_DATA
+    | MIRACLES_RHYA_DATA
+    | MIRACLES_SHALLYA_DATA
+    | MIRACLES_SIGMAR_DATA
+    | MIRACLES_TAAL_DATA
+    | MIRACLES_ULRIC_DATA
+    | MIRACLES_VERENA_DATA
+    | MIRACLES_STROMFELS_DATA
+)
+
+for miracle in ALL_MIRACLES_DATA:
+    ALL_MIRACLES_DATA[miracle]["CN"] = None
 
 
 def get_miracles(divine_lore, expansions=None):
