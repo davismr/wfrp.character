@@ -73,6 +73,98 @@ MIRACLES_MANANN_DATA = {
     },
 }
 
+MIRACLES_MANANN_SEA_OF_CLAWS_DATA = {
+    "Blessed Voyage": {
+        "range": "Touch",
+        "target": "1 ship",
+        "duration": "Instant",
+        "description": (
+            "This Miracle may be performed whenever it is time for a ship to calculate "
+            "Manann’s Mood. You perform the rites thought best to supplicate Manann. "
+            "His mood improves by 2d10, –1 for each Sin Point you currently have."
+        ),
+    },
+    "Blessing of the Albatross": {
+        "range": "Touch",
+        "target": "1 ship",
+        "duration": "Willpower Bonus days",
+        "description": (
+            "Upon completing the invocation, an albatross descends from the clouds and "
+            "follows the ship. The albatross waits up to 1 hour for the ship to sail, "
+            "and after that, it stays with the ship until the duration expires. As "
+            "long as the albatross is present, the ship cannot sink, no matter how "
+            "much damage it takes. Should the albatross be killed, the ship suffers "
+            "from –d10 Morale and –2d10 for Manann’s Mood (should you need statistics "
+            "for an albatross, treat it as a pigeon from WFRP, page 316, though its "
+            "Size is Small and it has 3 Wounds)."
+        ),
+    },
+    "Blessing of the Mariner": {
+        "range": "Touch",
+        "target": 1,
+        "duration": "1 day",
+        "description": (
+            "Your blessing grants a character an instinctive feel for the sea and "
+            "sailing. Any Row, Sail, or Swim Tests they make benefit from +1 SL."
+        ),
+    },
+    "Breathe Water": {
+        "range": "Touch",
+        "target": 1,
+        "duration": "Fellowship Bonus minutes",
+        "description": (
+            "Your prayers allow a character to breathe water as if it were air. When "
+            "it comes to drowing in water, the character can ignore the Suffocation "
+            "rules on WFRP page 181 for the duration of the Miracle. It is not "
+            "possible to perform this Miracle while your own mouth is underwater."
+        ),
+    },
+    "Quell Waters": {
+        "range": "Fellowship yards × 10",
+        "target": "1 strait or whirlpool",
+        "duration": "Fellowship Bonus Rounds",
+        "description": (
+            "You can chant this prayer, quelling a strong current. The M rating of a "
+            "strait or whirlpool is reduced to 0 whilst the miracle is in effect."
+        ),
+    },
+    "Sea Curse": {
+        "range": "Fellowship yards × 10",
+        "target": "1 ship",
+        "duration": "Fellowship Bonus Rounds",
+        "description": (
+            "You call doom down on the enemies of Manann. Provided the targeted ship "
+            "is crewed by those who do not warrant the respect of Manann (followers of "
+            "Chaos, worshippers of Stromfels, Orcs and Goblins, Skaven, crews who have "
+            "a negative Manann’s Mood score), that crew suffer from a curse. Add 2 to "
+            "the Damage of all hits the crew receives whilst the Miracle is in effect."
+        ),
+    },
+    "Repel Sea Beast": {
+        "range": "Fellowship yards × 10",
+        "target": (
+            "1 creature with the Aquatic Trait (see Death on the Reik Companion, page "
+            "90) or the Marine Creature Trait (see page 140)"
+        ),
+        "duration": "Fellowship Bonus Rounds",
+        "description": (
+            "You can chant this prayer to a sea creature, causing it to forget all "
+            "rage and hunger whilst the miracle is in effect. For the duration of the "
+            "miracle the creature will not make any hostile actions, provided that it "
+            "suffers no damage or adverse Conditions."
+        ),
+    },
+    "Rip Tides": {
+        "range": "Fellowship yards × 10",
+        "target": "1 ship",
+        "duration": "Fellowship Bonus Rounds",
+        "description": (
+            "You can chant this prayer at a ship you can see. The ship suffers –1 M "
+            "and –1 SL to Man."
+        ),
+    },
+}
+
 MIRACLES_MORR_DATA = {
     "Death Mask": {
         "range": "You",
@@ -751,7 +843,91 @@ MIRACLES_VERENA_DATA = {
     },
 }
 
+MIRACLES_STROMFELS_DATA = {
+    "Blood Trail": {
+        "range": "You",
+        "target": "You",
+        "duration": "1 hour",
+        "description": (
+            "When trying to track someone who has been injured, you smell the smallest "
+            "drops of blood even if some attempt has been made to remove them. You can "
+            "follow their trail over land and water by passing an Easy (+40) Track "
+            "Test."
+        ),
+    },
+    "Curse of the Harsh Mistress": {
+        "range": "Touch",
+        "target": 1,
+        "duration": "Strength Bonus days",
+        "description": (
+            "You inflict nightmares upon your target that make it impossible for them "
+            "to get a good night’s sleep, resulting in lethargy and weakness. The "
+            "nightmares are extremely vivid, disturbing, and connected to the ocean in "
+            "some way; they commonly involve a woman draped in fronds of bloodwrack "
+            "walking from the sea to torment the victim. Whilst under the influence of "
+            "the Miracle the target must pass a Difficult (–10) Cool Test every time "
+            "they take some rest to recover from Fatigued Conditions. If the Test is "
+            "failed, the Fatigued Condition remains."
+        ),
+    },
+    "Manann’s Mood Made Meaningless": {
+        "range": "See text",
+        "target": "See text",
+        "duration": "Strength Bonus days",
+        "description": (
+            "You proclaim that Stromfels is the true lord of the sea, and that the "
+            "superstitions of those who respect Manann are delusions. Once the miracle "
+            "is in effect, roll on the table below and apply the result to the "
+            "Manann’s Mood score for the ship you are currently aboard (see page 130). "
+            "Add 1 to the roll for every Sin Point you possess."
+        ),
+    },
+    "Raging Seas": {
+        "range": "Strength yards × 10",
+        "target": "See text",
+        "duration": "Instant",
+        "description": (
+            "You command the sea to form a massive wave that crashes into a specific "
+            "target, such as a person in the water or on the shore, a boat, or a "
+            "lighthouse. The wave counts as having a CR of 15."
+        ),
+    },
+    "Seasickness": {
+        "range": "Strength yards × 10",
+        "target": 1,
+        "duration": "Strength Bonus hours",
+        "description": (
+            "You curse someone, even the saltiest of seadogs, with a bout of "
+            "seasickness that lasts for one hour. See page 125 for details of "
+            "Seasickness."
+        ),
+    },
+    "Send ‘em to Stromfels": {
+        "range": "Strength yards × 10",
+        "target": "1 ship with a Holed Rating",
+        "duration": "Instant",
+        "description": (
+            "You focus on a stricken vessel, exerting your will to ensure that none "
+            "escape. Splits and tears in the target ship’s hull widen as a result of "
+            "the miracle. Double the target ship’s Holed Rating (see page 117)."
+        ),
+    },
+    "Storm Winds": {
+        "range": "Strength yards × 10",
+        "target": "1 ship",
+        "duration": "Strength minutes",
+        "description": (
+            "You call the winds to blow with greater force into the sails of 1 ship. "
+            "Increase the intensity of the wind by 1 step for the duration of the "
+            "miracle (see page 107). The direction of the wind is not affected."
+        ),
+    },
+}
 
-def get_miracles(divine_lore):
+
+def get_miracles(divine_lore, expansions=None):
     miracle_data = f"MIRACLES_{divine_lore.upper()}_DATA"
-    return globals()[miracle_data]
+    miracles = globals()[miracle_data]
+    if divine_lore == "Manann" and expansions and "sea_of_claws" in expansions:
+        miracles = dict(sorted((miracles | MIRACLES_MANANN_SEA_OF_CLAWS_DATA).items()))
+    return miracles

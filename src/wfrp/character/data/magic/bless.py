@@ -90,7 +90,7 @@ for blessing in BLESSINGS_DATA:
 
 def get_blessings(divine_lore):  # noqa: C901
     blessings = {}
-    if divine_lore == "Manann":
+    if divine_lore in ["Manann", "Stromfels"]:
         blessings["Blessing of Battle"] = BLESSINGS_DATA["Blessing of Battle"]
         blessings["Blessing of Breath"] = BLESSINGS_DATA["Blessing of Breath"]
         blessings["Blessing of Courage"] = BLESSINGS_DATA["Blessing of Courage"]
