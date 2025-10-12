@@ -7,6 +7,7 @@ from pyramid.view import view_config
 from pyramid.view import view_defaults
 from sqlalchemy.orm import attributes
 
+from wfrp.character.data.magic.miracles import get_miracles
 from wfrp.character.data.magic.petty import PETTY_MAGIC_DATA
 from wfrp.character.data.skills import SKILL_DATA
 from wfrp.character.data.talents import TALENT_DATA
@@ -294,6 +295,52 @@ class ExperienceViews(BaseView):
                 f"you need {cost} XP",
             )
 
+    def miracles_schema(self):
+        schema = colander.SchemaNode(colander.Mapping(), title="Miracles")
+        miracles = self.character.spells["miracles"]
+        miracles_schema = colander.SchemaNode(
+            colander.Mapping(),
+            name="miracles",
+            description=(
+                f"You have learned {len(miracles)} miracles; {', '.join(miracles)}. "
+                f"You have {self.character.experience} experience to spend"
+            ),
+            validator=self.validate_miracles,
+        )
+        for talent in self.character.talents:
+            if talent.startswith("Invoke ("):
+                all_miracles = get_miracles(
+                    talent.split("Invoke (")[1].replace(")", "")
+                )
+                break
+        choices = [("", "None")]
+        for miracle in all_miracles:
+            if miracle not in miracles:
+                choices.append((miracle, miracle))
+        miracles_schema.add(
+            colander.SchemaNode(
+                colander.String(),
+                name="miracle",
+                widget=deform.widget.RadioChoiceWidget(values=choices),
+                validator=colander.OneOf([x[0] for x in choices]),
+                description=(
+                    "Choose a Miracle to Learn, this costs "
+                    f"{self.character.cost_miracle()} XP"
+                ),
+            )
+        )
+        schema.add(miracles_schema)
+        return schema
+
+    def validate_miracles(self, node, values):
+        cost = self.character.cost_miracle()
+        if cost > self.character.experience:
+            raise colander.Invalid(
+                node,
+                "You do not have enough experience to change career, "
+                f"you need {cost} XP",
+            )
+
     def career_schema(self):
         schema = colander.SchemaNode(colander.Mapping(), title="Career")
         if self.completed_career is True:
@@ -348,8 +395,12 @@ class ExperienceViews(BaseView):
     def form_view(self):  # noqa: C901
         self.initialise_form()
         html = []
-        all_forms = ["characteristic", "skill", "talent", "magic", "prayers", "career"]
-        all_forms.remove("prayers")
+        all_forms = ["characteristic", "skill", "talent", "magic", "miracles", "career"]
+        for talent in self.character.talents:
+            if talent.startswith("Invoke ("):
+                break
+        else:
+            all_forms.remove("miracles")
         if "Petty Magic" not in self.character.talents:
             all_forms.remove("magic")
         forms = {}
@@ -359,6 +410,8 @@ class ExperienceViews(BaseView):
                 button = "Change Career"
             elif form == "magic":
                 button = "Learn Spell"
+            elif form == "miracles":
+                button = "Learn Miracle"
             else:
                 button = f"Increase {form}"
             attribute_schema = getattr(self, f"{form}_schema")()
@@ -461,6 +514,19 @@ class ExperienceViews(BaseView):
             )
             self.request.dbsession.add(experience_cost)
             message = f"You have spent {cost} XP to learn {spell} petty magic spell."
+        elif form_id == "miracles_form":
+            cost = self.character.cost_miracle()
+            miracle = captured["miracles"]["miracle"]
+            self.character.spells["miracles"].append(miracle)
+            attributes.flag_modified(self.character, "spells")
+            experience_cost = ExperienceCost(
+                character_id=self.character.id,
+                type="miracle",
+                cost=cost,
+                name=miracle,
+            )
+            self.request.dbsession.add(experience_cost)
+            message = f"You have spent {cost} XP to learn {miracle} miracle."
         elif form_id == "career_form":
             new_career = captured["change_career"]["advance_career"]
             self.character.career_title = new_career

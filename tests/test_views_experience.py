@@ -316,6 +316,55 @@ def test_talent_too_much(new_character):
     assert new_character.experience_spent == 0
 
 
+@pytest.mark.current
+def test_petty_magic(new_character):
+    new_character.species = "Human"
+    new_character.career = "Wizard"
+    new_character.career_title = "Wizard’s Apprentice"
+    new_character.willpower_initial = 14
+    new_character.talents = {"Petty Magic": 1}
+    new_character.spells = {"petty": ["Animal Friend", "Sleep"]}
+    new_character.experience = 100
+    new_character.status = {"complete": ""}
+    payload = {
+        "__formid__": "magic_form",
+        "spells": {"petty_magic": "Purify Water"},
+    }
+    request = testing.DummyRequest(post=payload)
+    request.dbsession = dbsession(request)
+    request.matched_route = DummyRoute(name="experience")
+    request.matchdict = {"id": str(new_character.id)}
+    view = ExperienceViews(request)
+    response = view.form_view()
+    assert response.status_code == 302
+    assert new_character.experience == 0
+    assert new_character.spells == {"petty": ["Animal Friend", "Sleep", "Purify Water"]}
+
+
+@pytest.mark.views
+def test_miracle(new_character):
+    new_character.species = "Human"
+    new_character.career = "Nun"
+    new_character.career_title = "Nun"
+    new_character.talents = {"Invoke (Manann)": 1}
+    new_character.spells = {"miracles": ["Waterwalk"]}
+    new_character.experience = 100
+    new_character.status = {"complete": ""}
+    payload = {
+        "__formid__": "miracles_form",
+        "miracles": {"miracle": "Becalm"},
+    }
+    request = testing.DummyRequest(post=payload)
+    request.dbsession = dbsession(request)
+    request.matched_route = DummyRoute(name="experience")
+    request.matchdict = {"id": str(new_character.id)}
+    view = ExperienceViews(request)
+    response = view.form_view()
+    assert response.status_code == 302
+    assert new_character.experience == 0
+    assert new_character.spells == {"miracles": ["Waterwalk", "Becalm"]}
+
+
 @pytest.mark.views
 def test_advance_career(new_character):
     new_character.species = "Wood Elf"

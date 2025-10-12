@@ -285,6 +285,10 @@ class Character(Base):
         willpower_bonus = self.willpower // 10
         return (((known_spells - 1) // willpower_bonus) + 1) * 50
 
+    def cost_miracle(self):
+        known_miracles = len(self.spells["miracles"])
+        return known_miracles * 100
+
     @property
     def get_party_member_names(self):
         members = []
