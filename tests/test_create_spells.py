@@ -46,7 +46,7 @@ def test_submit(new_character):
     view = SpellsViews(request)
     response = view.form_view()
     assert isinstance(response, HTTPFound)
-    assert new_character.spells["petty"] == ["Animal Friend", "Gust", "Rot"]
+    assert new_character.petty_magic == ["Animal Friend", "Gust", "Rot"]
 
 
 @pytest.mark.create

@@ -323,7 +323,7 @@ def test_petty_magic(new_character):
     new_character.career_title = "Wizard’s Apprentice"
     new_character.willpower_initial = 14
     new_character.talents = {"Petty Magic": 1}
-    new_character.spells = {"petty": ["Animal Friend", "Sleep"]}
+    new_character.petty_magic = ["Animal Friend", "Sleep"]
     new_character.experience = 100
     new_character.status = {"complete": ""}
     payload = {
@@ -338,7 +338,7 @@ def test_petty_magic(new_character):
     response = view.form_view()
     assert response.status_code == 302
     assert new_character.experience == 0
-    assert new_character.spells == {"petty": ["Animal Friend", "Sleep", "Purify Water"]}
+    assert new_character.petty_magic == ["Animal Friend", "Sleep", "Purify Water"]
 
 
 @pytest.mark.views
@@ -347,7 +347,7 @@ def test_miracle(new_character):
     new_character.career = "Nun"
     new_character.career_title = "Nun"
     new_character.talents = {"Invoke (Manann)": 1}
-    new_character.spells = {"miracles": ["Waterwalk"]}
+    new_character.miracles = ["Waterwalk"]
     new_character.experience = 100
     new_character.status = {"complete": ""}
     payload = {
@@ -362,7 +362,7 @@ def test_miracle(new_character):
     response = view.form_view()
     assert response.status_code == 302
     assert new_character.experience == 0
-    assert new_character.spells == {"miracles": ["Waterwalk", "Becalm"]}
+    assert new_character.miracles == ["Waterwalk", "Becalm"]
 
 
 @pytest.mark.views

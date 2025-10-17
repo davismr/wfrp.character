@@ -93,7 +93,9 @@ class Character(Base):
     movement = Column(Integer, default=3)
     skills = Column(MutableDict.as_mutable(JSON), default={})
     talents = Column(MutableDict.as_mutable(JSON), default={})
-    spells = Column(MutableDict.as_mutable(JSON), default={})
+    petty_magic = Column(MutableList.as_mutable(JSON), default=[])
+    religion = Column(Text, default="")
+    miracles = Column(MutableList.as_mutable(JSON), default=[])
     weapons = Column(MutableList.as_mutable(JSON), default=[])
     armour = Column(MutableList.as_mutable(JSON), default=[])
     trappings = Column(MutableList.as_mutable(JSON), default=[])
@@ -274,19 +276,19 @@ class Character(Base):
         for talent in self.talents:
             if talent.startswith("Bless ("):
                 spell_list = get_blessings(talent.split(" (")[1][:-1])
-        for spell in self.spells.get("petty", []):
+        for spell in self.petty_magic:
             spell_list[spell] = PETTY_MAGIC_DATA[spell]
-        for miracle in self.spells.get("miracles", []):
+        for miracle in self.miracles:
             spell_list[miracle] = ALL_MIRACLES_DATA[miracle]
         return spell_list
 
     def cost_petty_magic(self):
-        known_spells = len(self.spells["petty"])
+        known_spells = len(self.petty_magic)
         willpower_bonus = self.willpower // 10
         return (((known_spells - 1) // willpower_bonus) + 1) * 50
 
     def cost_miracle(self):
-        known_miracles = len(self.spells["miracles"])
+        known_miracles = len(self.miracles)
         return known_miracles * 100
 
     @property

@@ -5,7 +5,6 @@ import deform
 from pyramid.httpexceptions import HTTPFound
 from pyramid.view import view_config
 from pyramid.view import view_defaults
-from sqlalchemy.orm import attributes
 
 from wfrp.character.data.magic.miracles import get_miracles
 from wfrp.character.data.magic.petty import PETTY_MAGIC_DATA
@@ -254,7 +253,7 @@ class ExperienceViews(BaseView):
 
     def magic_schema(self):
         schema = colander.SchemaNode(colander.Mapping(), title="Spells")
-        petty_magic_spells = self.character.spells["petty"]
+        petty_magic_spells = self.character.petty_magic
         spell_schema = colander.SchemaNode(
             colander.Mapping(),
             name="spells",
@@ -297,7 +296,7 @@ class ExperienceViews(BaseView):
 
     def miracles_schema(self):
         schema = colander.SchemaNode(colander.Mapping(), title="Miracles")
-        miracles = self.character.spells["miracles"]
+        miracles = self.character.miracles
         miracles_schema = colander.SchemaNode(
             colander.Mapping(),
             name="miracles",
@@ -504,8 +503,7 @@ class ExperienceViews(BaseView):
         elif form_id == "magic_form":
             cost = self.character.cost_petty_magic()
             spell = captured["spells"]["petty_magic"]
-            self.character.spells["petty"].append(spell)
-            attributes.flag_modified(self.character, "spells")
+            self.character.petty_magic.append(spell)
             experience_cost = ExperienceCost(
                 character_id=self.character.id,
                 type="spell",
@@ -517,8 +515,7 @@ class ExperienceViews(BaseView):
         elif form_id == "miracles_form":
             cost = self.character.cost_miracle()
             miracle = captured["miracles"]["miracle"]
-            self.character.spells["miracles"].append(miracle)
-            attributes.flag_modified(self.character, "spells")
+            self.character.miracles.append(miracle)
             experience_cost = ExperienceCost(
                 character_id=self.character.id,
                 type="miracle",

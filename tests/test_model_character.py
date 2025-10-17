@@ -192,13 +192,13 @@ def test_experience_talent_cost(new_character, advances, cost):
 @pytest.mark.models
 def test_petty_magic_cost(new_character):
     new_character.willpower_initial = 39
-    new_character.spells = {"petty": ["spell1", "spell2"]}
+    new_character.petty_magic = ["spell1", "spell2"]
     assert new_character.cost_petty_magic() == 50
-    new_character.spells["petty"].append("spell3")
+    new_character.petty_magic.append("spell3")
     assert new_character.cost_petty_magic() == 50
-    new_character.spells["petty"].append("spell4")
+    new_character.petty_magic.append("spell4")
     assert new_character.cost_petty_magic() == 100
-    new_character.spells["petty"].extend(["spell5", "spell6", "spell7"])
+    new_character.petty_magic.extend(["spell5", "spell6", "spell7"])
     assert new_character.cost_petty_magic() == 150
 
 

@@ -58,7 +58,7 @@ class ExperienceTalentViews(SpellsViews):
                     for spell in captured["spells"]:
                         if captured["spells"][spell]:
                             petty_spells.append(spell)
-                    self.character.spells = {"petty": petty_spells}
+                    self.character.petty_magic = petty_spells
                     spells_string = ", ".join(petty_spells)
                     message = (
                         f"You have learned {talent} and the spells {spells_string}"
@@ -66,7 +66,7 @@ class ExperienceTalentViews(SpellsViews):
                 elif "Choose_Miracles" in self.request.POST:
                     talent = f"Invoke ({self.religion})"
                     miracle = captured["miracles"]["miracle"]
-                    self.character.spells["miracles"] = [miracle]
+                    self.character.miracles = [miracle]
                     message = f"You have learned Invoke and the miracle {miracle}"
                 self.character.talents[talent] = 1
                 cost = self.character.cost_talent(self.character.talents[talent])
