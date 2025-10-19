@@ -15,7 +15,7 @@ class DummyRoute:
 
 @pytest.mark.create
 def test_get_view(new_character):
-    new_character.status = {"name": ""}
+    new_character.create_data = {"name": ""}
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="name")
@@ -28,7 +28,7 @@ def test_get_view(new_character):
 
 @pytest.mark.create
 def test_submit_view(new_character):
-    new_character.status = {"name": ""}
+    new_character.create_data = {"name": ""}
     request = testing.DummyRequest(
         post={
             "character_name": "Frodo Baggins",
@@ -54,7 +54,7 @@ def test_submit_view(new_character):
 
 @pytest.mark.create
 def test_submit_invalid(new_character):
-    new_character.status = {"name": ""}
+    new_character.create_data = {"name": ""}
     request = testing.DummyRequest(
         post={"character_name": "a" * 101, "Select_Name": "Select_Name"}
     )

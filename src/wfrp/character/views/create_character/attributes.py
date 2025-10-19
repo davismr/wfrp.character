@@ -77,17 +77,17 @@ class AttributesViews(BaseCreateView):
         return attributes
 
     def initialise_form(self):
-        if self.character.status["attributes"]:
-            base_attributes = self.character.status["attributes"]
+        if self.character.create_data["attributes"]:
+            base_attributes = self.character.create_data["attributes"]
         else:
             base_attributes = self._roll_base_attributes()
-            if "stage" in self.character.status:
-                self.character.status = {
+            if "stage" in self.character.create_data:
+                self.character.create_data = {
                     "attributes": base_attributes,
-                    "stage": self.character.status["stage"],
+                    "stage": self.character.create_data["stage"],
                 }
             else:
-                self.character.status = {"attributes": base_attributes}
+                self.character.create_data = {"attributes": base_attributes}
         bonus_attributes = self._get_bonus_attributes(self.character.species)
         total_attributes = 0
         for attribute in base_attributes:
@@ -155,7 +155,7 @@ class AttributesViews(BaseCreateView):
                     data["base_attributes"][attribute],
                 )
             )
-        if self.character.status["stage"] == "rearrange":
+        if self.character.create_data["stage"] == "rearrange":
             form_description = (
                 "Rearrange the ten rolls, assigning each to a different attribute for "
                 "+25XP, or reroll once for no extra XP, and you will be able to "
@@ -198,7 +198,7 @@ class AttributesViews(BaseCreateView):
 
     def validate_arrange(self, form, values):
         used = list(values["attributes"].values())
-        not_used = list(self.character.status["attributes"].values())
+        not_used = list(self.character.create_data["attributes"].values())
         duplicates = []
         while used:
             item = used.pop(0)
@@ -269,7 +269,7 @@ class AttributesViews(BaseCreateView):
     def setup_form(self):
         buttons = []
         try:
-            stage = self.character.status["stage"]
+            stage = self.character.create_data["stage"]
         except KeyError:
             stage = "initial"
         data = self.initialise_form()
@@ -293,15 +293,15 @@ class AttributesViews(BaseCreateView):
     @view_config(route_name="attributes")
     def form_view(self):
         if "Rearrange_Attributes" in self.request.POST:
-            self.character.status = {
-                "attributes": self.character.status["attributes"],
+            self.character.create_data = {
+                "attributes": self.character.create_data["attributes"],
                 "stage": "rearrange",
             }
         elif "Reroll_Attributes" in self.request.POST:
             attributes = self._roll_base_attributes()
-            self.character.status = {"attributes": attributes, "stage": "reroll"}
+            self.character.create_data = {"attributes": attributes, "stage": "reroll"}
         elif "Allocate_Attributes" in self.request.POST:
-            self.character.status = {"attributes": None, "stage": "allocate"}
+            self.character.create_data = {"attributes": None, "stage": "allocate"}
         data, form = self.setup_form()
         if "Accept_Attributes" in self.request.POST:
             try:
@@ -311,7 +311,7 @@ class AttributesViews(BaseCreateView):
             else:
                 self.update_values(captured)
                 url = self.request.route_url("advances", id=self.character.id)
-                self.character.status = {"advances": ""}
+                self.character.create_data = {"advances": ""}
                 return HTTPFound(location=url)
         else:
             html = form.render()
@@ -325,16 +325,16 @@ class AttributesViews(BaseCreateView):
 
     def update_values(self, captured):
         bonus_attributes = self._get_bonus_attributes(self.character.species)
-        if "stage" not in self.character.status:
+        if "stage" not in self.character.create_data:
             # get base attributes from status initial form has calculated values
-            base_attributes = self.character.status["attributes"]
+            base_attributes = self.character.create_data["attributes"]
         else:
             base_attributes = captured["attributes"]
         for attribute in ATTRIBUTES:
             field_name = f'{attribute.lower().replace(" ", "_")}_initial'
             value = int(base_attributes[attribute]) + bonus_attributes[attribute]
             setattr(self.character, field_name, value)
-        if "stage" not in self.character.status:
+        if "stage" not in self.character.create_data:
             self.character.experience += 50
-        elif self.character.status["stage"] == "rearrange":
+        elif self.character.create_data["stage"] == "rearrange":
             self.character.experience += 25

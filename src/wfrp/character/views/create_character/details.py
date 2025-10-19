@@ -25,8 +25,8 @@ class DetailsViews(BaseCreateView):
         return get_eye_colour(species, roll_2d10())
 
     def initialise_form(self):
-        if self.character.status["details"]:
-            return self.character.status["details"]
+        if self.character.create_data["details"]:
+            return self.character.create_data["details"]
         species = self.character.species
         eye_colour = ""
         if species.startswith("Human"):
@@ -57,7 +57,7 @@ class DetailsViews(BaseCreateView):
             "hair_colour": self._get_hair_colour(species),
             "eye_colour": eye_colour,
         }
-        self.character.status = {"details": data}
+        self.character.create_data = {"details": data}
         return data
 
     def schema(self, data):
@@ -128,15 +128,19 @@ class DetailsViews(BaseCreateView):
             except deform.ValidationFailure as error:
                 html = error.render()
             else:
-                if self.character.status["details"]["eye_colour"]:
-                    self.character.eyes = self.character.status["details"]["eye_colour"]
+                if self.character.create_data["details"]["eye_colour"]:
+                    self.character.eyes = self.character.create_data["details"][
+                        "eye_colour"
+                    ]
                 else:
                     self.character.eyes = captured["character_details"]["eye_colour"]
-                self.character.hair = self.character.status["details"]["hair_colour"]
-                self.character.height = self.character.status["details"]["height"]
-                self.character.age = self.character.status["details"]["age"]
+                self.character.hair = self.character.create_data["details"][
+                    "hair_colour"
+                ]
+                self.character.height = self.character.create_data["details"]["height"]
+                self.character.age = self.character.create_data["details"]["age"]
                 url = self.request.route_url("name", id=self.character.id)
-                self.character.status = {"name": ""}
+                self.character.create_data = {"name": ""}
                 return HTTPFound(location=url)
         else:
             html = form.render()

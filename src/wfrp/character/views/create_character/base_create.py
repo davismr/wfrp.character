@@ -15,17 +15,11 @@ class BaseCreateView:
             .filter(Character.id == uuid.UUID(id))
             .one()
         )
-        if "complete" in self.character.status and self.request.matched_route.name in [
-            "character-edit",
-            "character-full",
-            "character-summary",
-            "experience",
-            "experience-talent",
-            "pdf-print",
-        ]:
-            pass
-        elif self.request.matched_route.name not in self.character.status:
-            self.redirect_request(list(self.character.status)[0])
+        if (
+            self.character.status == "create"
+            and self.request.matched_route.name not in self.character.create_data
+        ):
+            self.redirect_request(list(self.character.create_data)[0])
 
     def redirect_request(self, route):
         url = self.request.route_url(route, id=self.character.id)

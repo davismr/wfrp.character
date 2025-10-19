@@ -46,7 +46,7 @@ def test_links_view():
 
 @pytest.mark.package
 def test_redirect_view(new_character):
-    new_character.status = {"trappings": ""}
+    new_character.create_data = {"trappings": ""}
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="career")

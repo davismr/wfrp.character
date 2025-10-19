@@ -17,7 +17,7 @@ class DummyRoute:
 def test_form_view(new_character):
     new_character.species = "High Elf"
     new_character.career = "Wizard"
-    new_character.status = {"spells": ""}
+    new_character.create_data = {"spells": ""}
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="spells")
@@ -33,7 +33,7 @@ def test_submit(new_character):
     new_character.species = "High Elf"
     new_character.career = "Wizard"
     new_character.willpower_initial = 34
-    new_character.status = {"spells": ""}
+    new_character.create_data = {"spells": ""}
     request = testing.DummyRequest(
         post={
             "spells": {"Animal Friend": "true", "Gust": "true", "Rot": "true"},
@@ -55,7 +55,7 @@ def test_number_spells(new_character, willpower):
     new_character.species = "High Elf"
     new_character.career = "Wizard"
     new_character.willpower_initial = willpower
-    new_character.status = {"spells": ""}
+    new_character.create_data = {"spells": ""}
     request = testing.DummyRequest(
         post={
             "spells": {"Animal Friend": "true", "Gust": "true", "Rot": "true"},

@@ -102,7 +102,8 @@ class Character(Base):
     brass_pennies = Column(Integer, default=0)
     silver_shillings = Column(Integer, default=0)
     gold_crowns = Column(Integer, default=0)
-    status = Column(MutableDict.as_mutable(JSON), default={})
+    status = Column(Text, default="create")
+    create_data = Column(MutableDict.as_mutable(JSON), default={})
 
     def __init__(self, **kwargs):
         kwargs["id"] = kwargs.get("id", uuid.uuid4())
@@ -297,7 +298,7 @@ class Character(Base):
         if not self.campaign:
             return ""
         for member in self.campaign.characters:
-            if "complete" in member.status:
+            if member.status == "complete":
                 members.append(member.name)
         return "; ".join(members)
 

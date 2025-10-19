@@ -28,12 +28,12 @@ class CareerViews(BaseCreateView):
             self.sea_of_claws = True
 
     def initialise_form(self):
-        if self.character.status["career"]:
-            careers = self.character.status["career"]
+        if self.character.create_data["career"]:
+            careers = self.character.create_data["career"]
         else:
             career = get_career(self.character.species, roll_d100(), self.sea_of_claws)
             careers = [career]
-            self.character.status = {"career": careers}
+            self.character.create_data = {"career": careers}
         if self.sea_of_claws:
             career_list = list_careers(self.character.species, True)
         else:
@@ -48,19 +48,19 @@ class CareerViews(BaseCreateView):
                 careers.append("Pikeman")
             if "Warrior Priest" in careers and "Priest of Myrmidia" not in careers:
                 careers.append("Priest of Myrmidia")
-            self.character.status["career"] = careers
+            self.character.create_data["career"] = careers
         for item in careers:
             if item not in ["Light Cavalry", "Pikeman", "Priest of Myrmidia"]:
                 career_list.remove(item)
         return {"career_choice": careers, "career_list": career_list}
 
     def reroll_career_view(self):
-        career_choice = self.character.status["career"]
+        career_choice = self.character.create_data["career"]
         while len(career_choice) < 3:
             career = get_career(self.character.species, roll_d100(), self.sea_of_claws)
             if career not in career_choice:
                 career_choice.append(career)
-        self.character.status["career"] = career_choice
+        self.character.create_data["career"] = career_choice
 
     def schema(self, data):
         schema = colander.SchemaNode(
@@ -173,7 +173,7 @@ class CareerViews(BaseCreateView):
                 career = captured.get("random_career").get(
                     "random_career"
                 ) or captured.get("career").get("career")
-                career_choice = self.character.status["career"]
+                career_choice = self.character.create_data["career"]
                 if career in career_choice:
                     if len(career_choice) == 1:
                         self.character.experience += 50
@@ -210,7 +210,7 @@ class CareerViews(BaseCreateView):
             "up_in_arms" in self.character.expansions
             and self.character.career in UP_IN_ARMS_CAREERS
         ):
-            self.character.status = {"sub-career": ""}
+            self.character.create_data = {"sub-career": ""}
             return self.request.route_url("sub-career", id=self.character.id)
-        self.character.status = {"attributes": ""}
+        self.character.create_data = {"attributes": ""}
         return self.request.route_url("attributes", id=self.character.id)

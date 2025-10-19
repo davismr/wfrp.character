@@ -18,7 +18,7 @@ class DummyRoute:
 def test_initialise_form(new_character):
     new_character.species = "Wood Elf"
     new_character.career = "Soldier"
-    new_character.status = {"sub-career": ""}
+    new_character.create_data = {"sub-career": ""}
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="sub-career")
@@ -35,7 +35,7 @@ def test_initialise_form(new_character):
 def test_form_view(new_character):
     new_character.species = "Wood Elf"
     new_character.career = "Soldier"
-    new_character.status = {"sub-career": ""}
+    new_character.create_data = {"sub-career": ""}
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="sub-career")
@@ -54,7 +54,7 @@ def test_submit_experience(new_character, experience, expected):
     new_character.species = "Wood Elf"
     new_character.career = "Soldier"
     new_character.experience = experience
-    new_character.status = {"sub-career": "Archer"}
+    new_character.create_data = {"sub-career": "Archer"}
     request = testing.DummyRequest(
         post={
             "specialist_career": {"specialist_career": "Handgunner"},

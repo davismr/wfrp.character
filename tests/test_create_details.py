@@ -19,7 +19,7 @@ class DummyRoute:
 @pytest.mark.create
 def test_initialise_form_elf(new_character):
     new_character.species = "Wood Elf"
-    new_character.status = {"details": ""}
+    new_character.create_data = {"details": ""}
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="details")
@@ -37,7 +37,7 @@ def test_initialise_form_elf(new_character):
 @pytest.mark.create
 def test_form_view(new_character):
     new_character.species = "Wood Elf"
-    new_character.status = {"details": ""}
+    new_character.create_data = {"details": ""}
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="details")
@@ -51,7 +51,7 @@ def test_form_view(new_character):
 @pytest.mark.create
 @pytest.mark.parametrize("species", SPECIES_LIST)
 def test_hair_colour(new_character, species):
-    new_character.status = {"details": ""}
+    new_character.create_data = {"details": ""}
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="details")
@@ -71,7 +71,7 @@ def test_hair_colour(new_character, species):
 @pytest.mark.create
 @pytest.mark.parametrize("species", SPECIES_LIST)
 def test_eye_colour(new_character, species):
-    new_character.status = {"details": ""}
+    new_character.create_data = {"details": ""}
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="details")
@@ -91,7 +91,7 @@ def test_eye_colour(new_character, species):
 @pytest.mark.create
 def test_eye_colour_free(new_character):
     new_character.species = "Human"
-    new_character.status = {"details": ""}
+    new_character.create_data = {"details": ""}
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="details")
@@ -101,8 +101,8 @@ def test_eye_colour_free(new_character):
         view = DetailsViews(request)
         response = view.form_view()
     assert 'value="Pale Blue"' in response["form"]
-    assert new_character.status["details"]["eye_colour"] == ""
-    assert new_character.status["details"]["hair_colour"] == "White Blond"
+    assert new_character.create_data["details"]["eye_colour"] == ""
+    assert new_character.create_data["details"]["hair_colour"] == "White Blond"
     payload = {
         "character_details": {"eye_colour": "Pale Grey"},
         "Choose_Details": "Choose_Details",
@@ -120,7 +120,7 @@ def test_eye_colour_free(new_character):
 @pytest.mark.create
 def test_initialise_invalid_species(new_character):
     new_character.species = "Not a species"
-    new_character.status = {"details": ""}
+    new_character.create_data = {"details": ""}
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="details")
@@ -134,7 +134,7 @@ def test_initialise_invalid_species(new_character):
 @pytest.mark.parametrize("species", SPECIES_LIST)
 def test_initialise_form_species(new_character, species):
     new_character.species = species
-    new_character.status = {"details": ""}
+    new_character.create_data = {"details": ""}
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="details")
@@ -151,14 +151,14 @@ def test_details_submit(new_character):
         "Choose_Details": "Choose_Details",
     }
     new_character.species = "High Elf"
-    new_character.status = {"details": ""}
+    new_character.create_data = {"details": ""}
     request = testing.DummyRequest(post=payload)
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="details")
     request.matchdict = {"id": str(new_character.id)}
     view = DetailsViews(request)
     initial_values = view.initialise_form()
-    stored_values = new_character.status["details"]
+    stored_values = new_character.create_data["details"]
     response = view.form_view()
     assert isinstance(response, HTTPFound)
     assert initial_values == stored_values
@@ -175,7 +175,7 @@ def test_invalid_submit(new_character):
         "Choose_Details": "Choose_Details",
     }
     new_character.species = "High Elf"
-    new_character.status = {"details": ""}
+    new_character.create_data = {"details": ""}
     request = testing.DummyRequest(post=payload)
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="details")

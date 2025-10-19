@@ -17,7 +17,7 @@ class DummyRoute:
 @pytest.mark.create
 def test_get_view(new_character):
     new_character.species = "Human"
-    new_character.status = {"attributes": ""}
+    new_character.create_data = {"attributes": ""}
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="attributes")
@@ -34,7 +34,7 @@ def test_get_view(new_character):
 
 @pytest.mark.create
 def test_bonus_attributes_view(new_character):
-    new_character.status = {"attributes": ""}
+    new_character.create_data = {"attributes": ""}
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="attributes")
@@ -49,7 +49,7 @@ def test_bonus_attributes_view(new_character):
 
 @pytest.mark.create
 def test_bonus_attributes_halfling(new_character):
-    new_character.status = {"attributes": ""}
+    new_character.create_data = {"attributes": ""}
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="attributes")
@@ -63,7 +63,7 @@ def test_bonus_attributes_halfling(new_character):
 
 @pytest.mark.create
 def test_bonus_attributes_dwarf(new_character):
-    new_character.status = {"attributes": ""}
+    new_character.create_data = {"attributes": ""}
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="attributes")
@@ -77,7 +77,7 @@ def test_bonus_attributes_dwarf(new_character):
 
 @pytest.mark.create
 def test_bonus_attributes_elf(new_character):
-    new_character.status = {"attributes": ""}
+    new_character.create_data = {"attributes": ""}
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="attributes")
@@ -91,7 +91,7 @@ def test_bonus_attributes_elf(new_character):
 
 @pytest.mark.create
 def test_bonus_attributes_invalid(new_character):
-    new_character.status = {"attributes": ""}
+    new_character.create_data = {"attributes": ""}
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="attributes")
@@ -104,7 +104,7 @@ def test_bonus_attributes_invalid(new_character):
 @pytest.mark.create
 def test_submit_full_experience(new_character):
     new_character.species = "Human"
-    new_character.status = {"attributes": ""}
+    new_character.create_data = {"attributes": ""}
     payload = {"Accept_Attributes": "Accept_Attributes"}
     request = testing.DummyRequest(post=payload)
     request.dbsession = dbsession(request)
@@ -119,7 +119,7 @@ def test_submit_full_experience(new_character):
 @pytest.mark.create
 def test_submit_rearrange(new_character):
     new_character.species = "Human"
-    new_character.status = {
+    new_character.create_data = {
         "attributes": {
             "Weapon Skill": 21,
             "Ballistic Skill": 22,
@@ -143,7 +143,7 @@ def test_submit_rearrange(new_character):
     view = AttributesViews(request)
     response = view.form_view()
     assert isinstance(response, dict)
-    assert new_character.status["stage"] == "rearrange"
+    assert new_character.create_data["stage"] == "rearrange"
     payload = {
         "attributes": {
             "Weapon Skill": "21",
@@ -166,7 +166,7 @@ def test_submit_rearrange(new_character):
     view = AttributesViews(request)
     response = view.form_view()
     assert isinstance(response, dict)
-    assert new_character.status["stage"] == "rearrange"
+    assert new_character.create_data["stage"] == "rearrange"
     assert "You have used 21 too many times and not used 22" in response["form"]
     payload["attributes"]["Weapon Skill"] = "22"
     request = testing.DummyRequest(post=payload)
@@ -192,7 +192,7 @@ def test_submit_rearrange(new_character):
 @pytest.mark.create
 def test_reroll_submit(new_character):
     new_character.species = "Dwarf"
-    new_character.status = {"attributes": "", "status": "reroll"}
+    new_character.create_data = {"attributes": "", "stage": "reroll"}
     payload = {
         "Reroll_Attributes": "Reroll_Attributes",
     }
@@ -203,8 +203,8 @@ def test_reroll_submit(new_character):
     view = AttributesViews(request)
     response = view.form_view()
     assert isinstance(response, dict)
-    attributes = new_character.status["attributes"]
-    assert new_character.status["stage"] == "reroll"
+    attributes = new_character.create_data["attributes"]
+    assert new_character.create_data["stage"] == "reroll"
     payload = {
         "attributes": {},
         "Accept_Attributes": "Accept_Attributes",
@@ -224,7 +224,7 @@ def test_reroll_submit(new_character):
 @pytest.mark.create
 def test_allocate_submit(new_character):
     new_character.species = "Human"
-    new_character.status = {"attributes": ""}
+    new_character.create_data = {"attributes": ""}
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="attributes")

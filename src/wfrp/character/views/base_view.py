@@ -15,8 +15,8 @@ class BaseView:
             .filter(Character.id == uuid.UUID(id))
             .one()
         )
-        if "complete" not in self.character.status:
-            self.redirect_request(list(self.character.status)[0])
+        if self.character.status != "complete":
+            self.redirect_request(list(self.character.create_data)[0])
 
     def redirect_request(self, route):
         url = self.request.route_url(route, id=self.character.id)

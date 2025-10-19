@@ -38,7 +38,7 @@ class CharacterFactory(factory.Factory):
             SPECIES_DATA[x.species_param]["eye_colour"].values()
         )
     )
-    status = {"complete": ""}
+    status = "complete"
     trappings = ["Fine Clothing", "Cloak", "Tinderbox"]
 
     class Params:

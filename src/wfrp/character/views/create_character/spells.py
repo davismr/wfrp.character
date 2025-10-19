@@ -67,7 +67,7 @@ class SpellsViews(BaseCreateView):
                     spell for spell, selected in captured["spells"].items() if selected
                 ]
                 self.character.petty_magic = petty_spells
-                self.character.status = {"trappings": ""}
+                self.character.create_data = {"trappings": ""}
                 url = self.request.route_url("trappings", id=self.character.id)
                 return HTTPFound(location=url)
         else:

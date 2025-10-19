@@ -69,7 +69,7 @@ class CampaignViews(BaseCreateView):
                     )
                     self.character.campaign = campaign
                 url = self.request.route_url("expansions", id=self.character.id)
-                self.character.status = {"expansions": ""}
+                self.character.create_data = {"expansions": ""}
                 return HTTPFound(location=url)
         else:
             html = form.render()

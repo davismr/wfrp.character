@@ -66,7 +66,7 @@ def testapp_auth():
 @pytest.fixture
 def new_character(testapp):
     new_id = uuid.uuid4()
-    new_character = Character(id=new_id, status={"campaign": ""})
+    new_character = Character(id=new_id, create_data={"campaign": ""})
     DBSession.add(new_character)
     character = DBSession.query(Character).filter(Character.id == new_id).one()
     return character
@@ -75,7 +75,7 @@ def new_character(testapp):
 @pytest.fixture
 def second_character(testapp):
     new_id = uuid.uuid4()
-    new_character = Character(id=new_id, status={"campaign": ""})
+    new_character = Character(id=new_id, create_data={"campaign": ""})
     DBSession.add(new_character)
     character = DBSession.query(Character).filter(Character.id == new_id).one()
     return character

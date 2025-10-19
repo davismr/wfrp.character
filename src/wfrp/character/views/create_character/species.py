@@ -50,15 +50,15 @@ class SpeciesViews(BaseCreateView):
 
     def initialise_form(self):
         self.species_list = get_species_list(self.character.expansions)
-        if not self.character.status["species"]:
+        if not self.character.create_data["species"]:
             if "rough_nights" in self.character.expansions:
                 species = self._roll_new_species_with_gnome()
             else:
                 species = self._roll_new_species()
-            self.character.status = {"species": species}
+            self.character.create_data = {"species": species}
 
     def schema(self):
-        species = self.character.status["species"]
+        species = self.character.create_data["species"]
         schema = colander.SchemaNode(colander.Mapping(), title="Character Species")
         species_schema = colander.SchemaNode(
             colander.Mapping(),
@@ -91,12 +91,12 @@ class SpeciesViews(BaseCreateView):
                 html = error.render()
             else:
                 selected = captured["species"]["species"]
-                if selected == self.character.status["species"]:
+                if selected == self.character.create_data["species"]:
                     self.character.experience += 20
                 self.character.species = selected
                 self._set_species_attributes(selected)
                 url = self.request.route_url("career", id=self.character.id)
-                self.character.status = {"career": ""}
+                self.character.create_data = {"career": ""}
                 return HTTPFound(location=url)
         else:
             html = form.render()

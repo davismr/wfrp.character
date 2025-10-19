@@ -46,4 +46,4 @@ def test_submit(complete_character):
     view = ExperienceTalentViews(request)
     response = view.form_view()
     assert isinstance(response, HTTPFound)
-    assert complete_character.spells["petty"] == ["Animal Friend", "Gust", "Rot"]
+    assert complete_character.petty_magic == ["Animal Friend", "Gust", "Rot"]

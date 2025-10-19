@@ -16,7 +16,7 @@ class DummyRoute:
 
 @pytest.mark.create
 def test_get_view(new_character):
-    new_character.status = {"species": ""}
+    new_character.create_data = {"species": ""}
     request = testing.DummyRequest(path="species")
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="species")
@@ -30,7 +30,7 @@ def test_get_view(new_character):
 
 @pytest.mark.create
 def test_get_view_gnome(new_character):
-    new_character.status = {"species": ""}
+    new_character.create_data = {"species": ""}
     request = testing.DummyRequest(path="species")
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="species")
@@ -48,7 +48,7 @@ def test_get_view_gnome(new_character):
 
 @pytest.mark.create
 def test_get_view_norse_dwarf(new_character):
-    new_character.status = {"species": ""}
+    new_character.create_data = {"species": ""}
     request = testing.DummyRequest(path="species")
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="species")
@@ -76,7 +76,7 @@ def test_get_view_norse_dwarf(new_character):
     ],
 )
 def test_roll_new_species(new_character, species, roll):
-    new_character.status = {"species": ""}
+    new_character.create_data = {"species": ""}
     request = testing.DummyRequest(path="species")
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="species")
@@ -103,7 +103,7 @@ def test_roll_new_species(new_character, species, roll):
     ],
 )
 def test_roll_new_species_gnome(new_character, species, roll):
-    new_character.status = {"species": ""}
+    new_character.create_data = {"species": ""}
     new_character.expansions = ["rough_nights"]
     request = testing.DummyRequest(path="species")
     request.dbsession = dbsession(request)
@@ -113,7 +113,7 @@ def test_roll_new_species_gnome(new_character, species, roll):
     with patch("wfrp.character.views.create_character.species.roll_d100") as mock_roll:
         mock_roll.return_value = roll
         view.initialise_form()
-        assert new_character.status["species"] == species
+        assert new_character.create_data["species"] == species
         mock_roll.return_value = 101
         with pytest.raises(NotImplementedError):
             view._roll_new_species()
@@ -125,7 +125,7 @@ def test_roll_new_species_gnome(new_character, species, roll):
     [("Human", 4), ("Halfling", 3), ("Dwarf", 3), ("High Elf", 5)],
 )
 def test_set_attributes(new_character, species, movement):
-    new_character.status = {"species": ""}
+    new_character.create_data = {"species": ""}
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="species")
@@ -143,7 +143,7 @@ def test_set_attributes(new_character, species, movement):
     [("Human", 20), ("Halfling", 0), ("Dwarf", 0), ("High Elf", 0), ("Wood Elf", 0)],
 )
 def test_submit_view(new_character, species, experience):
-    new_character.status = {"species": "Human"}
+    new_character.create_data = {"species": "Human"}
     request = testing.DummyRequest(
         post={"species": {"species": species}, "Choose_Species": "Choose_Species"}
     )
@@ -159,7 +159,7 @@ def test_submit_view(new_character, species, experience):
 
 @pytest.mark.create
 def test_submit_species(new_character):
-    new_character.status = {"species": "Human"}
+    new_character.create_data = {"species": "Human"}
     request = testing.DummyRequest(
         post={"species": {"species": "Human"}, "Choose_Species": "Choose_Species"}
     )
@@ -178,7 +178,7 @@ def test_submit_species(new_character):
 
 @pytest.mark.create
 def test_submit_invalid_species(new_character):
-    new_character.status = {"species": "Human"}
+    new_character.create_data = {"species": "Human"}
     request = testing.DummyRequest(
         post={"species": {"species": "Cat"}, "Choose_Species": "Choose_Species"}
     )

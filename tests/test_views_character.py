@@ -15,7 +15,7 @@ class DummyRoute:
 
 @pytest.mark.views
 def test_full_view(new_character):
-    new_character.status = {"complete": ""}
+    new_character.status = "complete"
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="character-full")
@@ -27,7 +27,7 @@ def test_full_view(new_character):
 
 @pytest.mark.views
 def test_summary_view(new_character):
-    new_character.status = {"complete": ""}
+    new_character.status = "complete"
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="character-summary")

@@ -17,7 +17,7 @@ def test_form_view(new_character):
     new_character.species = "Wood Elf"
     new_character.career = "Soldier"
     new_character.career_title = "Recruit"
-    new_character.status = {"complete": ""}
+    new_character.status = "complete"
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="experience")
@@ -35,7 +35,7 @@ def test_increase_characteristic(new_character):
     new_character.weapon_skill_initial = 40
     new_character.weapon_skill_advances = 9
     new_character.experience = 200
-    new_character.status = {"complete": ""}
+    new_character.status = "complete"
     payload = {
         "__formid__": "characteristic_form",
         "increase_characteristic": {"characteristic": "weapon_skill"},
@@ -79,7 +79,7 @@ def test_increase_characteristic_too_much(new_character):
     new_character.weapon_skill_initial = 40
     new_character.weapon_skill_advances = 9
     new_character.experience = 20
-    new_character.status = {"complete": ""}
+    new_character.status = "complete"
     payload = {
         "__formid__": "characteristic_form",
         "increase_characteristic": {"characteristic": "weapon_skill"},
@@ -106,7 +106,7 @@ def test_increase_unowned_skill(new_character):
     new_character.career_title = "Recruit"
     new_character.skills = {"Language (Battle)": 9, "Play (Drum)": 14}
     new_character.experience = 200
-    new_character.status = {"complete": ""}
+    new_character.status = "complete"
     payload = {
         "__formid__": "skill_form",
         "increase_skill": {"skill": "Athletics"},
@@ -134,7 +134,7 @@ def test_increase_existing_skill(new_character):
     new_character.career_title = "Recruit"
     new_character.skills = {"Athletics": 5, "Language (Battle)": 9, "Play (Drum)": 14}
     new_character.experience = 200
-    new_character.status = {"complete": ""}
+    new_character.status = "complete"
     payload = {
         "__formid__": "skill_form",
         "increase_skill": {"skill": "Language (Battle)"},
@@ -165,7 +165,7 @@ def test_increase_choice_skill(new_character):
     new_character.career_title = "Recruit"
     new_character.skills = {"Language (Battle)": 9, "Play (Drum)": 14}
     new_character.experience = 200
-    new_character.status = {"complete": ""}
+    new_character.status = "complete"
     payload = {
         "__formid__": "skill_form",
         "increase_skill": {"skill": "Play (Drum)"},
@@ -190,7 +190,7 @@ def test_multiple_grouped_skills(new_character):
         "Melee (Brawling)": 14,
     }
     new_character.experience = 200
-    new_character.status = {"complete": ""}
+    new_character.status = "complete"
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="experience")
@@ -220,7 +220,7 @@ def test_increase_skill_too_much(new_character):
     new_character.career_title = "Recruit"
     new_character.skills = {"Athletics": 9, "Play (Drum)": 14}
     new_character.experience = 10
-    new_character.status = {"complete": ""}
+    new_character.status = "complete"
     payload = {
         "__formid__": "skill_form",
         "increase_skill": {"skill": "Athletics"},
@@ -247,7 +247,7 @@ def test_increase_talent(new_character):
     new_character.intelligence_initial = 20
     new_character.talents = {"Diceman": 1}
     new_character.experience = 200
-    new_character.status = {"complete": ""}
+    new_character.status = "complete"
     payload = {
         "__formid__": "talent_form",
         "add_talent": {"talent": "Diceman"},
@@ -275,7 +275,7 @@ def test_add_talent(new_character):
     new_character.career_title = "Recruit"
     new_character.talents = {"Marksman": 1}
     new_character.experience = 200
-    new_character.status = {"complete": ""}
+    new_character.status = "complete"
     payload = {
         "__formid__": "talent_form",
         "add_talent": {"talent": "Warrior Born"},
@@ -297,7 +297,7 @@ def test_talent_too_much(new_character):
     new_character.career = "Soldier"
     new_character.career_title = "Recruit"
     new_character.experience = 50
-    new_character.status = {"complete": ""}
+    new_character.status = "complete"
     payload = {
         "__formid__": "talent_form",
         "add_talent": {"talent": "Warrior Born"},
@@ -316,7 +316,7 @@ def test_talent_too_much(new_character):
     assert new_character.experience_spent == 0
 
 
-@pytest.mark.current
+@pytest.mark.views
 def test_petty_magic(new_character):
     new_character.species = "Human"
     new_character.career = "Wizard"
@@ -325,7 +325,7 @@ def test_petty_magic(new_character):
     new_character.talents = {"Petty Magic": 1}
     new_character.petty_magic = ["Animal Friend", "Sleep"]
     new_character.experience = 100
-    new_character.status = {"complete": ""}
+    new_character.status = "complete"
     payload = {
         "__formid__": "magic_form",
         "spells": {"petty_magic": "Purify Water"},
@@ -349,7 +349,7 @@ def test_miracle(new_character):
     new_character.talents = {"Invoke (Manann)": 1}
     new_character.miracles = ["Waterwalk"]
     new_character.experience = 100
-    new_character.status = {"complete": ""}
+    new_character.status = "complete"
     payload = {
         "__formid__": "miracles_form",
         "miracles": {"miracle": "Becalm"},
@@ -374,7 +374,7 @@ def test_advance_career(new_character):
     new_character.career_title = "Scavenger"
     new_character.career_path = ["Scavenger"]
     new_character.experience = 200
-    new_character.status = {"complete": ""}
+    new_character.status = "complete"
     payload = {
         "__formid__": "career_form",
         "change_career": {"advance_career": "Beachcomber"},
@@ -405,7 +405,7 @@ def test_advance_career_no_experience(new_character):
     new_character.career = "Beachcomber"
     new_character.career_title = "Scavenger"
     new_character.experience = 100
-    new_character.status = {"complete": ""}
+    new_character.status = "complete"
     payload = {
         "__formid__": "career_form",
         "change_career": {"advance_career": "Beachcomber"},

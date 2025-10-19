@@ -18,7 +18,7 @@ class DummyRoute:
 def test_species_skills_view(new_character):
     new_character.species = "Wood Elf"
     new_character.career = "Apothecary"
-    new_character.status = {"species-skills": ""}
+    new_character.create_data = {"species-skills": ""}
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="species-skills")
@@ -34,7 +34,7 @@ def test_species_skills_view(new_character):
 def test_initialise_form_return(new_character):
     new_character.species = "Human"
     new_character.career = "Witch"
-    new_character.status = {"species-skills": ["talent1", "talent2"]}
+    new_character.create_data = {"species-skills": ["talent1", "talent2"]}
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="species-skills")
@@ -53,7 +53,7 @@ def test_initialise_form_return(new_character):
 def test_initialise_form_extra(new_character):
     new_character.species = "Human"
     new_character.career = "Witch"
-    new_character.status = {"species-skills": ""}
+    new_character.create_data = {"species-skills": ""}
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="species-skills")
@@ -78,7 +78,7 @@ def test_initialise_form_extra(new_character):
 def test_random_talents(new_character, species, expected_talents):
     new_character.species = species
     new_character.career = "Apothecary"
-    new_character.status = {"species-skills": ""}
+    new_character.create_data = {"species-skills": ""}
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="species-skills")
@@ -120,7 +120,7 @@ def test_species_skills_submit(new_character):
     }
     new_character.species = "High Elf"
     new_character.career = "Apothecary"
-    new_character.status = {"species-skills": ""}
+    new_character.create_data = {"species-skills": ""}
     request = testing.DummyRequest(post=payload)
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="species-skills")
@@ -174,7 +174,7 @@ def test_species_skills_invalid(new_character):
     }
     new_character.species = "High Elf"
     new_character.career = "Apothecary"
-    new_character.status = {"species-skills": ""}
+    new_character.create_data = {"species-skills": ""}
     request = testing.DummyRequest(post=payload)
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="species-skills")
@@ -215,7 +215,7 @@ def test_species_skills_invalid_none(new_character):
     }
     new_character.species = "High Elf"
     new_character.career = "Apothecary"
-    new_character.status = {"species-skills": ""}
+    new_character.create_data = {"species-skills": ""}
     request = testing.DummyRequest(post=payload)
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="species-skills")
@@ -232,7 +232,7 @@ def test_species_skills_invalid_none(new_character):
 def test_species_skills_any(new_character):
     new_character.species = "Human"
     new_character.career = "Apothecary"
-    new_character.status = {
+    new_character.create_data = {
         "species-skills": ["Acute Sense (Any)", "Craftsman (Any)", "Resistance (Any)"]
     }
     payload = {

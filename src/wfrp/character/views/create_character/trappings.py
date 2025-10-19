@@ -32,8 +32,8 @@ class TrappingsViews(BaseCreateView):
         return wealth
 
     def initialise_form(self):
-        if self.character.status["trappings"]:
-            return self.character.status["trappings"]
+        if self.character.create_data["trappings"]:
+            return self.character.create_data["trappings"]
         career_data = self.character.career_data()
         class_trappings = get_class_trappings(self.character.career_class)
         career_details = career_data[self.character.career_title]
@@ -46,7 +46,7 @@ class TrappingsViews(BaseCreateView):
             "career_trappings": career_trappings,
             "wealth": wealth,
         }
-        self.character.status = {"trappings": data}
+        self.character.create_data = {"trappings": data}
         return data
 
     def schema(self, data):
@@ -132,7 +132,7 @@ class TrappingsViews(BaseCreateView):
             else:
                 self.update_values(captured)
                 url = self.request.route_url("details", id=self.character.id)
-                self.character.status = {"details": ""}
+                self.character.create_data = {"details": ""}
                 return HTTPFound(location=url)
         else:
             html = form.render()
@@ -147,8 +147,8 @@ class TrappingsViews(BaseCreateView):
     def update_values(self, captured):  # noqa: C901
         all_items = []
         items = (
-            self.character.status["trappings"]["class_trappings"]
-            + self.character.status["trappings"]["career_trappings"]
+            self.character.create_data["trappings"]["class_trappings"]
+            + self.character.create_data["trappings"]["career_trappings"]
         )
         for item in items:
             if " or " in item:
@@ -169,7 +169,7 @@ class TrappingsViews(BaseCreateView):
         self.character.weapons.sort()
         self.character.armour.sort()
         self.character.trappings.sort()
-        wealth = self.character.status["trappings"]["wealth"]
+        wealth = self.character.create_data["trappings"]["wealth"]
         if "brass" in wealth:
             self.character.brass_pennies = wealth["brass"]
         elif "silver" in wealth:

@@ -18,7 +18,7 @@ class DummyRoute:
 def test_career_skills_view(new_character):
     new_character.career = "Apothecary"
     new_character.career_title = "Apothecary’s Apprentice"
-    new_character.status = {"career-skills": ""}
+    new_character.create_data = {"career-skills": ""}
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="career-skills")
@@ -35,7 +35,7 @@ def test_career_skills_view(new_character):
 def test_form_view(new_character):
     new_character.career = "Apothecary"
     new_character.career_title = "Apothecary’s Apprentice"
-    new_character.status = {"career-skills": ""}
+    new_character.create_data = {"career-skills": ""}
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="career-skills")
@@ -64,7 +64,7 @@ def test_career_skills_submit(new_character):
     new_character.species = "High Elf"
     new_character.career = "Apothecary"
     new_character.career_title = "Apothecary’s Apprentice"
-    new_character.status = {"career-skills": ""}
+    new_character.create_data = {"career-skills": ""}
     request = testing.DummyRequest(post=payload)
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="career-skills")
@@ -97,7 +97,7 @@ def test_validation_error(new_character, skill_level, message):
     new_character.species = "High Elf"
     new_character.career = "Apothecary"
     new_character.career_title = "Apothecary’s Apprentice"
-    new_character.status = {"career-skills": ""}
+    new_character.create_data = {"career-skills": ""}
     request = testing.DummyRequest(post=payload)
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="career-skills")
@@ -138,7 +138,7 @@ def test_skills_add_submit(new_character):
     new_character.species = "High Elf"
     new_character.career = "Apothecary"
     new_character.career_title = "Apothecary’s Apprentice"
-    new_character.status = {"species-skills": ""}
+    new_character.create_data = {"species-skills": ""}
     request = testing.DummyRequest(post=payload)
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="species-skills")
@@ -146,7 +146,7 @@ def test_skills_add_submit(new_character):
     view = SpeciesSkillsViews(request)
     response = view.form_view()
     assert isinstance(response, HTTPFound)
-    assert new_character.status == {"career-skills": ""}
+    assert new_character.create_data == {"career-skills": ""}
     payload = {
         "career_skills": {
             "Consume Alcohol": "5",
@@ -187,7 +187,7 @@ def test_career_skills_any(new_character):
     new_character.species = "Wood Elf"
     new_character.career = "Artisan"
     new_character.career_title = "Apprentice Artisan"
-    new_character.status = {"career-skills": ""}
+    new_character.create_data = {"career-skills": ""}
     payload = {
         "career_skills": {
             "Athletics": "5",
@@ -239,7 +239,7 @@ def test_career_skills_or_fail(new_character):
     new_character.species = "Human"
     new_character.career = "Pedlar"
     new_character.career_title = "Vagabond"
-    new_character.status = {"career-skills": ""}
+    new_character.create_data = {"career-skills": ""}
     payload = {
         "career_skills": {
             "Charm": "5",

@@ -233,7 +233,7 @@ class CareerSkillsViews(BaseCreateView):
 
     def get_next_url(self):
         if "Petty Magic" in self.character.talents:
-            self.character.status = {"spells": ""}
+            self.character.create_data = {"spells": ""}
             return self.request.route_url("spells", id=self.character.id)
-        self.character.status = {"trappings": ""}
+        self.character.create_data = {"trappings": ""}
         return self.request.route_url("trappings", id=self.character.id)

@@ -18,7 +18,7 @@ def test_initialise_form(new_character):
     new_character.species = "Human"
     new_character.career = "Apothecary"
     new_character.career_title = "Apothecary’s Apprentice"
-    new_character.status = {"advances": ""}
+    new_character.create_data = {"advances": ""}
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="advances")
@@ -37,7 +37,7 @@ def test_form_view(new_character):
     new_character.species = "Human"
     new_character.career = "Apothecary"
     new_character.career_title = "Apothecary’s Apprentice"
-    new_character.status = {"advances": ""}
+    new_character.create_data = {"advances": ""}
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="advances")
@@ -53,7 +53,7 @@ def test_submit_view(new_character):
     new_character.species = "Human"
     new_character.career = "Apothecary"
     new_character.career_title = "Apothecary’s Apprentice"
-    new_character.status = {"advances": ""}
+    new_character.create_data = {"advances": ""}
     old_toughness = new_character.toughness_initial = 40
     new_character.extra_points = 3
     assert new_character.fate == 0
@@ -94,7 +94,7 @@ def test_invalid_submit_view(new_character, advance, message):
     new_character.species = "Human"
     new_character.career = "Apothecary"
     new_character.career_title = "Apothecary’s Apprentice"
-    new_character.status = {"advances": ""}
+    new_character.create_data = {"advances": ""}
     request = testing.DummyRequest(
         post={
             "attributes": {"Toughness": advance, "Dexterity": "2", "Intelligence": "1"},
@@ -118,7 +118,7 @@ def test_invalid_fate_submit_view(new_character, advance):
     new_character.career = "Apothecary"
     new_character.career_title = "Apothecary’s Apprentice"
     new_character.extra_points = 3
-    new_character.status = {"advances": ""}
+    new_character.create_data = {"advances": ""}
     request = testing.DummyRequest(
         post={
             "attributes": {"Toughness": "2", "Dexterity": "2", "Intelligence": "1"},
@@ -141,7 +141,7 @@ def test_motivation(new_character):
     new_character.species = "Human"
     new_character.career = "Apothecary"
     new_character.career_title = "Apothecary’s Apprentice"
-    new_character.status = {"advances": ""}
+    new_character.create_data = {"advances": ""}
     request = testing.DummyRequest(
         post={
             "attributes": {"Toughness": "5", "Dexterity": "0", "Intelligence": "0"},
@@ -164,7 +164,7 @@ def test_motivation_not_required(new_character):
     new_character.species = "Human"
     new_character.career = "Apothecary"
     new_character.career_title = "Apothecary’s Apprentice"
-    new_character.status = {"advances": ""}
+    new_character.create_data = {"advances": ""}
     request = testing.DummyRequest(
         post={
             "attributes": {"Toughness": "5", "Dexterity": "0", "Intelligence": "0"},

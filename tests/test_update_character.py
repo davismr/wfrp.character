@@ -8,7 +8,7 @@ from wfrp.character.views.update_character import UpdateCharacterViews
 
 @pytest.mark.create
 def test_get_view(new_character):
-    new_character.status = {"complete": ""}
+    new_character.status = "complete"
     request = testing.DummyRequest()
     request.matchdict = {"id": str(new_character.id)}
     request.dbsession = dbsession(request)
@@ -20,7 +20,7 @@ def test_get_view(new_character):
 
 @pytest.mark.create
 def test_submit_wounds_view(new_character):
-    new_character.status = {"complete": ""}
+    new_character.status = "complete"
     request = testing.DummyRequest(
         post={
             "__formid__": "wounds_form",
@@ -40,7 +40,7 @@ def test_submit_wounds_view(new_character):
 
 @pytest.mark.create
 def test_submit_psychology_view(new_character):
-    new_character.status = {"complete": ""}
+    new_character.status = "complete"
     request = testing.DummyRequest(
         post={
             "__formid__": "psychology_form",
@@ -60,7 +60,7 @@ def test_submit_psychology_view(new_character):
 
 @pytest.mark.create
 def test_submit_corruption_view(new_character):
-    new_character.status = {"complete": ""}
+    new_character.status = "complete"
     request = testing.DummyRequest(
         post={
             "__formid__": "corruption_form",
@@ -80,7 +80,7 @@ def test_submit_corruption_view(new_character):
 
 @pytest.mark.create
 def test_submit_ambitions_view(new_character):
-    new_character.status = {"complete": ""}
+    new_character.status = "complete"
     new_character.short_term_ambition = "Have breakfast"
     new_character.long_term_ambition = "Have second breakfast"
     request = testing.DummyRequest(
@@ -104,7 +104,7 @@ def test_submit_ambitions_view(new_character):
 
 @pytest.mark.create
 def test_submit_wealth_view(new_character):
-    new_character.status = {"complete": ""}
+    new_character.status = "complete"
     new_character.wealth = {"gold crowns": 5}
     request = testing.DummyRequest(
         post={

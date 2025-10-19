@@ -16,7 +16,7 @@ class DummyRoute:
 @pytest.mark.create
 def test_initialise_form(new_character):
     new_character.species = "Wood Elf"
-    new_character.status = {"career": ""}
+    new_character.create_data = {"career": ""}
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="career")
@@ -34,7 +34,7 @@ def test_initialise_form(new_character):
 def test_initialise_form_seafarer(new_character):
     new_character.species = "High Elf"
     new_character.expansions = ["sea_of_claws"]
-    new_character.status = {"career": ""}
+    new_character.create_data = {"career": ""}
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="career")
@@ -55,7 +55,7 @@ def test_initialise_form_seafarer(new_character):
 def test_initialise_form_tilean(new_character):
     new_character.species = "Human (Tilean)"
     new_character.expansions = ["up_in_arms"]
-    new_character.status = {"career": ["Flagellant"]}
+    new_character.create_data = {"career": ["Flagellant"]}
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="career")
@@ -65,14 +65,14 @@ def test_initialise_form_tilean(new_character):
     assert isinstance(response, dict)
     assert "career_choice" in response
     assert response["career_choice"] == ["Flagellant", "Nun", "Priest"]
-    assert response["career_choice"] == new_character.status["career"]
+    assert response["career_choice"] == new_character.create_data["career"]
 
 
 @pytest.mark.create
 def test_initialise_form_tilean_multiple(new_character):
     new_character.species = "Human (Tilean)"
     new_character.expansions = ["up_in_arms"]
-    new_character.status = {"career": ["Cavalryman", "Soldier", "Warrior Priest"]}
+    new_character.create_data = {"career": ["Cavalryman", "Soldier", "Warrior Priest"]}
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="career")
@@ -90,13 +90,13 @@ def test_initialise_form_tilean_multiple(new_character):
         "Pikeman",
         "Priest of Myrmidia",
     ]
-    assert response["career_choice"] == new_character.status["career"]
+    assert response["career_choice"] == new_character.create_data["career"]
 
 
 @pytest.mark.create
 def test_form_view(new_character):
     new_character.species = "Wood Elf"
-    new_character.status = {"career": ""}
+    new_character.create_data = {"career": ""}
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="career")
@@ -110,7 +110,7 @@ def test_form_view(new_character):
 @pytest.mark.create
 def test_reroll_view(new_character):
     new_character.species = "Human"
-    new_character.status = {"career": ["Soldier"]}
+    new_character.create_data = {"career": ["Soldier"]}
     request = testing.DummyRequest(
         post={
             "Reroll": "Reroll",
@@ -122,7 +122,7 @@ def test_reroll_view(new_character):
     view = CareerViews(request)
     response = view.form_view()
     assert isinstance(response, dict)
-    choices = new_character.status["career"]
+    choices = new_character.create_data["career"]
     assert len(choices) == 3
     assert "Soldier" in choices
     assert "or reroll for 3 choices and" not in response["form"]
@@ -132,7 +132,7 @@ def test_reroll_view(new_character):
 def test_reroll_view_seafarer(new_character):
     new_character.expansions = ["sea_of_claws"]
     new_character.species = "Human"
-    new_character.status = {"career": ["Beachcomber"]}
+    new_character.create_data = {"career": ["Beachcomber"]}
     request = testing.DummyRequest(
         post={
             "Reroll": "Reroll",
@@ -144,7 +144,7 @@ def test_reroll_view_seafarer(new_character):
     view = CareerViews(request)
     response = view.form_view()
     assert isinstance(response, dict)
-    choices = new_character.status["career"]
+    choices = new_character.create_data["career"]
     assert len(choices) == 3
     assert "Beachcomber" in choices
     assert "or reroll for 3 choices and" not in response["form"]
@@ -153,7 +153,7 @@ def test_reroll_view_seafarer(new_character):
 @pytest.mark.create
 def test_invalid_number_careers(new_character):
     new_character.species = "Human"
-    new_character.status = {"career": ["Soldier", "Beggar"]}
+    new_character.create_data = {"career": ["Soldier", "Beggar"]}
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="career")
@@ -171,7 +171,7 @@ def test_invalid_number_careers(new_character):
 )
 def test_submit_experience(new_character, career_choice, experience):
     new_character.species = "Human"
-    new_character.status = {"career": career_choice}
+    new_character.create_data = {"career": career_choice}
     if career_choice == ["Bawd"]:
         request = testing.DummyRequest(
             post={
@@ -201,7 +201,7 @@ def test_submit_experience(new_character, career_choice, experience):
 @pytest.mark.create
 def test_invalid_submit(new_character):
     new_character.species = "Human"
-    new_character.status = {"career": ["Seaman"]}
+    new_character.create_data = {"career": ["Seaman"]}
     request = testing.DummyRequest(
         post={
             "random_career": {"random_career": "Seaman"},
@@ -221,7 +221,7 @@ def test_invalid_submit(new_character):
 @pytest.mark.create
 def test_invalid_none(new_character):
     new_character.species = "Human"
-    new_character.status = {"career": ["Seaman"]}
+    new_character.create_data = {"career": ["Seaman"]}
     request = testing.DummyRequest(
         post={
             "Choose_Career": "Choose_Career",

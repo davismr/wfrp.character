@@ -73,7 +73,7 @@ class ExpansionsViews(BaseCreateView):
                         enabled_expansions.append(expansion)
                 self.character.expansions = enabled_expansions
                 url = self.request.route_url("species", id=self.character.id)
-                self.character.status = {"species": ""}
+                self.character.create_data = {"species": ""}
                 return HTTPFound(location=url)
         else:
             html = form.render()

@@ -21,8 +21,8 @@ class SpeciesSkillsViews(BaseCreateView):
         species_skills = SPECIES_DATA[species]["skills"].copy()
         species_talents = SPECIES_DATA[species]["talents"].copy()
         if species == "Halfling" or species.startswith("Human"):
-            if self.character.status["species-skills"]:
-                extra_talents = self.character.status["species-skills"]
+            if self.character.create_data["species-skills"]:
+                extra_talents = self.character.create_data["species-skills"]
             else:
                 extra_talents = []
                 while True:
@@ -43,7 +43,7 @@ class SpeciesSkillsViews(BaseCreateView):
                         break
                     if len(extra_talents) == 3 and species == "Human":
                         break
-                self.character.status = {"species-skills": extra_talents}
+                self.character.create_data = {"species-skills": extra_talents}
             species_talents.extend(extra_talents)
         return {"species_skills": species_skills, "species_talents": species_talents}
 
@@ -209,7 +209,7 @@ class SpeciesSkillsViews(BaseCreateView):
             else:
                 self.update_values(captured)
                 url = self.request.route_url("career-skills", id=self.character.id)
-                self.character.status = {"career-skills": ""}
+                self.character.create_data = {"career-skills": ""}
                 return HTTPFound(location=url)
         else:
             html = form.render()

@@ -21,7 +21,7 @@ def test_initalise_form(new_character):
     new_character.career = "Apothecary"
     new_character.career_class = "Academics"
     new_character.career_title = "Apothecary’s Apprentice"
-    new_character.status = {"trappings": ""}
+    new_character.create_data = {"trappings": ""}
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="trappings")
@@ -39,7 +39,7 @@ def test_initalise_form(new_character):
 
 @pytest.mark.create
 def test_initalise_form_return(new_character):
-    new_character.status = {"trappings": "foobar"}
+    new_character.create_data = {"trappings": "foobar"}
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="trappings")
@@ -55,7 +55,7 @@ def test_get_view(new_character):
     new_character.career = "Apothecary"
     new_character.career_class = "Academics"
     new_character.career_title = "Apothecary’s Apprentice"
-    new_character.status = {"trappings": ""}
+    new_character.create_data = {"trappings": ""}
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="trappings")
@@ -68,7 +68,7 @@ def test_get_view(new_character):
 
 @pytest.mark.create
 def test_money(new_character):
-    new_character.status = {"trappings": ""}
+    new_character.create_data = {"trappings": ""}
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="trappings")
@@ -93,7 +93,7 @@ def test_submit_view(new_character):
     new_character.career = "Protagonist"
     new_character.career_class = "Warriors"
     new_character.career_title = "Braggart"
-    new_character.status = {"trappings": ""}
+    new_character.create_data = {"trappings": ""}
     payload = {
         "class_trappings": {
             "Clothing": "Clothing",
@@ -134,7 +134,7 @@ def test_submit_artist(new_character):
     new_character.career = "Artist"
     new_character.career_class = "Courtiers"
     new_character.career_title = "Apprentice Artist"
-    new_character.status = {"trappings": ""}
+    new_character.create_data = {"trappings": ""}
     payload = {
         "class_trappings": {
             "Dagger": "Dagger",
@@ -177,7 +177,7 @@ def test_submit_bawd(mock_rolld10, new_character):
     new_character.career = "Bawd"
     new_character.career_class = "Rogues"
     new_character.career_title = "Hustler"
-    new_character.status = {"trappings": ""}
+    new_character.create_data = {"trappings": ""}
     class_trappings = {x: x for x in get_class_trappings("Rogues")}
     class_trappings["Hood or Mask"] = "Hood"
     payload = {
@@ -205,7 +205,7 @@ def test_submit_item_with_space(new_character):
     new_character.career = "Road Warden"
     new_character.career_class = "Rangers"
     new_character.career_title = "Toll Keeper"
-    new_character.status = {"trappings": ""}
+    new_character.create_data = {"trappings": ""}
     payload = {
         "class_trappings": {
             "Backpack": "Backpack",
@@ -241,7 +241,7 @@ def test_submit_view_duplicate_item(new_character):
     new_character.career = "Soldier"
     new_character.career_class = "Warriors"
     new_character.career_title = "Recruit"
-    new_character.status = {"trappings": ""}
+    new_character.create_data = {"trappings": ""}
     payload = {
         "class_trappings": {
             "Clothing": "Clothing",
@@ -281,7 +281,7 @@ def test_submit_invalid(new_character):
     new_character.career = "Protagonist"
     new_character.career_class = "Warriors"
     new_character.career_title = "Braggart"
-    new_character.status = {"trappings": ""}
+    new_character.create_data = {"trappings": ""}
     payload = {
         "class_trappings": {},
         "career_trappings": {"Hood or Mask": "Scarf"},
@@ -305,7 +305,7 @@ def test_randomise_trappings(mock_rolld10, new_character, second_character):
     new_character.career = "Apothecary"
     new_character.career_class = "Academics"
     new_character.career_title = "Apothecary’s Apprentice"
-    new_character.status = {"trappings": ""}
+    new_character.create_data = {"trappings": ""}
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="trappings")
@@ -319,7 +319,7 @@ def test_randomise_trappings(mock_rolld10, new_character, second_character):
     second_character.career = "Apothecary"
     second_character.career_class = "Academics"
     second_character.career_title = "Apothecary’s Apprentice"
-    second_character.status = {"trappings": ""}
+    second_character.create_data = {"trappings": ""}
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="trappings")

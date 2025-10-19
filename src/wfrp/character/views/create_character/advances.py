@@ -200,7 +200,7 @@ class AdvancesViews(BaseCreateView):
                 self.character.extra_points = 0
                 self.character.motivation = captured["motivation"]["motivation"]
                 url = self.request.route_url("species-skills", id=self.character.id)
-                self.character.status = {"species-skills": ""}
+                self.character.create_data = {"species-skills": ""}
                 return HTTPFound(location=url)
         else:
             html = form.render()

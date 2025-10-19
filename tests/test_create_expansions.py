@@ -23,7 +23,7 @@ def all_expansions():
 
 @pytest.mark.create
 def test_get_view(new_character):
-    new_character.status = {"expansions": ""}
+    new_character.create_data = {"expansions": ""}
     request = testing.DummyRequest(path="expansions")
     request.dbsession = dbsession(request)
     request.matched_route = DummyRoute(name="expansions")
@@ -37,7 +37,7 @@ def test_get_view(new_character):
 
 @pytest.mark.create
 def test_submit_view(new_character):
-    new_character.status = {"expansions": ""}
+    new_character.create_data = {"expansions": ""}
     expansions = all_expansions()
     expansions["rough_nights"] = "true"
     expansions["sea_of_claws"] = "true"
@@ -58,7 +58,7 @@ def test_submit_view(new_character):
 
 @pytest.mark.create
 def test_submit_empty(new_character):
-    new_character.status = {"expansions": ""}
+    new_character.create_data = {"expansions": ""}
     expansions = all_expansions()
     request = testing.DummyRequest(
         post={
@@ -77,7 +77,7 @@ def test_submit_empty(new_character):
 
 @pytest.mark.create
 def test_submit_invalid_expansion(new_character):
-    new_character.status = {"expansions": ""}
+    new_character.create_data = {"expansions": ""}
     expansions = all_expansions()
     expansions["not_an_expansion"] = "true"
     request = testing.DummyRequest(

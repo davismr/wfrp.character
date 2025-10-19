@@ -17,11 +17,11 @@ from wfrp.character.views.create_character.base_create import BaseCreateView
 )
 class SubCareerViews(BaseCreateView):
     def initialise_form(self):
-        if self.character.status["sub-career"]:
-            sub_career = self.character.status["sub-career"]
+        if self.character.create_data["sub-career"]:
+            sub_career = self.character.create_data["sub-career"]
         else:
             sub_career = get_sub_career(self.character.career, roll_d100())
-            self.character.status = {"sub-career": sub_career}
+            self.character.create_data = {"sub-career": sub_career}
         if self.character.experience in [45, 70]:
             experience_loss = self.character.experience - 20
         elif self.character.experience in [25, 50]:
@@ -94,7 +94,7 @@ class SubCareerViews(BaseCreateView):
                 ]
                 if data["experience_loss"] and career != data["sub_career"]:
                     self.character.experience += -data["experience_loss"]
-                self.character.status = {"attributes": ""}
+                self.character.create_data = {"attributes": ""}
                 url = self.request.route_url("attributes", id=self.character.id)
                 return HTTPFound(location=url)
         else:

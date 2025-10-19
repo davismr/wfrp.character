@@ -100,7 +100,8 @@ class NameViews(BaseCreateView):
                     "long_term_ambition"
                 ]
                 url = self.request.route_url("character-summary", id=self.character.id)
-                self.character.status = {"complete": ""}
+                self.character.status = "complete"
+                self.character.create_data = {}
                 return HTTPFound(location=url)
         else:
             html = form.render()
