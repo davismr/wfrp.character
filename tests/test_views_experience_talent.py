@@ -28,8 +28,28 @@ def test_form_view(complete_character):
     assert "Marsh Lights" in response["form"]
 
 
+@pytest.mark.current
+def test_submit_chanty(complete_character):
+    complete_character.species = "Human"
+    complete_character.career = "Chantyman"
+    request = testing.DummyRequest(
+        post={
+            "chanty": {"chanty": "The ladies of L’Anguille…"},
+            "Choose_Chanty": "Choose_Chanty",
+        }
+    )
+    request.GET = {"talent": "Chanty"}
+    request.dbsession = dbsession(request)
+    request.matched_route = DummyRoute(name="experience-talent")
+    request.matchdict = {"id": str(complete_character.id)}
+    view = ExperienceTalentViews(request)
+    response = view.form_view()
+    assert isinstance(response, HTTPFound)
+    assert complete_character.chanties == ["The ladies of L’Anguille…"]
+
+
 @pytest.mark.views
-def test_submit(complete_character):
+def test_submit_petty(complete_character):
     complete_character.species = "High Elf"
     complete_character.career = "Wizard"
     complete_character.willpower_initial = 34

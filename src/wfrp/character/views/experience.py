@@ -6,6 +6,7 @@ from pyramid.httpexceptions import HTTPFound
 from pyramid.view import view_config
 from pyramid.view import view_defaults
 
+from wfrp.character.data.magic.chanty import CHANTY_DATA
 from wfrp.character.data.magic.miracles import get_miracles
 from wfrp.character.data.magic.petty import PETTY_MAGIC_DATA
 from wfrp.character.data.skills import SKILL_DATA
@@ -154,7 +155,7 @@ class ExperienceViews(BaseView):
                 f"you need {cost} XP",
             )
 
-    def talent_schema(self):
+    def talent_schema(self):  # noqa: C901
         career_talents = self.career_details["talents"]
         schema = colander.SchemaNode(colander.Mapping(), title="Talents")
         talent_schema = colander.SchemaNode(
@@ -166,7 +167,9 @@ class ExperienceViews(BaseView):
         choices = [("", "None")]
         choice_talents = []
         for talent in career_talents:
-            if "(Any)" in talent or "(Any Arcane Lore)" in talent:
+            if talent == "Chanty" and "Chanty" in self.character.talents:
+                continue
+            elif "(Any)" in talent or "(Any Arcane Lore)" in talent:
                 talent_root = talent.split(" (")[0]
                 for item in self.character.talents:
                     if item.startswith(talent_root):
@@ -248,6 +251,56 @@ class ExperienceViews(BaseView):
             raise colander.Invalid(
                 node,
                 f"You do not have enough experience to increase {talent}, "
+                f"you need {cost} XP",
+            )
+
+    def chanties_schema(self):
+        schema = colander.SchemaNode(colander.Mapping(), title="Chanties")
+        chanties = self.character.chanties
+        chanties_schema = colander.SchemaNode(
+            colander.Mapping(),
+            name="chanties",
+            description=(
+                f"You can have a maximum of {self.character.intelligence // 10} "
+                f"chanties and  have learned {len(chanties)} chanties; "
+                f"{', '.join(chanties)}. "
+                f"You have {self.character.experience} experience to spend"
+            ),
+            validator=self.validate_chanties,
+        )
+        choices = [("", "None")]
+        for chanty in CHANTY_DATA:
+            if chanty not in chanties:
+                choices.append((chanty, chanty))
+        chanties_schema.add(
+            colander.SchemaNode(
+                colander.String(),
+                name="chanty",
+                widget=deform.widget.RadioChoiceWidget(values=choices),
+                validator=colander.OneOf([x[0] for x in choices]),
+                description=(
+                    "Choose a Chanty to Learn, this costs " f"{self.cost_chanty()} XP"
+                ),
+            )
+        )
+        schema.add(chanties_schema)
+        return schema
+
+    def cost_chanty(self):
+        return 100 + (100 * len(self.character.chanties))
+
+    def validate_chanties(self, node, values):
+        if len(self.character.chanties) >= self.character.intelligence // 10:
+            raise colander.Invalid(
+                node,
+                "You have learned the maximum of chanties, to learn more you need to "
+                "increase your intelligence bonus",
+            )
+        cost = self.character.cost_miracle()
+        if cost > self.character.experience:
+            raise colander.Invalid(
+                node,
+                "You do not have enough experience to change career, "
                 f"you need {cost} XP",
             )
 
@@ -394,12 +447,22 @@ class ExperienceViews(BaseView):
     def form_view(self):  # noqa: C901
         self.initialise_form()
         html = []
-        all_forms = ["characteristic", "skill", "talent", "magic", "miracles", "career"]
+        all_forms = [
+            "characteristic",
+            "skill",
+            "talent",
+            "chanties",
+            "magic",
+            "miracles",
+            "career",
+        ]
         for talent in self.character.talents:
             if talent.startswith("Invoke ("):
                 break
         else:
             all_forms.remove("miracles")
+        if "Chanty" not in self.character.talents:
+            all_forms.remove("chanties")
         if "Petty Magic" not in self.character.talents:
             all_forms.remove("magic")
         forms = {}
@@ -407,6 +470,8 @@ class ExperienceViews(BaseView):
         for form in all_forms:
             if form == "career":
                 button = "Change Career"
+            elif form == "chanties":
+                button = "Learn Chanty"
             elif form == "magic":
                 button = "Learn Spell"
             elif form == "miracles":
@@ -488,7 +553,11 @@ class ExperienceViews(BaseView):
                     talent = talent.replace("Any", specialisation)
                 else:
                     talent = talent.replace("Any Arcane Lore", specialisation)
-            if captured["add_talent"]["talent"] in ["Petty Magic", "Invoke (Any)"]:
+            if captured["add_talent"]["talent"] in [
+                "Chanty",
+                "Petty Magic",
+                "Invoke (Any)",
+            ]:
                 url = self.request.route_url("experience-talent", id=self.character.id)
                 return f"{url}?talent={talent}"
             if talent in self.character.talents:
@@ -500,6 +569,18 @@ class ExperienceViews(BaseView):
             )
             self.request.dbsession.add(experience_cost)
             message = f"You have spent {cost} XP to increase {talent} by 1"
+        elif form_id == "chanties_form":
+            cost = self.cost_chanty()
+            chanty = captured["chanties"]["chanty"]
+            self.character.chanties.append(chanty)
+            experience_cost = ExperienceCost(
+                character_id=self.character.id,
+                type="chanty",
+                cost=cost,
+                name=chanty,
+            )
+            self.request.dbsession.add(experience_cost)
+            message = f"You have spent {cost} XP to learn {chanty} chanty."
         elif form_id == "magic_form":
             cost = self.character.cost_petty_magic()
             spell = captured["spells"]["petty_magic"]

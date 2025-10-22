@@ -19,6 +19,7 @@ from wfrp.character.data.armour import ARMOUR_DATA
 from wfrp.character.data.careers.careers import ALL_CAREER_DATA
 from wfrp.character.data.careers.careers import ALL_CAREER_DATA_WITH_SEAFARER
 from wfrp.character.data.magic.bless import get_blessings
+from wfrp.character.data.magic.chanty import CHANTY_DATA
 from wfrp.character.data.magic.miracles import ALL_MIRACLES_DATA
 from wfrp.character.data.magic.petty import PETTY_MAGIC_DATA
 from wfrp.character.data.skills import BASIC_SKILL_LIST
@@ -93,6 +94,7 @@ class Character(Base):
     movement = Column(Integer, default=3)
     skills = Column(MutableDict.as_mutable(JSON), default={})
     talents = Column(MutableDict.as_mutable(JSON), default={})
+    chanties = Column(MutableList.as_mutable(JSON), default=[])
     petty_magic = Column(MutableList.as_mutable(JSON), default=[])
     religion = Column(Text, default="")
     miracles = Column(MutableList.as_mutable(JSON), default=[])
@@ -277,6 +279,8 @@ class Character(Base):
         for talent in self.talents:
             if talent.startswith("Bless ("):
                 spell_list = get_blessings(talent.split(" (")[1][:-1])
+        for chanty in self.chanties:
+            spell_list[chanty] = CHANTY_DATA[chanty]
         for spell in self.petty_magic:
             spell_list[spell] = PETTY_MAGIC_DATA[spell]
         for miracle in self.miracles:

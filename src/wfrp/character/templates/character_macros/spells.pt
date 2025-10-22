@@ -14,10 +14,10 @@
         tal:define="spell_data character.get_spells()"
         tal:repeat="spell spell_data">
         <div class="col-md-2">${spell}</div>
-        <div class="col-md-1">${spell_data[spell]["CN"]}</div>
-        <div class="col-md-1">${spell_data[spell]["range"]}</div>
-        <div class="col-md-1">${spell_data[spell]["target"]}</div>
-        <div class="col-md-1">${spell_data[spell]["duration"]}</div>
+        <div class="col-md-1">${spell_data[spell]["CN"]|""}</div>
+        <div class="col-md-1">${spell_data[spell]["range"]|""}</div>
+        <div class="col-md-1">${spell_data[spell]["target"]|""}</div>
+        <div class="col-md-1">${spell_data[spell]["duration"]|""}</div>
         <div class="col-md-6">${spell_data[spell]["description"]}</div>
     </div>
 </div>
