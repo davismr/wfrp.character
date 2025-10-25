@@ -1,6 +1,8 @@
 from dataclasses import dataclass
+import uuid
 
 from pyramid import testing
+from pyramid.httpexceptions import HTTPNotFound
 import pytest
 
 from wfrp.character.application import dbsession
@@ -11,6 +13,17 @@ from wfrp.character.views.character import WEASYPRINT_INSTALLED
 @dataclass
 class DummyRoute:
     name: str
+
+
+@pytest.mark.views
+def test_character_404():
+    request = testing.DummyRequest()
+    request.dbsession = dbsession(request)
+    request.matched_route = DummyRoute(name="character-full")
+    request.matchdict = {"id": str(uuid.uuid4())}
+    with pytest.raises(HTTPNotFound) as error:
+        CharacterViews(request)
+    assert str(error.value) == "The resource could not be found."
 
 
 @pytest.mark.views

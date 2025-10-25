@@ -1,6 +1,8 @@
 import uuid
 
 from pyramid.httpexceptions import HTTPFound
+from pyramid.httpexceptions import HTTPNotFound
+from sqlalchemy.exc import NoResultFound
 
 from wfrp.character.models.character import Character
 
@@ -10,11 +12,14 @@ class BaseView:
         self.request = request
         self.logged_in = request.authenticated_userid
         id = request.matchdict["id"]
-        self.character = (
-            request.dbsession.query(Character)
-            .filter(Character.id == uuid.UUID(id))
-            .one()
-        )
+        try:
+            self.character = (
+                request.dbsession.query(Character)
+                .filter(Character.id == uuid.UUID(id))
+                .one()
+            )
+        except NoResultFound:
+            raise HTTPNotFound
         if self.character.status != "complete":
             self.redirect_request(list(self.character.create_data)[0])
 
