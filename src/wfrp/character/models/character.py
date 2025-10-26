@@ -230,6 +230,8 @@ class Character(Base):
             talent = talent.split(" (")[0]
         if "short_description" in TALENT_DATA[talent]:
             return TALENT_DATA[talent]["short_description"]
+        if len(TALENT_DATA[talent]["description"]) > 95:
+            return ""
         return TALENT_DATA[talent]["description"]
 
     def get_wealth(self):
