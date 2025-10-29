@@ -10,7 +10,6 @@
 ### Additional functionality
 - Enter character manually
 - Input/edit forms
-- Spells
 - Skill descriptions
 - Tests and max for talents
 - Attribute bonus max for talents

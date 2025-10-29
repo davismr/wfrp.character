@@ -195,13 +195,27 @@ def test_experience_talent_cost(new_character, advances, cost):
 def test_petty_magic_cost(new_character):
     new_character.willpower_initial = 39
     new_character.petty_magic = ["spell1", "spell2"]
-    assert new_character.cost_petty_magic() == 50
+    assert new_character.spell_cost("petty_magic") == 50
     new_character.petty_magic.append("spell3")
-    assert new_character.cost_petty_magic() == 50
+    assert new_character.spell_cost("petty_magic") == 50
     new_character.petty_magic.append("spell4")
-    assert new_character.cost_petty_magic() == 100
+    assert new_character.spell_cost("petty_magic") == 100
     new_character.petty_magic.extend(["spell5", "spell6", "spell7"])
-    assert new_character.cost_petty_magic() == 150
+    assert new_character.spell_cost("petty_magic") == 150
+
+
+@pytest.mark.models
+def test_arcane_magic_cost(new_character):
+    new_character.intelligence_initial = 29
+    assert new_character.spell_cost("arcane_magic") == 100
+    new_character.arcane_magic = ["spell1", "spell2"]
+    assert new_character.spell_cost("arcane_magic") == 100
+    new_character.lore_magic.append("spell3")
+    assert new_character.spell_cost("arcane_magic") == 200
+    # new_character.petty_magic.append("spell4")
+    # assert new_character.spell_cost("petty_magic") == 100
+    new_character.arcane_magic.extend(["spell5", "spell6", "spell7"])
+    assert new_character.spell_cost("arcane_magic") == 300
 
 
 @pytest.mark.models

@@ -6,7 +6,9 @@ from pyramid.httpexceptions import HTTPFound
 from pyramid.view import view_config
 from pyramid.view import view_defaults
 
+from wfrp.character.data.magic.arcane import ARCANE_MAGIC_DATA
 from wfrp.character.data.magic.chanty import CHANTY_DATA
+from wfrp.character.data.magic.colour_magic import get_colour_spells
 from wfrp.character.data.magic.miracles import get_miracles
 from wfrp.character.data.magic.petty import PETTY_MAGIC_DATA
 from wfrp.character.data.skills import SKILL_DATA
@@ -304,7 +306,7 @@ class ExperienceViews(BaseView):
                 f"you need {cost} XP",
             )
 
-    def magic_schema(self):
+    def magic_schema(self):  # noqa: C901
         schema = colander.SchemaNode(colander.Mapping(), title="Spells")
         petty_magic_spells = self.character.petty_magic
         spell_schema = colander.SchemaNode(
@@ -314,38 +316,100 @@ class ExperienceViews(BaseView):
                 f"You have a willpower of {self.character.willpower} and have learned "
                 f"{len(petty_magic_spells)} petty magic spells; "
                 f"{', '.join(petty_magic_spells)}. "
+                f"{len(self.character.arcane_magic)} arcane magic spells; "
+                f"{', '.join(self.character.arcane_magic)}. "
+                f"{len(self.character.lore_magic)} lore magic spells; "
+                f"{', '.join(self.character.lore_magic)}. "
                 f"You have {self.character.experience} experience to spend"
             ),
             validator=self.validate_magic,
         )
-        choices = [("", "None")]
-        for spell in PETTY_MAGIC_DATA:
-            if spell in petty_magic_spells:
-                continue
-            choices.append((spell, spell))
-        spell_schema.add(
-            colander.SchemaNode(
-                colander.String(),
-                name="petty_magic",
-                widget=deform.widget.RadioChoiceWidget(values=choices),
-                validator=colander.OneOf([x[0] for x in choices]),
-                description=(
-                    "Choose a Petty Magic Spell to Learn, this costs "
-                    f"{self.character.cost_petty_magic()} XP"
-                ),
+        if "Petty Magic" in self.character.talents:
+            choices = [("", "None")]
+            for spell in PETTY_MAGIC_DATA:
+                if spell in petty_magic_spells:
+                    continue
+                choices.append((spell, spell))
+            spell_schema.add(
+                colander.SchemaNode(
+                    colander.String(),
+                    name="petty_magic",
+                    widget=deform.widget.RadioChoiceWidget(values=choices),
+                    validator=colander.OneOf([x[0] for x in choices]),
+                    missing="",
+                    description=(
+                        "Choose a Petty Magic Spell to Learn, this costs "
+                        f"{self.character.spell_cost('petty_magic')} XP"
+                    ),
+                )
             )
-        )
+        arcane_available = False
+        for talent in self.character.talents:
+            if talent.startswith("Arcane Magic ("):
+                arcane_available = True
+                arcane_spells = get_colour_spells(talent.split("(")[1].replace(")", ""))
+        if arcane_available:
+            choices = [("", "None")]
+            for spell in ARCANE_MAGIC_DATA:
+                if spell in self.character.arcane_magic:
+                    continue
+                choices.append((spell, spell))
+            spell_schema.add(
+                colander.SchemaNode(
+                    colander.String(),
+                    name="arcane_magic",
+                    widget=deform.widget.RadioChoiceWidget(values=choices),
+                    validator=colander.OneOf([x[0] for x in choices]),
+                    missing="",
+                    description=(
+                        "Choose an Arcane Magic Spell to Learn, this costs "
+                        f"{self.character.spell_cost('arcane_magic')} XP"
+                    ),
+                )
+            )
+            choices = [("", "None")]
+            for spell in arcane_spells:
+                if spell in self.character.lore_magic:
+                    continue
+                choices.append((spell, spell))
+            spell_schema.add(
+                colander.SchemaNode(
+                    colander.String(),
+                    name="lore_magic",
+                    widget=deform.widget.RadioChoiceWidget(values=choices),
+                    validator=colander.OneOf([x[0] for x in choices]),
+                    missing="",
+                    description=(
+                        "Choose a Lore Magic Spell to Learn, this costs "
+                        f"{self.character.spell_cost('lore_magic')} XP"
+                    ),
+                )
+            )
         schema.add(spell_schema)
         return schema
 
     def validate_magic(self, node, values):
-        cost = self.character.cost_petty_magic()
+        error = colander.Invalid(node, "Error message on form")
+        items = {k: v for k, v in values.items() if v}
+        if len(items) == 0:
+            error.msg = "You have to select a spell to learn"
+            for field in values:
+                error[field] = "You have to select a spell to learn"
+            raise error
+        if len(items) != 1:
+            error.msg = "You can only select one spell to learn"
+            for field in items:
+                error[field] = "You can only select one spell to learn"
+            raise error
+        spell_type = list(items.keys())[0]
+        cost = self.character.spell_cost(spell_type)
         if cost > self.character.experience:
-            raise colander.Invalid(
-                node,
-                "You do not have enough experience to change career, "
-                f"you need {cost} XP",
+            error.msg = (
+                "You do not have enough experience to learn this spell, "
+                f"you need {cost} XP"
             )
+            error[spell_type] = error.msg
+            raise error
 
     def miracles_schema(self):
         schema = colander.SchemaNode(colander.Mapping(), title="Miracles")
@@ -463,7 +527,10 @@ class ExperienceViews(BaseView):
             all_forms.remove("miracles")
         if "Chanty" not in self.character.talents:
             all_forms.remove("chanties")
-        if "Petty Magic" not in self.character.talents:
+        for talent in self.character.talents:
+            if talent == "Petty Magic" or talent.startswith("Arcane Magic ("):
+                break
+        else:
             all_forms.remove("magic")
         forms = {}
         counter = itertools.count()
@@ -582,17 +649,28 @@ class ExperienceViews(BaseView):
             self.request.dbsession.add(experience_cost)
             message = f"You have spent {cost} XP to learn {chanty} chanty."
         elif form_id == "magic_form":
-            cost = self.character.cost_petty_magic()
-            spell = captured["spells"]["petty_magic"]
-            self.character.petty_magic.append(spell)
+            spell = {k: v for k, v in captured["spells"].items() if v}
+            cost = self.character.spell_cost(spell)
+            spell_type = list(spell.keys())[0]
+            spell_name = list(spell.values())[0]
+            if spell_type == "petty_magic":
+                self.character.petty_magic.append(spell_name)
+            elif spell_type == "arcane_magic":
+                self.character.arcane_magic.append(spell_name)
+            elif spell_type == "lore_magic":
+                self.character.lore_magic.append(spell_name)
             experience_cost = ExperienceCost(
                 character_id=self.character.id,
-                type="spell",
+                type=spell_type.replace("_", " ").title(),
                 cost=cost,
-                name=spell,
+                name=spell_name,
             )
+            spell_type_string = spell_type.replace("_", " ").title()
             self.request.dbsession.add(experience_cost)
-            message = f"You have spent {cost} XP to learn {spell} petty magic spell."
+            message = (
+                f"You have spent {cost} XP to learn {spell_name} {spell_type_string} "
+                "spell."
+            )
         elif form_id == "miracles_form":
             cost = self.character.cost_miracle()
             miracle = captured["miracles"]["miracle"]

@@ -18,8 +18,10 @@ from wfrp.character.application import Base
 from wfrp.character.data.armour import ARMOUR_DATA
 from wfrp.character.data.careers.careers import ALL_CAREER_DATA
 from wfrp.character.data.careers.careers import ALL_CAREER_DATA_WITH_SEAFARER
+from wfrp.character.data.magic.arcane import ARCANE_MAGIC_DATA
 from wfrp.character.data.magic.bless import get_blessings
 from wfrp.character.data.magic.chanty import CHANTY_DATA
+from wfrp.character.data.magic.colour_magic import get_colour_spells
 from wfrp.character.data.magic.miracles import ALL_MIRACLES_DATA
 from wfrp.character.data.magic.petty import PETTY_MAGIC_DATA
 from wfrp.character.data.skills import BASIC_SKILL_LIST
@@ -96,6 +98,8 @@ class Character(Base):
     talents = Column(MutableDict.as_mutable(JSON), default={})
     chanties = Column(MutableList.as_mutable(JSON), default=[])
     petty_magic = Column(MutableList.as_mutable(JSON), default=[])
+    arcane_magic = Column(MutableList.as_mutable(JSON), default=[])
+    lore_magic = Column(MutableList.as_mutable(JSON), default=[])
     religion = Column(Text, default="")
     miracles = Column(MutableList.as_mutable(JSON), default=[])
     weapons = Column(MutableList.as_mutable(JSON), default=[])
@@ -277,14 +281,23 @@ class Character(Base):
         return armour + trappings + weapons
 
     def get_spells(self):
+        arcane_lore = None
         spell_list = {}
         for talent in self.talents:
             if talent.startswith("Bless ("):
                 spell_list = get_blessings(talent.split(" (")[1][:-1])
+            elif talent.startswith("Arcane Magic ("):
+                arcane_lore = talent.split(" (")[1][:-1]
         for chanty in self.chanties:
             spell_list[chanty] = CHANTY_DATA[chanty]
         for spell in self.petty_magic:
             spell_list[spell] = PETTY_MAGIC_DATA[spell]
+        for spell in self.arcane_magic:
+            spell_list[spell] = ARCANE_MAGIC_DATA[spell]
+        if arcane_lore:
+            lore_spells = get_colour_spells(arcane_lore)
+            for spell in self.lore_magic:
+                spell_list[spell] = lore_spells[spell]
         for miracle in self.miracles:
             spell_list[miracle] = ALL_MIRACLES_DATA[miracle]
         return spell_list
@@ -293,6 +306,17 @@ class Character(Base):
         known_spells = len(self.petty_magic)
         willpower_bonus = self.willpower // 10
         return (((known_spells - 1) // willpower_bonus) + 1) * 50
+
+    def spell_cost(self, spell_type):
+        if spell_type == "petty_magic":
+            known_spells = len(self.petty_magic)
+            willpower_bonus = self.willpower // 10
+            return (((known_spells - 1) // willpower_bonus) + 1) * 50
+        known_spells = len(self.arcane_magic) + len(self.lore_magic)
+        if known_spells == 0:
+            return 100
+        intelligence_bonus = self.intelligence // 10
+        return (((known_spells - 1) // intelligence_bonus) + 1) * 100
 
     def cost_miracle(self):
         known_miracles = len(self.miracles)
