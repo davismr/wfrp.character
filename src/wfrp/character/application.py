@@ -22,6 +22,7 @@ load_dotenv()
 
 def configure_app(global_config, **settings):
     """Configure the pyramid api."""
+    settings["sqlalchemy.url"] = os.environ["DATABASE_URL"]
     engine = engine_from_config(settings, "sqlalchemy.")
     DBSession.configure(bind=engine)
     Base.metadata.bind = engine
