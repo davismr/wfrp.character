@@ -4,6 +4,6 @@ WORKDIR /app
 COPY . .
 RUN pip install .
 
-RUN init_db development.ini
+RUN init_db railway.ini
 EXPOSE 8000
-CMD ["pserve", "development.ini"]
+CMD ["pserve", "railway.ini"]
