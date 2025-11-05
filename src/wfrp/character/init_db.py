@@ -26,6 +26,7 @@ def main(argv=sys.argv):
     config_uri = argv[1]
     setup_logging(config_uri)
     settings = get_appsettings(config_uri)
+    settings["sqlalchemy.url"] = os.environ["DATABASE_URL"]
     engine = engine_from_config(settings, "sqlalchemy.")
     DBSession.configure(bind=engine)
     Campaign.metadata.create_all(engine)
