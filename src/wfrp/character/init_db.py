@@ -1,3 +1,4 @@
+import logging
 import os
 import sys
 
@@ -16,6 +17,8 @@ from wfrp.character.models.user import User
 
 load_dotenv()
 
+logger = logging.getLogger(__name__)
+
 
 def usage(argv):
     cmd = os.path.basename(argv[0])
@@ -29,6 +32,9 @@ def main(argv=sys.argv):
     config_uri = argv[1]
     setup_logging(config_uri)
     settings = get_appsettings(config_uri)
+    logger.critical(os.environ.keys())
+    print(os.environ.keys())
+    print(os.getenv("RAILWAY_PUBLIC_DOMAIN"))
     print(os.getenv("RAILWAY_PUBLIC_DOMAIN"))
     settings["sqlalchemy.url"] = os.getenv("DATABASE_URL")
     if settings["sqlalchemy.url"] is None:
