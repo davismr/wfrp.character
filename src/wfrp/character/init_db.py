@@ -1,6 +1,7 @@
 import os
 import sys
 
+from dotenv import load_dotenv
 from pyramid.paster import get_appsettings
 from pyramid.paster import setup_logging
 from sqlalchemy import engine_from_config
@@ -12,6 +13,8 @@ from wfrp.character.models.character import Character
 from wfrp.character.models.experience import ExperienceCost
 from wfrp.character.models.experience import ExperienceGain
 from wfrp.character.models.user import User
+
+load_dotenv()
 
 
 def usage(argv):
@@ -26,7 +29,10 @@ def main(argv=sys.argv):
     config_uri = argv[1]
     setup_logging(config_uri)
     settings = get_appsettings(config_uri)
-    settings["sqlalchemy.url"] = os.environ["DATABASE_URL"]
+    print(os.getenv("RAILWAY_PUBLIC_DOMAIN"))
+    settings["sqlalchemy.url"] = os.getenv("DATABASE_URL")
+    if settings["sqlalchemy.url"] is None:
+        raise Exception("Can not find env var")
     engine = engine_from_config(settings, "sqlalchemy.")
     DBSession.configure(bind=engine)
     Campaign.metadata.create_all(engine)
