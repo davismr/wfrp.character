@@ -248,6 +248,16 @@ class Character(Base):
             wealth.append(f"{self.gold_crowns} Gold Crowns")
         return ", ".join(wealth)
 
+    def get_armour_points(self):
+        armour_Locations = {"Head": 0, "Body": 0, "Arms": 0, "Legs": 0, "Shield": 0}
+        for item in self.armour:
+            details = ARMOUR_DATA[item]
+            for location in details["Locations"]:
+                armour_Locations[location] += details["APs"]
+            # breakpoint()
+            pass
+        return armour_Locations
+
     def get_encumberance_trapping(self, trapping):
         if trapping in TRAPPINGS_DATA:
             return TRAPPINGS_DATA[trapping]["Enc"]

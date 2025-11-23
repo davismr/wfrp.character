@@ -212,10 +212,12 @@ def test_arcane_magic_cost(new_character):
     assert new_character.spell_cost("arcane_magic") == 100
     new_character.lore_magic.append("spell3")
     assert new_character.spell_cost("arcane_magic") == 200
-    # new_character.petty_magic.append("spell4")
-    # assert new_character.spell_cost("petty_magic") == 100
-    new_character.arcane_magic.extend(["spell5", "spell6", "spell7"])
+    new_character.lore_magic.append("spell4")
+    assert new_character.spell_cost("arcane_magic") == 200
+    new_character.arcane_magic.extend(["spell5", "spell6"])
     assert new_character.spell_cost("arcane_magic") == 300
+    new_character.lore_magic.append("spell7")
+    assert new_character.spell_cost("arcane_magic") == 400
 
 
 @pytest.mark.models
@@ -244,6 +246,16 @@ def test_total_encumberance_weapons(complete_character):
 @pytest.mark.models
 def test_total_encumberance_armour(complete_character):
     assert complete_character.total_encumberance_armour() >= 0
+
+
+@pytest.mark.models
+def test_armour_points(complete_character):
+    complete_character.armour = ["Leather Leggings", "Mail Shirt"]
+    armour_points = complete_character.get_armour_points()
+    assert armour_points["Head"] == 0
+    assert armour_points["Body"] == 2
+    assert armour_points["Arms"] == 0
+    assert armour_points["Legs"] == 1
 
 
 @pytest.mark.models

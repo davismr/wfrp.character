@@ -77,7 +77,7 @@ html, body {
 #armour_layout-block {
     grid-column: 5 / span 2;
     grid-row: 1 / span 3;
-    height: 100px;
+    height: 210px;
 }
 
 #trappings-block {
@@ -125,6 +125,59 @@ html, body {
     border: 1px solid grey;
     box-sizing: border-box;
     padding: 2px;
+}
+
+#armour-layout #armour-layout-body {
+    display: grid;
+}
+
+#armour-layout #armour-layout-body div {
+    text-align: center;
+}
+
+#armour-layout #armour-layout-body .border {
+    border: 1px solid grey;
+    width: 50px;
+}
+
+#armour-layout #armour-silhouette {
+    grid-column: 2;
+    grid-row: 1 / span 3;
+}
+
+#armour-layout #armour-head {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+#armour-layout #armour-left-arm {
+    grid-column: 3;
+    grid-row: 1;
+}
+
+#armour-layout #armour-right-arm {
+    grid-column: 1;
+    grid-row: 2;
+}
+
+#armour-layout #armour-body {
+    grid-column: 3;
+    grid-row: 2;
+}
+
+#armour-layout #armour-left-leg {
+    grid-column: 1;
+    grid-row: 3;
+}
+
+#armour-layout #armour-right-leg {
+    grid-column: 3;
+    grid-row: 3;
+}
+
+#armour-layout #armour-shield {
+    grid-column: 2;
+    grid-row: 3;
 }
 
 #wounds .row div {

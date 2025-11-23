@@ -1,8 +1,40 @@
-<div id="armour-layout" class="border">
+<div id="armour-layout" class="border"
+    tal:define="armour python:character.get_armour_points()">
     <div class="row">
         <div class="col-md-12 caption">Armour Points</div>
     </div>
-    <div class="row">
-        <div class="col-md-12"><!-- TODO --></div>
+    <div id="armour-layout-body" class="">
+        <div id="armour-silhouette">
+            <img src="${request.static_url('wfrp.character:static/silhouette.png')}"
+                alt="Character silhouette" />
+        </div>
+        <div id="armour-head">
+            <div>${armour["Head"]}</div>
+            <div>01-09 Head</div>
+        </div>
+        <div id="armour-left-arm">
+            <div>${armour["Arms"]}</div>
+            <div>10-24 Left Arm</div>
+        </div>
+        <div id="armour-right-arm">
+            <div>${armour["Arms"]}</div>
+            <div>25-44 Right Arm</div>
+        </div>
+        <div id="armour-body">
+            <div>${armour["Body"]}</div>
+            <div>45-79 Body</div>
+        </div>
+        <div id="armour-left-leg">
+            <div>${armour["Legs"]}</div>
+            <div>80-89 Left Leg</div>
+        </div>
+        <div id="armour-right-leg">
+            <div>${armour["Legs"]}</div>
+            <div>90-00 Right Leg</div>
+        </div>
+        <div id="armour-shield">
+            <div>${armour["Shield"]}</div>
+            <div>Shield</div>
+        </div>
     </div>
 </div>

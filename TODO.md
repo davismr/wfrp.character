@@ -1,6 +1,5 @@
 ### Layout
 - Fix layout
-- Armour layout
 - Encumbrance
 
 ### Authentication/Authorization
