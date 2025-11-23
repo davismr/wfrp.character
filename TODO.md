@@ -19,7 +19,15 @@
 - Optional modules
 - Mark which skill is used for earning money
 - Change career
+- unlearn spells and prayers
+- chaos magic
+- update trappings
+- seer - arcane magic
 
 ### Expansions
 - Priest of Stromfels - sea of claws
 - Winds of Magic
+
+#### Up in arms
+- dooming talent
+- up in arms talent descriptions
