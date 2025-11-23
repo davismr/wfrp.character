@@ -61,3 +61,6 @@ If you get OSError due to missing libraries, you may need to export the library 
 ```bash
 export DYLD_FALLBACK_LIBRARY_PATH=/opt/local/lib:$DYLD_FALLBACK_LIBRARY_PATH
 ```
+
+docker build --tag wfrp .
+docker run -p 6543:6543 wfrp
