@@ -120,10 +120,6 @@ def test_submit_view(new_character):
     assert new_character.armour == ["Leather Jack"]
     assert new_character.trappings == [
         "Clothing",
-        "Dagger",
-        "Hand Weapon",
-        "Knuckledusters",
-        "Leather Jack",
         "Mask",
         "Pouch",
     ]
@@ -161,7 +157,6 @@ def test_submit_artist(new_character):
     assert new_character.armour == []
     assert new_character.trappings == [
         "Comb",
-        "Dagger",
         "Ear Pick",
         "Fine Clothing",
         "Pouch",
@@ -233,7 +228,16 @@ def test_submit_item_with_space(new_character):
     assert new_character.brass_pennies > 0
     assert new_character.weapons == ["Crossbow", "Dagger"]
     assert new_character.armour == ["Leather Jack"]
-    assert "Crossbow with 10 Bolts" in new_character.trappings
+    assert new_character.trappings == [
+        "Backpack",
+        "Blanket",
+        "Cloak",
+        "Clothing",
+        "Pouch",
+        "Rations (1 day)",
+        "Tinderbox",
+    ]
+    # TODO add ammo
 
 
 @pytest.mark.create
@@ -268,9 +272,6 @@ def test_submit_view_duplicate_item(new_character):
     assert new_character.armour == ["Leather Breastplate"]
     assert new_character.trappings == [
         "Clothing",
-        "Dagger",
-        "Hand Weapon",
-        "Leather Breastplate",
         "Pouch",
         "Uniform",
     ]

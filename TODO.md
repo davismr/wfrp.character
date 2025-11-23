@@ -23,6 +23,7 @@
 - chaos magic
 - update trappings
 - seer - arcane magic
+- ammo tracking
 
 ### Expansions
 - Priest of Stromfels - sea of claws

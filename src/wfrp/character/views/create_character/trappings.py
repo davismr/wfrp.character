@@ -165,7 +165,8 @@ class TrappingsViews(BaseCreateView):
                 self.character.weapons.append(item.split()[0])
             elif item in ARMOUR_DATA:
                 self.character.armour.append(item)
-            self.character.trappings.append(item)
+            else:
+                self.character.trappings.append(item)
         self.character.weapons.sort()
         self.character.armour.sort()
         self.character.trappings.sort()
