@@ -248,6 +248,33 @@ class Character(Base):
             wealth.append(f"{self.gold_crowns} Gold Crowns")
         return ", ".join(wealth)
 
+    def get_weapons(self):
+        weapons = []
+        for weapon in self.weapons:
+            weapon_type = weapon.split(": ")[0]
+            weapon_data = WEAPONS_DATA[weapon_type]
+            if isinstance(weapon_data["Damage"], str):
+                weapon_damage = weapon_data["Damage"]
+            else:
+                weapon_damage = 0
+                for item in weapon_data["Damage"]:
+                    if item == "SB":
+                        weapon_damage += self.strength // 10
+                    else:
+                        weapon_damage += item
+                weapon_damage = f"+{weapon_damage}"
+            weapons.append(
+                {
+                    "name": weapon,
+                    "group": weapon_data["Group"],
+                    "encumberance": weapon_data["Enc"],
+                    "reach": weapon_data["Reach"],
+                    "damage": weapon_damage,
+                    "qualities": ", ".join(weapon_data.get("Qualities", [])),
+                }
+            )
+        return weapons
+
     def get_armour_points(self):
         armour_Locations = {"Head": 0, "Body": 0, "Arms": 0, "Legs": 0, "Shield": 0}
         for item in self.armour:
