@@ -219,7 +219,7 @@ SEAFARER_CLASS_DATA = {
             ],
             "trappings": [
                 "Leather Jerkin",
-                "Rope",
+                "Rope, 10 yards",
                 "Row Boat",
             ],
         },
