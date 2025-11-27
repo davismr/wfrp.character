@@ -43,8 +43,8 @@ RIVERFOLK_CLASS_DATA = {
                 "Waterman",
             ],
             "trappings": [
-                "Rope",
-                "Rowboat",
+                "Rope, 10 yards",
+                "Row Boat",
             ],
         },
         "Bargeswain": {
@@ -130,7 +130,7 @@ RIVERFOLK_CLASS_DATA = {
             ],
             "trappings": [
                 "Leather Jerkin",
-                "Rope",
+                "Rope, 10 yards",
                 "Row Boat",
             ],
         },
@@ -194,7 +194,7 @@ RIVERFOLK_CLASS_DATA = {
                 "Waterman",
             ],
             "trappings": [
-                "Hand Weapon (Sword)",
+                "Hand Weapon: Sword",
                 "Leather Jack",
                 "Uniform",
             ],
