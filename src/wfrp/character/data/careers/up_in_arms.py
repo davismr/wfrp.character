@@ -1,12 +1,3 @@
-def get_sub_career(career, die_roll):
-    career_list = UP_IN_ARMS_CAREERS[career]
-    while True:
-        try:
-            return career_list[die_roll]
-        except KeyError:
-            die_roll += 1
-
-
 UP_IN_ARMS_CAREERS = {
     "Engineer": {
         75: "Engineer",

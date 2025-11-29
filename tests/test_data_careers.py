@@ -13,6 +13,7 @@ from wfrp.character.data.careers.tables import get_career
 from wfrp.character.data.careers.tables import list_careers
 from wfrp.character.data.careers.up_in_arms import UP_IN_ARMS_CLASS_DATA
 from wfrp.character.data.careers.warriors import WARRIORS_CLASS_DATA
+from wfrp.character.data.careers.winds_of_magic import WINDS_OF_MAGIC_CLASS_DATA
 from wfrp.character.data.skills import SKILL_DATA
 from wfrp.character.data.talents import TALENT_DATA
 from wfrp.character.views.create_character.attributes import ATTRIBUTES
@@ -189,6 +190,7 @@ def test_basic_career_data(career_data):
     [
         PRIEST_OF_STROMFELS,
         UP_IN_ARMS_CLASS_DATA,
+        WINDS_OF_MAGIC_CLASS_DATA,
     ],
 )
 def test_career_data(career_data):

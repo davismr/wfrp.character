@@ -11,8 +11,8 @@ EXPANSIONS = {
         "title": "Up in Arms",
         "description": "Sub careers for some military careers",
     },
-    # "winds_of_magic": {
-    #     "title": "Winds of Magic",
-    #     "description": "Sub careers for some careers",
-    # },
+    "winds_of_magic": {
+        "title": "Winds of Magic",
+        "description": "Sub careers for some magic careers",
+    },
 }

@@ -12,6 +12,7 @@ from wfrp.character.data.careers.careers import CAREER_BY_CLASS_WITH_SEAFARER
 from wfrp.character.data.careers.tables import get_career
 from wfrp.character.data.careers.tables import list_careers
 from wfrp.character.data.careers.up_in_arms import UP_IN_ARMS_CAREERS
+from wfrp.character.data.careers.winds_of_magic import WINDS_OF_MAGIC_CAREERS
 from wfrp.character.utils import roll_d100
 from wfrp.character.views.create_character.base_create import BaseCreateView
 
@@ -209,6 +210,12 @@ class CareerViews(BaseCreateView):
         if (
             "up_in_arms" in self.character.expansions
             and self.character.career in UP_IN_ARMS_CAREERS
+        ):
+            self.character.create_data = {"sub-career": ""}
+            return self.request.route_url("sub-career", id=self.character.id)
+        if (
+            "winds_of_magic" in self.character.expansions
+            and self.character.career in WINDS_OF_MAGIC_CAREERS
         ):
             self.character.create_data = {"sub-career": ""}
             return self.request.route_url("sub-career", id=self.character.id)

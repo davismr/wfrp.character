@@ -4,9 +4,10 @@ from pyramid.httpexceptions import HTTPFound
 from pyramid.view import view_config
 from pyramid.view import view_defaults
 
-from wfrp.character.data.careers.up_in_arms import UP_IN_ARMS_CAREERS
-from wfrp.character.data.careers.up_in_arms import UP_IN_ARMS_CLASS_DATA
-from wfrp.character.data.careers.up_in_arms import get_sub_career
+from wfrp.character.data.careers.careers import get_sub_career_data
+from wfrp.character.data.careers.careers import get_sub_careers
+from wfrp.character.data.careers.careers import roll_sub_career
+from wfrp.character.data.careers.winds_of_magic import COLLEGE_WIZARD_DATA
 from wfrp.character.utils import roll_d100
 from wfrp.character.views.create_character.base_create import BaseCreateView
 
@@ -20,7 +21,7 @@ class SubCareerViews(BaseCreateView):
         if self.character.create_data["sub-career"]:
             sub_career = self.character.create_data["sub-career"]
         else:
-            sub_career = get_sub_career(self.character.career, roll_d100())
+            sub_career = roll_sub_career(self.character.career, roll_d100())
             self.character.create_data = {"sub-career": sub_career}
         if self.character.experience in [45, 70]:
             experience_loss = self.character.experience - 20
@@ -45,28 +46,60 @@ class SubCareerViews(BaseCreateView):
         else:
             description = (
                 "As you selected a career previously, you may choose a different "
-                "specialist career."
+                "specialist career for no XP."
             )
         career_schema = colander.SchemaNode(
             colander.Mapping(),
             title="Specialist Career",
+            validator=self.validate_form if self.character.career == "Wizard" else None,
             description=description,
             name="specialist_career",
         )
-        career_choices = UP_IN_ARMS_CAREERS[self.character.career].values()
+        careers = get_sub_careers(self.character.career)
+        career_choices = [(x, x) for x in careers]
+        if career_choices[0][1] == "Wizard":
+            career_choices[0] = (
+                "Wizard",
+                "Wizard, or select a College Specific Wizard",
+            )
         career_schema.add(
             colander.SchemaNode(
                 colander.String(),
-                validator=colander.OneOf(career_choices),
-                widget=deform.widget.RadioChoiceWidget(
-                    values=[(x, x) for x in career_choices]
-                ),
+                validator=colander.OneOf(careers),
+                widget=deform.widget.RadioChoiceWidget(values=career_choices),
                 default=data["sub_career"],
                 name="specialist_career",
             )
         )
+        if self.character.career == "Wizard":
+            career_choices = [("Wizard", "Wizard or Master Vigilant")]
+            career_choices += [(x, x) for x in COLLEGE_WIZARD_DATA.keys()]
+            career_schema.add(
+                colander.SchemaNode(
+                    colander.String(),
+                    validator=colander.OneOf(
+                        ["Wizard"] + list(COLLEGE_WIZARD_DATA.keys())
+                    ),
+                    widget=deform.widget.RadioChoiceWidget(values=career_choices),
+                    default=data["sub_career"],
+                    name="college_specific_wizard",
+                )
+            )
         schema.add(career_schema)
         return schema
+
+    def validate_form(self, node, values):
+        if (
+            values["college_specific_wizard"] != "Wizard"
+            and values["specialist_career"] != "Wizard"
+        ):
+            error_msg = (
+                "You can not select Master Vigilant and a College Specific Career"
+            )
+            error = colander.Invalid(node, error_msg)
+            error["specialist_career"] = error_msg
+            error["college_specific_wizard"] = error_msg
+            raise error
 
     @view_config(route_name="sub-career")
     def form_view(self):
@@ -83,7 +116,9 @@ class SubCareerViews(BaseCreateView):
                 html = error.render()
             else:
                 career = captured["specialist_career"]["specialist_career"]
-                career_data = UP_IN_ARMS_CLASS_DATA[career]
+                if career == "Wizard":
+                    career = captured["specialist_career"]["college_specific_wizard"]
+                career_data = get_sub_career_data(career)
                 career_title = list(career_data.keys())[0]
                 self.character.career = career
                 self.character.career_path = [career_title]

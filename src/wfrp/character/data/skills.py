@@ -182,8 +182,13 @@ ADVANCED_SKILL_DATA = {
     },
 }
 
+WINDS_OF_MAGIC_SKILLS = {
+    "Augury": {"characteristic": ("intelligence", "Int")},
+    "Psychometry": {"characteristic": ("intelligence", "Int")},
+}
 
-SKILL_DATA = BASIC_SKILL_DATA | ADVANCED_SKILL_DATA
+
+SKILL_DATA = BASIC_SKILL_DATA | ADVANCED_SKILL_DATA | WINDS_OF_MAGIC_SKILLS
 
 BASIC_SKILL_LIST = list(BASIC_SKILL_DATA.keys())
 BASIC_SKILL_LIST.append("Melee (Basic)")
