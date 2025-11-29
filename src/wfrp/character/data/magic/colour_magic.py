@@ -766,7 +766,7 @@ LORE_LIGHT_DATA = {
     },
 }
 
-LORE_LIGHT_DATA = {
+LORE_SHADOWS_DATA = {
     "Choking Shadows": {
         "CN": 6,
         "range": "Willpower Bonus yards",
@@ -889,6 +889,8 @@ LORE_LIGHT_DATA = {
 
 def get_colour_spells(lore):
     lore_upper = lore.replace(" of ", "_").upper()
+    if not lore_upper.startswith("LORE"):
+        lore_upper = "LORE_" + lore_upper
     lore_title = f"{lore_upper}_DATA"
     spells = globals()[lore_title]
     return spells
