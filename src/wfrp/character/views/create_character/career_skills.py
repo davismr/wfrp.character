@@ -53,7 +53,7 @@ class CareerSkillsViews(BaseCreateView):
         ]
         for skill in data["career_skills"]:
             description = ""
-            if "(Any)" in skill:
+            if "(Any)" in skill or "(Any Colour)" in skill:
                 description = "Choose the specialisation below"
             skill_schema.add(
                 colander.SchemaNode(
@@ -67,9 +67,9 @@ class CareerSkillsViews(BaseCreateView):
                     name=skill,
                 )
             )
-            if "(Any)" in skill or " or " in skill:
+            if "(Any)" in skill or "(Any Colour)" in skill or " or " in skill:
                 specialisation_choices = []
-                if "(Any)" in skill:
+                if "(Any)" in skill or "(Any Colour)" in skill:
                     choices = SKILL_DATA[skill.split(" (")[0]]["specialisations"]
                 else:
                     choices = skill.split("(")[1].replace(")", "").split(" or ")
@@ -138,9 +138,9 @@ class CareerSkillsViews(BaseCreateView):
                 # ignore zeros, empty strings and specialisation fields
                 continue
             total += values[value]
-            if ("(Any)" in value or " or " in value) and not values[
-                f"{value} specialisation"
-            ]:
+            if (
+                "(Any)" in value or "(Any Colour)" in value or " or " in value
+            ) and not values[f"{value} specialisation"]:
                 error_msg = f"You have to select a specialisation for {value}"
                 errors.append(error_msg)
                 error[f"{value} specialisation"] = error_msg
@@ -215,7 +215,7 @@ class CareerSkillsViews(BaseCreateView):
             value = captured["career_skills"].get(item)
             if not value or "specialisation" in item:
                 continue
-            if "(Any)" in item:
+            if "(Any)" in item or "(Any Colour)" in item:
                 specialisation = captured["career_skills"].get(f"{item} specialisation")
                 self.character.skills[item.replace("Any", specialisation)] = int(value)
             elif " or " in item:

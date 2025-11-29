@@ -81,7 +81,6 @@ ADVANCED_SKILL_DATA = {
             "Aqshy",
             "Azyr",
             "Chamon",
-            "Dhar",
             "Ghur",
             "Ghyran",
             "Hysh",

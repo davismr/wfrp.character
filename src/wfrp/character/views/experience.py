@@ -94,7 +94,7 @@ class ExperienceViews(BaseView):
                     else:
                         for specialisation in specialisations:
                             career_skills.append(f"{root_skill} ({specialisation})")
-                elif "(Any)" in skill:
+                elif "(Any)" in skill or "(Any Colour)" in skill:
                     current_skills_length = len(career_skills)
                     # TODO this should not allow increases in species skills
                     # eg Human Pit Fighter can take Melee(Basic) as species skill
