@@ -6,11 +6,11 @@ from pyramid.httpexceptions import HTTPFound
 from pyramid.view import view_config
 from pyramid.view import view_defaults
 
-from wfrp.character.data.magic.arcane import ARCANE_MAGIC_DATA
 from wfrp.character.data.magic.chanty import CHANTY_DATA
-from wfrp.character.data.magic.colour_magic import get_colour_spells
 from wfrp.character.data.magic.miracles import get_miracles
 from wfrp.character.data.magic.petty import PETTY_MAGIC_DATA
+from wfrp.character.data.magic.spells import get_arcane_spells
+from wfrp.character.data.magic.spells import get_colour_spells
 from wfrp.character.data.skills import SKILL_DATA
 from wfrp.character.data.talents import TALENT_DATA
 from wfrp.character.models.experience import ExperienceCost
@@ -347,10 +347,12 @@ class ExperienceViews(BaseView):
         for talent in self.character.talents:
             if talent.startswith("Arcane Magic ("):
                 arcane_available = True
-                arcane_spells = get_colour_spells(talent.split("(")[1].replace(")", ""))
+                arcane_spells = get_colour_spells(
+                    talent.split("(")[1].replace(")", ""), self.character.expansions
+                )
         if arcane_available:
             choices = [("", "None")]
-            for spell in ARCANE_MAGIC_DATA:
+            for spell in get_arcane_spells(self.character.expansions):
                 if spell in self.character.arcane_magic:
                     continue
                 choices.append((spell, spell))

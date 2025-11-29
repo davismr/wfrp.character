@@ -21,9 +21,9 @@ from wfrp.character.data.careers.careers import ALL_CAREER_DATA_WITH_SEAFARER
 from wfrp.character.data.magic.arcane import ARCANE_MAGIC_DATA
 from wfrp.character.data.magic.bless import get_blessings
 from wfrp.character.data.magic.chanty import CHANTY_DATA
-from wfrp.character.data.magic.colour_magic import get_colour_spells
 from wfrp.character.data.magic.miracles import ALL_MIRACLES_DATA
 from wfrp.character.data.magic.petty import PETTY_MAGIC_DATA
+from wfrp.character.data.magic.spells import get_colour_spells
 from wfrp.character.data.skills import BASIC_SKILL_LIST
 from wfrp.character.data.skills import SKILL_DATA
 from wfrp.character.data.talents import TALENT_DATA
@@ -305,7 +305,7 @@ class Character(Base):
         for spell in self.arcane_magic:
             spell_list[spell] = ARCANE_MAGIC_DATA[spell]
         if arcane_lore:
-            lore_spells = get_colour_spells(arcane_lore)
+            lore_spells = get_colour_spells(arcane_lore, self.expansions)
             for spell in self.lore_magic:
                 spell_list[spell] = lore_spells[spell]
         for miracle in self.miracles:
