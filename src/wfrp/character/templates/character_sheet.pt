@@ -1,6 +1,8 @@
 <div id="logo-block">
-    <img src="${request.static_url('wfrp.character:static/wfrp_logo.png')}"
-        alt="WFRP logo" />
+    <a href="/character/${character.id}/summary">
+        <img src="${request.static_url('wfrp.character:static/wfrp_logo.png')}"
+            alt="WFRP logo" />
+    </a>
 </div>
 <div class="character-sheet">
     <div id="details-block">
