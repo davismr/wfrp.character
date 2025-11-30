@@ -885,3 +885,177 @@ LORE_SHADOWS_DATA = {
         ),
     },
 }
+
+LORE_HEDGECRAFT_DATA = {
+    "Goodwill": {
+        "CN": 0,
+        "range": "You",
+        "target": "AoE (Fellowship Bonus yards)",
+        "duration": "Willpower Bonus Rounds",
+        "description": (
+            "You create an atmosphere conducive to friendliness and good spirits. All "
+            "Fellowship Tests within the Area of Effect receive a bonus of +10, and "
+            "Animosity and Hatred Psychologies have no effect."
+        ),
+    },
+    "Mirkride": {
+        "CN": 0,
+        "range": "You",
+        "target": "You",
+        "duration": "Willpower Bonus minutes",
+        "description": (
+            "Speaking ancient words of magic, your spirit leaves your body, stepping "
+            "into the Hedge, the dark space between the material world and the spirit "
+            "realm. For the duration, your stand apart from the world, able to witness "
+            "it invisibly, but not affect it in any way. Physical barriers are no "
+            "impediment to you, and you may walk through non-magical obstacles at "
+            "will. Your body remains in place, immobile and insensate. At the end of "
+            "the spell you will be pulled suddenly back to your body. If your body is "
+            "killed while you are walking the Hedge, your spirit will wander aimlessly "
+            "for eternity."
+        ),
+    },
+    "Nepenthe": {
+        "CN": 0,
+        "range": "Touch",
+        "target": "Special",
+        "duration": "Willpower Bonus Rounds",
+        "description": (
+            "You mutter words of power over a premade potion of herbs, magically "
+            "transforming it into a potent philtre. If drunk while the spell is in "
+            "effect, the target may choose to completely forget one individual, "
+            "permanently."
+        ),
+    },
+    "Nostrum": {
+        "CN": 0,
+        "range": "Touch",
+        "target": "Special",
+        "duration": "Willpower Bonus Rounds",
+        "description": (
+            "You incant a spell over an already prepared draught, imbuing it with "
+            "magical power. If drunk while the spell is in effect, the target "
+            "immediately heals your Willpower Bonus in Wounds and is cured of one "
+            "disease. For every +2 SL you may cure an extra disease."
+        ),
+    },
+    "Part the Branches": {
+        "CN": 0,
+        "range": "You",
+        "target": "You",
+        "duration": "Willpower minutes",
+        "description": (
+            "Your pupils dilate as you complete your incantation, and you are able to "
+            "see into the Spirit world. This allows you to perceive invisible "
+            "creatures, spirits, and Daemons, even those marked as impossible to see."
+        ),
+    },
+    "Protective Charm": {
+        "CN": 0,
+        "range": "Touch",
+        "target": "Special",
+        "duration": "Willpower Bonus days",
+        "description": (
+            "You imbue a protective charm with a spell of protection. Those bearing "
+            "the charm gain the Magic Resistance Talent. If they already have that "
+            "Talent, the charm does nothing more."
+        ),
+    },
+}
+
+LORE_WITCHCRAFT_DATA = {
+    "Blight": {
+        "CN": 14,
+        "range": "Willpower Bonus yards",
+        "target": "Special",
+        "duration": "Special",
+        "description": (
+            "You may target either a well, a field, or a domestic animal. If you "
+            "successfully cast the spell, the target suffers from a blight: "
+            "• A blighted well becomes instantly brackish and stagnant "
+            "• Any crops currently planted in a Blighted field rot overnight "
+            "• A blighted animal sickens. The afflicted beast no longer produces "
+            "anything (cows produce no milk, hens produce no eggs, coats and hides "
+            "grow mangy and unusable) and will die in 10–SL days"
+        ),
+    },
+    "Creeping Menace": {
+        "CN": 6,
+        "range": "Willpower yards",
+        "target": 1,
+        "duration": "Willpower Bonus Rounds",
+        "description": (
+            "You summon a swarm of creeping, slithering creatures to harass your foes. "
+            "Each target affected is immediately engaged by a swarm of Giant Rats, "
+            "Giant Spiders, or Snakes. Use the standard profiles for the relevant "
+            "creature type, adding the Swarm Trait. For your Action you may make a "
+            "Challenging (+0) Charm Animal Test to direct 1 or more swarms to attack a "
+            "different target. When the spell ends, any remaining swarms disappear "
+            "into the shadows."
+        ),
+    },
+    "Curse of Crippling Pain": {
+        "CN": 10,
+        "range": "Willpower yards",
+        "target": 1,
+        "duration": "Willpower Bonus Rounds",
+        "description": (
+            "Stabbing a crude representation of your target — a doll or puppet — you "
+            "inflict crippling pain. When successfully cast, choose which hit location "
+            "to stab: "
+            "• Leg – Leg becomes useless, as if it was Amputated (see page 180). If "
+            "running, the target also gains the Prone Condition and takes falling "
+            "Damage. "
+            "• Arm – Arm becomes useless, as if it was Amputated (see page 180). If "
+            "target was holding anything in that hand, it is automatically dropped. "
+            "• Body – Target doubles up in agony, gaining +1 Fatigued Condition, and "
+            "must pass a Hard (–20) Endurance Test or gain the Prone Condition. "
+            "• Head – Target gains the Stunned Condition, and must pass an Average "
+            "(+20) Endurance Test or gain the Unconscious Condition for the Duration. "
+            "While the spell is in effect, for your Action you may make a Channelling "
+            "Test, stabbing the doll again, to affect a different location."
+        ),
+    },
+    "Curse of Ill-Fortune": {
+        "CN": 8,
+        "range": "Willpower Bonus miles",
+        "target": 1,
+        "duration": "Willpower Bonus days",
+        "description": (
+            "The ingredient for this spell is something belonging to the target, "
+            "either a personal possession or a strand of hair. For the duration, your "
+            "target suffers bad luck. Laces snap, chairs break, and other minor "
+            "narrative effects inconvenience them. The target suffers a penalty of –10 "
+            "to all Tests, in addition to any other modifiers, and may not spend "
+            "Fortune points."
+        ),
+    },
+    "Haunting Horror": {
+        "CN": 8,
+        "range": "Touch",
+        "target": "AoE (a single location)",
+        "duration": "Willpower days",
+        "description": (
+            "You target a single location, such as a house or clearing, and inflict "
+            "haunting dreams and waking nightmares on any who enter there. Those "
+            "entering while the spell is in effect are unnerved by eerie sensations, "
+            "flitting shadows, and whispered voices lurking on the threshold of "
+            "hearing. Unless they possess the Arcane Magic (Witchcraft) Talent, they "
+            "gain +1 Fatigued Condition. Then, unless they pass an Challenging (+0) "
+            "Cool Test, they gain another +1 Fatigued Condition and the Broken "
+            "Condition, both of which are only removed upon leaving the location."
+        ),
+    },
+    "The Evil Eye": {
+        "CN": 6,
+        "range": "Willpower yards",
+        "target": "Special",
+        "duration": "Instant",
+        "description": (
+            "You lock eyes with a single target, who must be looking at you. Perform "
+            "an Opposed Intimidate/Cool Test, adding any SL from your casting roll to "
+            "your result. Your opponent gains 1 Fatigued Condition per +2 SL by which "
+            "you win. If you win by 6+ SL, your opponent gains the Broken Condition."
+        ),
+    },
+}

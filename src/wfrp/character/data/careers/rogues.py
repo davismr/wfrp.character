@@ -665,7 +665,7 @@ ROGUES_CLASS_DATA = {
                 "Trade (Herbalist)",
             ],
             "talents": [
-                "Arcane Magic (Witchery)",
+                "Arcane Magic (Witchcraft)",
                 "Attractive",
                 "Second Sight",
                 "Witch!",

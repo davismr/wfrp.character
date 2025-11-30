@@ -16,6 +16,10 @@ def get_colour_spells(lore, expansions):
     lore_title = f"LORE_{lore.upper()}_DATA"
     spells = getattr(colour_magic, lore_title)
     if "winds_of_magic" in expansions:
-        spells = spells | getattr(colour_winds_of_magic, lore_title)
-        spells = dict(sorted(spells.items()))
+        try:
+            spells = spells | getattr(colour_winds_of_magic, lore_title)
+        except AttributeError:
+            pass
+        else:
+            spells = dict(sorted(spells.items()))
     return spells
