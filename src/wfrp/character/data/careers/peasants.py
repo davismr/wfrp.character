@@ -518,7 +518,7 @@ PEASANTS_CLASS_DATA = {
                 "Channelling (Azyr)",
             ],
             "talents": [
-                "Arcane Magic (Celestial)",
+                "Arcane Magic (Heavens)",
                 "Magical Sense",
                 "Menacing",
                 "Strong-minded",

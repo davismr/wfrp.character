@@ -194,7 +194,7 @@ WINDS_OF_MAGIC_CAREER_DATA = {
                 "Ride (Horse)",
             ],
             "talents": [
-                "Arcane Magic (Lore of Metal)",
+                "Arcane Magic (Metal)",
                 "Master Tradesman (Poisoner)",
                 "Resistance (Poison)",
                 "Savant (Alchemy)",
@@ -977,7 +977,7 @@ COLLEGE_WIZARD_DATA = {
                 "Lore (Warfare)",
             ],
             "talents": [
-                "Arcane Magic (Lore of Fire)",
+                "Arcane Magic (Fire)",
                 "Detect Artefact",
                 "Fast Hands",
                 "Sixth Sense",
@@ -1072,7 +1072,7 @@ COLLEGE_WIZARD_DATA = {
                 "Track",
             ],
             "talents": [
-                "Arcane Magic (Lore of Beasts)",
+                "Arcane Magic (Beasts)",
                 "Coolheaded",
                 "Fast Hands",
                 "Sixth Sense",

@@ -13,10 +13,7 @@ def get_arcane_spells(expansions):
 
 
 def get_colour_spells(lore, expansions):
-    lore_upper = lore.replace(" of ", "_").upper()
-    if not lore_upper.startswith("LORE"):
-        lore_upper = "LORE_" + lore_upper
-    lore_title = f"{lore_upper}_DATA"
+    lore_title = f"LORE_{lore.upper()}_DATA"
     spells = getattr(colour_magic, lore_title)
     if "winds_of_magic" in expansions:
         spells = spells | getattr(colour_winds_of_magic, lore_title)
