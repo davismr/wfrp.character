@@ -30,7 +30,7 @@ def get_class_trappings(career_class):
             "Dagger",
             "Pouch",
             "Sling Bag",
-            "Rations (1 day)",
+            "Rations, 1 day",
         ]
     elif career_class == "Rangers":
         trappings = [
@@ -41,7 +41,7 @@ def get_class_trappings(career_class):
             "Backpack",
             "Tinderbox",
             "Blanket",
-            "Rations (1 day)",
+            "Rations, 1 day",
         ]
     elif career_class == "Riverfolk":
         trappings = [
@@ -59,7 +59,7 @@ def get_class_trappings(career_class):
             "Dagger",
             "Pouch",
             "Sling Bag",
-            "10 yard length of rope",
+            "Rope, 10 yards",
             "Flask of Spirits",
         ]
     elif career_class == "Rogues":

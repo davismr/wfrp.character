@@ -24,7 +24,7 @@ RANGERS_CLASS_DATA = {
             "trappings": [
                 "Hand Weapon",
                 "Leather Jerkin",
-                "Rope",
+                "Rope, 10 yards",
             ],
         },
         "Bounty Hunter": {
@@ -157,7 +157,9 @@ RANGERS_CLASS_DATA = {
                 "Nose for Trouble",
             ],
             "trappings": [
-                "",
+                "Mail Shirt",
+                "Pistol",
+                "Quality Cloak",
             ],
         },
         "Route Master": {
@@ -349,7 +351,7 @@ RANGERS_CLASS_DATA = {
                 "Impassioned Zeal",
             ],
             "trappings": [
-                "Book (Religion)",
+                "Book, Religion",
                 "Followers (including Penitents, Flagellants, and Zealots)",
             ],
         },
@@ -579,7 +581,7 @@ RANGERS_CLASS_DATA = {
                 "Hand Weapon",
                 "Mail Shirt",
                 "Riding Horse with Saddle and Harness",
-                "Rope",
+                "Rope, 10 yards",
             ],
         },
         "Road Sergeant": {
@@ -672,7 +674,7 @@ RANGERS_CLASS_DATA = {
                 "Hat (Henin)",
                 "Leather Jack",
                 "Riding Horse with Saddle and Tack",
-                "Rope",
+                "Rope, 10 yards",
                 "Silvered Sword",
             ],
         },

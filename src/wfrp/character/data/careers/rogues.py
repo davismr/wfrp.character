@@ -333,7 +333,7 @@ ROGUES_CLASS_DATA = {
                 "Hand Weapon (Pick)",
                 "Horse and Cart",
                 "Leather Jack",
-                "Rope",
+                "Rope, 10 yards",
                 "Trade Tools (Thief)",
             ],
         },
@@ -584,7 +584,7 @@ ROGUES_CLASS_DATA = {
             ],
             "trappings": [
                 "Trade Tools (Thief)",
-                "Rope",
+                "Rope, 10 yards",
             ],
         },
         "Master Thief": {

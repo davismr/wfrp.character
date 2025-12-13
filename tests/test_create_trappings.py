@@ -209,7 +209,7 @@ def test_submit_item_with_space(new_character):
             "Clothing": "Clothing",
             "Dagger": "Dagger",
             "Pouch": "Pouch",
-            "Rations (1 day)": "Rations (1 day)",
+            "Rations, 1 day": "Rations, 1 day",
             "Tinderbox": "Tinderbox",
         },
         "career_trappings": {
@@ -234,7 +234,7 @@ def test_submit_item_with_space(new_character):
         "Cloak",
         "Clothing",
         "Pouch",
-        "Rations (1 day)",
+        "Rations, 1 day",
         "Tinderbox",
     ]
     # TODO add ammo

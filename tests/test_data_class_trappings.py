@@ -24,7 +24,7 @@ def test_class_trappings_courtiers():
 @pytest.mark.data
 def test_class_trappings_peasants():
     trappings = get_class_trappings("Peasants")
-    assert "Rations (1 day)" in trappings
+    assert "Rations, 1 day" in trappings
     assert "Sling Bag" in trappings
 
 

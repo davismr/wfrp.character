@@ -64,7 +64,7 @@ ACADEMIC_CLASS_DATA = {
                 "Savvy",
             ],
             "trappings": [
-                "Book (Apothecary)",
+                "Book, Apothecary",
                 "Apprentice",
                 "Workshop",
             ],
@@ -109,7 +109,7 @@ ACADEMIC_CLASS_DATA = {
                 "Tinker",
             ],
             "trappings": [
-                "Book (Engineer)",
+                "Book, Engineer",
                 "Hammer and Spikes",
             ],
         },
@@ -168,7 +168,7 @@ ACADEMIC_CLASS_DATA = {
                 "Unshakeable",
             ],
             "trappings": [
-                "Guild License",
+                "Guild Licence",
                 "Library (Engineer)",
                 "Quality Trade Tools (Engineer)",
                 "Large Workshop (Engineer)",
@@ -196,7 +196,7 @@ ACADEMIC_CLASS_DATA = {
                 "Speedreader",
             ],
             "trappings": [
-                "Book (Law)",
+                "Book, Law",
                 "Magnifying Glass",
             ],
         },
@@ -305,7 +305,7 @@ ACADEMIC_CLASS_DATA = {
                 "Invoke (Any)",
             ],
             "trappings": [
-                "Book (Religion)",
+                "Book, Religion",
                 "Religious Relic",
                 "Trade Tools (Any)",
             ],
@@ -391,7 +391,7 @@ ACADEMIC_CLASS_DATA = {
                 "Surgery",
             ],
             "trappings": [
-                "Book (Medicine)",
+                "Book, Medicine",
                 "Guild Licence",
                 "Trade Tools (Medicine)",
             ],
@@ -478,7 +478,7 @@ ACADEMIC_CLASS_DATA = {
                 "Invoke (Any)",
             ],
             "trappings": [
-                "Book (Religion)",
+                "Book, Religion",
                 "Ceremonial Robes",
             ],
         },
@@ -653,7 +653,7 @@ ACADEMIC_CLASS_DATA = {
                 "Sixth Sense",
             ],
             "trappings": [
-                "Magical License",
+                "Magical Licence",
             ],
         },
         "Master Wizard": {

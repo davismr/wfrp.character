@@ -286,7 +286,7 @@ BURGHERS_CLASS_DATA = {
             ],
             "trappings": [
                 "Lantern",
-                "Lamp Oil,",
+                "Lamp Oil",
                 "Journal",
                 "Quill and Ink",
             ],
@@ -312,7 +312,7 @@ BURGHERS_CLASS_DATA = {
                 "Leather Jack",
                 "Hand Weapon",
                 "Magnifying Glass",
-                "Lockpick",
+                "Lock Picks",
             ],
         },
         "Master Investigator": {
@@ -400,7 +400,7 @@ BURGHERS_CLASS_DATA = {
             ],
             "trappings": [
                 "Riverboat or 2 Wagons",
-                "Guild License",
+                "Guild Licence",
                 "20 GC",
             ],
         },
@@ -511,7 +511,7 @@ BURGHERS_CLASS_DATA = {
                 "Tunnel Rat",
             ],
             "trappings": [
-                "Davrich Lantern",
+                "Davrich Lamp",
                 "Hand Weapon",
                 "Leather Jack",
             ],

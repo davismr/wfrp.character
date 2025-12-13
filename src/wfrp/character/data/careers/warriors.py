@@ -334,7 +334,7 @@ WARRIORS_CLASS_DATA = {
                 "Robust",
             ],
             "trappings": [
-                "Breast Plate",
+                "Breastplate",
                 "Helmet",
             ],
         },
@@ -649,7 +649,7 @@ WARRIORS_CLASS_DATA = {
                 "Strong-minded",
             ],
             "trappings": [
-                "Book (Religion)",
+                "Book, Religion",
                 "Leather Jerkin",
                 "Religious Symbol",
                 "Robes",

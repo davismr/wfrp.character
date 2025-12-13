@@ -602,7 +602,7 @@ COURTIERS_CLASS_DATA = {
                 "Mimic",
             ],
             "trappings": [
-                "Book (Cryptography)",
+                "Book, Cryptography",
                 "Ring of Spies and Informers",
                 "Loft of Homing Pigeons",
                 "Quill and Ink",

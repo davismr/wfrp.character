@@ -22,7 +22,7 @@ PEASANTS_CLASS_DATA = {
                 "Tenacious",
             ],
             "trappings": [
-                "Hand weapon",
+                "Hand Weapon",
                 "small lock box",
             ],
         },
@@ -552,7 +552,7 @@ PEASANTS_CLASS_DATA = {
                 "Hand Weapon",
                 "Leather Jack",
                 "Sturdy Boots and Cloak",
-                "Rope",
+                "Rope, 10 yards",
             ],
         },
         "Scout": {
