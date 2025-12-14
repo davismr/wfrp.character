@@ -18,7 +18,7 @@ from wfrp.character.application import Base
 from wfrp.character.data.armour import ARMOUR_DATA
 from wfrp.character.data.careers.careers import ALL_CAREER_DATA
 from wfrp.character.data.careers.careers import ALL_CAREER_DATA_WITH_SEAFARER
-from wfrp.character.data.magic.arcane import ARCANE_MAGIC_DATA
+from wfrp.character.data.magic.arcane import ALL_ARCANE_MAGIC_DATA
 from wfrp.character.data.magic.bless import get_blessings
 from wfrp.character.data.magic.chanty import CHANTY_DATA
 from wfrp.character.data.magic.miracles import ALL_MIRACLES_DATA
@@ -330,7 +330,7 @@ class Character(Base):
         for spell in self.petty_magic:
             spell_list[spell] = PETTY_MAGIC_DATA[spell]
         for spell in self.arcane_magic:
-            spell_list[spell] = ARCANE_MAGIC_DATA[spell]
+            spell_list[spell] = ALL_ARCANE_MAGIC_DATA[spell]
         if arcane_lore:
             lore_spells = get_colour_spells(arcane_lore, self.expansions)
             for spell in self.lore_magic:

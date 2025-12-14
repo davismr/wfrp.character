@@ -1,3 +1,5 @@
+from wfrp.character.data.magic.arcane_winds_of_magic import ARCANE_WINDS_OF_MAGIC_DATA
+
 ARCANE_MAGIC_DATA = {
     "Aethyric Armour": {
         "CN": 2,
@@ -261,3 +263,7 @@ ARCANE_MAGIC_DATA = {
         ),
     },
 }
+
+ALL_ARCANE_MAGIC_DATA = dict(
+    sorted((ARCANE_MAGIC_DATA | ARCANE_WINDS_OF_MAGIC_DATA).items())
+)
