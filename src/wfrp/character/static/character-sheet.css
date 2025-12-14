@@ -271,3 +271,9 @@ html, body {
     border: 2px solid black;
     padding: 5px;
 }
+
+.text-truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

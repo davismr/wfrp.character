@@ -18,6 +18,6 @@
         <div class="col-md-1">${spell_data[spell]["range"]|""}</div>
         <div class="col-md-1">${spell_data[spell]["target"]|""}</div>
         <div class="col-md-1">${spell_data[spell]["duration"]|""}</div>
-        <div class="col-md-6">${spell_data[spell]["description"]}</div>
+        <div class="col-md-6 text-truncate">${spell_data[spell]["description"]}</div>
     </div>
 </div>

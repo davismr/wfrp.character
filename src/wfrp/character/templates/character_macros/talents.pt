@@ -10,6 +10,6 @@
     <div class="row" tal:repeat="talent character.talents">
         <div class="col-md-3">${talent}</div>
         <div class="col-md-1 center">${character.talents[talent]}</div>
-        <div class="col-md-8">${character.get_talent_description(talent)}</div>
+        <div class="col-md-8 text-truncate">${character.get_talent_description(talent)}</div>
     </div>
 </div>

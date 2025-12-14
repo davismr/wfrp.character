@@ -121,7 +121,10 @@ def test_character_title(new_character):
 @pytest.mark.models
 def test_talent_description(new_character):
     description = new_character.get_talent_description("Flee!")
-    assert description == ""
+    assert description == (
+        "When your life is on the line you are capable of impressive bursts of speed. "
+        "Your Movement Attribute counts as 1 higher when Fleeing (see page 165)."
+    )
     description = new_character.get_talent_description("Fleet Footed")
     assert description == "You gain +1 to your Movement Attribute."
     description = new_character.get_talent_description("Craftsman (Cook)")
