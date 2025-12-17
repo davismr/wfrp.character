@@ -397,70 +397,19 @@ class Character(Base):
             return False
         return True
 
-    def cost_characteristic(self, advance):  # noqa: C901
+    def cost_characteristic(self, advance):
         """Return the experience cost of an increase in a charateristic."""
-        if advance <= 5:
-            return 25
-        if advance <= 10:
-            return 30
-        if advance <= 15:
-            return 40
-        if advance <= 20:
-            return 50
-        if advance <= 25:
-            return 70
-        if advance <= 30:
-            return 90
-        if advance <= 35:
-            return 120
-        if advance <= 40:
-            return 150
-        if advance <= 45:
-            return 190
-        if advance <= 50:
-            return 230
-        if advance <= 55:
-            return 280
-        if advance <= 60:
-            return 330
-        if advance <= 65:
-            return 390
-        if advance <= 70:
-            return 450
-        return 520
+        if advance > 70:
+            return 520
+        i = (advance - 1) // 5
+        return 25 + sum((5 if j == 0 else 10 * ((j + 1) // 2)) for j in range(i))
 
-    def cost_skill(self, advance):  # noqa: C901
+    def cost_skill(self, advance):
         """Return the experience cost of an increase in a skill."""
-        # 10 15 20 30 40 60 80 110 140 180 220 270 320 380 440
-        if advance <= 5:
-            return 10
-        if advance <= 10:
-            return 15
-        if advance <= 15:
-            return 20
-        if advance <= 20:
-            return 30
-        if advance <= 25:
-            return 40
-        if advance <= 30:
-            return 60
-        if advance <= 35:
-            return 80
-        if advance <= 40:
-            return 110
-        if advance <= 45:
-            return 140
-        if advance <= 50:
-            return 180
-        if advance <= 55:
-            return 220
-        if advance <= 60:
-            return 270
-        if advance <= 65:
-            return 320
-        if advance <= 70:
-            return 380
-        return 440
+        if advance > 70:
+            return 440
+        i = (advance - 1) // 5
+        return 10 + sum((5 if j < 2 else (j // 2) * 10) for j in range(i))
 
     def cost_talent(self, advance):
         """Return the experience cost of an increase in a talent."""

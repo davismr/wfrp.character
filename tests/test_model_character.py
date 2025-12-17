@@ -133,7 +133,7 @@ def test_talent_description(new_character):
 
 @pytest.mark.models
 @pytest.mark.parametrize(
-    "advances, cost",
+    "advance, cost",
     [
         (0, 25),
         (9, 30),
@@ -150,15 +150,16 @@ def test_talent_description(new_character):
         (61, 390),
         (70, 450),
         (71, 520),
+        (101, 520),
     ],
 )
-def test_experience_characteristic_cost(new_character, advances, cost):
-    assert new_character.cost_characteristic(advances) == cost
+def test_experience_characteristic_cost(new_character, advance, cost):
+    assert new_character.cost_characteristic(advance) == cost
 
 
 @pytest.mark.models
 @pytest.mark.parametrize(
-    "advances, cost",
+    "advance, cost",
     [
         (0, 10),
         (9, 15),
@@ -175,23 +176,24 @@ def test_experience_characteristic_cost(new_character, advances, cost):
         (61, 320),
         (70, 380),
         (71, 440),
+        (101, 440),
     ],
 )
-def test_experience_skill_cost(new_character, advances, cost):
-    assert new_character.cost_skill(advances) == cost
+def test_experience_skill_cost(new_character, advance, cost):
+    assert new_character.cost_skill(advance) == cost
 
 
 @pytest.mark.models
 @pytest.mark.parametrize(
-    "advances, cost",
+    "advance, cost",
     [
         (0, 100),
         (1, 200),
         (2, 300),
     ],
 )
-def test_experience_talent_cost(new_character, advances, cost):
-    assert new_character.cost_talent(advances) == cost
+def test_experience_talent_cost(new_character, advance, cost):
+    assert new_character.cost_talent(advance) == cost
 
 
 @pytest.mark.models
