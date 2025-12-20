@@ -195,7 +195,7 @@ PEASANTS_CLASS_DATA = {
                 "Acute Sense (Taste)",
                 "Orientation",
                 "Rover",
-                "Strider (any)",
+                "Strider (Any)",
             ],
             "trappings": [
                 "Boots",
@@ -283,7 +283,7 @@ PEASANTS_CLASS_DATA = {
             "talents": [
                 "Hardy",
                 "Rover",
-                "Strider (any)",
+                "Strider (Any)",
                 "Trapper",
             ],
             "trappings": [
@@ -324,7 +324,7 @@ PEASANTS_CLASS_DATA = {
                 "Track",
             ],
             "talents": [
-                "Acute Sense (any)",
+                "Acute Sense (Any)",
                 "Deadeye Shot",
                 "Fearless (Animals)",
                 "Sharpshooter",
@@ -546,7 +546,7 @@ PEASANTS_CLASS_DATA = {
                 "Orientation",
                 "Rover",
                 "Sharp",
-                "Strider (any)",
+                "Strider (Any)",
             ],
             "trappings": [
                 "Hand Weapon",
@@ -603,7 +603,7 @@ PEASANTS_CLASS_DATA = {
             "status": {"tier": "Silver", "standing": 5},
             "attributes": ["Dexterity"],
             "skills": [
-                "Language (any)",
+                "Language (Any)",
                 "Trade (Cartographer)",
             ],
             "talents": [

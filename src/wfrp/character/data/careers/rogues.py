@@ -53,7 +53,7 @@ ROGUES_CLASS_DATA = {
             "skills": [
                 "Cool",
                 "Evaluate",
-                "Language (any)",
+                "Language (Any)",
                 "Lore (Law)",
             ],
             "talents": [

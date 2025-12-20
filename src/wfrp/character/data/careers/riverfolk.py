@@ -384,7 +384,7 @@ RIVERFOLK_CLASS_DATA = {
                 "Dodge",
                 "Endurance",
                 "Entertain (Singing)",
-                "Language (any)",
+                "Language (Any)",
                 "Melee (Basic)",
             ],
             "talents": [

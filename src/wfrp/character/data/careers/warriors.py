@@ -191,7 +191,7 @@ WARRIORS_CLASS_DATA = {
                 "Trade (Farrier)",
             ],
             "talents": [
-                "Etiquette (any)",
+                "Etiquette (Any)",
                 "Roughrider",
                 "Sturdy",
                 "Warrior Born",

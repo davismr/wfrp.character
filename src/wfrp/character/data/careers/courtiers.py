@@ -144,7 +144,7 @@ COURTIERS_CLASS_DATA = {
             "talents": [
                 "Acute Sense (Any)",
                 "Dealmaker",
-                "Etiquette (any)",
+                "Etiquette (Any)",
                 "Nose for Trouble",
             ],
             "trappings": [
@@ -301,7 +301,7 @@ COURTIERS_CLASS_DATA = {
             "talents": [
                 "Attractive",
                 "Cat-tongued",
-                "Etiquette (any)",
+                "Etiquette (Any)",
                 "Seasoned Traveller",
             ],
             "trappings": [
@@ -524,7 +524,7 @@ COURTIERS_CLASS_DATA = {
                 "Melee (Basic)",
             ],
             "talents": [
-                "Etiquette (any)",
+                "Etiquette (Any)",
                 "Numismatics",
                 "Read/Write",
                 "Savvy",
@@ -669,7 +669,7 @@ COURTIERS_CLASS_DATA = {
             "talents": [
                 "Animal Affinity",
                 "Etiquette (Servants)",
-                "Strider (any)",
+                "Strider (Any)",
                 "Rover",
             ],
             "trappings": [
@@ -708,7 +708,7 @@ COURTIERS_CLASS_DATA = {
             ],
             "talents": [
                 "Commanding Presence",
-                "Etiquette (any)",
+                "Etiquette (Any)",
                 "Savant (local)",
                 "Suave",
             ],

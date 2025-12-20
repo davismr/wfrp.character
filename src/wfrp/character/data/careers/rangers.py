@@ -147,7 +147,7 @@ RANGERS_CLASS_DATA = {
             "skills": [
                 "Animal Training (Horse)",
                 "Intimidate",
-                "Language (any)",
+                "Language (Any)",
                 "Lore (Routes)",
             ],
             "talents": [
@@ -323,7 +323,7 @@ RANGERS_CLASS_DATA = {
             "attributes": ["Initiative"],
             "skills": [
                 "Charm",
-                "Language (any)",
+                "Language (Any)",
                 "Lore (Theology)",
                 "Perception",
             ],
@@ -501,7 +501,7 @@ RANGERS_CLASS_DATA = {
             "skills": [
                 "Drive",
                 "Intimidate",
-                "Language (any)",
+                "Language (Any)",
                 "Perception",
             ],
             "talents": [
@@ -596,7 +596,7 @@ RANGERS_CLASS_DATA = {
             "talents": [
                 "Etiquette (Soldiers)",
                 "Fearless (Outlaws)",
-                "Hatred (any)",
+                "Hatred (Any)",
                 "Nose for Trouble",
             ],
             "trappings": [

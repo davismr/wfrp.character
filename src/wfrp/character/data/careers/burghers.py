@@ -340,7 +340,7 @@ BURGHERS_CLASS_DATA = {
             "attributes": ["Willpower"],
             "skills": [
                 "Intimidate",
-                "Lore (any)",
+                "Lore (Any)",
             ],
             "talents": [
                 "Acute Sense (Any)",
