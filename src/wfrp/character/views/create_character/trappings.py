@@ -11,6 +11,12 @@ from wfrp.character.utils import roll_d10
 from wfrp.character.views.create_character.base_create import BaseCreateView
 
 
+def sort_trapping_by_key(item):
+    if isinstance(item, dict):
+        return item["name"]
+    return item
+
+
 @view_defaults(
     renderer="wfrp.character:templates/forms/base_form.pt",
     permission="create_character",
@@ -159,7 +165,10 @@ class TrappingsViews(BaseCreateView):
             else:
                 all_items.append(item)
         for item in set(all_items):
-            if item in WEAPONS_DATA:
+            if item.startswith("Hand Weapon ("):
+                item = item.split("(")[1].replace(")", "")
+                self.character.weapons.append({"name": item, "type": "Hand Weapon"})
+            elif item in WEAPONS_DATA:
                 self.character.weapons.append(item)
             elif item.split()[0] in WEAPONS_DATA:
                 self.character.weapons.append(item.split()[0])
@@ -167,7 +176,7 @@ class TrappingsViews(BaseCreateView):
                 self.character.armour.append(item)
             else:
                 self.character.trappings.append(item)
-        self.character.weapons.sort()
+        self.character.weapons.sort(key=sort_trapping_by_key)
         self.character.armour.sort()
         self.character.trappings.sort()
         wealth = self.character.create_data["trappings"]["wealth"]

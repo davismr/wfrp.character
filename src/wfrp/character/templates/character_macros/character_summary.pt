@@ -39,6 +39,5 @@
 </div>
 <div>
     <b>Possessions:</b>
-    ${", ".join(character.trappings)},
-    ${character.get_wealth()}
+    ${character.get_all_trappings()},
 </div>

@@ -249,7 +249,11 @@ class Character(Base):
     def get_weapons(self):
         weapons = []
         for weapon in self.weapons:
-            weapon_type = weapon.split(": ")[0]
+            if isinstance(weapon, dict):
+                weapon_name = weapon["name"]
+                weapon_type = weapon["type"]
+            else:
+                weapon_name = weapon_type = weapon
             weapon_data = WEAPONS_DATA[weapon_type]
             if isinstance(weapon_data["Damage"], str):
                 weapon_damage = weapon_data["Damage"]
@@ -263,7 +267,7 @@ class Character(Base):
                 weapon_damage = f"+{weapon_damage}"
             weapons.append(
                 {
-                    "name": weapon,
+                    "name": weapon_name,
                     "group": weapon_data["Group"],
                     "encumberance": weapon_data["Enc"],
                     "reach": weapon_data["Reach"],
@@ -279,9 +283,14 @@ class Character(Base):
             details = ARMOUR_DATA[item]
             for location in details["Locations"]:
                 armour_Locations[location] += details["APs"]
-            # breakpoint()
-            pass
         return armour_Locations
+
+    def get_all_trappings(self):
+        trappings = [weapon["name"] for weapon in self.get_weapons()]
+        trappings.extend(self.armour)
+        trappings.extend(self.trappings)
+        trappings.append(self.get_wealth())
+        return ", ".join(trappings)
 
     def get_encumberance_trapping(self, trapping):
         if trapping in TRAPPINGS_DATA:
@@ -298,7 +307,10 @@ class Character(Base):
     def total_encumberance_weapons(self):
         total = 0
         for weapon in self.weapons:
-            if weapon in WEAPONS_DATA:
+            if isinstance(weapon, dict):
+                if weapon["type"] in WEAPONS_DATA:
+                    total += WEAPONS_DATA[weapon["type"]]["Enc"]
+            elif weapon in WEAPONS_DATA:
                 total += WEAPONS_DATA[weapon]["Enc"]
         return total
 
