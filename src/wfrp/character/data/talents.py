@@ -396,7 +396,7 @@ BASIC_TALENTS = {
             "You can bend and manipulate your body in a myriad of seemingly unnatural "
             "ways. This allows you to squeeze through unlikely gaps and bend your body "
             "in crazy ways, giving benefits determined by the GM, possibly with a "
-            "successful Agility test.",
+            "successful Agility test."
         ),
     },
     "Coolheaded": {
@@ -413,7 +413,7 @@ BASIC_TALENTS = {
         "description": (
             "You know how to get the most out of your animals. When an animal you "
             "control is Fleeing or Running, it gains +1 Movement if you are using a "
-            "whip.",
+            "whip."
         ),
     },
     "Craftsman": {
@@ -639,7 +639,7 @@ BASIC_TALENTS = {
             "You are either brave enough or crazy enough that fear of certain enemies "
             "has become a distant memory. With a single Average (+20%) Cool Test, you "
             "may ignore any Intimidate, Fear, or Terror effects from the specified "
-            "enemy when encountered.",
+            "enemy when encountered."
         ),
         "specialisations": [
             "Beastmen",

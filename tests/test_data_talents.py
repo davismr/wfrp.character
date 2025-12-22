@@ -34,3 +34,9 @@ def test_talents():
                 if talent not in TALENT_DATA:
                     missing.append(talent)
     assert not missing, sorted(missing)
+
+
+@pytest.mark.data
+def test_talent_description():
+    for talent in TALENT_DATA:
+        assert isinstance(TALENT_DATA[talent]["description"], str)
