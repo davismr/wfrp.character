@@ -7,6 +7,7 @@ from pyramid.view import view_defaults
 
 from wfrp.character.data.armour import ARMOUR_DATA
 from wfrp.character.data.class_trappings import get_class_trappings
+from wfrp.character.data.qualities import FLAWS
 from wfrp.character.data.weapons import MELEE_WEAPONS_DATA
 from wfrp.character.data.weapons import WEAPONS_DATA
 from wfrp.character.utils import roll_d10
@@ -119,7 +120,9 @@ class TrappingsViews(BaseCreateView):
                     )
                 )
             else:
-                if trapping == "Hand Weapon":
+                if trapping.startswith("Poor Quality"):
+                    choices = [(x, x) for x in FLAWS.keys()]
+                elif trapping == "Hand Weapon":
                     for item in ["Axe", "Hammer", "Mace", "Short Spear", "Sword"]:
                         choices.append((item, item))
                 else:
@@ -219,11 +222,16 @@ class TrappingsViews(BaseCreateView):
                 self.character.weapons.append(item.split()[0])
             elif item in ARMOUR_DATA:
                 self.character.armour.append(item)
+            elif item.startswith("Poor Quality"):
+                item_name = item.replace("Poor Quality ", "")
+                flaw = captured["career_trappings"][item]
+                item = {"name": item_name, "flaws": [flaw]}
+                self.character.trappings.append(item)
             else:
                 self.character.trappings.append(item)
         self.character.weapons.sort(key=sort_trapping_by_key)
-        self.character.armour.sort()
-        self.character.trappings.sort()
+        self.character.armour.sort(key=sort_trapping_by_key)
+        self.character.trappings.sort(key=sort_trapping_by_key)
         wealth = self.character.create_data["trappings"]["wealth"]
         if "brass" in wealth:
             self.character.brass_pennies = wealth["brass"]

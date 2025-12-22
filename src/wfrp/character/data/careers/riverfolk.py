@@ -194,7 +194,7 @@ RIVERFOLK_CLASS_DATA = {
                 "Waterman",
             ],
             "trappings": [
-                "Hand Weapon: Sword",
+                "Hand Weapon (Sword)",
                 "Leather Jack",
                 "Uniform",
             ],

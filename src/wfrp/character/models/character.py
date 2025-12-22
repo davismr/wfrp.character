@@ -277,6 +277,18 @@ class Character(Base):
             )
         return weapons
 
+    def get_trappings(self):
+        trappings = []
+        for trapping in self.trappings:
+            if isinstance(trapping, dict):
+                trapping_name = trapping["name"]
+                if "flaws" in trapping:
+                    trapping_name = trapping["flaws"][0] + " " + trapping_name
+            else:
+                trapping_name = trapping
+            trappings.append(trapping_name)
+        return trappings
+
     def get_armour_points(self):
         armour_Locations = {"Head": 0, "Body": 0, "Arms": 0, "Legs": 0, "Shield": 0}
         for item in self.armour:
@@ -288,7 +300,7 @@ class Character(Base):
     def get_all_trappings(self):
         trappings = [weapon["name"] for weapon in self.get_weapons()]
         trappings.extend(self.armour)
-        trappings.extend(self.trappings)
+        trappings.extend(self.get_trappings())
         trappings.append(self.get_wealth())
         return ", ".join(trappings)
 

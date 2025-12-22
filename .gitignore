@@ -10,6 +10,7 @@ __pycache__/
 /.env
 
 /wfrp.sqlite
+/wfrp.sqlite-journal
 /wfrp_local.sqlite
 
 /.coverage

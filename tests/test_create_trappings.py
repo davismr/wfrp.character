@@ -334,3 +334,34 @@ def test_randomise_trappings(mock_rolld10, new_character, second_character):
     second_class_trappings = response["class_trappings"]
     assert "6 sheets of Parchment" in second_class_trappings
     assert class_trappings != second_class_trappings
+
+
+@pytest.mark.create
+def test_flaws(new_character):
+    new_character.career = "Beggar"
+    new_character.career_class = "Burghers"
+    new_character.career_title = "Pauper"
+    new_character.create_data = {"trappings": ""}
+    request = testing.DummyRequest()
+    request.dbsession = dbsession(request)
+    request.matched_route = DummyRoute(name="trappings")
+    request.matchdict = {"id": str(new_character.id)}
+    view = TrappingsViews(request)
+    data = view.initialise_form()
+    schema = view.schema(data)
+    assert schema.children[1].children[0].widget.readonly is False
+    assert schema.children[1].children[0].widget.values[0][0] == "Ugly"
+    payload = {
+        "class_trappings": {},
+        "career_trappings": {"Hood or Mask": "Scarf"},
+        "Choose_trappings": "Choose_trappings",
+    }
+    request = testing.DummyRequest(post=payload)
+    request.dbsession = dbsession(request)
+    request.matched_route = DummyRoute(name="trappings")
+    request.matchdict = {"id": str(new_character.id)}
+    view = TrappingsViews(request)
+    response = view.form_view()
+    assert isinstance(response, HTTPFound)
+    assert new_character.trappings[0] == {"flaws": ["Ugly"], "name": "Blanket"}
+    assert "Ugly Blanket" in new_character.get_all_trappings()

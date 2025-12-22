@@ -28,7 +28,7 @@ def test_form_view(complete_character):
     assert "Marsh Lights" in response["form"]
 
 
-@pytest.mark.current
+@pytest.mark.views
 def test_submit_chanty(complete_character):
     complete_character.species = "Human"
     complete_character.career = "Chantyman"
