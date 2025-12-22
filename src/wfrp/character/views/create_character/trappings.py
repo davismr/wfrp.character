@@ -106,7 +106,10 @@ class TrappingsViews(BaseCreateView):
         )
         for trapping in data["career_trappings"]:
             choices = []
-            if trapping == "Weapon (Any Melee)":
+            if trapping.startswith("Quality"):
+                breakpoint()
+                pass
+            elif trapping == "Weapon (Any Melee)":
                 for weapon in MELEE_WEAPONS_DATA.keys():
                     choices.append((weapon, weapon))
                 career_schema.add(
