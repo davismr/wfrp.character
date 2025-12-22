@@ -97,7 +97,7 @@ def test_submit_view(new_character):
     payload = {
         "class_trappings": {
             "Clothing": "Clothing",
-            "Hand Weapon": "Hand Weapon",
+            "Hand Weapon": "Axe",
             "Dagger": "Dagger",
             "Pouch": "Pouch",
         },
@@ -116,7 +116,11 @@ def test_submit_view(new_character):
     response = view.form_view()
     assert isinstance(response, HTTPFound)
     assert new_character.brass_pennies > 0
-    assert new_character.weapons == ["Dagger", "Hand Weapon", "Knuckledusters"]
+    assert new_character.weapons == [
+        {"name": "Axe", "type": "Hand Weapon"},
+        "Dagger",
+        "Knuckledusters",
+    ]
     assert new_character.armour == ["Leather Jack"]
     assert new_character.trappings == [
         "Clothing",
@@ -249,7 +253,7 @@ def test_submit_view_duplicate_item(new_character):
     payload = {
         "class_trappings": {
             "Clothing": "Clothing",
-            "Hand Weapon": "Hand Weapon",
+            "Hand Weapon": "Sword",
             "Dagger": "Dagger",
             "Pouch": "Pouch",
         },
@@ -268,7 +272,7 @@ def test_submit_view_duplicate_item(new_character):
     response = view.form_view()
     assert isinstance(response, HTTPFound)
     assert new_character.silver_shillings > 0
-    assert new_character.weapons == ["Dagger", "Hand Weapon"]
+    assert new_character.weapons == ["Dagger", {"name": "Sword", "type": "Hand Weapon"}]
     assert new_character.armour == ["Leather Breastplate"]
     assert new_character.trappings == [
         "Clothing",

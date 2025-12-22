@@ -1,11 +1,13 @@
 import colander
 import deform
+from deform.widget import OptGroup
 from pyramid.httpexceptions import HTTPFound
 from pyramid.view import view_config
 from pyramid.view import view_defaults
 
 from wfrp.character.data.armour import ARMOUR_DATA
 from wfrp.character.data.class_trappings import get_class_trappings
+from wfrp.character.data.weapons import MELEE_WEAPONS_DATA
 from wfrp.character.data.weapons import WEAPONS_DATA
 from wfrp.character.utils import roll_d10
 from wfrp.character.views.create_character.base_create import BaseCreateView
@@ -15,6 +17,20 @@ def sort_trapping_by_key(item):
     if isinstance(item, dict):
         return item["name"]
     return item
+
+
+def melee_weapon_choices():
+    melee_weapons = {}
+    for weapon in MELEE_WEAPONS_DATA:
+        melee_weapons.setdefault(MELEE_WEAPONS_DATA[weapon]["Group"], []).append(
+            (weapon, weapon)
+        )
+    melee_weapon_choices = [("", "Choose a melee weapon")]
+    for weapon_group in melee_weapons.keys():
+        melee_weapon_choices.append(
+            OptGroup(weapon_group, *melee_weapons[weapon_group])
+        )
+    return melee_weapon_choices
 
 
 @view_defaults(
@@ -55,7 +71,7 @@ class TrappingsViews(BaseCreateView):
         self.character.create_data = {"trappings": data}
         return data
 
-    def schema(self, data):
+    def schema(self, data):  # noqa: C901
         schema = colander.SchemaNode(
             colander.Mapping(), title="Class and Career Trappings"
         )
@@ -65,8 +81,12 @@ class TrappingsViews(BaseCreateView):
         )
         for trapping in data["class_trappings"]:
             choices = []
-            for item in trapping.split(" or "):
-                choices.append((item, item))
+            if trapping == "Hand Weapon":
+                for item in ["Axe", "Hammer", "Mace", "Short Spear", "Sword"]:
+                    choices.append((item, item))
+            else:
+                for item in trapping.split(" or "):
+                    choices.append((item, item))
             class_schema.add(
                 colander.SchemaNode(
                     colander.String(),
@@ -86,21 +106,38 @@ class TrappingsViews(BaseCreateView):
         )
         for trapping in data["career_trappings"]:
             choices = []
-            for item in trapping.split(" or "):
-                choices.append((item, item))
-            career_schema.add(
-                colander.SchemaNode(
-                    colander.String(),
-                    name=trapping,
-                    validator=colander.OneOf([x[0] for x in choices]),
-                    widget=deform.widget.RadioChoiceWidget(
-                        values=choices,
-                        inline=True,
-                        readonly=len(choices) == 1,
-                    ),
-                    missing=choices[0][0],
+            if trapping == "Weapon (Any Melee)":
+                for weapon in MELEE_WEAPONS_DATA.keys():
+                    choices.append((weapon, weapon))
+                career_schema.add(
+                    colander.SchemaNode(
+                        colander.String(),
+                        widget=deform.widget.SelectWidget(
+                            values=melee_weapon_choices()
+                        ),
+                        name=trapping,
+                    )
                 )
-            )
+            else:
+                if trapping == "Hand Weapon":
+                    for item in ["Axe", "Hammer", "Mace", "Short Spear", "Sword"]:
+                        choices.append((item, item))
+                else:
+                    for item in trapping.split(" or "):
+                        choices.append((item, item))
+                career_schema.add(
+                    colander.SchemaNode(
+                        colander.String(),
+                        name=trapping,
+                        validator=colander.OneOf([x[0] for x in choices]),
+                        widget=deform.widget.RadioChoiceWidget(
+                            values=choices,
+                            inline=True,
+                            readonly=len(choices) == 1,
+                        ),
+                        missing=choices[0][0],
+                    )
+                )
         wealth_schema = colander.SchemaNode(
             colander.Mapping(),
             name="wealth",
@@ -165,7 +202,15 @@ class TrappingsViews(BaseCreateView):
             else:
                 all_items.append(item)
         for item in set(all_items):
-            if item.startswith("Hand Weapon ("):
+            if item == "Weapon (Any Melee)":
+                self.character.weapons.append(captured["career_trappings"][item])
+            elif item == "Hand Weapon":
+                if item in captured["career_trappings"]:
+                    weapon = captured["career_trappings"][item]
+                else:
+                    weapon = captured["class_trappings"][item]
+                self.character.weapons.append({"name": weapon, "type": "Hand Weapon"})
+            elif item.startswith("Hand Weapon ("):
                 item = item.split("(")[1].replace(")", "")
                 self.character.weapons.append({"name": item, "type": "Hand Weapon"})
             elif item in WEAPONS_DATA:

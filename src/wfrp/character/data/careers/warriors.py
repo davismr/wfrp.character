@@ -468,7 +468,7 @@ WARRIORS_CLASS_DATA = {
                 "Slayer",
             ],
             "trappings": [
-                "Axe",
+                "Hand Weapon (Axe)",
                 "Flask of Spirits",
                 "Shame",
                 "Tattoos",
