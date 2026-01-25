@@ -11,11 +11,13 @@ from wfrp.character.models.user import User
 from wfrp.character.validators import confirm_delete_validator
 
 
-@view_defaults(route_name="account")
+@view_defaults(route_name="account", permission="account")
 class AccountPageViews:
     def __init__(self, request):
         self.request = request
         self.logged_in = request.authenticated_userid
+        if not self.logged_in:
+            raise HTTPUnauthorized
         try:
             self.user = (
                 self.request.dbsession.query(User)

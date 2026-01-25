@@ -1,0 +1,6 @@
+<div metal:use-macro="load: ../layout.pt">
+    <div metal:fill-slot="content">
+        <h2>Forbidden</h2>
+        <div>Sorry you do not have permission to see that.</div>
+    </div>
+</div>
