@@ -37,7 +37,7 @@ class CampaignEditViews:
     def __init__(self, request):
         self.request = request
         self.logged_in = request.authenticated_userid
-        if self.request.registry.settings.get("enable_auth"):
+        if self.request.registry.settings.get("wfrp.character.enable_auth"):
             if self.logged_in is None:
                 raise HTTPUnauthorized
             else:
@@ -54,11 +54,11 @@ class CampaignEditViews:
             )
         else:
             self.campaign = Campaign()
-            if self.request.registry.settings.get("enable_auth"):
+            if self.request.registry.settings.get("wfrp.character.enable_auth"):
                 self.campaign.gamemasters.append(self.user)
 
     def validate_gamemaster(self, node, values):
-        if self.request.registry.settings.get("enable_auth"):
+        if self.request.registry.settings.get("wfrp.character.enable_auth"):
             user_id = str(self.user.id)
             if user_id not in values:
                 raise colander.Invalid(

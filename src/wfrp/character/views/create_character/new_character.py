@@ -15,7 +15,7 @@ from wfrp.character.models.user import User
 class NewCharacterViews:
     def __init__(self, request):
         self.request = request
-        if self.request.registry.settings.get("enable_auth"):
+        if self.request.registry.settings.get("wfrp.character.enable_auth"):
             try:
                 self.logged_in = request.session["googleauth.userid"]
             except KeyError:
@@ -25,7 +25,7 @@ class NewCharacterViews:
     def get_view(self):
         new_id = uuid.uuid4()
         character = Character(id=new_id)
-        if self.request.registry.settings.get("enable_auth"):
+        if self.request.registry.settings.get("wfrp.character.enable_auth"):
             try:
                 character.user_id = (
                     self.request.dbsession.query(User)

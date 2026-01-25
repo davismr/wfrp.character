@@ -13,7 +13,7 @@ class CampaignViews:
     def __init__(self, request):
         self.request = request
         self.logged_in = request.authenticated_userid
-        if self.request.registry.settings.get("enable_auth"):
+        if self.request.registry.settings.get("wfrp.character.enable_auth"):
             if self.logged_in is None:
                 raise HTTPUnauthorized
             else:

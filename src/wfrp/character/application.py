@@ -5,7 +5,6 @@ from pyramid.config import Configurator
 from pyramid.events import NewRequest
 from pyramid.events import subscriber
 from pyramid.session import SignedCookieSessionFactory
-from pyramid.settings import asbool
 from sqlalchemy import engine_from_config
 from sqlalchemy.orm import declarative_base
 from sqlalchemy.orm import scoped_session
@@ -28,8 +27,6 @@ def configure_app(global_config, **settings):
     Base.metadata.bind = engine
     if "wfrp.character.enable_auth" not in settings:
         settings["wfrp.character.enable_auth"] = False
-    enable_auth = asbool(settings.get("wfrp.character.enable_auth"))
-    settings["enable_auth"] = enable_auth
     settings["google-site-verification"] = os.environ.get("google-site-verification")
     settings["pyramid_googleauth.google_client_id"] = os.environ.get("google_client_id")
     settings["pyramid_googleauth.google_client_secret"] = os.environ.get(

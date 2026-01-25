@@ -21,7 +21,7 @@ class HomePageViews:
         campaign_list = {}
         gamemaster_campaigns_list = {}
         character_list = {}
-        if self.request.registry.settings.get("enable_auth"):
+        if self.request.registry.settings.get("wfrp.character.enable_auth"):
             if self.logged_in is None:
                 return {"gamemaster_campaigns": {}, "campaigns": {}, "characters": {}}
             try:

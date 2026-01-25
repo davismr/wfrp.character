@@ -7,7 +7,7 @@ from pyramid_googleauth import GoogleSecurityPolicy
 class SecurityPolicy(GoogleSecurityPolicy):
 
     def permits(self, request, _context, permission):
-        if not request.registry.settings.get("enable_auth"):
+        if not request.registry.settings.get("wfrp.character.enable_auth"):
             if permission == "account":
                 raise HTTPNotFound
             return Allowed("allowed")
