@@ -5,6 +5,8 @@ from factories import CharacterFactory
 from pyramid import testing
 from pyramid.paster import get_appsettings
 from pyramid.session import SignedCookieSessionFactory
+from pyramid.testing import setUp
+from pyramid.testing import tearDown
 import pytest
 from pytest_factoryboy import register
 from sqlalchemy import engine_from_config
@@ -70,6 +72,19 @@ def new_character(testapp):
     DBSession.add(new_character)
     character = DBSession.query(Character).filter(Character.id == new_id).one()
     return character
+
+
+@pytest.fixture(scope="session")
+def dummy_config():
+    config = setUp()
+    settings = get_appsettings("development.ini", name="main")
+    engine = engine_from_config(settings, "sqlalchemy.")
+    config.include("wfrp.character.routes")
+    DBSession.configure(bind=engine)
+    Base.metadata.bind = engine
+    Base.metadata.create_all(engine)
+    yield config
+    tearDown()
 
 
 @pytest.fixture
