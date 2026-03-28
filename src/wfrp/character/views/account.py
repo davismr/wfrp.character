@@ -28,16 +28,72 @@ class AccountPageViews:
     def schema(self):
         schema = colander.SchemaNode(
             colander.Mapping(),
+            title="Update My Account",
+        )
+        schema.add(
+            colander.SchemaNode(
+                colander.Boolean(),
+                widget=deform.widget.CheckboxWidget(),
+                name="Subscribe",
+                label="Subscribe to email updates",
+                description=(
+                    "Emails will be very infrequent, and your details will never be "
+                    "passed to a third party."
+                ),
+                default=self.user.subscribed,
+                missing=False,
+            )
+        )
+        return schema
+
+    def delete_schema(self):
+        schema = colander.SchemaNode(
+            colander.Mapping(),
             title="Delete My Account",
         )
+        if self.user.gamemaster_campaigns:
+            campaign_schema = colander.SchemaNode(
+                colander.Mapping(),
+                title="Campaigns that will be deleted",
+                name="campaigns",
+            )
+            for campaign in self.user.gamemaster_campaigns:
+                if len(campaign.gamemasters) == 1:
+                    campaign_schema.add(
+                        colander.SchemaNode(
+                            colander.String(),
+                            title=campaign.get_display_title(),
+                            widget=deform.widget.TextInputWidget(readonly=True),
+                            missing="delete",
+                        )
+                    )
+            if campaign_schema.children:
+                schema.add(campaign_schema)
+        if self.user.characters:
+            character_schema = colander.SchemaNode(
+                colander.Mapping(),
+                title="Characters that will be deleted",
+                name="characters",
+            )
+            for character in self.user.characters:
+                character_schema.add(
+                    colander.SchemaNode(
+                        colander.String(),
+                        title=character.get_display_title(),
+                        widget=deform.widget.TextInputWidget(readonly=True),
+                        missing="delete",
+                    )
+                )
+            schema.add(character_schema)
         return schema
 
     @view_config(request_method="GET", renderer="wfrp.character:templates/account.pt")
     def get_view(self):
         schema = self.schema()
+        delete_button = deform.Button(name="Delete Account", css_class="btn-danger")
         form = deform.Form(
             schema,
-            buttons=("Delete Account",),
+            buttons=("Update Account", delete_button),
         )
         html = form.render()
         static_assets = self.get_widget_resources(form)
@@ -50,34 +106,63 @@ class AccountPageViews:
     @view_config(
         request_method="POST", renderer="wfrp.character:templates/account_delete.pt"
     )
-    def post_view(self):
-        schema = self.schema()
-        schema.add(
-            colander.SchemaNode(
-                colander.Boolean(),
-                widget=deform.widget.CheckboxWidget(),
-                name="confirm_delete",
-                title="Delete my account",
-                label="Confirm I want to delete my account",
-                validator=confirm_delete_validator,
+    def post_view(self):  # noqa: C901
+        if "Update_Account" in self.request.POST:
+            schema = self.schema()
+            delete_button = deform.Button(name="Delete Account", css_class="btn-danger")
+            form = deform.Form(
+                schema,
+                buttons=("Update Account", delete_button),
             )
-        )
-        form = deform.Form(
-            schema,
-            buttons=("Confirm Account", "Cancel"),
-        )
+        else:
+            schema = self.delete_schema()
+            schema.add(
+                colander.SchemaNode(
+                    colander.Boolean(),
+                    widget=deform.widget.CheckboxWidget(),
+                    name="confirm_delete",
+                    title="Delete my account",
+                    label="Confirm I want to delete my account",
+                    validator=confirm_delete_validator,
+                    missing=False,
+                )
+            )
+            delete_button = deform.Button(
+                name="Confirm Delete Account", css_class="btn-danger"
+            )
+            cancel_button = deform.Button(name="Cancel", css_class="btn-light")
+            form = deform.Form(
+                schema,
+                buttons=(delete_button, cancel_button),
+            )
         if "Cancel" in self.request.POST:
             return HTTPFound(location="/")
-        if "Confirm_Account" in self.request.POST:
+        elif (
+            "Confirm_Delete_Account" in self.request.POST
+            or "Update_Account" in self.request.POST
+        ):
             try:
-                form.validate(self.request.POST.items())
+                captured = form.validate(self.request.POST.items())
             except deform.ValidationFailure as error:
                 html = error.render()
             else:
-                for character in self.user.characters:
-                    self.request.dbsession.delete(character)
-                self.request.dbsession.delete(self.user)
-                forget(self.request)
+                if "Update_Account" in self.request.POST:
+                    self.user.subscribed = captured.get("Subscribe")
+                    if self.user.subscribed:
+                        message = "You have subscribed to email updates"
+                    else:
+                        message = "You have unsubscribed"
+                    self.request.session.flash(message, "error")
+                else:
+                    for character in self.user.characters:
+                        self.request.dbsession.delete(character)
+                    for campaign in self.user.gamemaster_campaigns:
+                        if len(campaign.gamemasters) == 1:
+                            self.request.dbsession.delete(campaign)
+                    self.request.dbsession.delete(self.user)
+                    forget(self.request)
+                    message = "Your details and content have been deleted"
+                    self.request.session.flash(message, "error")
                 return HTTPFound(location="/")
         else:
             html = form.render()
