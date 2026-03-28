@@ -46,8 +46,15 @@ class AuthViews:
             given_name = ""
             family_name = ""
         if "form.submitted" in request.POST:
+            subscibe = False
+            if request.POST.get("subscribe"):
+                subscibe = True
             new_user = User(
-                email=email, name=name, given_name=given_name, family_name=family_name
+                email=email,
+                name=name,
+                given_name=given_name,
+                family_name=family_name,
+                subscribed=subscibe,
             )
             request.dbsession.add(new_user)
             return HTTPFound(location=self.request.route_url("homepage"))

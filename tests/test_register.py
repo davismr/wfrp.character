@@ -17,7 +17,6 @@ def test_register(testapp_auth):
         "given_name": "GivenName",
         "family_name": "FamilyName",
     }
-    "form.submitted" in request.POST
     request.POST["form.submitted"] = "register"
     view = AuthViews(request)
     response = view.register()
@@ -28,3 +27,27 @@ def test_register(testapp_auth):
     assert user.email == "user@here.com"
     assert user.given_name == "GivenName"
     assert user.family_name == "FamilyName"
+
+
+@pytest.mark.register
+def test_register_subscribe(testapp_auth):
+    request = testing.DummyRequest()
+    request.dbsession = dbsession(request)
+    request.session["user"] = {
+        "email": "user@subscribed.com",
+        "name": "User Name",
+        "given_name": "GivenName",
+        "family_name": "FamilyName",
+    }
+    request.POST["form.submitted"] = "register"
+    request.POST["subscribe"] = "on"
+    view = AuthViews(request)
+    response = view.register()
+    assert response.status_code == 302
+    assert response.location == "http://example.com/"
+    user = DBSession.query(User).filter_by(email="user@subscribed.com").first()
+    assert user.name == "User Name"
+    assert user.email == "user@subscribed.com"
+    assert user.given_name == "GivenName"
+    assert user.family_name == "FamilyName"
+    assert user.subscribed is True

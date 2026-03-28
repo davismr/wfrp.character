@@ -2,6 +2,7 @@ from datetime import datetime
 from datetime import timezone
 import uuid
 
+from sqlalchemy import Boolean
 from sqlalchemy import Column
 from sqlalchemy import DateTime
 from sqlalchemy import Text
@@ -28,6 +29,7 @@ class User(Base):
     given_name = Column(Text)
     family_name = Column(Text)
     email = Column(Text)
+    subscribed = Column(Boolean, default=False)
 
     def __init__(self, **kwargs):
         kwargs["id"] = kwargs.get("id", uuid.uuid4())

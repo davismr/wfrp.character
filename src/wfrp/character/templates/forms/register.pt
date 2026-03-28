@@ -33,6 +33,13 @@
                    name="name"
                    value="${family_name}"
                    readonly/><br/>
+            <label for="name">Subscribe to email News</label>
+            <div>
+                Emails will be very infrequent and only about the site.
+                Your details will never be given to a third party.
+            </div>
+            <input type="checkbox" id="subscribe"
+                   name="subscribe"/><br/>
             <input type="submit" name="form.submitted"
                    value="Register"/>
         </form>
