@@ -17,7 +17,7 @@
         </li>
     </ul>
 </div>
-<div tal:condition="view.logged_in and not campaigns">
+<div tal:condition="view.logged_in and not (campaigns or gamemaster_campaigns)">
     <h3>No campaigns added yet.</h3>
 </div>
 <div tal:condition="view.logged_in is not None">
