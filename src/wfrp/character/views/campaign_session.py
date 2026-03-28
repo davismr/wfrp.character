@@ -93,7 +93,7 @@ class CampaignSessionViews(BaseView):
         schema = self.schema()
         form = deform.Form(
             schema,
-            buttons=("Add Campaign Session",),
+            buttons=["Save"],
         )
         if "Add_Campaign_Session" in self.request.POST:
             try:

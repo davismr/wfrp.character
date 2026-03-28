@@ -145,6 +145,7 @@ class CampaignEditViews:
                 title="Delete this campaign",
                 label="Confirm I want to delete this campaign",
                 validator=confirm_delete_validator,
+                missing=False,
             )
         )
         return schema
@@ -154,12 +155,17 @@ class CampaignEditViews:
     def form_view(self):  # noqa: C901
         if "Delete" in self.request.POST or "Confirm_delete" in self.request.POST:
             schema = self.confirm_schema()
-            buttons = ["Confirm delete", "Cancel"]
+            confirm_button = deform.Button(
+                name="Confirm delete", css_class="btn-danger"
+            )
+            cancel_button = deform.Button(name="Cancel", css_class="btn-light")
+            buttons = [confirm_button, cancel_button]
         else:
             schema = self.schema()
             buttons = ["Save"]
             if self.campaign.name is not None:
-                buttons.append("Delete")
+                delete_button = deform.Button(name="Delete", css_class="btn-danger")
+                buttons.append(delete_button)
         form = deform.Form(schema, buttons=buttons)
         if "Cancel" in self.request.POST:
             url = self.request.route_url("campaign-view", id=self.campaign.id)

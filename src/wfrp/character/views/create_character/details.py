@@ -120,7 +120,7 @@ class DetailsViews(BaseCreateView):
         data = self.initialise_form()
         schema = self.schema(data)
         form = deform.Form(
-            schema, buttons=("Choose Details",), appstruct={"character_details": data}
+            schema, buttons=["Choose Details"], appstruct={"character_details": data}
         )
         if "Choose_Details" in self.request.POST:
             try:

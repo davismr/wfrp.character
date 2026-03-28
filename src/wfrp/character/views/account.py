@@ -95,7 +95,7 @@ class AccountPageViews:
         delete_button = deform.Button(name="Delete Account", css_class="btn-danger")
         form = deform.Form(
             schema,
-            buttons=("Update Account", delete_button),
+            buttons=["Update Account", delete_button],
         )
         html = form.render()
         static_assets = self.get_widget_resources(form)
@@ -114,7 +114,7 @@ class AccountPageViews:
             delete_button = deform.Button(name="Delete Account", css_class="btn-danger")
             form = deform.Form(
                 schema,
-                buttons=("Update Account", delete_button),
+                buttons=["Update Account", delete_button],
             )
         else:
             schema = self.delete_schema()
@@ -135,7 +135,7 @@ class AccountPageViews:
             cancel_button = deform.Button(name="Cancel", css_class="btn-light")
             form = deform.Form(
                 schema,
-                buttons=(delete_button, cancel_button),
+                buttons=[delete_button, cancel_button],
             )
         if "Cancel" in self.request.POST:
             return HTTPFound(location="/")

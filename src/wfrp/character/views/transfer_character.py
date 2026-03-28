@@ -67,6 +67,7 @@ class TransferViews(BaseView):
                     title=f"{action.title()} my character",
                     label=f"Confirm I want to {action} my character",
                     validator=confirm_delete_validator,
+                    missing=False,
                 )
             )
         return schema
@@ -75,9 +76,13 @@ class TransferViews(BaseView):
     def get_view(self):
         data = {"action": "", "confirm": False}
         schema = self.schema(data)
+        transfer_button = deform.Button(
+            name="Transfer Character", css_class="btn-danger"
+        )
+        delete_button = deform.Button(name="Delete Character", css_class="btn-danger")
         form = deform.Form(
             schema,
-            buttons=("Transfer Character", "Delete Character"),
+            buttons=[transfer_button, delete_button],
         )
         html = form.render()
         static_assets = self.get_widget_resources(form)
@@ -93,9 +98,13 @@ class TransferViews(BaseView):
         data = self.initialise_form()
         schema = self.schema(data)
         action = data["action"]
+        confirm_button = deform.Button(
+            name=f"Confirm {action.title()}", css_class="btn-danger"
+        )
+        cancel_button = deform.Button(name="Cancel", css_class="btn-light")
         form = deform.Form(
             schema,
-            buttons=(f"Confirm {action.title()}", "Cancel"),
+            buttons=[confirm_button, cancel_button],
         )
         if "Cancel" in self.request.POST:
             url = self.request.route_url("character-summary", id=self.character.id)

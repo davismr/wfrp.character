@@ -59,7 +59,7 @@ class ExpansionsViews(BaseCreateView):
         schema = self.schema()
         form = deform.Form(
             schema,
-            buttons=("Choose Expansions",),
+            buttons=["Choose Expansions"],
         )
         if "Choose_Expansions" in self.request.POST:
             try:

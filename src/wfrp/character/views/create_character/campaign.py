@@ -51,7 +51,7 @@ class CampaignViews(BaseCreateView):
         schema = self.schema(data)
         form = deform.Form(
             schema,
-            buttons=("Choose Campaign",),
+            buttons=["Choose Campaign"],
         )
         if "Choose_Campaign" in self.request.POST:
             try:

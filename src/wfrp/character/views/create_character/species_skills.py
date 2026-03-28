@@ -200,7 +200,7 @@ class SpeciesSkillsViews(BaseCreateView):
     def form_view(self):
         data = self.initialise_form()
         schema = self.schema(data)
-        form = deform.Form(schema, buttons=("Choose Skills",))
+        form = deform.Form(schema, buttons=["Choose Skills"])
         if "Choose_Skills" in self.request.POST:
             try:
                 captured = form.validate(self.request.POST.items())

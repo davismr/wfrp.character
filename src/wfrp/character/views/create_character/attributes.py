@@ -276,10 +276,16 @@ class AttributesViews(BaseCreateView):
         buttons.append("Accept Attributes")
         if stage == "initial":
             schema = self.schema_initial(data)
-            buttons.append("Rearrange Attributes")
+            buttons.append(
+                deform.Button(name="Rearrange Attributes", css_class="btn-warning")
+            )
         if stage in ["initial", "rearrange"]:
-            buttons.append("Reroll Attributes")
-            buttons.append("Allocate Attributes")
+            buttons.append(
+                deform.Button(name="Reroll Attributes", css_class="btn-warning")
+            )
+            buttons.append(
+                deform.Button(name="Allocate Attributes", css_class="btn-warning")
+            )
         if stage in ["rearrange", "reroll"]:
             schema = self.arrange_schema(data)
         if stage == "allocate":

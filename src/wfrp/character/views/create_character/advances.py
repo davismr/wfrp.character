@@ -174,7 +174,7 @@ class AdvancesViews(BaseCreateView):
         schema = self.schema(data)
         form = deform.Form(
             schema,
-            buttons=("Accept Advances",),
+            buttons=["Accept Advances"],
         )
 
         if "Accept_Advances" in self.request.POST:

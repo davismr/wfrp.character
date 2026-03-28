@@ -135,7 +135,7 @@ class CharacterEditViews(BaseView):
     @view_config(renderer="wfrp.character:templates/forms/base_form.pt")
     def form_view(self):
         schema = self.schema()
-        form = deform.Form(schema, buttons=("Select Name",))
+        form = deform.Form(schema, buttons=["Select Name"])
         if "Save" in self.request.POST:
             try:
                 captured = form.validate(self.request.POST.items())  # noqa

@@ -56,7 +56,7 @@ class SpellsViews(BaseCreateView):
     @view_config(route_name="spells")
     def form_view(self):
         schema = self.schema()
-        form = deform.Form(schema, buttons=("Choose Spells",))
+        form = deform.Form(schema, buttons=["Choose Spells"])
         if "Choose_Spells" in self.request.POST:
             try:
                 captured = form.validate(self.request.POST.items())

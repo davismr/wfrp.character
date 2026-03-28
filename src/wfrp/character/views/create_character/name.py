@@ -84,7 +84,7 @@ class NameViews(BaseCreateView):
     @view_config(route_name="name")
     def form_view(self):
         schema = self.schema()
-        form = deform.Form(schema, buttons=("Select Name",))
+        form = deform.Form(schema, buttons=["Select Name"])
         if "Select_Name" in self.request.POST:
             try:
                 captured = form.validate(self.request.POST.items())

@@ -160,7 +160,8 @@ class CareerViews(BaseCreateView):
             "Choose Career",
         ]
         if len(data["career_choice"]) == 1:
-            form_buttons.append("Reroll")
+            reroll_button = deform.Button(name="Reroll", css_class="btn-warning")
+            form_buttons.append(reroll_button)
         form = deform.Form(
             schema,
             buttons=form_buttons,

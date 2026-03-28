@@ -41,7 +41,7 @@ class ExperienceGainViews(BaseView):
         schema = self.schema()
         form = deform.Form(
             schema,
-            buttons=("Give Experience",),
+            buttons=["Give Experience"],
         )
         if "Give_Experience" in self.request.POST:
             try:
