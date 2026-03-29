@@ -68,9 +68,7 @@ class CampaignViews(BaseCreateView):
                         .one()
                     )
                     self.character.campaign = campaign
-                url = self.request.route_url("expansions", id=self.character.id)
-                self.character.create_data = {"expansions": ""}
-                return HTTPFound(location=url)
+                return HTTPFound(location=self.get_next_url())
         else:
             html = form.render()
         static_assets = self.get_widget_resources(form)
@@ -80,3 +78,12 @@ class CampaignViews(BaseCreateView):
             "css_links": static_assets["css"],
             "js_links": static_assets["js"],
         }
+
+    def get_next_url(self):
+        if not self.character.campaign or self.character.campaign.expansions:
+            self.character.create_data = {"expansions": ""}
+            url = self.request.route_url("expansions", id=self.character.id)
+        else:
+            self.character.create_data = {"species": ""}
+            url = self.request.route_url("species", id=self.character.id)
+        return url
