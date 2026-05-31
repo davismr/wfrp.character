@@ -3,6 +3,7 @@ from dataclasses import dataclass
 from pyramid import testing
 from pyramid.httpexceptions import HTTPFound
 import pytest
+from pytest_pyramid import factories
 
 from wfrp.character.application import dbsession
 from wfrp.character.views.create_character.career import CareerViews
@@ -15,8 +16,11 @@ class DummyRoute:
     name: str
 
 
+app_config = factories.pyramid_config(config_path="development.ini")
+
+
 @pytest.mark.package
-def test_home_view(testapp):
+def test_home_view(app_config):
     request = testing.DummyRequest()
     request.dbsession = dbsession(request)
     view = HomePageViews(request)

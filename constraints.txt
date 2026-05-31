@@ -66,6 +66,7 @@ pytest-factoryboy==2.8.1
 python-dateutil==2.9.0.post0
 python-discovery==1.4.0
 python-dotenv==1.2.2
+pytest-pyramid==1.0.4
 pytokens==0.4.1
 PyYAML==6.0.3
 requests==2.34.2
