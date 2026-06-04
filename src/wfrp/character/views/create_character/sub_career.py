@@ -7,6 +7,7 @@ from pyramid.view import view_defaults
 from wfrp.character.data.careers.careers import get_sub_career_data
 from wfrp.character.data.careers.careers import get_sub_careers
 from wfrp.character.data.careers.careers import roll_sub_career
+from wfrp.character.data.careers.deft_steps import DEFT_STEPS_CAREERS
 from wfrp.character.data.careers.winds_of_magic import COLLEGE_WIZARD_DATA
 from wfrp.character.utils import roll_d100
 from wfrp.character.views.create_character.base_create import BaseCreateView
@@ -18,17 +19,21 @@ from wfrp.character.views.create_character.base_create import BaseCreateView
 )
 class SubCareerViews(BaseCreateView):
     def initialise_form(self):
-        if self.character.create_data["sub-career"]:
-            sub_career = self.character.create_data["sub-career"]
-        else:
-            sub_career = roll_sub_career(self.character.career, roll_d100())
-            self.character.create_data = {"sub-career": sub_career}
         if self.character.experience in [45, 70]:
             experience_loss = self.character.experience - 20
         elif self.character.experience in [25, 50]:
             experience_loss = self.character.experience
         else:
             experience_loss = 0
+        if self.character.create_data["sub-career"]:
+            sub_career = self.character.create_data["sub-career"]
+        elif self.character.career in DEFT_STEPS_CAREERS:
+            experience_loss = 0
+            sub_career = self.character.career
+            self.character.create_data = {"sub-career": sub_career}
+        else:
+            sub_career = roll_sub_career(self.character.career, roll_d100())
+            self.character.create_data = {"sub-career": sub_career}
         return {"sub_career": sub_career, "experience_loss": experience_loss}
 
     def schema(self, data):
@@ -37,7 +42,11 @@ class SubCareerViews(BaseCreateView):
             title="Specialist Career",
             description="Choose a specialist career from the list below.",
         )
-        if data["experience_loss"]:
+        careers = get_sub_careers(self.character.career)
+        career_choices = [(x, x) for x in careers]
+        if self.character.career in DEFT_STEPS_CAREERS:
+            description = f"You may swap {careers[0]} for {careers[1]}."
+        elif data["experience_loss"]:
             description = (
                 f"Your random roll is {data['sub_career']}, if you want to choose a "
                 f"different specialist career you will lose {data['experience_loss']}"
@@ -55,8 +64,6 @@ class SubCareerViews(BaseCreateView):
             description=description,
             name="specialist_career",
         )
-        careers = get_sub_careers(self.character.career)
-        career_choices = [(x, x) for x in careers]
         if career_choices[0][1] == "Wizard":
             career_choices[0] = (
                 "Wizard",
@@ -129,8 +136,7 @@ class SubCareerViews(BaseCreateView):
                 ]
                 if data["experience_loss"] and career != data["sub_career"]:
                     self.character.experience += -data["experience_loss"]
-                self.character.create_data = {"attributes": ""}
-                url = self.request.route_url("attributes", id=self.character.id)
+                url = self.get_next_url(career)
                 return HTTPFound(location=url)
         else:
             html = form.render()
@@ -141,3 +147,22 @@ class SubCareerViews(BaseCreateView):
             "css_links": static_assets["css"],
             "js_links": static_assets["js"],
         }
+
+    def get_next_url(self, career):
+        if career == "Priest of Myrmidia":
+            self.character.religion = "Myrmidia"
+        elif career == "Thief-Priest":
+            self.character.religion = "Ranald-Night-Prowler"
+        elif career == "Gambler-Priest":
+            self.character.religion = "Ranald-Gamester"
+        elif career == "Trickster-Priest":
+            self.character.religion = "Ranald-Deceiver"
+        elif career == "Liberator-Priest":
+            self.character.religion = "Ranald-Protector"
+        elif career == "Dealer-Priest":
+            self.character.religion = "Ranald-Dealer"
+        else:
+            self.character.create_data = {"religion": ""}
+            return self.request.route_url("religion", id=self.character.id)
+        self.character.create_data = {"attributes": ""}
+        return self.request.route_url("attributes", id=self.character.id)

@@ -1,4 +1,8 @@
 EXPANSIONS = {
+    "deft_steps": {
+        "title": "Deft Steps Light Fingers",
+        "description": "Sub careers for Rogues",
+    },
     "rough_nights": {
         "title": "Rough Nights and Hard Days",
         "description": "Adds Gnome and a new talent",

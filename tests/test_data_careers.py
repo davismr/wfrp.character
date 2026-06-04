@@ -3,6 +3,7 @@ import pytest
 from wfrp.character.data.careers.academics import ACADEMIC_CLASS_DATA
 from wfrp.character.data.careers.burghers import BURGHERS_CLASS_DATA
 from wfrp.character.data.careers.courtiers import COURTIERS_CLASS_DATA
+from wfrp.character.data.careers.deft_steps import DEFT_STEPS_CLASS_DATA
 from wfrp.character.data.careers.peasants import PEASANTS_CLASS_DATA
 from wfrp.character.data.careers.rangers import RANGERS_CLASS_DATA
 from wfrp.character.data.careers.riverfolk import RIVERFOLK_CLASS_DATA
@@ -188,6 +189,7 @@ def test_basic_career_data(career_data):
 @pytest.mark.parametrize(
     "career_data",
     [
+        DEFT_STEPS_CLASS_DATA,
         PRIEST_OF_STROMFELS,
         UP_IN_ARMS_CLASS_DATA,
         WINDS_OF_MAGIC_CLASS_DATA,

@@ -1,6 +1,8 @@
 from wfrp.character.data.careers.academics import ACADEMIC_CLASS_DATA
 from wfrp.character.data.careers.burghers import BURGHERS_CLASS_DATA
 from wfrp.character.data.careers.courtiers import COURTIERS_CLASS_DATA
+from wfrp.character.data.careers.deft_steps import DEFT_STEPS_CAREERS
+from wfrp.character.data.careers.deft_steps import DEFT_STEPS_CLASS_DATA
 from wfrp.character.data.careers.peasants import PEASANTS_CLASS_DATA
 from wfrp.character.data.careers.rangers import RANGERS_CLASS_DATA
 from wfrp.character.data.careers.riverfolk import RIVERFOLK_CLASS_DATA
@@ -24,7 +26,12 @@ CAREER_DATA = (
     | WARRIORS_CLASS_DATA
 )
 
-ALL_CAREER_DATA = CAREER_DATA | UP_IN_ARMS_CLASS_DATA | WINDS_OF_MAGIC_CLASS_DATA
+ALL_CAREER_DATA = (
+    CAREER_DATA
+    | DEFT_STEPS_CLASS_DATA
+    | UP_IN_ARMS_CLASS_DATA
+    | WINDS_OF_MAGIC_CLASS_DATA
+)
 
 CAREER_DATA_WITH_SEAFARER = (
     ACADEMIC_CLASS_DATA
@@ -37,7 +44,12 @@ CAREER_DATA_WITH_SEAFARER = (
     | WARRIORS_CLASS_DATA
 )
 
-ALL_CAREER_DATA_WITH_SEAFARER = CAREER_DATA_WITH_SEAFARER | UP_IN_ARMS_CLASS_DATA
+ALL_CAREER_DATA_WITH_SEAFARER = (
+    CAREER_DATA_WITH_SEAFARER
+    | DEFT_STEPS_CLASS_DATA
+    | UP_IN_ARMS_CLASS_DATA
+    | WINDS_OF_MAGIC_CLASS_DATA
+)
 
 CAREER_BY_CLASS = (
     {career: "Academics" for career in ACADEMIC_CLASS_DATA}
@@ -65,12 +77,21 @@ CAREER_BY_CLASS_WITH_SEAFARER = (
 
 
 def get_sub_career_data(career):
-    careers = CAREER_DATA | UP_IN_ARMS_CLASS_DATA | WINDS_OF_MAGIC_CLASS_DATA
+    careers = (
+        CAREER_DATA
+        | DEFT_STEPS_CLASS_DATA
+        | UP_IN_ARMS_CLASS_DATA
+        | WINDS_OF_MAGIC_CLASS_DATA
+    )
     return careers[career]
 
 
 def get_sub_careers(career):
-    careers = UP_IN_ARMS_CAREERS | WINDS_OF_MAGIC_CAREERS
+    careers = DEFT_STEPS_CAREERS | UP_IN_ARMS_CAREERS | WINDS_OF_MAGIC_CAREERS
+    if isinstance(careers[career], list):
+        return [career] + careers[career]
+    if isinstance(careers[career], str):
+        return [career, careers[career]]
     return careers[career].values()
 
 

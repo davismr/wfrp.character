@@ -1,3 +1,9 @@
+from wfrp.character.data.magic.deft_steps import MIRACLES_DECEIVER_DATA
+from wfrp.character.data.magic.deft_steps import MIRACLES_GAMESTER_DATA
+from wfrp.character.data.magic.deft_steps import MIRACLES_NIGHT_PROWLER_DATA
+from wfrp.character.data.magic.deft_steps import MIRACLES_PROTECTOR_DATA
+from wfrp.character.data.magic.deft_steps import MIRACLES_TAAL_DEFT_STEPS_DATA
+
 MIRACLES_MANANN_DATA = {
     "Becalm": {
         "range": "Initiative Bonus Miles",
@@ -938,6 +944,7 @@ ALL_MIRACLES_DATA = (
     | MIRACLES_SHALLYA_DATA
     | MIRACLES_SIGMAR_DATA
     | MIRACLES_TAAL_DATA
+    | MIRACLES_TAAL_DEFT_STEPS_DATA
     | MIRACLES_ULRIC_DATA
     | MIRACLES_VERENA_DATA
     | MIRACLES_STROMFELS_DATA
@@ -948,8 +955,61 @@ for miracle in ALL_MIRACLES_DATA:
 
 
 def get_miracles(divine_lore, expansions=None):
+    if expansions is None:
+        expansions = []
     miracle_data = f"MIRACLES_{divine_lore.upper()}_DATA"
-    miracles = globals()[miracle_data]
-    if divine_lore == "Manann" and expansions and "sea_of_claws" in expansions:
-        miracles = dict(sorted((miracles | MIRACLES_MANANN_SEA_OF_CLAWS_DATA).items()))
-    return miracles
+    if divine_lore == "Ranald-Night-Prowler":
+        miracles = MIRACLES_NIGHT_PROWLER_DATA
+        miracles["An Invitation"] = ALL_MIRACLES_DATA["An Invitation"]
+        miracles["Cat’s Eyes"] = ALL_MIRACLES_DATA["Cat’s Eyes"]
+        miracles["Ranald’s Grace"] = ALL_MIRACLES_DATA["Ranald’s Grace"]
+        miracles["Stay Lucky"] = ALL_MIRACLES_DATA["Stay Lucky"]
+        miracles["You Ain’t Seen Me, Right?"] = ALL_MIRACLES_DATA[
+            "You Ain’t Seen Me, Right?"
+        ]
+    elif divine_lore == "Ranald-Gamester":
+        miracles = MIRACLES_GAMESTER_DATA
+        miracles["Cat’s Eyes"] = ALL_MIRACLES_DATA["Cat’s Eyes"]
+        miracles["Ranald’s Grace"] = ALL_MIRACLES_DATA["Ranald’s Grace"]
+        miracles["Rich Man, Poor Man, Beggar Man, Thief"] = ALL_MIRACLES_DATA[
+            "Rich Man, Poor Man, Beggar Man, Thief"
+        ]
+        miracles["Stay Lucky"] = ALL_MIRACLES_DATA["Stay Lucky"]
+    elif divine_lore == "Ranald-Deceiver":
+        miracles = MIRACLES_DECEIVER_DATA
+        miracles["Cat’s Eyes"] = ALL_MIRACLES_DATA["Cat’s Eyes"]
+        miracles["Ranald’s Grace"] = ALL_MIRACLES_DATA["Ranald’s Grace"]
+        miracles["Rich Man, Poor Man, Beggar Man, Thief"] = ALL_MIRACLES_DATA[
+            "Rich Man, Poor Man, Beggar Man, Thief"
+        ]
+        miracles["Stay Lucky"] = ALL_MIRACLES_DATA["Stay Lucky"]
+        miracles["You Ain’t Seen Me, Right?"] = ALL_MIRACLES_DATA[
+            "You Ain’t Seen Me, Right?"
+        ]
+    elif divine_lore == "Ranald-Protector":
+        miracles = MIRACLES_PROTECTOR_DATA
+        miracles["An Invitation"] = ALL_MIRACLES_DATA["An Invitation"]
+        miracles["Cat’s Eyes"] = ALL_MIRACLES_DATA["Cat’s Eyes"]
+        miracles["Rich Man, Poor Man, Beggar Man, Thief"] = ALL_MIRACLES_DATA[
+            "Rich Man, Poor Man, Beggar Man, Thief"
+        ]
+        miracles["Stay Lucky"] = ALL_MIRACLES_DATA["Stay Lucky"]
+        miracles["You Ain’t Seen Me, Right?"] = ALL_MIRACLES_DATA[
+            "You Ain’t Seen Me, Right?"
+        ]
+    elif divine_lore == "Ranald-Dealer":
+        miracles = MIRACLES_RANALD_DATA
+        miracles["A Suitable Stooge"] = ALL_MIRACLES_DATA["A Suitable Stooge"]
+        miracles["Bamboozle"] = ALL_MIRACLES_DATA["Bamboozle"]
+        miracles["Force the Hand of Chance"] = ALL_MIRACLES_DATA[
+            "Force the Hand of Chance"
+        ]
+        miracles["Perfect Empathy"] = ALL_MIRACLES_DATA["Perfect Empathy"]
+        miracles["Up the Stakes"] = ALL_MIRACLES_DATA["Up the Stakes"]
+    else:
+        miracles = globals()[miracle_data]
+    if divine_lore == "Manann" and "sea_of_claws" in expansions:
+        miracles = miracles | MIRACLES_MANANN_SEA_OF_CLAWS_DATA
+    if divine_lore == "Taal" and "deft_steps" in expansions:
+        miracles = miracles | MIRACLES_TAAL_DEFT_STEPS_DATA
+    return dict(sorted((miracles).items()))

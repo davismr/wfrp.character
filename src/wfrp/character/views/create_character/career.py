@@ -9,6 +9,7 @@ from wfrp.character.data.careers.careers import ALL_CAREER_DATA
 from wfrp.character.data.careers.careers import ALL_CAREER_DATA_WITH_SEAFARER
 from wfrp.character.data.careers.careers import CAREER_BY_CLASS
 from wfrp.character.data.careers.careers import CAREER_BY_CLASS_WITH_SEAFARER
+from wfrp.character.data.careers.deft_steps import DEFT_STEPS_CAREERS
 from wfrp.character.data.careers.tables import get_career
 from wfrp.character.data.careers.tables import list_careers
 from wfrp.character.data.careers.up_in_arms import UP_IN_ARMS_CAREERS
@@ -209,16 +210,24 @@ class CareerViews(BaseCreateView):
 
     def get_next_url(self):
         if (
-            "up_in_arms" in self.character.expansions
-            and self.character.career in UP_IN_ARMS_CAREERS
+            (
+                "deft_steps" in self.character.expansions
+                and self.character.career in DEFT_STEPS_CAREERS
+            )
+            or (
+                "up_in_arms" in self.character.expansions
+                and self.character.career in UP_IN_ARMS_CAREERS
+            )
+            or (
+                "winds_of_magic" in self.character.expansions
+                and self.character.career in WINDS_OF_MAGIC_CAREERS
+            )
         ):
             self.character.create_data = {"sub-career": ""}
             return self.request.route_url("sub-career", id=self.character.id)
-        if (
-            "winds_of_magic" in self.character.expansions
-            and self.character.career in WINDS_OF_MAGIC_CAREERS
-        ):
-            self.character.create_data = {"sub-career": ""}
-            return self.request.route_url("sub-career", id=self.character.id)
-        self.character.create_data = {"attributes": ""}
-        return self.request.route_url("attributes", id=self.character.id)
+        if self.character.career == "Sailor-Priest of Manann":
+            self.character.religion = "Manann"
+            self.character.create_data = {"attributes": ""}
+            return self.request.route_url("attributes", id=self.character.id)
+        self.character.create_data = {"religion": ""}
+        return self.request.route_url("religion", id=self.character.id)

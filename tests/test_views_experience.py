@@ -346,6 +346,7 @@ def test_miracle(new_character):
     new_character.species = "Human"
     new_character.career = "Nun"
     new_character.career_title = "Nun"
+    new_character.religion = "Manann"
     new_character.talents = {"Invoke (Manann)": 1}
     new_character.miracles = ["Waterwalk"]
     new_character.experience = 100

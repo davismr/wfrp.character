@@ -427,9 +427,7 @@ class ExperienceViews(BaseView):
         )
         for talent in self.character.talents:
             if talent.startswith("Invoke ("):
-                all_miracles = get_miracles(
-                    talent.split("Invoke (")[1].replace(")", "")
-                )
+                all_miracles = get_miracles(self.character.religion)
                 break
         choices = [("", "None")]
         for miracle in all_miracles:
