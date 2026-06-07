@@ -1,13 +1,51 @@
+import uuid
+
 import colander
 import deform
 from pyramid.httpexceptions import HTTPFound
+from pyramid.httpexceptions import HTTPUnauthorized
+from pyramid.security import forget
 from pyramid.view import view_config
 from pyramid.view import view_defaults
+from sqlalchemy.exc import NoResultFound
 
 from wfrp.character.data.careers.careers import CAREER_DATA
 from wfrp.character.data.species import SPECIES_LIST
+from wfrp.character.models.character import Character
+from wfrp.character.models.user import User
 from wfrp.character.views.base_view import BaseView
 from wfrp.character.views.create_character.attributes import ATTRIBUTES
+
+
+@view_defaults(route_name="new-manual-character", permission="edit_character")
+class CharacterManualViews:
+    def __init__(self, request):
+        self.request = request
+        if self.request.registry.settings.get("wfrp.character.enable_auth"):
+            try:
+                self.logged_in = request.session["googleauth.userid"]
+            except KeyError:
+                raise HTTPUnauthorized
+
+    @view_config(request_method="GET")
+    def get_view(self):
+        new_id = uuid.uuid4()
+        character = Character(id=new_id)
+        if self.request.registry.settings.get("wfrp.character.enable_auth"):
+            try:
+                character.user_id = (
+                    self.request.dbsession.query(User)
+                    .filter(User.email == self.logged_in)
+                    .one()
+                    .id
+                )
+            except NoResultFound:
+                forget(self.request)
+                raise HTTPUnauthorized
+        character.status = "complete"
+        self.request.dbsession.add(character)
+        url = self.request.route_url("character-edit", id=new_id)
+        return HTTPFound(location=url)
 
 
 @view_defaults(route_name="character-edit")
@@ -150,6 +188,7 @@ class CharacterEditViews(BaseView):
         static_assets = form.get_widget_resources()
         return {
             "form": html,
+            "character": self.character,
             "css_links": static_assets["css"],
             "js_links": static_assets["js"],
         }

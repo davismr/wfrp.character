@@ -37,6 +37,9 @@
 <div tal:condition="view.logged_in is not None">
     <a href="/character/new">Add new character</a>
 </div>
+<div>
+    <a href="/character/manual">Manually enter new character</a>
+</div>
 <div tal:condition="not: characters or campaigns">
     <div metal:use-macro="load: ../includes/about_text.pt" />
 </div>

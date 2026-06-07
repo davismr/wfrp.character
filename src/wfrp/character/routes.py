@@ -13,6 +13,7 @@ def includeme(config):
     config.add_route("session-add", "/campaign/{id}/session/add")
     config.add_route("session-edit", "/session/{id}/edit")
     config.add_route("new-character", "/character/new")
+    config.add_route("new-manual-character", "/character/manual")
     config.add_route("campaign", "/character/{id}/campaign")
     config.add_route("expansions", "/character/{id}/expansions")
     config.add_route("species", "/character/{id}/species")
