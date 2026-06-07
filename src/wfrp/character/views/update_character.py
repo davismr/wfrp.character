@@ -119,8 +119,7 @@ class UpdateCharacterViews(BaseView):
                 name="short_term_ambition",
                 widget=deform.widget.TextAreaWidget(),
                 validator=colander.Length(max=100),
-                default=self.character.short_term_ambition or "",
-                missing="",
+                default=self.character.short_term_ambition,
             )
         )
         ambitions_schema.add(
@@ -129,8 +128,7 @@ class UpdateCharacterViews(BaseView):
                 name="long_term_ambition",
                 widget=deform.widget.TextAreaWidget(),
                 validator=colander.Length(max=100),
-                default=self.character.long_term_ambition or "",
-                missing="",
+                default=self.character.long_term_ambition,
             )
         )
         schema.add(ambitions_schema)

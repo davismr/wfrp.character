@@ -547,9 +547,9 @@ class ExperienceViews(BaseView):
                 button = "Learn Miracle"
             else:
                 button = f"Increase {form}"
-            attribute_schema = getattr(self, f"{form}_schema")()
+            schema = getattr(self, f"{form}_schema")()
             forms[f"{form}_form"] = deform.Form(
-                attribute_schema,
+                schema,
                 buttons=(button,),
                 formid=f"{form}_form",
                 counter=counter,
