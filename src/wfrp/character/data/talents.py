@@ -133,14 +133,14 @@ BASIC_TALENTS = {
             "will immediately lose all of your spells if you do so."
         ),
         "specialisations": [
-            "Lore of Light",
-            "Lore of Metal",
-            "Lore of Life",
-            "Lore of Heavens",
-            "Lore of Shadows",
-            "Lore of Death",
-            "Lore of Fire",
-            "Lore of Beasts",
+            "Light",
+            "Metal",
+            "Life",
+            "Heavens",
+            "Shadows",
+            "Death",
+            "Fire",
+            "Beasts",
         ],
     },
     "Argumentative": {

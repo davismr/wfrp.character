@@ -344,7 +344,7 @@ LORE_FIRE_DATA = {
     },
 }
 
-LORE_DEATH_DATA = {
+LORE_HEAVENS_DATA = {
     "Cerulean Shield": {
         "CN": 7,
         "range": "You",
