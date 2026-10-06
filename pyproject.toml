@@ -20,13 +20,16 @@ authors = [
 
 [project.optional-dependencies]
 testing = [
+    "flake8",
     "freezegun",
     "pre-commit",
     "pytest",
+    "pytest-cov",
+    "wfrp.data@git+https://github.com/davismr/wfrp.data#egg=main",
 ]
 
 [project.scripts]
-wfrp = "wfrp.character.app:main"
+wfrp = "wfrp.character.manage:main"
 
 [project.urls]
 Repository = "https://github.com/davismr/wfrp.character.git"
