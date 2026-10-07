@@ -2,5 +2,14 @@
 
 {% block content %}
     <h1>Home</h1>
-    </form>
+    <div>
+        <a href="/build/new">Add new character</a>
+    </div>
+    {% for character in characters %}
+        <div>
+            <a href={{ url_for('CharacterView' , id=character.id) }}>
+                {{ character.get_display_title() }}
+            </a>
+        </div>
+    {% endfor %}
 {% endblock %}
