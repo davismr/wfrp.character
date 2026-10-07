@@ -2,9 +2,14 @@
 <html>
     <head>
       <title>WFRP Character Generator</title>
+        <link rel="stylesheet" type="text/css"
+              href="{{ url_for('static', filename='fonts.css') }}"/>
+        <link rel="stylesheet" type="text/css"
+              href="{{ url_for('static', filename='wfrp.css') }}"/>
     </head>
     <body>
         {% include "includes/github_corner.html" %}
+        <div><a href="/">Homepage</a></div>
         {% block content %}{% endblock %}
         {% include "includes/footer.html" %}
     </body>

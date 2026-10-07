@@ -1,0 +1,7 @@
+@font-face {
+  font-family: 'Caslon Antique';
+  src: url('fonts/caslon-antique.bold.ttf')  format('truetype'),
+       url('fonts/caslon-antique.bolditalic.ttf')  format('truetype'),
+       url('fonts/caslon-antique.italic.ttf')  format('truetype'),
+       url('fonts/caslon-antique.regular.ttf')  format('truetype'),
+}
