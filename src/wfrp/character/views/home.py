@@ -1,8 +1,11 @@
 from flask import render_template
 from flask.views import MethodView
 
+from wfrp.character.models.character import Character
+
 
 class HomePageView(MethodView):
 
     def get(self):
-        return render_template("home.html", title="Home")
+        all_characters = Character.query.all()
+        return render_template("home.html", title="Home", characters=all_characters)
