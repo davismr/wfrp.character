@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <h1>Class and Career</h1>
+    <p>
+        You rolled a {{ character.create_data[0][0] }} which is a
+        {{ character.create_data[0][1] }}.
+    </p>
+    <p>
+        If you keep the first result, you may start the game with two
+        Trappings (page 39) from that Career’s second Career Level.
+    </p>
+    <p>
+        If not, roll twice more and choose any of the three options to
+        acquire one Trapping from the second Career Level instead. If
+        you reject those as well, keep rolling until you accept a result, or
+        simply choose one, but you gain no additional Trappings. Don’t
+        worry, you’ll acquire enough gear to get started later.
+    </p>
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.career.label }}<br>
+            {{ form.career }}
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+{% endblock %}

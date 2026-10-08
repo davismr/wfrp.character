@@ -1,0 +1,9 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <h1>Create Character</h1>
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <p>{{ form.submit() }}</p>
+    </form>
+{% endblock %}
