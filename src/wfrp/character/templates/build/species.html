@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <h1>Species</h1>
+    <p>
+        You rolled a {{ character.create_data[0][0] }} which is a
+        {{ character.create_data[0][1] }}.
+    </p>
+    <p>
+        You can gain an extra point of Fortune if
+        you accept this, or select a different species.
+    </p>
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.species.label }}<br>
+            {{ form.species }}
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+{% endblock %}
