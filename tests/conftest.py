@@ -1,7 +1,11 @@
+import uuid
+
 import pytest
 
 from wfrp.character.app import create_app
+from wfrp.character.database import db
 from wfrp.character.database import init_db
+from wfrp.character.models.character import Character
 from wfrp.character.routes import register_routes
 
 
@@ -18,3 +22,12 @@ def client(scope="session"):
     with app.app_context():
         register_routes(app)
         yield app.test_client()
+
+
+@pytest.fixture
+def new_character(client):
+    new_id = uuid.uuid4()
+    new_character = Character(id=new_id)
+    db.session.add(new_character)
+    character = db.session.query(Character).filter(Character.id == new_id).one()
+    return character
