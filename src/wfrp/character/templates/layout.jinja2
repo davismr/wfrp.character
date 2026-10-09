@@ -8,9 +8,9 @@
               href="{{ url_for('static', filename='wfrp.css') }}"/>
     </head>
     <body>
-        {% include "includes/github_corner.html" %}
+        {% include "includes/github_corner.jinja2" %}
         <div><a href="/">Homepage</a></div>
         {% block content %}{% endblock %}
-        {% include "includes/footer.html" %}
+        {% include "includes/footer.jinja2" %}
     </body>
 </html>

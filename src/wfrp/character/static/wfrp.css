@@ -1,3 +1,14 @@
 html, body {
     font-family: 'Caslon Antique', arial, sans-serif;
 }
+
+#build-progress {
+    list-style-type: none;
+    display: flex;
+    gap: 15px;
+    color: grey;
+}
+
+#current-progress {
+    color: black;
+}

@@ -10,5 +10,5 @@ class CharacterView(MethodView):
     def get(self, id):
         character = db.session.query(Character).filter(Character.id == id).one()
         return render_template(
-            "character.html", title=character.get_display_title, character=character
+            "character.jinja2", title=character.get_display_title, character=character
         )

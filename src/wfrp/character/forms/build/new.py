@@ -26,13 +26,13 @@ class NewFormView(BaseBuildForm):
 
     def get(self):
         form = self.get_form()
-        return render_template("build/new.html", title="New", form=form)
+        return render_template("build/new.jinja2", title="New", form=form)
 
     def post(self):
         form = self.get_form()
         if form.validate_on_submit():
             self.create_character()
             self.character.status = "species"
-            next_url = url_for("Species", id=self.character.id)
+            next_url = url_for("build_species", id=self.character.id)
             return redirect(next_url)
-        return render_template("build/new.html", title="New", form=form)
+        return render_template("build/new.jinja2", title="New", form=form)

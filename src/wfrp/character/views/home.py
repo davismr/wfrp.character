@@ -8,4 +8,4 @@ class HomePageView(MethodView):
 
     def get(self):
         all_characters = Character.query.all()
-        return render_template("home.html", title="Home", characters=all_characters)
+        return render_template("home.jinja2", title="Home", characters=all_characters)
