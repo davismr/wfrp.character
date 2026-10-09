@@ -37,7 +37,7 @@ class SpeciesFormView(BaseBuildForm):
         self.get_character(id)
         form = self.get_form()
         return render_template(
-            "build/species.html", title="Species", form=form, character=self.character
+            "build/species.jinja2", title="Species", form=form, character=self.character
         )
 
     def post(self, id):
@@ -45,10 +45,10 @@ class SpeciesFormView(BaseBuildForm):
         form = self.get_form()
         if form.validate_on_submit():
             self.update_character(form.data)
-            next_url = url_for("Career", id=self.character.id)
+            next_url = url_for("build_career", id=self.character.id)
             return redirect(next_url)
         return render_template(
-            "build/species.html", title="Species", form=form, character=self.character
+            "build/species.jinja2", title="Species", form=form, character=self.character
         )
 
     def update_character(self, data):

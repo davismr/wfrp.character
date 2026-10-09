@@ -13,16 +13,16 @@ def register_routes(app):
     def load_request_metadata():
         g.package_version = __version__
 
-    app.add_url_rule("/", view_func=HomePageView.as_view("Home"))
+    app.add_url_rule("/", view_func=HomePageView.as_view("homepage"))
     app.add_url_rule(
-        "/character/<uuid():id>", view_func=CharacterView.as_view("CharacterView")
+        "/character/<uuid():id>", view_func=CharacterView.as_view("character_view")
     )
-    app.add_url_rule("/build/new", view_func=NewFormView.as_view("New"))
+    app.add_url_rule("/build/new", view_func=NewFormView.as_view("build_new"))
     app.add_url_rule(
         "/build/species/<uuid(strict=False):id>",
-        view_func=SpeciesFormView.as_view("Species"),
+        view_func=SpeciesFormView.as_view("build_species"),
     )
     app.add_url_rule(
         "/build/career/<uuid(strict=False):id>",
-        view_func=CareerFormView.as_view("Career"),
+        view_func=CareerFormView.as_view("build_career"),
     )

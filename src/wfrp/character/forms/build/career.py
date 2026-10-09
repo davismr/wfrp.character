@@ -37,15 +37,15 @@ class CareerFormView(BaseBuildForm):
         self.get_character(id)
         form = self.get_form()
         return render_template(
-            "build/career.html", title="Career", form=form, character=self.character
+            "build/career.jinja2", title="Career", form=form, character=self.character
         )
 
     def post(self, id):
         self.get_character(id)
         form = self.get_form()
         if form.validate_on_submit():
-            next_url = url_for("Career", id=self.character.id)
+            next_url = url_for("build_career", id=self.character.id)
             return redirect(next_url)
         return render_template(
-            "build/career.html", title="Career", form=form, character=self.character
+            "build/career.jinja2", title="Career", form=form, character=self.character
         )

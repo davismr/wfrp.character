@@ -1,0 +1,41 @@
+<ul id="build-progress">
+    <li {{ "id=current-progress" if request.endpoint == "build_campaign"}}>
+        Campaign
+    </li>
+    <li {{ "id=current-progress" if request.endpoint == "build_expansions"}}>
+        Expansions
+    </li>
+    <li {{ "id=current-progress" if request.endpoint == "build_species"}}>
+        Species
+    </li>
+    <li {{ "id=current-progress" if request.endpoint == "build_starting"}}>
+        Starting Skills
+    </li>
+    <li {{ "id=current-progress" if request.endpoint == "build_career"}}>
+        Career
+    </li>
+    <li {{ "id=current-progress" if request.endpoint == "build_religion"}}>
+        Religion
+    </li>
+    <li {{ "id=current-progress" if request.endpoint == "build_characteristics"}}>
+        Characteristics
+    </li>
+    <li {{ "id=current-progress" if request.endpoint == "build_advances"}}>
+        Advances
+    </li>
+    <li {{ "id=current-progress" if request.endpoint == "build_skills"}}>
+        Skills
+    </li>
+    <li {{ "id=current-progress" if request.endpoint == "build_talents"}}>
+        Talents
+    </li>
+    <li {{ "id=current-progress" if request.endpoint == "build_magic"}}>
+        Magic
+    </li>
+    <li {{ "id=current-progress" if request.endpoint == "build_trappings"}}>
+        Trappings
+    </li>
+    <li {{ "id=current-progress" if request.endpoint == "build_name"}}>
+        Name and Goals
+    </li>
+</ul>
