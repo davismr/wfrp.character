@@ -9,7 +9,7 @@ from flask import url_for
 from wfrp.character.database import db
 from wfrp.character.forms.build.base import BaseBuildForm
 from wfrp.data.tables.careers import get_career, get_career_list
-from wfrp.character.utils import roll_d100
+from wfrp.data.dice import roll_d100
 
 
 class CareerForm(FlaskForm):

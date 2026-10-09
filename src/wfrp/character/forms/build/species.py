@@ -11,7 +11,7 @@ from wtforms.validators import DataRequired
 
 from wfrp.character.database import db
 from wfrp.character.forms.build.base import BaseBuildForm
-from wfrp.character.utils import roll_d100
+from wfrp.data.dice import roll_d100
 
 
 class SpeciesForm(FlaskForm):
