@@ -5,7 +5,7 @@ from flask_wtf import FlaskForm
 from wtforms import SubmitField
 
 from wfrp.character.database import db
-from wfrp.character.forms.build.base import BaseBuildForm
+from wfrp.character.forms.build.base import BaseBuildFormView
 from wfrp.character.models.character import Character
 
 
@@ -13,7 +13,7 @@ class NewForm(FlaskForm):
     submit = SubmitField("Build Character")
 
 
-class NewFormView(BaseBuildForm):
+class NewFormView(BaseBuildFormView):
 
     def create_character(self):
         self.character = Character()

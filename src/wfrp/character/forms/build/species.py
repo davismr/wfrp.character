@@ -10,7 +10,7 @@ from wtforms import SubmitField
 from wtforms.validators import DataRequired
 
 from wfrp.character.database import db
-from wfrp.character.forms.build.base import BaseBuildForm
+from wfrp.character.forms.build.base import BaseBuildFormView
 from wfrp.data.dice import roll_d100
 
 
@@ -19,7 +19,7 @@ class SpeciesForm(FlaskForm):
     submit = SubmitField("Select Species")
 
 
-class SpeciesFormView(BaseBuildForm):
+class SpeciesFormView(BaseBuildFormView):
 
     def initialise_form(self):
         if not self.character.create_data:
@@ -45,7 +45,7 @@ class SpeciesFormView(BaseBuildForm):
         form = self.get_form()
         if form.validate_on_submit():
             self.update_character(form.data)
-            next_url = url_for("build_career", id=self.character.id)
+            next_url = url_for("build_physical", id=self.character.id)
             return redirect(next_url)
         return render_template(
             "build/species.jinja2", title="Species", form=form, character=self.character
@@ -59,6 +59,6 @@ class SpeciesFormView(BaseBuildForm):
         self.character.movement = SPECIES_DATA[species]["movement"]
         if species == self.character.create_data[0][1]:
             self.character.fortune += 1
-        self.character.status = "career"
+        self.character.status = "physical"
         self.character.create_data = []
         db.session.commit()

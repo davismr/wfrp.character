@@ -3,6 +3,7 @@ from flask import g
 from wfrp.character import __version__
 from wfrp.character.forms.build.career import CareerFormView
 from wfrp.character.forms.build.new import NewFormView
+from wfrp.character.forms.build.physical import PhysicalFormView
 from wfrp.character.forms.build.species import SpeciesFormView
 from wfrp.character.views.character import CharacterView
 from wfrp.character.views.home import HomePageView
@@ -21,6 +22,10 @@ def register_routes(app):
     app.add_url_rule(
         "/build/species/<uuid(strict=False):id>",
         view_func=SpeciesFormView.as_view("build_species"),
+    )
+    app.add_url_rule(
+        "/build/physical/<uuid(strict=False):id>",
+        view_func=PhysicalFormView.as_view("build_physical"),
     )
     app.add_url_rule(
         "/build/career/<uuid(strict=False):id>",

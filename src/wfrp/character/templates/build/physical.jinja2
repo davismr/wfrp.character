@@ -1,0 +1,26 @@
+{% extends "build/build_layout.jinja2" %}
+
+{% block build_content %}
+    <h1>Physical Characteristics</h1>
+    <p>
+        You rolled {{ character.create_data[0][0] }} which makes you
+        {{ character.create_data[0][1] }} years of age.
+    </p>
+    <p>
+        You rolled {{ character.create_data[1][0] }} which makes you
+        {{ character.create_data[1][1] // 12 }} feet and
+        {{ character.create_data[1][1] % 12 }} inches.
+    </p>
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.eye_colour.label }}<br>
+            {{ form.eye_colour }}
+        </p>
+        <p>
+            {{ form.hair_colour.label }}<br>
+            {{ form.hair_colour }}
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+{% endblock %}

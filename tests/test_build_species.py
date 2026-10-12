@@ -22,9 +22,9 @@ def test_post_view(client):
         },
     )
     assert response.status_code == 302
-    assert response.location == f"/build/career/{str(character.id)}"
+    assert response.location == f"/build/physical/{str(character.id)}"
     assert character.species == "Dwarf"
     assert character.fate == 2
     assert character.fortune in [2, 3]
     assert character.movement == 3
-    assert character.status == "career"
+    assert character.status == "physical"

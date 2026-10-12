@@ -7,7 +7,7 @@ from flask import render_template
 from flask import url_for
 
 from wfrp.character.database import db
-from wfrp.character.forms.build.base import BaseBuildForm
+from wfrp.character.forms.build.base import BaseBuildFormView
 from wfrp.data.tables.careers import get_career, get_career_list
 from wfrp.data.dice import roll_d100
 
@@ -17,7 +17,7 @@ class CareerForm(FlaskForm):
     submit = SubmitField("Select Career")
 
 
-class CareerFormView(BaseBuildForm):
+class CareerFormView(BaseBuildFormView):
 
     def initialise_form(self):
         if not self.character.create_data:
@@ -44,8 +44,16 @@ class CareerFormView(BaseBuildForm):
         self.get_character(id)
         form = self.get_form()
         if form.validate_on_submit():
-            next_url = url_for("build_career", id=self.character.id)
+            self.update_character(form.data)
+            next_url = url_for("build_characteristics", id=self.character.id)
             return redirect(next_url)
         return render_template(
             "build/career.jinja2", title="Career", form=form, character=self.character
         )
+
+    def update_character(self, data):
+        # XXX other career details
+        self.character.career = data["career"]
+        self.character.status = "characteristics"
+        self.character.create_data = []
+        db.session.commit()
