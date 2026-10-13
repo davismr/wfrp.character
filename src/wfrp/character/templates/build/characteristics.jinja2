@@ -1,0 +1,91 @@
+{% extends "build/build_layout.jinja2" %}
+
+{% block build_content %}
+    <h1>Characteristics</h1>
+    <p>
+        You rolled:
+    </p>
+    <table>
+        <tr>
+            <td>&nbsp;</td>
+            <td>WS</td>
+            <td>BS</td>
+            <td>S</td>
+            <td>T</td>
+            <td>I</td>
+            <td>Ag</td>
+            <td>Dex</td>
+            <td>Int</td>
+            <td>WP</td>
+            <td>Fel</td>
+        </tr>
+        <tr>
+            <td>Roll</td>
+            <td>{{ character.create_data["WS"] }}</td>
+            <td>{{ character.create_data["BS"] }}</td>
+            <td>{{ character.create_data["S"] }}</td>
+            <td>{{ character.create_data["T"] }}</td>
+            <td>{{ character.create_data["I"] }}</td>
+            <td>{{ character.create_data["Ag"] }}</td>
+            <td>{{ character.create_data["Dex"] }}</td>
+            <td>{{ character.create_data["Int"] }}</td>
+            <td>{{ character.create_data["WP"] }}</td>
+            <td>{{ character.create_data["Fel"] }}</td>
+        </tr>
+        <tr>
+            <td>Species Modifier</td>
+            <td>{{ species_modifiers["WS"] }}</td>
+            <td>{{ species_modifiers["BS"] }}</td>
+            <td>{{ species_modifiers["S"] }}</td>
+            <td>{{ species_modifiers["T"] }}</td>
+            <td>{{ species_modifiers["I"] }}</td>
+            <td>{{ species_modifiers["Ag"] }}</td>
+            <td>{{ species_modifiers["Dex"] }}</td>
+            <td>{{ species_modifiers["Int"] }}</td>
+            <td>{{ species_modifiers["WP"] }}</td>
+            <td>{{ species_modifiers["Fel"] }}</td>
+        </tr>
+        <tr>
+            <td>Result</td>
+            <td>{{ character.create_data["WS"] + species_modifiers["WS"] }}</td>
+            <td>{{ character.create_data["BS"] + species_modifiers["BS"] }}</td>
+            <td>{{ character.create_data["S"] + species_modifiers["S"] }}</td>
+            <td>{{ character.create_data["T"] + species_modifiers["T"] }}</td>
+            <td>{{ character.create_data["I"] + species_modifiers["I"] }}</td>
+            <td>{{ character.create_data["Ag"] + species_modifiers["Ag"] }}</td>
+            <td>{{ character.create_data["Dex"] + species_modifiers["Dex"] }}</td>
+            <td>{{ character.create_data["Int"] + species_modifiers["Int"] }}</td>
+            <td>{{ character.create_data["WP"] + species_modifiers["WP"] }}</td>
+            <td>{{ character.create_data["Fel"] + species_modifiers["Fel"] }}</td>
+        </tr>
+    </table>
+    <p>
+        If you are happy with these results, you can increase the starting level of the
+        three marked Characteristics from your first Career Level Characteristics by up
+        to six in total — so increasing one by six, all three by two each, or any
+        combination you wish.
+    </p>
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <p>{{ form.accept() }}</p>
+        <p>
+            You can rearrange the results and assign them to Characteristics of your
+            choice. You may then increase the three Characteristics from your first
+            Career Level by up to three in total, as above.
+        </p>
+        <p>
+            You can roll ten new Characteristic scores and rearrange the results, or
+            ignore the dice and distribute 100 points between the ten Characteristics
+            (minimum 4, maximum 16 in each). You gain no other increases to your
+            Characteristics during character creation.
+        </p>
+        {% for field in form.get_fields() %}
+            <p>
+                {{ field.label }}<br>
+                {{ field }}
+            </p>
+        {% endfor %}
+        <p>{{ form.rearrange() }}</p>
+        <p>{{ species_modifiers }}</p>
+    </form>
+{% endblock %}
