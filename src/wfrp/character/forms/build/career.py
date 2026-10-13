@@ -22,14 +22,15 @@ class CareerFormView(BaseBuildFormView):
     def initialise_form(self):
         if not self.character.create_data:
             die_roll = roll_d100()
-            self.character.create_data = [
-                (die_roll, get_career(self.character.species, die_roll))
-            ]
+            self.character.create_data = {
+                "die_roll": die_roll,
+                "career": get_career(self.character.species, die_roll),
+            }
             db.session.commit()
 
     def get_form(self):
         self.initialise_form()
-        form = CareerForm(career=self.character.create_data[0][1])
+        form = CareerForm(career=self.character.create_data["career"])
         form.career.choices = list(get_career_list(self.character.species).values())
         return form
 
@@ -37,7 +38,7 @@ class CareerFormView(BaseBuildFormView):
         self.get_character(id)
         form = self.get_form()
         return render_template(
-            "build/career.jinja2", title="Career", form=form, character=self.character
+            "build/career.jinja2", form=form, character=self.character
         )
 
     def post(self, id):
@@ -48,12 +49,12 @@ class CareerFormView(BaseBuildFormView):
             next_url = url_for("build_characteristics", id=self.character.id)
             return redirect(next_url)
         return render_template(
-            "build/career.jinja2", title="Career", form=form, character=self.character
+            "build/career.jinja2", form=form, character=self.character
         )
 
     def update_character(self, data):
         # XXX other career details
         self.character.career = data["career"]
         self.character.status = "characteristics"
-        self.character.create_data = []
+        self.character.create_data = {}
         db.session.commit()

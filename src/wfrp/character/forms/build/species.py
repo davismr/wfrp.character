@@ -24,12 +24,15 @@ class SpeciesFormView(BaseBuildFormView):
     def initialise_form(self):
         if not self.character.create_data:
             die_roll = roll_d100()
-            self.character.create_data = [(die_roll, get_species(die_roll))]
+            self.character.create_data = {
+                "die_roll": die_roll,
+                "species": get_species(die_roll),
+            }
             db.session.commit()
 
     def get_form(self):
         self.initialise_form()
-        form = SpeciesForm(species=self.character.create_data[0][1])
+        form = SpeciesForm(species=self.character.create_data["species"])
         form.species.choices = list(SPECIES.values())
         return form
 
@@ -37,7 +40,7 @@ class SpeciesFormView(BaseBuildFormView):
         self.get_character(id)
         form = self.get_form()
         return render_template(
-            "build/species.jinja2", title="Species", form=form, character=self.character
+            "build/species.jinja2", form=form, character=self.character
         )
 
     def post(self, id):
@@ -48,7 +51,7 @@ class SpeciesFormView(BaseBuildFormView):
             next_url = url_for("build_physical", id=self.character.id)
             return redirect(next_url)
         return render_template(
-            "build/species.jinja2", title="Species", form=form, character=self.character
+            "build/species.jinja2", form=form, character=self.character
         )
 
     def update_character(self, data):
@@ -57,8 +60,8 @@ class SpeciesFormView(BaseBuildFormView):
         self.character.fate = SPECIES_DATA[species]["fate"]
         self.character.fortune = SPECIES_DATA[species]["fortune"]
         self.character.movement = SPECIES_DATA[species]["movement"]
-        if species == self.character.create_data[0][1]:
+        if species == self.character.create_data["species"]:
             self.character.fortune += 1
         self.character.status = "physical"
-        self.character.create_data = []
+        self.character.create_data = {}
         db.session.commit()

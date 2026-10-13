@@ -3,13 +3,13 @@
 {% block build_content %}
     <h1>Physical Characteristics</h1>
     <p>
-        You rolled {{ character.create_data[0][0] }} which makes you
-        {{ character.create_data[0][1] }} years of age.
+        You rolled {{ character.create_data["age_roll"] }} which makes you
+        {{ character.create_data["age"] }} years of age.
     </p>
     <p>
-        You rolled {{ character.create_data[1][0] }} which makes you
-        {{ character.create_data[1][1] // 12 }} feet and
-        {{ character.create_data[1][1] % 12 }} inches.
+        You rolled {{ character.create_data["height_roll"] }} which makes you
+        {{ character.create_data["height"] // 12 }} feet and
+        {{ character.create_data["height"] % 12 }} inches.
     </p>
     <form action="" method="post">
         {{ form.hidden_tag() }}

@@ -25,11 +25,12 @@ class PhysicalFormView(BaseBuildFormView):
             die_roll = SPECIES_DATA[species]["age"][1]()
             age = die_roll + SPECIES_DATA[species]["age"][0]
             self.character.age = age
-            self.character.create_data = [(die_roll, age)]
+            self.character.create_data = {"age_roll": die_roll, "age": age}
             die_roll = SPECIES_DATA[species]["height"][1]()
             height = die_roll + SPECIES_DATA[species]["height"][0]
             self.character.height = height
-            self.character.create_data.append((die_roll, self.character.height))
+            self.character.create_data["height_roll"] = die_roll
+            self.character.create_data["height"] = height
             db.session.commit()
 
     def get_form(self):
@@ -61,5 +62,5 @@ class PhysicalFormView(BaseBuildFormView):
         self.character.eyes = data["eye_colour"]
         self.character.hair = data["hair_colour"]
         self.character.status = "career"
-        self.character.create_data = []
+        self.character.create_data = {}
         db.session.commit()

@@ -3,8 +3,8 @@
 {% block build_content %}
     <h1>Class and Career</h1>
     <p>
-        You rolled a {{ character.create_data[0][0] }} which is a
-        {{ character.create_data[0][1] }}.
+        You rolled a {{ character.create_data["die_roll"] }} which is a
+        {{ character.create_data["career"] }}.
     </p>
     <p>
         If you keep the first result, you may start the game with two
