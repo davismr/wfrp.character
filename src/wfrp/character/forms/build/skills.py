@@ -67,7 +67,7 @@ class SkillsFormView(BaseBuildFormView):
         form = self.get_form()
         if form.validate_on_submit():
             self.update_character(form)
-            next_url = url_for("build_skills", id=self.character.id)
+            next_url = url_for("build_talents", id=self.character.id)
             return redirect(next_url)
         return render_template(
             "build/skills.jinja2", form=form, character=self.character
@@ -85,6 +85,6 @@ class SkillsFormView(BaseBuildFormView):
                     self.character.skills.setdefault(skill, 0)
                     + int(form.career_skills.data[skill]) * 5
                 )
-        self.character.status = "skills"
+        self.character.status = "Talents"
         self.character.create_data = {}
         db.session.commit()

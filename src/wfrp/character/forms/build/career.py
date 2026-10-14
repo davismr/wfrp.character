@@ -48,7 +48,7 @@ class CareerFormView(BaseBuildFormView):
         form = self.get_form()
         if form.validate_on_submit():
             self.update_character(form.data)
-            next_url = url_for("build_characteristics", id=self.character.id)
+            next_url = url_for("build_religion", id=self.character.id)
             return redirect(next_url)
         return render_template(
             "build/career.jinja2", form=form, character=self.character
@@ -63,6 +63,6 @@ class CareerFormView(BaseBuildFormView):
         self.character.career_path.append(career_title)
         self.character.career_tier = career_data[career_title]["status"]["tier"]
         self.character.career_standing = career_data[career_title]["status"]["standing"]
-        self.character.status = "characteristics"
+        self.character.status = "Religion"
         self.character.create_data = {}
         db.session.commit()

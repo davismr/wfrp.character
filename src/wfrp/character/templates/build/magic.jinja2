@@ -1,0 +1,9 @@
+{% extends "build/build_layout.jinja2" %}
+
+{% block build_content %}
+    <h1>Magic</h1>
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <p>{{ form.submit() }}</p>
+    </form>
+{% endblock %}

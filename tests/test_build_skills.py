@@ -26,5 +26,5 @@ def test_post_view(client):
         },
     )
     assert response.status_code == 302
-    assert response.location == f"/build/skills/{str(character.id)}"
+    assert response.location == f"/build/talents/{str(character.id)}"
     assert character.skills == {"Bribery": 5, "Charm": 15, "Language (Wastelander)": 5}
