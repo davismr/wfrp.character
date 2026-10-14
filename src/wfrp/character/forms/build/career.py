@@ -10,6 +10,8 @@ from wfrp.character.database import db
 from wfrp.character.forms.build.base import BaseBuildFormView
 from wfrp.data.tables.careers import get_career, get_career_list
 from wfrp.data.dice import roll_d100
+from wfrp.data.careers.data import CAREER_BY_CLASS
+from wfrp.data.careers.data import CAREER_DATA
 
 
 class CareerForm(FlaskForm):
@@ -53,8 +55,14 @@ class CareerFormView(BaseBuildFormView):
         )
 
     def update_character(self, data):
-        # XXX other career details
+        career_data = CAREER_DATA[data["career"]]
         self.character.career = data["career"]
+        self.character.career_class = CAREER_BY_CLASS[data["career"]]
+        career_title = list(career_data.keys())[1]
+        self.character.career_title = career_title
+        self.character.career_path.append(career_title)
+        self.character.career_tier = career_data[career_title]["status"]["tier"]
+        self.character.career_standing = career_data[career_title]["status"]["standing"]
         self.character.status = "characteristics"
         self.character.create_data = {}
         db.session.commit()

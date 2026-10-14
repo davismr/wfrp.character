@@ -1,0 +1,36 @@
+{% extends "build/build_layout.jinja2" %}
+
+{% block build_content %}
+    <h1>Species and Career Skills</h1>
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <p>
+            A Skill’s starting value is equal to its associated Characteristic.
+            Each Advance increases a Skill by +5.
+        </p>
+        <p>
+            Add one Advance (+5) to any five of the following Skills:
+        </p>
+        {% for field in form.get_fields("species_skills") %}
+            <p>
+                {{ field.label }}<br>
+                {{ field }}
+            </p>
+        {% endfor %}
+        <p>
+            Assign 8 Advances among your Career Skills.
+        </p>
+        <p>
+            You may assign more than one Advance to the same Skill,
+            but no Skill can receive more than 3 Advances (+15) during
+            Character Creation.
+        </p>
+        {% for field in form.get_fields("career_skills") %}
+            <p>
+                {{ field.label }}<br>
+                {{ field }}
+            </p>
+        {% endfor %}
+        <p>{{ form.submit() }}</p>
+    </form>
+{% endblock %}
