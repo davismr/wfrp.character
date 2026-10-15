@@ -1,15 +1,15 @@
 from flask import redirect
 from flask import render_template
 from flask import url_for
-from flask_wtf import FlaskForm
 from wtforms import SubmitField
 
 from wfrp.character.database import db
+from wfrp.character.forms.build.base import BaseBuildForm
 from wfrp.character.forms.build.base import BaseBuildFormView
 from wfrp.character.models.character import Character
 
 
-class NewForm(FlaskForm):
+class NewForm(BaseBuildForm):
     submit = SubmitField("Build Character")
 
 

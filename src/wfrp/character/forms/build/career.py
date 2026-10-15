@@ -1,20 +1,21 @@
-from flask_wtf import FlaskForm
-from wtforms import RadioField, SubmitField
-from wtforms.validators import DataRequired
-
 from flask import redirect
 from flask import render_template
 from flask import url_for
-
-from wfrp.character.database import db
-from wfrp.character.forms.build.base import BaseBuildFormView
-from wfrp.data.tables.careers import get_career, get_career_list
-from wfrp.data.dice import roll_d100
 from wfrp.data.careers.data import CAREER_BY_CLASS
 from wfrp.data.careers.data import CAREER_DATA
+from wfrp.data.dice import roll_d100
+from wfrp.data.tables.careers import get_career
+from wfrp.data.tables.careers import get_career_list
+from wtforms import RadioField
+from wtforms import SubmitField
+from wtforms.validators import DataRequired
+
+from wfrp.character.database import db
+from wfrp.character.forms.build.base import BaseBuildForm
+from wfrp.character.forms.build.base import BaseBuildFormView
 
 
-class CareerForm(FlaskForm):
+class CareerForm(BaseBuildForm):
     career = RadioField("Career", validators=[DataRequired()])
     submit = SubmitField("Select Career")
 

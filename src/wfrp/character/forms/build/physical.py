@@ -1,17 +1,17 @@
 from flask import redirect
 from flask import render_template
 from flask import url_for
-from flask_wtf import FlaskForm
 from wfrp.data.species import SPECIES_DATA
 from wtforms import RadioField
 from wtforms import SubmitField
 from wtforms.validators import DataRequired
 
 from wfrp.character.database import db
+from wfrp.character.forms.build.base import BaseBuildForm
 from wfrp.character.forms.build.base import BaseBuildFormView
 
 
-class PhysicalForm(FlaskForm):
+class PhysicalForm(BaseBuildForm):
     eye_colour = RadioField("Eye Colour", validators=[DataRequired()])
     hair_colour = RadioField("Hair Colour", validators=[DataRequired()])
     submit = SubmitField("Select")

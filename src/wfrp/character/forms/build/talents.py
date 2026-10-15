@@ -15,9 +15,6 @@ from wfrp.data.careers.data import CAREER_DATA
 
 
 class TalentsFormView(BaseBuildFormView):
-    # def __init__(self):
-    #     breakpoint()
-    #     pass
 
     def initialise_form(self):
         if not self.character.create_data:

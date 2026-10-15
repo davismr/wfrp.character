@@ -1,7 +1,7 @@
 from flask import redirect
 from flask import render_template
 from flask import url_for
-from flask_wtf import FlaskForm
+from wfrp.data.dice import roll_d100
 from wfrp.data.species import SPECIES_DATA
 from wfrp.data.tables.species import SPECIES
 from wfrp.data.tables.species import get_species
@@ -10,11 +10,11 @@ from wtforms import SubmitField
 from wtforms.validators import DataRequired
 
 from wfrp.character.database import db
+from wfrp.character.forms.build.base import BaseBuildForm
 from wfrp.character.forms.build.base import BaseBuildFormView
-from wfrp.data.dice import roll_d100
 
 
-class SpeciesForm(FlaskForm):
+class SpeciesForm(BaseBuildForm):
     species = RadioField("Species", validators=[DataRequired()])
     submit = SubmitField("Select Species")
 
