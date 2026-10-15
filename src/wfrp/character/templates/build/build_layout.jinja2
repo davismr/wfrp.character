@@ -2,5 +2,8 @@
 
 {% block content %}
     {% include "includes/progress.jinja2" %}
+    {% if character is defined %}
+        {% include "character/summary.jinja2" %}
+    {% endif %}
     {% block build_content %}{% endblock %}
 {% endblock %}

@@ -13,6 +13,7 @@ from sqlalchemy.ext.mutable import MutableDict
 from sqlalchemy.ext.mutable import MutableList
 from sqlalchemy.orm import relationship
 from sqlalchemy.schema import ForeignKey
+from wfrp.data.skills import SKILL_DATA
 
 from wfrp.character.database import db
 
@@ -182,6 +183,22 @@ class Character(db.Model):
         if not display_title:
             display_title += "Unknown"
         return display_title
+
+    def get_skill_level(self, skill):
+        skill_data = SKILL_DATA[skill.split(" (")[0]]
+        return self.skills[skill] + getattr(
+            self, skill_data["characteristic"].value.lower()
+        )
+
+    def get_skills_summary(self):
+        skills = []
+        for skill in self.skills:
+            skills.append(f"{skill} ({self.get_skill_level(skill)})")
+        return ", ".join(skills)
+
+    def get_all_trappings(self):
+        # XXX
+        return ""
 
 
 @event.listens_for(Character, "before_update")
