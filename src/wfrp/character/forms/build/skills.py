@@ -4,20 +4,12 @@ from flask import url_for
 from wfrp.data.careers.data import CAREER_DATA
 from wfrp.data.species import SPECIES_DATA
 from wtforms import RadioField
-from wtforms import SelectMultipleField
 from wtforms import SubmitField
 from wtforms.validators import DataRequired
-from wtforms.widgets import CheckboxInput
-from wtforms.widgets import ListWidget
 
 from wfrp.character.database import db
-from wfrp.character.forms.build.base import BaseBuildForm
+from wfrp.character.forms.build.base import BaseBuildForm, MultiCheckboxField
 from wfrp.character.forms.build.base import BaseBuildFormView
-
-
-class MultiCheckboxField(SelectMultipleField):
-    widget = ListWidget(prefix_label=False)
-    option_widget = CheckboxInput()
 
 
 class SkillsFormView(BaseBuildFormView):
