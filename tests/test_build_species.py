@@ -3,7 +3,7 @@ from wfrp.character.models.character import Character
 
 
 def test_get_view(client):
-    character = Character()
+    character = Character(status="Species")
     db.session.add(character)
     db.session.commit()
     response = client.get(f"/build/species/{str(character.id)}")
@@ -12,7 +12,7 @@ def test_get_view(client):
 
 
 def test_post_view(client):
-    character = Character()
+    character = Character(status="Species")
     db.session.add(character)
     db.session.commit()
     response = client.post(

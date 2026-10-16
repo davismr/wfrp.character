@@ -3,7 +3,9 @@ from wfrp.character.models.character import Character
 
 
 def test_get_view(client):
-    character = Character(species="Human", career="Knave", career_title="Hustler")
+    character = Character(
+        species="Human", career="Knave", career_title="Hustler", status="Skills"
+    )
     db.session.add(character)
     db.session.commit()
     response = client.get(f"/build/skills/{str(character.id)}")
@@ -14,7 +16,9 @@ def test_get_view(client):
 
 
 def test_post_view(client):
-    character = Character(species="Human", career="Knave", career_title="Hustler")
+    character = Character(
+        species="Human", career="Knave", career_title="Hustler", status="Skills"
+    )
     db.session.add(character)
     db.session.commit()
     response = client.post(

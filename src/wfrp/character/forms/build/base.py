@@ -1,16 +1,20 @@
+from flask import request
+from flask import url_for
 from flask.views import MethodView
 from flask_wtf import FlaskForm
+from werkzeug.routing.exceptions import RequestRedirect
+from wtforms import SelectMultipleField
 from wtforms.csrf.core import CSRFTokenField
 from wtforms.fields.simple import SubmitField
 from wtforms.widgets import CheckboxInput
 from wtforms.widgets import ListWidget
-from wtforms import SelectMultipleField
 
 from wfrp.character.database import db
 from wfrp.character.models.character import Character
 
 
 class BaseBuildForm(FlaskForm):
+
     def get_fields(self, subform=None):
         if subform is None:
             fields = self._fields.values()
@@ -27,6 +31,16 @@ class BaseBuildFormView(MethodView):
 
     def get_character(self, id):
         self.character = db.session.query(Character).filter(Character.id == id).one()
+        self.check_status()
+
+    def check_status(self):
+        if self.character.status in ["Active"]:
+            return
+        endpoint = request.url_rule.endpoint
+        expected_endpoint = f"build_{self.character.status.lower()}"
+        if endpoint != expected_endpoint:
+            redirect_url = url_for(expected_endpoint, id=self.character.id)
+            raise RequestRedirect(redirect_url)
 
 
 class MultiCheckboxField(SelectMultipleField):
