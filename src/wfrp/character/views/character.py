@@ -21,3 +21,21 @@ class CharacterView(MethodView):
             expected_endpoint = f"build_{character.status.lower()}"
             redirect_url = url_for(expected_endpoint, id=character.id)
             raise RequestRedirect(redirect_url)
+
+
+class CharacterSheetView(MethodView):
+
+    def get(self, id):
+        character = db.session.query(Character).filter(Character.id == id).one()
+        self.check_status(character)
+        return render_template(
+            "character/sheet.jinja2",
+            title=character.get_display_title,
+            character=character,
+        )
+
+    def check_status(self, character):
+        if character.status not in ["Active"]:
+            expected_endpoint = f"build_{character.status.lower()}"
+            redirect_url = url_for(expected_endpoint, id=character.id)
+            raise RequestRedirect(redirect_url)

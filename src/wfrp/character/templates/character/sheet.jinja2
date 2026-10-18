@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+    <head>
+      <title>WFRP Character Generator</title>
+        <link rel="stylesheet" type="text/css"
+              href="{{ url_for('static', filename='fonts.css') }}"/>
+        <link rel="stylesheet" type="text/css"
+              href="{{ url_for('static', filename='sheet.css') }}"/>
+    </head>
+    <body>
+        <div id="character-sheet">
+            <div id="sheet-name">
+                {% include "character/includes/name.jinja2" %}
+            </div>
+            <div id="sheet-logo">
+                {% include "character/includes/logo.jinja2" %}
+            </div>
+            <div id="sheet-career">
+                {% include "character/includes/career.jinja2" %}
+            </div>
+            <div id="sheet-experience">
+                {% include "character/includes/experience.jinja2" %}
+            </div>
+            <div id="sheet-skills">
+                {% include "character/includes/skills.jinja2" %}
+            </div>
+            <div id="sheet-talents">
+                {% include "character/includes/talents.jinja2" %}
+            </div>
+            <div id="sheet-ambition">
+                {% include "character/includes/ambitions.jinja2" %}
+            </div>
+            <div id="sheet-wounds">
+                {% include "character/includes/wounds.jinja2" %}
+            </div>
+            <div id="sheet-armour-points">
+                {% include "character/includes/armour_points.jinja2" %}
+            </div>
+            <div id="sheet-wealth">
+                {% include "character/includes/wealth.jinja2" %}
+            </div>
+            <div id="sheet-corruption">
+                {% include "character/includes/corruption.jinja2" %}
+            </div>
+            <div id="sheet-weapons">
+                {% include "character/includes/weapons.jinja2" %}
+            </div>
+            <div id="sheet-armour">
+                {% include "character/includes/armour.jinja2" %}
+            </div>
+            <div id="sheet-trappings">
+                {% include "character/includes/trappings.jinja2" %}
+            </div>
+            <div id="sheet-notes">
+                {% include "character/includes/notes.jinja2" %}
+            </div>
+            <div id="sheet-magic">
+                {% include "character/includes/magic.jinja2" %}
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,93 @@
+html, body {
+    font-family: 'Caslon Antique', arial, sans-serif;
+}
+
+#character-sheet {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    column-gap: 10px;
+    row-gap: 10px;
+}
+
+#character-sheet div {
+    border: 2px solid black;
+}
+
+#sheet-name {
+    grid-column: 1 / span 4;
+}
+
+#sheet-logo {
+    grid-column: 5 / span 2;
+    grid-row: 1 / span 2;
+}
+
+#sheet-career {
+    grid-column: 1 / span 4;
+    grid-row: 2 / span 2;
+}
+
+#sheet-experience {
+    grid-column: 5 / 7;
+    grid-row: 3;
+}
+
+#sheet-skills {
+    grid-column: 1 / 7;
+    grid-row: 4;
+}
+
+#sheet-talents {
+    grid-column: 1 / span 3;
+    grid-row: 5 / span 2;
+}
+
+#sheet-ambition {
+    grid-column: 4;
+    grid-row: 5;
+}
+
+#sheet-wounds {
+    grid-column: 4;
+    grid-row: 6;
+}
+
+#sheet-armour-points {
+    grid-column: 5 / span 2;
+    grid-row: 5 / span 2;
+}
+
+#sheet-wealth {
+    grid-column: 1 / span 2;
+    grid-row: 7;
+}
+
+#sheet-corruption {
+    grid-column: 3 / span 4;
+    grid-row: 7;
+}
+
+#sheet-weapons {
+    grid-column: 1 / span 6;
+    grid-row: 8;
+}
+
+#sheet-armour {
+    grid-column: 1 / span 6;
+    grid-row: 9;
+}
+
+#sheet-trappings {
+    grid-column: 1 / span 3;
+    grid-row: 10;
+}
+
+#sheet-notes {
+    grid-column: 4 / span 3;
+    grid-row: 10;
+}
+
+#sheet-magic {
+    grid-column: 1 / span 6;
+    grid-row: 11;
+}

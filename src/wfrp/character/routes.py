@@ -12,6 +12,7 @@ from wfrp.character.forms.build.skills import SkillsFormView
 from wfrp.character.forms.build.species import SpeciesFormView
 from wfrp.character.forms.build.talents import TalentsFormView
 from wfrp.character.forms.build.trappings import TrappingsFormView
+from wfrp.character.views.character import CharacterSheetView
 from wfrp.character.views.character import CharacterView
 from wfrp.character.views.home import HomePageView
 
@@ -24,6 +25,10 @@ def register_routes(app):
     app.add_url_rule("/", view_func=HomePageView.as_view("homepage"))
     app.add_url_rule(
         "/character/<uuid():id>", view_func=CharacterView.as_view("character_view")
+    )
+    app.add_url_rule(
+        "/character-sheet/<uuid():id>",
+        view_func=CharacterSheetView.as_view("character_sheet_view"),
     )
     app.add_url_rule("/build/new", view_func=NewFormView.as_view("build_new"))
     app.add_url_rule(
