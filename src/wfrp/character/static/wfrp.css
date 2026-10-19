@@ -12,3 +12,11 @@ html, body {
 #current-progress {
     color: black;
 }
+
+.alert {
+    background: #ffbaba;
+}
+
+.is-invalid {
+    color: red;
+}

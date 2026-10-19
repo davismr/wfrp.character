@@ -34,7 +34,7 @@ class BaseBuildFormView(MethodView):
         self.check_status()
 
     def check_status(self):
-        if self.character.status in ["Active"]:
+        if self.character.status in ["Active", "create"]:
             return
         endpoint = request.url_rule.endpoint
         expected_endpoint = f"build_{self.character.status.lower()}"

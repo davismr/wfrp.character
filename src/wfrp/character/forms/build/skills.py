@@ -24,6 +24,31 @@ class SkillsFormView(BaseBuildFormView):
         class SkillsForm(BaseBuildForm):
             submit = SubmitField("Select Advances")
 
+            def validate(self, extra_validators=None):
+                valid = True
+                initial_validation = super().validate(extra_validators=extra_validators)
+                if not initial_validation:
+                    return False
+                if len(self.species_skills.data["species_skills"]) != 5:
+                    self.species_skills.species_skills.errors = (
+                        "You have to select 5 species skills.",
+                    )
+                    valid = False
+                skill_total = 0
+                for skill in self.career_skills.data:
+                    try:
+                        skill_total += int(self.career_skills.data[skill])
+                    except ValueError:
+                        pass
+                if skill_total != 8:
+                    self.career_skills.form_errors.append(
+                        f"You have to assign 8 advances, you assigned {skill_total}.",
+                    )
+                    valid = False
+                if valid is False:
+                    self.form_errors.append("The form has errors.")
+                return valid
+
         species_skills = SPECIES_DATA[self.character.species]["skills"]
         SpeciesSkillsForm.species_skills = MultiCheckboxField(
             "species_skills", choices=species_skills
