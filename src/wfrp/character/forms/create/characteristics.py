@@ -1,18 +1,19 @@
 from flask import redirect
 from flask import render_template
 from flask import url_for
+from wfrp.data.constants import Characteristics
+from wfrp.data.dice import roll_2d10
 from wfrp.data.species import SPECIES_DATA
 from wtforms import RadioField
 from wtforms import SubmitField
 from wtforms.validators import DataRequired
 
 from wfrp.character.database import db
-from wfrp.character.forms.build.base import BaseBuildFormView, BaseBuildForm
-from wfrp.data.dice import roll_2d10
-from wfrp.data.constants import Characteristics
+from wfrp.character.forms.create.base import BaseCreateForm
+from wfrp.character.forms.create.base import BaseCreateFormView
 
 
-class CharacteristicsFormView(BaseBuildFormView):
+class CharacteristicsFormView(BaseCreateFormView):
 
     def initialise_form(self):
         if not self.character.create_data:
@@ -22,7 +23,7 @@ class CharacteristicsFormView(BaseBuildFormView):
             db.session.commit()
 
     def get_form(self):
-        class CharacteristicsForm(BaseBuildForm):
+        class CharacteristicsForm(BaseCreateForm):
             accept = SubmitField("Accept Characteristics")
             rearrange = SubmitField("Rearrange Characteristics")
             reroll = SubmitField("Reroll Characteristics")
@@ -47,7 +48,7 @@ class CharacteristicsFormView(BaseBuildFormView):
         self.get_character(id)
         form = self.get_form()
         return render_template(
-            "build/characteristics.jinja2",
+            "create/characteristics.jinja2",
             form=form,
             character=self.character,
             species_modifiers=SPECIES_DATA[self.character.species]["characteristics"],
@@ -58,10 +59,10 @@ class CharacteristicsFormView(BaseBuildFormView):
         form = self.get_form()
         if form.validate_on_submit():
             self.update_character(form.data)
-            next_url = url_for("build_skills", id=self.character.id)
+            next_url = url_for("create_skills", id=self.character.id)
             return redirect(next_url)
         return render_template(
-            "build/characteristics.jinja2",
+            "create/characteristics.jinja2",
             form=form,
             character=self.character,
             species_modifiers=SPECIES_DATA[self.character.species]["characteristics"],

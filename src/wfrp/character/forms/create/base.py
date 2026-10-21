@@ -13,7 +13,7 @@ from wfrp.character.database import db
 from wfrp.character.models.character import Character
 
 
-class BaseBuildForm(FlaskForm):
+class BaseCreateForm(FlaskForm):
 
     def get_fields(self, subform=None):
         if subform is None:
@@ -27,7 +27,7 @@ class BaseBuildForm(FlaskForm):
         ]
 
 
-class BaseBuildFormView(MethodView):
+class BaseCreateFormView(MethodView):
 
     def get_character(self, id):
         self.character = db.session.query(Character).filter(Character.id == id).one()
@@ -37,7 +37,7 @@ class BaseBuildFormView(MethodView):
         if self.character.status in ["Active", "create"]:
             return
         endpoint = request.url_rule.endpoint
-        expected_endpoint = f"build_{self.character.status.lower()}"
+        expected_endpoint = f"create_{self.character.status.lower()}"
         if endpoint != expected_endpoint:
             redirect_url = url_for(expected_endpoint, id=self.character.id)
             raise RequestRedirect(redirect_url)

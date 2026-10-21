@@ -8,7 +8,7 @@ def test_get_view(client):
     )
     db.session.add(character)
     db.session.commit()
-    response = client.get(f"/build/skills/{str(character.id)}")
+    response = client.get(f"/create/skills/{str(character.id)}")
     assert response.status_code == 200
     assert "<h1>Species and Career Skills</h1>" in response.text
     assert "Language (Wastelander)" in response.text
@@ -22,7 +22,7 @@ def test_post_view(client):
     db.session.add(character)
     db.session.commit()
     response = client.post(
-        f"/build/skills/{str(character.id)}",
+        f"/create/skills/{str(character.id)}",
         data={
             "species_skills": ["Language (Wastelander)", "Charm", "Not", "A", "Skill"],
             "Bribery": "1",
@@ -32,7 +32,7 @@ def test_post_view(client):
         },
     )
     assert response.status_code == 302
-    assert response.location == f"/build/talents/{str(character.id)}"
+    assert response.location == f"/create/talents/{str(character.id)}"
     assert character.skills["Bribery"] == 5
     assert character.skills["Charm"] == 15
     assert character.skills["Consume Alcohol"] == 15
@@ -47,7 +47,7 @@ def test_species_skills_error(client):
     db.session.add(character)
     db.session.commit()
     response = client.post(
-        f"/build/skills/{str(character.id)}",
+        f"/create/skills/{str(character.id)}",
         data={
             "species_skills": ["Language (Wastelander)", "Charm"],
             "Bribery": "1",
@@ -67,7 +67,7 @@ def test_career_skills_error(client):
     db.session.add(character)
     db.session.commit()
     response = client.post(
-        f"/build/skills/{str(character.id)}",
+        f"/create/skills/{str(character.id)}",
         data={
             "species_skills": ["Language (Wastelander)", "Charm", "Not", "A", "Skill"],
             "Bribery": "1",

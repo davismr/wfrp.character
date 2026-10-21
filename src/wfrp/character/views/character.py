@@ -18,7 +18,7 @@ class CharacterView(MethodView):
 
     def check_status(self, character):
         if character.status not in ["Active"]:
-            expected_endpoint = f"build_{character.status.lower()}"
+            expected_endpoint = f"create_{character.status.lower()}"
             redirect_url = url_for(expected_endpoint, id=character.id)
             raise RequestRedirect(redirect_url)
 
@@ -36,6 +36,6 @@ class CharacterSheetView(MethodView):
 
     def check_status(self, character):
         if character.status not in ["Active"]:
-            expected_endpoint = f"build_{character.status.lower()}"
+            expected_endpoint = f"create_{character.status.lower()}"
             redirect_url = url_for(expected_endpoint, id=character.id)
             raise RequestRedirect(redirect_url)

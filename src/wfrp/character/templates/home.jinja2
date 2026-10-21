@@ -3,7 +3,7 @@
 {% block content %}
     <h1>Home</h1>
     <div>
-        <a href="/build/new">Add new character</a>
+        <a href="/create/new">Add new character</a>
     </div>
     {% if active_characters %}
         <h2>Active Characters</h2>
@@ -17,10 +17,10 @@
             {% endfor %}
         </ul>
     {% endif %}
-    {% if build_characters %}
-        <h2>Building Characters</h2>
+    {% if create_characters %}
+        <h2>Creating Characters</h2>
         <ul>
-            {% for character in build_characters %}
+            {% for character in create_characters %}
                 <div>
                     <a href={{ url_for('character_view' , id=character.id) }}>
                         {{ character.get_display_title() }}

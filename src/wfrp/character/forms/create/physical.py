@@ -7,17 +7,17 @@ from wtforms import SubmitField
 from wtforms.validators import DataRequired
 
 from wfrp.character.database import db
-from wfrp.character.forms.build.base import BaseBuildForm
-from wfrp.character.forms.build.base import BaseBuildFormView
+from wfrp.character.forms.create.base import BaseCreateForm
+from wfrp.character.forms.create.base import BaseCreateFormView
 
 
-class PhysicalForm(BaseBuildForm):
+class PhysicalForm(BaseCreateForm):
     eye_colour = RadioField("Eye Colour", validators=[DataRequired()])
     hair_colour = RadioField("Hair Colour", validators=[DataRequired()])
     submit = SubmitField("Select")
 
 
-class PhysicalFormView(BaseBuildFormView):
+class PhysicalFormView(BaseCreateFormView):
 
     def initialise_form(self):
         if not self.character.create_data:
@@ -44,7 +44,7 @@ class PhysicalFormView(BaseBuildFormView):
         self.get_character(id)
         form = self.get_form()
         return render_template(
-            "build/physical.jinja2", form=form, character=self.character
+            "create/physical.jinja2", form=form, character=self.character
         )
 
     def post(self, id):
@@ -52,10 +52,10 @@ class PhysicalFormView(BaseBuildFormView):
         form = self.get_form()
         if form.validate_on_submit():
             self.update_character(form.data)
-            next_url = url_for("build_career", id=self.character.id)
+            next_url = url_for("create_career", id=self.character.id)
             return redirect(next_url)
         return render_template(
-            "build/physical.jinja2", form=form, character=self.character
+            "create/physical.jinja2", form=form, character=self.character
         )
 
     def update_character(self, data):

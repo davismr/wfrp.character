@@ -8,20 +8,21 @@ from wtforms import SubmitField
 from wtforms.validators import DataRequired
 
 from wfrp.character.database import db
-from wfrp.character.forms.build.base import BaseBuildForm, MultiCheckboxField
-from wfrp.character.forms.build.base import BaseBuildFormView
+from wfrp.character.forms.create.base import BaseCreateForm
+from wfrp.character.forms.create.base import BaseCreateFormView
+from wfrp.character.forms.create.base import MultiCheckboxField
 
 
-class SkillsFormView(BaseBuildFormView):
+class SkillsFormView(BaseCreateFormView):
 
     def get_form(self):
-        class SpeciesSkillsForm(BaseBuildForm):
+        class SpeciesSkillsForm(BaseCreateForm):
             pass
 
-        class CareerSkillsForm(BaseBuildForm):
+        class CareerSkillsForm(BaseCreateForm):
             pass
 
-        class SkillsForm(BaseBuildForm):
+        class SkillsForm(BaseCreateForm):
             submit = SubmitField("Select Advances")
 
             def validate(self, extra_validators=None):
@@ -76,7 +77,7 @@ class SkillsFormView(BaseBuildFormView):
         self.get_character(id)
         form = self.get_form()
         return render_template(
-            "build/skills.jinja2", form=form, character=self.character
+            "create/skills.jinja2", form=form, character=self.character
         )
 
     def post(self, id):
@@ -84,10 +85,10 @@ class SkillsFormView(BaseBuildFormView):
         form = self.get_form()
         if form.validate_on_submit():
             self.update_character(form)
-            next_url = url_for("build_talents", id=self.character.id)
+            next_url = url_for("create_talents", id=self.character.id)
             return redirect(next_url)
         return render_template(
-            "build/skills.jinja2", form=form, character=self.character
+            "create/skills.jinja2", form=form, character=self.character
         )
 
     def update_character(self, form):

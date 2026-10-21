@@ -8,7 +8,7 @@ def test_get_view(client):
     )
     db.session.add(character)
     db.session.commit()
-    response = client.get(f"/build/talents/{str(character.id)}")
+    response = client.get(f"/create/talents/{str(character.id)}")
     assert response.status_code == 200
     assert "<h1>Species and Career Talents</h1>" in response.text
     assert "Magic Resistance" in response.text
@@ -22,7 +22,7 @@ def test_post_view(client):
     db.session.add(character)
     db.session.commit()
     response = client.post(
-        f"/build/talents/{str(character.id)}",
+        f"/create/talents/{str(character.id)}",
         data={
             "career_talents": "Striding Gait (All)",
             "Magic Resistance": "Magic Resistance",
@@ -30,7 +30,7 @@ def test_post_view(client):
         },
     )
     assert response.status_code == 302
-    assert response.location == f"/build/magic/{str(character.id)}"
+    assert response.location == f"/create/magic/{str(character.id)}"
     assert "Striding Gait (All)" in character.talents
     assert "Magic Resistance" in character.talents
     assert character.talents["Striding Gait (All)"] == 1

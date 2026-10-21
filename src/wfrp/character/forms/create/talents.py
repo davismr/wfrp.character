@@ -1,20 +1,20 @@
 from flask import redirect
 from flask import render_template
 from flask import url_for
+from wfrp.data.careers.data import CAREER_DATA
+from wfrp.data.dice import roll_d100
+from wfrp.data.species import SPECIES_DATA
+from wfrp.data.tables.talents import get_random_talent
+from wtforms import RadioField
 from wtforms import SubmitField
 from wtforms.validators import DataRequired
 
-from wtforms import RadioField
 from wfrp.character.database import db
-from wfrp.character.forms.build.base import BaseBuildFormView
-from wfrp.character.forms.build.base import BaseBuildForm
-from wfrp.data.species import SPECIES_DATA
-from wfrp.data.tables.talents import get_random_talent
-from wfrp.data.dice import roll_d100
-from wfrp.data.careers.data import CAREER_DATA
+from wfrp.character.forms.create.base import BaseCreateForm
+from wfrp.character.forms.create.base import BaseCreateFormView
 
 
-class TalentsFormView(BaseBuildFormView):
+class TalentsFormView(BaseCreateFormView):
 
     def initialise_form(self):
         if not self.character.create_data:
@@ -28,13 +28,13 @@ class TalentsFormView(BaseBuildFormView):
         pass
 
     def get_form(self):
-        class SpeciesTalentsForm(BaseBuildForm):
+        class SpeciesTalentsForm(BaseCreateForm):
             pass
 
-        class CareerTalentsForm(BaseBuildForm):
+        class CareerTalentsForm(BaseCreateForm):
             pass
 
-        class TalentsForm(BaseBuildForm):
+        class TalentsForm(BaseCreateForm):
             submit = SubmitField("Select Talents")
 
         self.initialise_form()
@@ -70,7 +70,7 @@ class TalentsFormView(BaseBuildFormView):
         self.get_character(id)
         form = self.get_form()
         return render_template(
-            "build/talents.jinja2", form=form, character=self.character
+            "create/talents.jinja2", form=form, character=self.character
         )
 
     def post(self, id):
@@ -78,10 +78,10 @@ class TalentsFormView(BaseBuildFormView):
         form = self.get_form()
         if form.validate_on_submit():
             self.update_character(form)
-            next_url = url_for("build_magic", id=self.character.id)
+            next_url = url_for("create_magic", id=self.character.id)
             return redirect(next_url)
         return render_template(
-            "build/talents.jinja2", form=form, character=self.character
+            "create/talents.jinja2", form=form, character=self.character
         )
 
     def update_character(self, form):

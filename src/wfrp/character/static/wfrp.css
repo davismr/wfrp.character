@@ -2,7 +2,7 @@ html, body {
     font-family: 'Caslon Antique', arial, sans-serif;
 }
 
-#build-progress {
+#create-progress {
     list-style-type: none;
     display: flex;
     gap: 15px;
