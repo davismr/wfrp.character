@@ -13,6 +13,7 @@ from sqlalchemy.ext.mutable import MutableDict
 from sqlalchemy.ext.mutable import MutableList
 from sqlalchemy.orm import relationship
 from sqlalchemy.schema import ForeignKey
+
 from wfrp.data.skills import SKILL_DATA
 
 from wfrp.character.database import db

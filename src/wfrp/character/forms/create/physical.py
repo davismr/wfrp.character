@@ -1,10 +1,11 @@
 from flask import redirect
 from flask import render_template
 from flask import url_for
-from wfrp.data.species import SPECIES_DATA
 from wtforms import RadioField
 from wtforms import SubmitField
 from wtforms.validators import DataRequired
+
+from wfrp.data.species import SPECIES_DATA
 
 from wfrp.character.database import db
 from wfrp.character.forms.create.base import BaseCreateForm

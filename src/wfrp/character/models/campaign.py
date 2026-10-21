@@ -13,6 +13,7 @@ from sqlalchemy import Uuid
 from sqlalchemy import event
 from sqlalchemy.ext.mutable import MutableList
 from sqlalchemy.orm import relationship
+
 from wfrp.data.expansions import EXPANSIONS
 
 from wfrp.character.database import db

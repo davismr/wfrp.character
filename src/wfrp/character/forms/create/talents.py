@@ -1,13 +1,14 @@
 from flask import redirect
 from flask import render_template
 from flask import url_for
+from wtforms import RadioField
+from wtforms import SubmitField
+from wtforms.validators import DataRequired
+
 from wfrp.data.careers.data import CAREER_DATA
 from wfrp.data.dice import roll_d100
 from wfrp.data.species import SPECIES_DATA
 from wfrp.data.tables.talents import get_random_talent
-from wtforms import RadioField
-from wtforms import SubmitField
-from wtforms.validators import DataRequired
 
 from wfrp.character.database import db
 from wfrp.character.forms.create.base import BaseCreateForm
