@@ -14,6 +14,7 @@ from sqlalchemy.ext.mutable import MutableList
 from sqlalchemy.orm import relationship
 from sqlalchemy.schema import ForeignKey
 
+from wfrp.data.careers.data import CAREER_DATA
 from wfrp.data.skills import SKILL_DATA
 
 from wfrp.character.database import db
@@ -100,6 +101,9 @@ class Character(db.Model):
     def __init__(self, **kwargs):
         kwargs["id"] = kwargs.get("id", uuid.uuid4())
         super().__init__(**kwargs)
+
+    def career_data(self):
+        return CAREER_DATA[self.career]
 
     @property
     def weapon_skill(self):
@@ -188,7 +192,7 @@ class Character(db.Model):
     def get_skill_level(self, skill):
         skill_data = SKILL_DATA[skill.split(" (")[0]]
         return self.skills[skill] + getattr(
-            self, skill_data["characteristic"].value.lower()
+            self, skill_data["characteristic"].value.lower().replace(" ", "_")
         )
 
     def get_skills_summary(self):
